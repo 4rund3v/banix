@@ -1,5 +1,6 @@
-import React, { ReactFragment, Component } from "react";
-import { Navbar, Nav, Form, InputGroup, Col } from "react-bootstrap";
+import React, { Component } from "react";
+import { Form, InputGroup, Col } from "react-bootstrap";
+import FontAwesome from "react-fontawesome";
 
 class SearchBox extends Component {
   state = {};
@@ -10,7 +11,7 @@ class SearchBox extends Component {
           <Form.Control type="text" placeholder="Search here.." />
           <InputGroup.Append>
             <InputGroup.Text>
-              <i className="fab fa-searchengin"></i>
+              <FontAwesome name="search" />
             </InputGroup.Text>
           </InputGroup.Append>
         </InputGroup>
