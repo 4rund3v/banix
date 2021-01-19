@@ -8,7 +8,7 @@ class SignIn extends Component {
       <Button variant="light">
         Sign In
         <span>
-          <i class="fas fa-shopping-cart"></i>
+          <i className="fas fa-shopping-cart"></i>
         </span>
       </Button>
     );
