@@ -4,16 +4,21 @@ import ProductsHome from "./components/ProductsHome";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import OffersBanner from "./components/OffersBanner";
-import { Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import Footer from "./components/Footer";
 
 function BanixApp() {
   return (
     <div className="BanixApp">
       <Header />
-      <Container>
-        <OffersBanner />
-        {/* <ProductsHome /> */}
-      </Container>
+      <main className="py-3">
+        <Container>
+          <OffersBanner />
+          {/* <ProductsHome /> */}
+        </Container>
+      </main>
+
+      <Footer />
     </div>
   );
 }

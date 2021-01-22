@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import BanixApp from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "../node_modules/font-awesome/css/font-awesome.min.css";
+import "./css/bootstrap.min.css";
+import "./css/index.css";
+
 ReactDOM.render(
   <React.StrictMode>
     <BanixApp />
