@@ -67,7 +67,7 @@ const products = [
     brand: "Vithamas",
     category: "Smart Bulb",
     price: 32999,
-    countInStock: 20,
+    countInStock: 0,
     rating: 4,
     numReviews: 4,
   },
@@ -152,3 +152,8 @@ const products = [
 export default products;
 
 // Colors Smart WiFi Strip
+
+export const getProductById = (productId) => {
+  const product = products.find((p) => p._id === productId);
+  return product;
+};

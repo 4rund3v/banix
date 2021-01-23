@@ -1,15 +1,7 @@
 import React, { Component } from "react";
-import {
-  Navbar,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  Collapse,
-  Container,
-  ButtonGroup,
-  Button,
-} from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BanixBanner from "./BanixBanner";
 import UserPic from "./UserPic";
@@ -22,27 +14,31 @@ class Header extends Component {
   render() {
     return (
       <Navbar variant="dark" bg="primary">
-        <Container className="mx-auto">
-          <Navbar.Brand
-            href="/"
-            tag={Link}
-            to={"/"}
-            className="mr-4 text-dark font-weight-bold"
-          >
-            <BanixBanner />
-          </Navbar.Brand>
-
+        <Container>
+          <LinkContainer to="/">
+            <Navbar.Brand>
+              <BanixBanner />
+            </Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-bav">
             <Nav className="ml-auto">
-              <Nav.Link href="/cart">
-                <FontAwesomeIcon icon="shopping-cart" />
-                Cart
-              </Nav.Link>
-              <Nav.Link href="/login">
-                <FontAwesomeIcon icon="user" />
-                Sign in
-              </Nav.Link>
+              <LinkContainer to="/cart">
+                <Nav.Link>
+                  <h4>
+                    <FontAwesomeIcon icon="shopping-cart" />
+                    Cart
+                  </h4>
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/login">
+                <Nav.Link>
+                  <h4>
+                    <FontAwesomeIcon icon="user" />
+                    Sign in
+                  </h4>
+                </Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
 

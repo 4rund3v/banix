@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { IMAGE_URL } from "../config";
 import Rating from "./Rating";
 const PRODUCT_URL = "/product";
@@ -17,16 +18,18 @@ class Product extends Component {
     if (this.state.product) {
       productCard = (
         <Card className="my-3 p-3 rounded">
-          <a href={`${PRODUCT_URL}/${product._id}`}>
+          <Link to={`${PRODUCT_URL}/${product._id}`} className="productLink">
             <Card.Img
               src={`${IMAGE_URL}${product.image}`}
               variant="top"
             ></Card.Img>
-          </a>
+          </Link>
           <Card.Body>
-            <Card.Title as="div">
-              <h4>{product.name}</h4>
-            </Card.Title>
+            <Link to={`${PRODUCT_URL}/${product._id}`} className="productLink">
+              <Card.Title as="div">
+                <h4>{product.name}</h4>
+              </Card.Title>
+            </Link>
             <Card.Text as="div">
               <Rating
                 key={product._id}
