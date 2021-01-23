@@ -1,0 +1,123 @@
+{
+  "products": [
+    {
+      "_id": "005",
+      "name": "Vithamas GloSmart LED Strip",
+      "image": "/products/005/cover.jpg",
+      "description": "About this item 100 percent brand new 32-piece precision screwdriver kit set Jackly jk 6032-a 32-piece mini precision screwdriver set with case w/ tweezer, handle and torx, hex bits etc. Jk6032-a       Ideal for accessing fasteners in tight areas ,Non-slip studded handle , Non-slip tough shaft ensures greater comfort and convenience All in one compact pocket-sized case for easy carry. Color may vary       For repairing laptops, mobile devices, and other precision items like wristwatches and eyeglasses",
+      "brand": "Vithamas",
+      "category": "LED",
+      "rating":3 ,
+      "total_reviews": 23,
+      "price": 999,
+      "stock": 20,
+      "offers": []
+    },
+    {
+      "_id": "008",
+      "name": "Wipro Smart Bulb",
+      "image": "/products/008/cover.jpg",
+      "description": "About this item 100 percent brand new 32-piece precision screwdriver kit set Jackly jk 6032-a 32-piece mini precision screwdriver set with case w/ tweezer, handle and torx, hex bits etc. Jk6032-a       Ideal for accessing fasteners in tight areas ,Non-slip studded handle , Non-slip tough shaft ensures greater comfort and convenience All in one compact pocket-sized case for easy carry. Color may vary       For repairing laptops, mobile devices, and other precision items like wristwatches and eyeglasses",
+      "brand": "Wipro",
+      "category": "LED",
+      "rating":3 ,
+      "total_reviews": 23,
+      "price": 5450,
+      "stock": 20,
+      "offers": []
+    },
+    {
+      "_id": "009",
+      "name": "Murphy Led Light Strip",
+      "image": "/products/009/cover.jpg",
+      "description": "About this item 100 percent brand new 32-piece precision screwdriver kit set Jackly jk 6032-a 32-piece mini precision screwdriver set with case w/ tweezer, handle and torx, hex bits etc. Jk6032-a       Ideal for accessing fasteners in tight areas ,Non-slip studded handle , Non-slip tough shaft ensures greater comfort and convenience All in one compact pocket-sized case for easy carry. Color may vary       For repairing laptops, mobile devices, and other precision items like wristwatches and eyeglasses",
+      "brand": "Murphy",
+      "category": "LED",
+      "rating":3 ,
+      "total_reviews": 23,
+      "price": 5450,
+      "stock": 20,
+      "offers": []
+    },
+    {
+      "_id": "010",
+      "name": "Radiato Embedded Light Strip",
+      "image": "/products/010/cover.jpg",
+      "description": "About this item 100 percent brand new 32-piece precision screwdriver kit set Jackly jk 6032-a 32-piece mini precision screwdriver set with case w/ tweezer, handle and torx, hex bits etc. Jk6032-a       Ideal for accessing fasteners in tight areas ,Non-slip studded handle , Non-slip tough shaft ensures greater comfort and convenience All in one compact pocket-sized case for easy carry. Color may vary       For repairing laptops, mobile devices, and other precision items like wristwatches and eyeglasses",
+      "brand": "Radiato",
+      "category": "LED",
+      "rating":3 ,
+      "total_reviews": 23,
+      "price": 5450,
+      "stock": 20,
+      "offers": []
+    },
+    {
+      "_id": "012",
+      "name": "Light LED Bulb",
+      "image": "/products/012/cover.jpg",
+      "description": "About this item 100 percent brand new 32-piece precision screwdriver kit set Jackly jk 6032-a 32-piece mini precision screwdriver set with case w/ tweezer, handle and torx, hex bits etc. Jk6032-a       Ideal for accessing fasteners in tight areas ,Non-slip studded handle , Non-slip tough shaft ensures greater comfort and convenience All in one compact pocket-sized case for easy carry. Color may vary       For repairing laptops, mobile devices, and other precision items like wristwatches and eyeglasses",
+      "brand": "Radiato",
+      "category": "LED",
+      "rating":3 ,
+      "total_reviews": 23,
+      "price": 5450,
+      "stock": 20,
+      "offers": []
+    },
+    {
+      "_id": "001",
+      "name": "Screwdriver Set",
+      "image": "/products/001/cover.jpg",
+      "description": "About this item 100 percent brand new 32-piece precision screwdriver kit set Jackly jk 6032-a 32-piece mini precision screwdriver set with case w/ tweezer, handle and torx, hex bits etc. Jk6032-a       Ideal for accessing fasteners in tight areas ,Non-slip studded handle , Non-slip tough shaft ensures greater comfort and convenience All in one compact pocket-sized case for easy carry. Color may vary       For repairing laptops, mobile devices, and other precision items like wristwatches and eyeglasses",
+      "brand": "Jackly",
+      "category": "Tools",
+      "rating": 4.1,
+      "total_reviews": 4,
+      "price": 450,
+      "stock": 20,
+      "offers": []
+    },
+    {
+      "_id": "002",
+      "name": "Philips Trimmer",
+      "image": "/products/002/cover.jpg",
+      "description": "About this item 100 percent brand new 32-piece precision screwdriver kit set Jackly jk 6032-a 32-piece mini precision screwdriver set with case w/ tweezer, handle and torx, hex bits etc. Jk6032-a       Ideal for accessing fasteners in tight areas ,Non-slip studded handle , Non-slip tough shaft ensures greater comfort and convenience All in one compact pocket-sized case for easy carry. Color may vary       For repairing laptops, mobile devices, and other precision items like wristwatches and eyeglasses",
+      "brand": "Philips",
+      "category": "Tools",
+      "rating": 4.1,
+      "total_reviews": 4,
+      "price": 850,
+      "stock": 20,
+      "offers": []
+    },
+    {
+      "_id": "003",
+      "name": "Frontech Keyboard",
+      "image": "/products/003/cover.jpg",
+      "description": "About this item 100 percent brand new 32-piece precision screwdriver kit set Jackly jk 6032-a 32-piece mini precision screwdriver set with case w/ tweezer, handle and torx, hex bits etc. Jk6032-a       Ideal for accessing fasteners in tight areas ,Non-slip studded handle , Non-slip tough shaft ensures greater comfort and convenience All in one compact pocket-sized case for easy carry. Color may vary       For repairing laptops, mobile devices, and other precision items like wristwatches and eyeglasses",
+      "brand": "Frontech",
+      "category": "Tools",
+      "rating": 4.1,
+      "total_reviews": 4,
+      "price": 250,
+      "stock": 20,
+      "offers": []
+    },
+    {
+      "_id": "004",
+      "name": "Logitech Mouse",
+      "image": "/products/004/cover.jpg",
+      "description": "About this item 100 percent brand new 32-piece precision screwdriver kit set Jackly jk 6032-a 32-piece mini precision screwdriver set with case w/ tweezer, handle and torx, hex bits etc. Jk6032-a       Ideal for accessing fasteners in tight areas ,Non-slip studded handle , Non-slip tough shaft ensures greater comfort and convenience All in one compact pocket-sized case for easy carry. Color may vary       For repairing laptops, mobile devices, and other precision items like wristwatches and eyeglasses",
+      "brand": "Logitech",
+      "category": "Tools",
+      "rating":3 ,
+      "total_reviews": 23,
+      "price": 5450,
+      "stock": 20,
+      "offers": []
+    }
+  ],
+
+  "product_ids": ["001", "002", "003", "004"]
+}

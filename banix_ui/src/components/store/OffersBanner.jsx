@@ -1,6 +1,6 @@
 import React, { ReactFragment, Component } from "react";
 import { Carousel, Row } from "react-bootstrap";
-import { offers } from "../services/offers";
+import { offers } from "../../services/offers";
 
 class OffersBanner extends Component {
   state = {

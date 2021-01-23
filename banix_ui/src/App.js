@@ -6,6 +6,7 @@ import ProductScreen from "./screens/ProductScreen";
 import Header from "./components/misc/Header";
 import HomeScreen from "./screens/HomeScreen";
 import Footer from "./components/misc/Footer";
+
 function BanixApp() {
   return (
     <Router>
