@@ -1,17 +1,20 @@
 import React, { Component } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { IMAGE_URL } from "../config";
 import Rating from "./Rating";
+
+import { IMAGE_URL } from "../../config";
 const PRODUCT_URL = "/product";
 
-class Product extends Component {
+class ProductCard extends Component {
   state = {
     product: null,
   };
+
   componentDidMount() {
     this.setState({ product: this.props.product });
   }
+
   render() {
     let productCard = null;
     const { product } = this.state;
@@ -46,4 +49,4 @@ class Product extends Component {
   }
 }
 
-export default Product;
+export default ProductCard;

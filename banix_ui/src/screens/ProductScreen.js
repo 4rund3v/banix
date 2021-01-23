@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
-import Rating from "../components/Rating";
-import { IMAGE_URL } from "../config";
-import { getProductById } from "../services/products";
+import Rating from "../components/store/Rating";
 
+import { getProductById } from "../services/products";
+import { IMAGE_URL } from "../config";
 class ProductScreen extends Component {
   state = {};
   render() {

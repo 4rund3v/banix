@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BanixBanner from "./BanixBanner";
-import UserPic from "./UserPic";
-import SearchBox from "./SearchBox";
-import MyCart from "./MyCart";
-import SignIn from "./SignIn";
 
 class Header extends Component {
   state = {};
