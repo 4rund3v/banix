@@ -21,7 +21,7 @@ class Header extends Component {
   state = {};
   render() {
     return (
-      <Navbar expand="lg" variant="dark" bg="primary" collapseOnSelect>
+      <Navbar variant="dark" bg="primary">
         <Container className="mx-auto">
           <Navbar.Brand
             href="/"
@@ -29,7 +29,7 @@ class Header extends Component {
             to={"/"}
             className="mr-4 text-dark font-weight-bold"
           >
-            banix
+            <BanixBanner />
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -39,7 +39,10 @@ class Header extends Component {
                 <FontAwesomeIcon icon="shopping-cart" />
                 Cart
               </Nav.Link>
-              <Nav.Link href="/login">Sign in</Nav.Link>
+              <Nav.Link href="/login">
+                <FontAwesomeIcon icon="user" />
+                Sign in
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
 

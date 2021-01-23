@@ -6,9 +6,8 @@ function Footer() {
   return (
     <footer>
       <Container className="text-center py-3">
-        Copyright @ banix 2021
         <div className="d-flex flex-column flex-md-row flex-wrap">
-          <div className="mr-5">
+          <div className="mr-auto">
             <h5 className="font-weight-bold">Customer Service</h5>
             <ul className="list-unstyled">
               <li>
@@ -28,6 +27,7 @@ function Footer() {
           <div>
             <h5 className="font-weight-bold">Information</h5>
             <ul className="list-unstyled">
+              <li>Copyright @ banix 2021</li>
               <li>
                 <a href="/about">About Us</a>
               </li>

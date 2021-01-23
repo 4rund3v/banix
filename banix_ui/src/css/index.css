@@ -1,3 +1,16 @@
 main {
   min-height: 80vh;
 }
+
+.card-img-top {
+  width: 80%;
+  height: 15vw;
+  object-fit: cover;
+}
+
+h4 {
+  padding: 1rem 0;
+}
+.rating span {
+  margin: 0.1rem;
+}

@@ -1,11 +1,10 @@
-import Header from "./components/Header";
-import ProductsHome from "./components/ProductsHome";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-import "font-awesome/css/font-awesome.min.css";
-import OffersBanner from "./components/OffersBanner";
 import { Container } from "react-bootstrap";
+import "./components/FontAwesomeIcons";
+
+import Header from "./components/Header";
+
 import Footer from "./components/Footer";
+import HomeScreen from "./screens/HomeScreen";
 
 function BanixApp() {
   return (
@@ -13,8 +12,9 @@ function BanixApp() {
       <Header />
       <main className="py-3">
         <Container>
-          <OffersBanner />
-          {/* <ProductsHome /> */}
+          {/* <OffersBanner />
+          <ProductsHome /> */}
+          <HomeScreen />
         </Container>
       </main>
 
