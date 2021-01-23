@@ -6,6 +6,7 @@ import {
   faShoppingCart,
   faUser,
   faUserAlt,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -14,5 +15,6 @@ library.add(
   faStarHalf,
   faShoppingCart,
   faUser,
-  faUserAlt
+  faUserAlt,
+  faTrash
 );

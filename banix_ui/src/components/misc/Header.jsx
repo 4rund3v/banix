@@ -1,43 +1,48 @@
 import React, { Component } from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, Image } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BanixBanner from "./BanixBanner";
+import { GUEST_USER_IMAGE } from "../../config";
 
-class Header extends Component {
-  state = {};
-  render() {
-    return (
-      <Navbar variant="dark" bg="primary">
-        <Container>
-          <LinkContainer to="/">
-            <Navbar.Brand>
-              <BanixBanner />
-            </Navbar.Brand>
-          </LinkContainer>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-bav">
-            <Nav className="ml-auto">
-              <LinkContainer to="/cart">
-                <Nav.Link>
-                  <h4>
-                    <FontAwesomeIcon icon="shopping-cart" />
-                    Cart
-                  </h4>
-                </Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <h4>
-                    <FontAwesomeIcon icon="user" />
-                    Sign in
-                  </h4>
-                </Nav.Link>
-              </LinkContainer>
-            </Nav>
-          </Navbar.Collapse>
+const Header = () => {
+  return (
+    <Navbar variant="dark" bg="primary">
+      <Container>
+        <LinkContainer to="/">
+          <Navbar.Brand>
+            <BanixBanner />
+          </Navbar.Brand>
+        </LinkContainer>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-bav">
+          <Nav className="ml-auto">
+            <LinkContainer to="/cart">
+              <Nav.Link>
+                <h4>
+                  <FontAwesomeIcon icon="shopping-cart" />
+                  Cart
+                </h4>
+              </Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/login">
+              <Nav.Link>
+                <h4>
+                  <Image
+                    src={`${GUEST_USER_IMAGE}`}
+                    alt={"userimage"}
+                    height={20}
+                    width={20}
+                    fluid
+                  ></Image>
+                  Sign in
+                </h4>
+              </Nav.Link>
+            </LinkContainer>
+          </Nav>
+        </Navbar.Collapse>
 
-          {/* <Collapse  navbar> isOpen={this.state.isOpen}
+        {/* <Collapse  navbar> isOpen={this.state.isOpen}
                       
             <Nav className="align-items-center justify-content-center">
               <NavItem>
@@ -85,10 +90,9 @@ class Header extends Component {
               </NavItem>
             </Nav>
           </Collapse>  */}
-        </Container>
-      </Navbar>
-    );
-  }
-}
+      </Container>
+    </Navbar>
+  );
+};
 
 export default Header;

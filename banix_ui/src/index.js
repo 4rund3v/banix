@@ -4,11 +4,12 @@ import BanixApp from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./css/bootstrap.min.css";
 import "./css/index.css";
-
+import { Provider } from "react-redux";
+import store from "./store";
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <BanixApp />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
 
