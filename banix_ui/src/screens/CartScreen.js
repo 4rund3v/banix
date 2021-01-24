@@ -54,7 +54,7 @@ const CartScreen = ({ match, location, history }) => {
               >
                 <Col md={2}>
                   <Image
-                    src={`${IMAGE_URL}${cartItem.productImage}`}
+                    src={`${IMAGE_URL}/images/cart${cartItem.productImage}`}
                     alt={cartItem.productName}
                     fluid
                     rounded

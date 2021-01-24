@@ -25,7 +25,7 @@ class ProductCard extends Component {
             className="productLink"
           >
             <Card.Img
-              src={`${IMAGE_URL}${product.productImage}`}
+              src={`${IMAGE_URL}/images/homepage/${product.productImage}`}
               variant="top"
             ></Card.Img>
           </Link>
