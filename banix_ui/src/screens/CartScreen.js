@@ -11,8 +11,9 @@ import {
   Form,
   Button,
   Card,
+  ListGroupItem,
 } from "react-bootstrap";
-import { addToCart } from "../actions/cartActions";
+import { addToCart, removeFromCart } from "../actions/cartActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CartScreen = ({ match, location, history }) => {
@@ -28,21 +29,29 @@ const CartScreen = ({ match, location, history }) => {
     }
   }, [dispatch, productId, qty]);
 
-  const removeFromCartHandler = (productId) => {};
+  const removeFromCartHandler = (productId) => {
+    dispatch(removeFromCart(productId));
+  };
+  const checkoutHandler = () => {
+    history.push("/login?redirect=shipping");
+  };
 
+  console.log("[cartScreen] The cart items to display are ::: ", cartItems);
   return (
     <Row>
       <Col md={8}>
-        <h2> Your Cart</h2>
+        <h2> Your Cart </h2>
         {cartItems.length === 0 ? (
-          <Message>
-            {" "}
-            Your Cart is empty, <Link to="/">Return to Home</Link>{" "}
+          <Message variant="danger">
+            Your Cart is empty, <Link to="/">Return to Home</Link>
           </Message>
         ) : (
           <ListGroup variant="flush">
             {cartItems.map((cartItem) => (
-              <Row>
+              <Row
+                key={cartItem.productId}
+                className="h-100 justify-content-center align-items-center"
+              >
                 <Col md={2}>
                   <Image
                     src={`${IMAGE_URL}${cartItem.productImage}`}
@@ -52,11 +61,13 @@ const CartScreen = ({ match, location, history }) => {
                   />
                 </Col>
                 <Col md={4}>
-                  <Link to={`${PRODUCT_SPECIFIC_URL}/${cartItem.productId}`}>
-                    {cartItem.productName}
+                  <Link to={`/product/${cartItem.productId}`}>
+                    <strong>{cartItem.productName}</strong>
                   </Link>
                 </Col>
-                <Col md={2}> &#8377; {cartItem.productPrice}</Col>
+                <Col md={2}>
+                  <strong> &#8377; {cartItem.productPrice}</strong>
+                </Col>
                 <Col md={2}>
                   <Form.Control
                     as="select"
@@ -92,8 +103,34 @@ const CartScreen = ({ match, location, history }) => {
           </ListGroup>
         )}
       </Col>
-      <Col md={2}></Col>
-      <Col md={2}></Col>
+      <Col md={4}>
+        <Card variant="flush">
+          <ListGroup.Item>
+            <h2>
+              SUBTOTAL (
+              {cartItems.reduce((acc, cartItem) => acc + cartItem.qty, 0)})
+              ITEMS
+            </h2>
+          </ListGroup.Item>
+          <ListGroup.Item>
+            &#8377;{" "}
+            {cartItems.reduce(
+              (acc, cartItem) => acc + cartItem.productPrice * cartItem.qty,
+              0
+            )}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <Button
+              type="button"
+              className="btn-block"
+              disabled={cartItems.length === 0}
+              onClick={checkoutHandler}
+            >
+              Proceed to Checkout
+            </Button>
+          </ListGroup.Item>
+        </Card>
+      </Col>
     </Row>
   );
 };

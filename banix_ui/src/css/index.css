@@ -18,3 +18,9 @@ h4 {
 .rating span {
   margin: 0.1rem;
 }
+
+h1,
+h2 {
+  font-size: 1.4rem;
+  padding: 0.2rem;
+}
