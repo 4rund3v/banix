@@ -1,4 +1,4 @@
-export const IMAGE_URL = `http://localhost:8086`;
+export const IMAGE_URL = `http://potatocodes.in:8086`;
 export const HEADER_IMAGE = `${IMAGE_URL}/assets/header__logo.png`;
 export const GUEST_USER_IMAGE = `${IMAGE_URL}/assets/guest_user.svg`;
 
