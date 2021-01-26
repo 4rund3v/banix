@@ -11,7 +11,7 @@
       "total_reviews": 23,
       "price": 999,
       "stock": 20,
-      "offers": []
+      "offer": 0
     },
     {
       "_id": "008",
@@ -24,7 +24,7 @@
       "total_reviews": 23,
       "price": 5450,
       "stock": 20,
-      "offers": []
+      "offer": 0
     },
     {
       "_id": "009",
@@ -37,7 +37,7 @@
       "total_reviews": 23,
       "price": 5450,
       "stock": 20,
-      "offers": []
+      "offer": 0
     },
     {
       "_id": "010",
@@ -50,7 +50,7 @@
       "total_reviews": 23,
       "price": 5450,
       "stock": 20,
-      "offers": []
+      "offer": 0
     },
     {
       "_id": "012",
@@ -63,7 +63,7 @@
       "total_reviews": 23,
       "price": 5450,
       "stock": 20,
-      "offers": []
+      "offer": 0
     },
     {
       "_id": "001",
@@ -76,7 +76,7 @@
       "total_reviews": 4,
       "price": 450,
       "stock": 20,
-      "offers": []
+      "offer": 0
     },
     {
       "_id": "002",
@@ -89,7 +89,7 @@
       "total_reviews": 4,
       "price": 850,
       "stock": 20,
-      "offers": []
+      "offer": 0
     },
     {
       "_id": "003",
@@ -102,7 +102,7 @@
       "total_reviews": 4,
       "price": 250,
       "stock": 20,
-      "offers": []
+      "offer": 0
     },
     {
       "_id": "004",
@@ -115,7 +115,7 @@
       "total_reviews": 23,
       "price": 5450,
       "stock": 20,
-      "offers": []
+      "offer": 0
     }
   ],
 
