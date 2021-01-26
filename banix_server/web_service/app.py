@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, abort
+from product_views import product_blueprint
 import json
 import os
 import sys
@@ -13,6 +14,7 @@ from commons.db_models import *
 from commons.utils import *
 
 app = Flask(__name__)
+#app.register_blueprint(product_blueprint)
 
 @app.route("/api/products/<product_id>")
 @app.route("/api/products")
