@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Navbar, Nav, Container, Image } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  Container,
+  Image,
+  Button,
+  Form,
+  FormControl,
+} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BanixBanner from "./BanixBanner";
@@ -16,6 +24,18 @@ const Header = () => {
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-bav">
+          <Nav className="align-items-center justify-content-center">
+            <Nav.Item>
+              <Form inline>
+                <FormControl
+                  type="text"
+                  placeholder="Search"
+                  className="mr-sm-2"
+                />
+                <Button variant="outline-primary">Search</Button>
+              </Form>
+            </Nav.Item>
+          </Nav>
           <Nav className="ml-auto">
             <LinkContainer to="/cart">
               <Nav.Link>

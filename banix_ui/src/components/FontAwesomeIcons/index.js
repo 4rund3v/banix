@@ -7,6 +7,17 @@ import {
   faUser,
   faUserAlt,
   faTrash,
+  faTruck,
+  faUserPlus,
+  faSignInAlt,
+  faSignOutAlt,
+  faPaperPlane,
+  faCartPlus,
+  faTrashAlt,
+  faListAlt,
+  faSearch,
+  faAngleLeft,
+  faAngleRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -16,5 +27,16 @@ library.add(
   faShoppingCart,
   faUser,
   faUserAlt,
-  faTrash
+  faTrash,
+  faTruck,
+  faUserPlus,
+  faSignInAlt,
+  faSignOutAlt,
+  faPaperPlane,
+  faCartPlus,
+  faTrashAlt,
+  faListAlt,
+  faSearch,
+  faAngleLeft,
+  faAngleRight
 );

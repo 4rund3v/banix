@@ -123,8 +123,7 @@ const ProductScreen = ({ history, match }) => {
           </Col>
         </Row>
       )}
-      ;
-    </>
+     </>
   );
 };
 
