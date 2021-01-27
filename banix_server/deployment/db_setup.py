@@ -1,13 +1,14 @@
 import os
 import sys
+build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(build_path)
 
-if os.name == "posix":
-    BUILD_PATH = "/opt/banix"
-else:
-    BUILD_PATH = "C:\\Projects\\banix\\banix_server"
+from commons.db_models import Base
+from commons.utils import session, engine
 
-sys.path.append(BUILD_PATH)
-from commons.db_models import *
-from commons.utils import *
+from  products.create_products import create_default_products
 
+print("Creating the databases if not existing.")
 Base.metadata.create_all(engine)
+print("Adding the default products.")
+create_default_products()

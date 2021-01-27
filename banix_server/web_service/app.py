@@ -3,13 +3,8 @@ from product_views import product_blueprint
 import json
 import os
 import sys
-
-if os.name == "posix":
-    BUILD_PATH = "/opt/banix"
-else:
-    BUILD_PATH = "C:\\Projects\\banix\\banix_server"
-
-sys.path.append(BUILD_PATH)
+build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(build_path)
 from commons.db_models import *
 from commons.utils import *
 
@@ -22,7 +17,6 @@ def fetch_products(product_id=""):
     """
      To fetch the products and return to the ui
     """
-    #check_authorized()
     session = None
     print("fetch_products product_id: {}".format(product_id))
     try:
@@ -30,10 +24,9 @@ def fetch_products(product_id=""):
         if product_id:
             products = session.query(Product).filter(Product.id == product_id).all()
         else:
-            products = session.query(Product).all()
-        result = {"products": [{"id": p.id, "name": p.name, "image": p.image, "description": p.description,
-                             "brand": p.brand, "category": p.category, "rating": p.rating, "total_reviews": p.total_reviews,
-                             "price": p.price, "stock": p.stock, "offer": p.offer} for p in products]}
+            products =  session.query(Product).all()
+        result = {"products": [p.as_dict() for p in products]}
+        print(f"[fetch_products] The result prepared is :: {result}")
         return result
     except Exception as ex:
         print("[fetch_products] Exception: {}".format(ex))
@@ -43,7 +36,6 @@ def fetch_products(product_id=""):
 
 @app.route("/users")
 def get_users():
-    #check_authorized()
     session = None
     print("get_users")
     try:
