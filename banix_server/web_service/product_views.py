@@ -1,32 +1,49 @@
 from flask import Flask, jsonify, abort, Blueprint
 import json
 import os
-
-
-PRODUCTS_STORE = os.path.join(os.getcwd(), "products.json")
+import sys
+build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(build_path)
+from commons.db_models import Product
+from commons.utils import Session, engine
 
 product_blueprint = Blueprint("products", __name__)
+
 
 @product_blueprint.route("/api/products")
 def fetch_products():
     """
      To fetch the products and return to the ui
     """
-    with open(PRODUCTS_STORE, "r") as rfile:
-        product_details = json.load(rfile)
-    return {"products": product_details["products"]}
+    session = None
+    print("fetch_products product_id: {}".format(product_id))
+    try:
+        session = Session()
+        products = session.query(Product).all()
+        result = {"product": [p.as_dict() for p in products]}
+
+        print(f"[fetch_products] The result prepared is :: {result}")
+        return result
+    except Exception as ex:
+        print("[fetch_products] Exception: {}".format(ex))
+    finally:
+        if session: session.close()
 
 
 @product_blueprint.route("/api/products/<product_id>")
 def fetch_specific_product(product_id):
-    """
-     To fetch the products and return to the ui
-    """
-    product_details = product = {}
-    with open(PRODUCTS_STORE, "r") as rfile:
-        product_details = json.load(rfile)
-    for p in product_details["products"]:
-        if p["_id"] == product_id:
-            product = p
-            break
-    return {"product": product}
+    session = None
+    result = {"product": {}}
+    print("fetch_products product_id: {}".format(product_id))
+    try:
+        session = Session()
+        product =  session.query(Product).filter(Product._id == product_id).first()
+        if product:
+            result["product"] = product.as_dict()
+        print(f"[fetch_products] The result prepared is :: {result}")
+        return result
+    except Exception as ex:
+        print("[fetch_products] Exception: {}".format(ex))
+    finally:
+        if session:
+            session.close()
