@@ -1,45 +1,89 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Newsletter from "./NewsLetter";
 
 function Footer() {
   return (
     <footer>
-      <Container className="text-center py-3">
-        <div className="d-flex flex-column flex-md-row flex-wrap">
-          <div className="mr-auto">
+      <Container>
+        <Row className="bg-light text-dark ">
+          <Col>
             <h5 className="font-weight-bold">Customer Service</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="/order_tracking">Order Tracking</a>
+                <Link to="/order_tracking">Order Tracking</Link>
               </li>
               <li>
-                <a href="/returns_and_exchanges">Returns and Exchanges</a>
+                <Link to="/returns_and_exchanges">Returns and Exchanges</Link>
               </li>
               <li>
-                <a href="/refunds">Refunds</a>
+                <Link to="/refunds">Refunds</Link>
               </li>
               <li>
-                <a href="/delivery_and_collections">Delivery & Collections</a>
+                <Link to="/delivery_and_collections">
+                  Delivery & Collections
+                </Link>
               </li>
             </ul>
-          </div>
-          <div>
+          </Col>
+          <Col>
             <h5 className="font-weight-bold">Information</h5>
             <ul className="list-unstyled">
-              <li>Copyright @ banix 2021</li>
               <li>
-                <a href="/about">About Us</a>
+                <Link to="/about">About Us</Link>
               </li>
               <li>
-                <a href="/terms">Terms of Use</a>
+                <Link to="/terms">Terms of Use</Link>
               </li>
               <li>
-                <a href="/careers">Careers</a>
+                <Link to="/careers">Careers</Link>
               </li>
             </ul>
-          </div>
-        </div>
+          </Col>
+          <Col>
+            <Newsletter />
+            <ul className="list-inline mt-4">
+              <li className="list-inline-item">
+                <Link to="/">
+                  <FontAwesomeIcon
+                    icon={["fab", "twitter"]}
+                    size="2x"
+                    className="pr-2"
+                  />
+                </Link>
+              </li>
+              <li className="list-inline-item">
+                <Link to="/">
+                  <FontAwesomeIcon
+                    icon={["fab", "facebook"]}
+                    size="2x"
+                    className="pr-2"
+                  />
+                </Link>
+              </li>
+              <li className="list-inline-item">
+                <Link to="/">
+                  <FontAwesomeIcon
+                    icon={["fab", "linkedin"]}
+                    size="2x"
+                    className="pr-2"
+                  />
+                </Link>
+              </li>
+              <li className="list-inline-item">
+                <Link to="/">
+                  <FontAwesomeIcon
+                    icon={["fab", "pinterest"]}
+                    size="2x"
+                    className="pr-2"
+                  />
+                </Link>
+              </li>
+            </ul>
+          </Col>
+        </Row>
       </Container>
     </footer>
   );

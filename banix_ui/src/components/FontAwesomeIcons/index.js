@@ -11,14 +11,24 @@ import {
   faUserPlus,
   faSignInAlt,
   faSignOutAlt,
-  faPaperPlane,
   faCartPlus,
   faTrashAlt,
   faListAlt,
   faSearch,
   faAngleLeft,
   faAngleRight,
+  faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
+
+import {
+  faFacebook,
+  faPinterest,
+  faInstagram,
+  faLinkedin,
+  faCcMastercard,
+  faPaypal,
+  faCcVisa,
+} from "@fortawesome/free-brands-svg-icons";
 
 library.add(
   faStar,
@@ -32,11 +42,17 @@ library.add(
   faUserPlus,
   faSignInAlt,
   faSignOutAlt,
-  faPaperPlane,
   faCartPlus,
   faTrashAlt,
   faListAlt,
   faSearch,
   faAngleLeft,
-  faAngleRight
+  faAngleRight,
+  faFacebook,
+  faPinterest,
+  faInstagram,
+  faLinkedin,
+  faCcMastercard,
+  faPaypal,
+  faCcVisa
 );
