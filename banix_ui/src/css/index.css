@@ -1,7 +1,6 @@
 main {
   min-height: 80vh;
 }
-
 /* Product Card */
 .card-img-top {
   width: 80%;
@@ -11,17 +10,17 @@ main {
 .productLink {
   color: black;
 }
-
-h4 {
-  padding: 1rem 0;
-}
-
-.rating span {
-  margin: 0.1rem;
-}
+/* End of Product Card */
 
 h1,
 h2 {
   font-size: 1.4rem;
   padding: 0.2rem;
+}
+h4 {
+  padding: 1rem 0;
+}
+/* Rating */
+.rating span {
+  margin: 0.1rem;
 }
