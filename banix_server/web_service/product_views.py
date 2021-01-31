@@ -10,18 +10,16 @@ from commons.utils import Session, engine
 product_blueprint = Blueprint("products", __name__)
 
 
-@product_blueprint.route("/api/products")
+@product_blueprint.route("/products")
 def fetch_products():
     """
      To fetch the products and return to the ui
     """
     session = None
-    print("fetch_products product_id: {}".format(product_id))
     try:
         session = Session()
         products = session.query(Product).all()
-        result = {"product": [p.as_dict() for p in products]}
-
+        result = {"products": [p.as_dict() for p in products]}
         print(f"[fetch_products] The result prepared is :: {result}")
         return result
     except Exception as ex:
@@ -30,7 +28,7 @@ def fetch_products():
         if session: session.close()
 
 
-@product_blueprint.route("/api/products/<product_id>")
+@product_blueprint.route("/products/<product_id>")
 def fetch_specific_product(product_id):
     session = None
     result = {"product": {}}
