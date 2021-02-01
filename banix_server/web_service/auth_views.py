@@ -25,7 +25,7 @@ def authenticate_user_login():
     result = {"user_info": {}}
     try:
         session = Session()
-        user =  session.query(User).filter(User.username == form_data["username"]).filter(User.password == form_data["password"]).first()
+        user =  session.query(User).filter(User.email_id == form_data["email_id"]).filter(User.password == form_data["password"]).first()
         if user:
             result["user_info"] = user.as_dict()
             token = jwt.encode({'public_id': user.public_id, 'exp' : datetime.utcnow() + timedelta(minutes = 60)
