@@ -22,26 +22,37 @@ const Header = () => {
     <Container>
       <Row>
         <Col>
-          <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">banix</Navbar.Brand>
+          <Navbar bg="primary">
+            <LinkContainer to="/">
+              <Navbar.Brand>banix</Navbar.Brand>
+            </LinkContainer>
+            <Nav>
+              <InputGroup>
+                <FormControl
+                  placeholder="Search"
+                  aria-label="Search"
+                  aria-describedby="basic-addon1"
+                />
+                <InputGroup.Append>
+                  <div class="input-group-text bg-transparent">
+                    <FontAwesomeIcon icon="search" />
+                  </div>
+                </InputGroup.Append>
+              </InputGroup>
+            </Nav>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto">
-                <InputGroup>
-                  <FormControl
-                    placeholder="Search"
-                    aria-label="Search"
-                    aria-describedby="basic-addon1"
-                  />
-                  <InputGroup.Append>
-                    <div class="input-group-text bg-transparent">
-                      <FontAwesomeIcon icon="search" />
-                    </div>
-                  </InputGroup.Append>
-                </InputGroup>
-
-                <Nav.Link href="#home">Cart</Nav.Link>
-                <Nav.Link href="#link">Link</Nav.Link>
+              <Nav className="ml-auto ">
+                <LinkContainer to="/cart">
+                  <Nav.Link className="pr-2">
+                    <FontAwesomeIcon icon="shopping-cart" />
+                  </Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/login">
+                  <Nav.Link className="pr-2">
+                    <FontAwesomeIcon icon="user" />
+                  </Nav.Link>
+                </LinkContainer>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
