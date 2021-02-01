@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
-import { IMAGE_URL } from "../../config";
-const PRODUCT_URL = "/product";
 
 class ProductCard extends Component {
   state = {
@@ -20,20 +18,14 @@ class ProductCard extends Component {
     if (this.state.product) {
       productCard = (
         <Card className="my-3 p-3 rounded">
-          <Link
-            to={`${PRODUCT_URL}/${product.productId}`}
-            className="productLink"
-          >
+          <Link to={`/product/${product.productId}`} className="productLink">
             <Card.Img
-              src={`${IMAGE_URL}/images/homepage/${product.productImage}`}
+              src={`/images/homepage${product.productImage}`}
               variant="top"
             ></Card.Img>
           </Link>
           <Card.Body>
-            <Link
-              to={`${PRODUCT_URL}/${product.productId}`}
-              className="productLink"
-            >
+            <Link to={`/product/${product.productId}`} className="productLink">
               <Card.Title as="div">
                 <h4>{product.productName}</h4>
               </Card.Title>
