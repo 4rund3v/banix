@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, abort
+from flask_cors import CORS
 from product_views import product_blueprint
 from user_views import user_blueprint
 import json
@@ -9,6 +10,7 @@ sys.path.append(build_path)
 
 
 app = Flask(__name__)
+CORS(app)
 app.register_blueprint(product_blueprint)
 app.register_blueprint(user_blueprint)
 

@@ -9,7 +9,7 @@ from commons.utils import Session, engine
 
 product_blueprint = Blueprint("products", __name__)
 
-
+@product_blueprint.route("/api/products")
 @product_blueprint.route("/products")
 def fetch_products():
     """
@@ -27,7 +27,7 @@ def fetch_products():
     finally:
         if session: session.close()
 
-
+@product_blueprint.route("/api/products/<product_id>")
 @product_blueprint.route("/products/<product_id>")
 def fetch_specific_product(product_id):
     session = None

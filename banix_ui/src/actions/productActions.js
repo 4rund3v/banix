@@ -12,6 +12,10 @@ import { PRODUCT_LIST_URL, PRODUCT_SPECIFIC_URL } from "../config";
 export const listProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
+    console.log(
+      "[listProducts] The product list url is ::: ",
+      PRODUCT_LIST_URL
+    );
     const { data } = await axios.get(PRODUCT_LIST_URL);
     dispatch({
       type: PRODUCT_LIST_SUCCESS,

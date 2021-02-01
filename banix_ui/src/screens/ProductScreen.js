@@ -23,13 +23,16 @@ const ProductScreen = ({ history, match }) => {
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product: rawProduct } = productDetails;
+
   const product = new Product(rawProduct);
   useEffect(() => {
     dispatch(getProductDetails(match.params.id));
   }, [match]);
+
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
+
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
@@ -123,7 +126,7 @@ const ProductScreen = ({ history, match }) => {
           </Col>
         </Row>
       )}
-     </>
+    </>
   );
 };
 
