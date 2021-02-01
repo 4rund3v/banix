@@ -22,7 +22,6 @@ class User(Base):
                     display_name=str(self.display_name),
                     username=str(self.username),
                     email_id=str(self.email_id),
-                    password=str(self.password),
                     user_role=str(self.user_role),
                     public_id=str(self.public_id),
                     )
