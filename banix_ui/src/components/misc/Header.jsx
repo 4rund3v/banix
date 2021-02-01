@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import SearchBox from "./SearchBox";
 const Header = () => {
   return (
     <Container>
@@ -21,18 +21,7 @@ const Header = () => {
               <Navbar.Brand>banix</Navbar.Brand>
             </LinkContainer>
             <Nav>
-              <InputGroup>
-                <FormControl
-                  placeholder="Search"
-                  aria-label="Search"
-                  aria-describedby="basic-addon1"
-                />
-                <InputGroup.Append>
-                  <div className="input-group-text bg-transparent">
-                    <FontAwesomeIcon icon="search" />
-                  </div>
-                </InputGroup.Append>
-              </InputGroup>
+              <SearchBox />
             </Nav>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">

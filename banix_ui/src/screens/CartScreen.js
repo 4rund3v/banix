@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/misc/Message";
 import { Link } from "react-router-dom";
-import { IMAGE_URL, PRODUCT_SPECIFIC_URL } from "../config";
+import { IMAGE_URL } from "../config";
 import {
   Row,
   Col,
@@ -11,7 +11,6 @@ import {
   Form,
   Button,
   Card,
-  ListGroupItem,
 } from "react-bootstrap";
 import { addToCart, removeFromCart } from "../actions/cartActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

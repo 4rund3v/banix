@@ -27,12 +27,13 @@ const ProductScreen = ({ history, match }) => {
   const product = new Product(rawProduct);
   useEffect(() => {
     dispatch(getProductDetails(match.params.id));
-  }, [match]);
+  }, [dispatch, match]);
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
 
+  console.log("product info recieved is ::", product);
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
