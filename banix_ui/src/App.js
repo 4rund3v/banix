@@ -7,6 +7,7 @@ import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
 import Footer from "./components/misc/Footer";
+import LoginScreen from "./screens/LoginScreen";
 
 function BanixApp() {
   return (
@@ -14,6 +15,7 @@ function BanixApp() {
       <Header />
       <main>
         <Container className="content my-4">
+          <Route path="/login" component={LoginScreen} exact />
           <Route path="/product/:id" component={ProductScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/" component={HomeScreen} exact />
