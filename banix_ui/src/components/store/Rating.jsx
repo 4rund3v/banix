@@ -21,8 +21,8 @@ const getRatingStar = (ratingValue, color) => {
 function Rating({ ratingValue, ratingText, ratingColor }) {
   return (
     <div className="rating">
-      {getRatingStar(ratingValue, ratingColor).map((ratingStar) => (
-        <span>{ratingStar}</span>
+      {getRatingStar(ratingValue, ratingColor).map((ratingStar, index) => (
+        <span key={index}>{ratingStar}</span>
       ))}
       <span>{ratingText && ratingText}</span>
     </div>
@@ -36,6 +36,7 @@ Rating.propTypes = {
 };
 
 Rating.defaultProps = {
+  ratingValue: 0,
   ratingColor: "#f8e825",
 };
 export default Rating;

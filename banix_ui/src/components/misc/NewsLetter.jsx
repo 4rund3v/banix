@@ -32,11 +32,11 @@ export default class Newsletter extends Component {
           onSubmit={this.handleSubmit}
         >
           {" "}
-          <InputGroup controlId="formBasicEmail">
+          <InputGroup>
             <Form.Control type="email" placeholder="Enter email" />
             <InputGroup.Append>
               <Button className="btn btn-secondary">
-                Subscribe! <FontAwesomeIcon icon="paper-plane" />
+                <FontAwesomeIcon icon="paper-plane" />
               </Button>
             </InputGroup.Append>
           </InputGroup>

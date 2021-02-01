@@ -1,12 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Navbar,
   Nav,
-  NavDropdown,
   Container,
-  Image,
-  Button,
-  Form,
   FormControl,
   Row,
   Col,
@@ -14,8 +10,6 @@ import {
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BanixBanner from "./BanixBanner";
-import { GUEST_USER_IMAGE } from "../../config";
 
 const Header = () => {
   return (
@@ -34,7 +28,7 @@ const Header = () => {
                   aria-describedby="basic-addon1"
                 />
                 <InputGroup.Append>
-                  <div class="input-group-text bg-transparent">
+                  <div className="input-group-text bg-transparent">
                     <FontAwesomeIcon icon="search" />
                   </div>
                 </InputGroup.Append>

@@ -23,6 +23,7 @@ import {
 import {
   faFacebook,
   faPinterest,
+  faTwitter,
   faInstagram,
   faLinkedin,
   faCcMastercard,
@@ -54,5 +55,7 @@ library.add(
   faLinkedin,
   faCcMastercard,
   faPaypal,
-  faCcVisa
+  faCcVisa,
+  faPaperPlane,
+  faTwitter
 );
