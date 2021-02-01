@@ -47,7 +47,7 @@ const ProductScreen = ({ history, match }) => {
         <Row>
           <Col md={6}>
             <Image
-              src={`${IMAGE_URL}/images/details${product.productImage}`}
+              src={`/images/details${product.productImage}`}
               alt={product.productName}
               fluid
             ></Image>
