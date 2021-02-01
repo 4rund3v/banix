@@ -11,6 +11,8 @@ class User(Base):
     username =  Column(String)
     email_id = Column(String)
     password = Column(String)
+    user_role = Column(String)
+    public_id = Column(String)
 
     def __repr__(self):
         return "<User(name={})>".format(self.username)
@@ -20,7 +22,9 @@ class User(Base):
                     display_name=str(self.display_name),
                     username=str(self.username),
                     email_id=str(self.email_id),
-                    password=str(self.password)
+                    password=str(self.password),
+                    user_role=str(self.user_role),
+                    public_id=str(self.public_id),
                     )
 
 

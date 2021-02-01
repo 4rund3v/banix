@@ -1,0 +1,32 @@
+{
+    "users": [
+        {
+            "username": "arundev",
+            "email_id": "4rund3v@gmail.com",
+            "password": "arundev",
+            "user_role": "admin",
+            "display_name": "Arun Dev"
+        },
+        {
+            "username": "john",
+            "email_id": "john@gmail.com",
+            "password": "john",
+            "user_role": "admin",
+            "display_name": "Jhon Marshal"
+        },
+        {
+            "username": "sanjay",
+            "email_id": "sanjay@gmail.com",
+            "password": "sanjay",
+            "user_role": "user",
+            "display_name": "Sanjay"
+        },
+        {
+            "username": "pavithra",
+            "email_id": "pavithra@gmail.com",
+            "password": "pavithra",
+            "user_role": "user",
+            "display_name": "Pavithra G"
+        }
+    ]
+}
