@@ -18,9 +18,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id;
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
+
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+
   useEffect(() => {
     if (productId && qty) {
       console.log("adding to the cart: ", productId, qty);
@@ -35,7 +37,6 @@ const CartScreen = ({ match, location, history }) => {
     history.push("/login?redirect=shipping");
   };
 
-  console.log("[cartScreen] The cart items to display are ::: ", cartItems);
   return (
     <Row>
       <Col md={8}>
