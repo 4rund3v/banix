@@ -14,7 +14,7 @@ function BanixApp() {
     <Router>
       <Header />
       <main>
-        <Container className="content my-4">
+        <Container className="content my-2">
           <Route path="/login" component={LoginScreen} exact />
           <Route path="/product/:id" component={ProductScreen} />
           <Route path="/cart/:id?" component={CartScreen} />

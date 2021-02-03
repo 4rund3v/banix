@@ -23,7 +23,7 @@ const cartItemsFromStorage = localStorage.getItem("cartItems")
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
-  : {};
+  : null;
 
 const tokenFromStorage = localStorage.getItem("accessToken")
   ? JSON.parse(localStorage.getItem("accessToken"))

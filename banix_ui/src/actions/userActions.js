@@ -2,9 +2,11 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
 } from "../constants/userConstants";
 import axios from "axios";
 import { USER_LOGIN_URL } from "../config";
+
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({
@@ -15,12 +17,18 @@ export const login = (email, password) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
+    console.log("Logging in the user with the data ", USER_LOGIN_URL, {
+      email,
+      password,
+    });
     const { data } = await axios.post(
       USER_LOGIN_URL,
-      { email, password },
+      { email_id: email, password },
       config
     );
-
+    if (!data.user_info) {
+      throw "No user information recieved.";
+    }
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data.user_info,
@@ -36,4 +44,10 @@ export const login = (email, password) => async (dispatch) => {
           : error.message,
     });
   }
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem("userInfo");
+  localStorage.removeItem("accessToken");
+  dispatch({ type: USER_LOGOUT });
 };

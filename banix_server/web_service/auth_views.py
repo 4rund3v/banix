@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, abort, Blueprint, request
+from flask import Flask, jsonify, abort, Blueprint, request, make_response
 import json
 import os
 import sys
@@ -38,4 +38,4 @@ def authenticate_user_login():
     finally:
         if session:
             session.close()
-    return result
+    abort(make_response(jsonify(message="Invalid details provided."), 401))
