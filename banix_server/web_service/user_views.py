@@ -37,7 +37,6 @@ def create_user():
     session = None
     print("In the creation of the Users")
     form_data = request.get_json()
-
     try:
         session = Session()
         existing_user = session.query(User).filter(User.email_id==form_data["email_id"]).first()
@@ -48,6 +47,8 @@ def create_user():
         new_user_info.user_role = "user"
         if not new_user_info.display_name:
             new_user_info.display_name =  new_user_info.email_id.split("@")[0]
+        if not new_user_info.username:
+            new_user_info.username =  new_user_info.display_name
         print(f"[create_user]User info prepared is :: {new_user_info}")
         resp = session.add(new_user_info)
         print(f"User added to database response  is :: {resp}")
