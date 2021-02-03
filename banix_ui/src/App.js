@@ -9,6 +9,7 @@ import CartScreen from "./screens/CartScreen";
 import Footer from "./components/misc/Footer";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/registerScreen";
+import ProfileScreen from "./screens/profileScreen";
 
 function BanixApp() {
   return (
@@ -18,6 +19,7 @@ function BanixApp() {
         <Container className="content my-2">
           <Route path="/login" component={LoginScreen} exact />
           <Route path="/register" component={RegisterScreen} exact />
+          <Route path="/profile" component={ProfileScreen} exact />
           <Route path="/product/:id" component={ProductScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/" component={HomeScreen} exact />

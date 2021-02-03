@@ -18,7 +18,7 @@ const LoginScreen = ({ location, history }) => {
   console.log(" The userInfo is :: ", userInfo);
   console.log(" The location is :: ", location);
   const redirect = location.search ? location.search.split("=")[1] : "/";
-  console.log("the redirect url is : ", redirect);
+  console.log(" The redirect url is : ", redirect);
 
   useEffect(() => {
     if (userInfo && userInfo.username) {

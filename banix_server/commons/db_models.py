@@ -13,6 +13,7 @@ class User(Base):
     password = Column(String)
     user_role = Column(String)
     public_id = Column(String)
+    primary_mobile_number = Column(Integer)
 
     def __repr__(self):
         return "<User(name={})>".format(self.username)
@@ -24,6 +25,7 @@ class User(Base):
                     email_id=str(self.email_id),
                     user_role=str(self.user_role),
                     public_id=str(self.public_id),
+                    primary_mobile_number=self.primary_mobile_number,
                     )
 
 

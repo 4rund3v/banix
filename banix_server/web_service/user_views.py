@@ -14,7 +14,7 @@ user_blueprint = Blueprint("users", __name__)
 @user_blueprint.route("/api/users")
 @user_blueprint.route("/users")
 @token_required
-def get_users():
+def get_users(current_user_info):
     session = None
     print("In the fetch of the Users")
     try:
@@ -33,7 +33,7 @@ def get_users():
 @user_blueprint.route("/api/users", methods=["POST"])
 @user_blueprint.route("/users", methods=["POST"])
 @token_required
-def create_user():
+def create_user(current_user_info):
     session = None
     print("In the creation of the Users")
     form_data = request.get_json()
@@ -66,7 +66,7 @@ def create_user():
 @user_blueprint.route("/api/users/<user_id>")
 @user_blueprint.route("/users/<user_id>")
 @token_required
-def get_specific_user(user_id):
+def get_specific_user(current_user_info, user_id):
     session = None
     print(f"[get_specific_user] In the fetch of the Specific User {user_id}")
     try:
@@ -81,3 +81,55 @@ def get_specific_user(user_id):
         if session:
             session.close()
     return {}
+
+
+
+@user_blueprint.route("/api/user-profile")
+@user_blueprint.route("/user-profile")
+@token_required
+def fetch_user_profile(current_user_info):
+    print(f" Fetching the profile information for the user : {current_user_info} ")
+    user_info = {}
+    user_info["display_name"] = current_user_info["display_name"]
+    user_info["username"] = current_user_info["username"]
+    user_info["email_id"] = current_user_info["email_id"]
+    user_info["display_name"] = current_user_info["display_name"]
+    user_info["primary_mobile_number"] = current_user_info["primary_mobile_number"]
+    return {"user_info": user_info}
+
+
+
+@user_blueprint.route("/api/user-profile", methods=["PUT"])
+@user_blueprint.route("/user-profile", methods=["PUT"])
+@token_required
+def update_user_profile(current_user_info):
+    print(f" Updating the user profile information : {current_user_info} ")
+    form_data = request.get_json()
+    session = None
+    modified_user_info = {}
+    print(f"In the Updation of the user profile of the Users : {form_data}")
+    if "display_name" in form_data:
+        modified_user_info["display_name"] = form_data["display_name"]
+    if "primary_mobile_number" in form_data:
+        modified_user_info["primary_mobile_number"] = form_data["primary_mobile_number"]
+    print(f"Update info prepared is : {modified_user_info}")
+    try:
+        if modified_user_info:
+            session = Session()
+            resp = session.query(User).filter(User._id == current_user_info['_id']).update(modified_user_info)
+            print(f"[update_user_profile] The db updated info is : {resp}")
+            session.commit()
+        else:
+            print(f"[update_user_profile] no info to update")
+    except Exception as ex:
+        print("[update_user_profile] Exception: {}".format(ex))
+    finally:
+        if session:
+            session.close()
+    user_info = session.query(User).filter(User._id == current_user_info['_id']).first()
+    return {"user_info": user_info.as_dict()}
+
+
+
+
+

@@ -6,9 +6,12 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
-import { USER_LOGIN_URL, USER_REGISTER_URL } from "../config";
+import { USER_LOGIN_URL, USER_REGISTER_URL, USER_PROFILE_URL } from "../config";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -94,6 +97,46 @@ export const register = (name, email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getUserDetails = () => async (dispatch, getState) => {
+  const {
+    userToken: { token },
+  } = getState();
+  console.log("[userActions] The user token is :: ", token);
+  try {
+    dispatch({
+      type: USER_DETAILS_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.get(USER_PROFILE_URL, config);
+    // just to make sure that the empty {} is not saved as user info
+    if (!data.user_info) {
+      throw "No user information recieved.";
+    }
+
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data.user_info,
+    });
+
+    localStorage.setItem("userInfo", JSON.stringify(data.user_info));
+    localStorage.setItem("accessToken", JSON.stringify({ token: data.token }));
+  } catch (error) {
+    dispatch({
+      type: USER_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

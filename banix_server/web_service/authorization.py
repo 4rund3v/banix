@@ -6,6 +6,7 @@ from functools import wraps
 import jwt
 from commons.db_models import User
 from commons.utils import Session, engine
+import re
 
 def token_required(f):
     @wraps(f)
@@ -13,8 +14,9 @@ def token_required(f):
         token = None
         session = None
         # jwt is passed in the request header
-        if 'x-access-token' in request.headers:
-            token = request.headers['x-access-token']
+        if 'Authorization' in request.headers:
+            token = request.headers['Authorization']
+        token = re.sub("^(Bearer )", "", token)
         print(f"token recieved is ::: {token}")
         # return 401 if token is not passed
         if not token:
@@ -33,5 +35,5 @@ def token_required(f):
             if session:
                 session.close()
         # returns the current logged in users contex to the routes
-        return  f(*args, **kwargs)
+        return  f(current_user.as_dict(), *args, **kwargs)
     return decorated
