@@ -3,6 +3,7 @@ import React from "react";
 const About = () => {
   return (
     <div>
+      <h2>Banix : Electronics and Hardware Manufacturer</h2>
       <h3>About Us</h3>
       <p>
         Banix is an electronics design and manufacturing company. We mainly look
