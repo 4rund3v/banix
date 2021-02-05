@@ -12,6 +12,7 @@ import {
   userLoginReducer,
   userRegisterReducer,
   userDetailsReducer,
+  userTokenReducer,
 } from "./reducers/userReducers";
 
 const reducer = combineReducers({
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   productDetails: productDetailsReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
+  userToken: userTokenReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
 });
@@ -33,12 +35,16 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 
 const tokenFromStorage = localStorage.getItem("accessToken")
   ? JSON.parse(localStorage.getItem("accessToken"))
-  : "";
+  : null;
 
+console.log(
+  "[store] Initial State : the token from storage is :: ",
+  tokenFromStorage
+);
 const initialState = {
   cart: { cartItems: cartItemsFromStorage },
   userLogin: { userInfo: userInfoFromStorage },
-  userToken: { token: tokenFromStorage },
+  userToken: { tokenInfo: tokenFromStorage },
 };
 
 const middleware = [thunk];

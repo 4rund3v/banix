@@ -9,7 +9,9 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
+  USER_TOKEN_UPDATED,
 } from "../constants/userConstants";
+
 import axios from "axios";
 import { USER_LOGIN_URL, USER_REGISTER_URL, USER_PROFILE_URL } from "../config";
 
@@ -38,6 +40,11 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data.user_info,
+    });
+
+    dispatch({
+      type: USER_TOKEN_UPDATED,
+      payload: { token: data.token },
     });
     localStorage.setItem("userInfo", JSON.stringify(data.user_info));
     localStorage.setItem("accessToken", JSON.stringify({ token: data.token }));
@@ -107,9 +114,9 @@ export const register = (name, email, password) => async (dispatch) => {
 
 export const getUserDetails = () => async (dispatch, getState) => {
   const {
-    userToken: { token },
+    userToken: { tokenInfo },
   } = getState();
-  console.log("[userActions] The user token is :: ", token);
+  console.log("[getUserDetails] The user token is :: ", tokenInfo);
   try {
     dispatch({
       type: USER_DETAILS_REQUEST,
@@ -117,7 +124,7 @@ export const getUserDetails = () => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${tokenInfo.token}`,
       },
     };
 
@@ -133,7 +140,6 @@ export const getUserDetails = () => async (dispatch, getState) => {
     });
 
     localStorage.setItem("userInfo", JSON.stringify(data.user_info));
-    localStorage.setItem("accessToken", JSON.stringify({ token: data.token }));
   } catch (error) {
     dispatch({
       type: USER_DETAILS_FAIL,

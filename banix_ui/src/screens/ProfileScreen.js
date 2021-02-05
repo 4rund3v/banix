@@ -54,7 +54,7 @@ const ProfileScreen = ({ locaiton, history }) => {
   return (
     <Row>
       <Col md={4}>
-        <h2> Update </h2>displayName<h2>'s Profile</h2>
+        <h2> Update </h2>displayName<h2> Profile</h2>
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
         {loading && <Loader />}
