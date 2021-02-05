@@ -6,10 +6,13 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_DETAILS_REQUEST,
-  USER_DETAILS_SUCCESS,
-  USER_DETAILS_FAIL,
+  USER_DETAILS_FETCH_REQUEST,
+  USER_DETAILS_FETCH_SUCCESS,
+  USER_DETAILS_FETCH_FAIL,
   USER_TOKEN_UPDATED,
+  USER_DETAILS_UPDATE_REQUEST,
+  USER_DETAILS_UPDATE_SUCCESS,
+  USER_DETAILS_UPDATE_FAIL,
 } from "../constants/userConstants";
 
 import axios from "axios";
@@ -119,7 +122,7 @@ export const getUserDetails = () => async (dispatch, getState) => {
   console.log("[getUserDetails] The user token is :: ", tokenInfo);
   try {
     dispatch({
-      type: USER_DETAILS_REQUEST,
+      type: USER_DETAILS_FETCH_REQUEST,
     });
     const config = {
       headers: {
@@ -135,14 +138,53 @@ export const getUserDetails = () => async (dispatch, getState) => {
     }
 
     dispatch({
-      type: USER_DETAILS_SUCCESS,
+      type: USER_DETAILS_FETCH_SUCCESS,
       payload: data.user_info,
     });
 
     localStorage.setItem("userInfo", JSON.stringify(data.user_info));
   } catch (error) {
     dispatch({
-      type: USER_DETAILS_FAIL,
+      type: USER_DETAILS_FETCH_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateUserDetails = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_DETAILS_UPDATE_REQUEST,
+    });
+    const {
+      userToken: { tokenInfo },
+    } = getState();
+    console.log("[updateUserDetails] The user token is :: ", tokenInfo);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(USER_PROFILE_URL, user, config);
+    // just to make sure that the empty {} is not saved as user info
+    if (!data.user_info) {
+      throw "No user information recieved.";
+    }
+
+    dispatch({
+      type: USER_DETAILS_UPDATE_SUCCESS,
+      payload: data.user_info,
+    });
+
+    localStorage.setItem("userInfo", JSON.stringify(data.user_info));
+  } catch (error) {
+    dispatch({
+      type: USER_DETAILS_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
