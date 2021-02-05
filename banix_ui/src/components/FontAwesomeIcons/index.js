@@ -25,10 +25,10 @@ import {
   faPinterest,
   faTwitter,
   faInstagram,
-  faLinkedin,
   faCcMastercard,
   faPaypal,
   faCcVisa,
+  faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -52,10 +52,11 @@ library.add(
   faFacebook,
   faPinterest,
   faInstagram,
-  faLinkedin,
   faCcMastercard,
   faPaypal,
   faCcVisa,
   faPaperPlane,
-  faTwitter
+  faTwitter,
+  faYoutube,
+  faInstagram
 );

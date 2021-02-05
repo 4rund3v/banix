@@ -33,9 +33,10 @@ export default class Newsletter extends Component {
         >
           {" "}
           <InputGroup>
-            <Form.Control type="email" placeholder="Enter email" />
+            <Form.Control type="email" placeholder="Your Email Address" />
             <InputGroup.Append>
               <Button className="btn btn-secondary">
+                Subcribe!
                 <FontAwesomeIcon icon="paper-plane" />
               </Button>
             </InputGroup.Append>

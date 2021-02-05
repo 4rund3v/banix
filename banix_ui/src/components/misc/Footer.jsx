@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Newsletter from "./NewsLetter";
 
+import {
+  BANIX_FACEBOOK_URL,
+  BANIX_TWITTER_URL,
+  BANIX_INSTAGRAM_URL,
+  BANIX_YOUTUBE_URL,
+} from "../../config";
+
 function Footer() {
   return (
     <footer>
@@ -46,45 +53,78 @@ function Footer() {
             <Newsletter />
             <ul className="list-inline mt-4">
               <li className="list-inline-item">
-                <Link to="/">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={BANIX_TWITTER_URL}
+                >
                   <FontAwesomeIcon
                     icon={["fab", "twitter"]}
                     size="2x"
                     className="pr-2"
                   />
-                </Link>
+                </a>
               </li>
               <li className="list-inline-item">
-                <Link to="/">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={BANIX_FACEBOOK_URL}
+                >
                   <FontAwesomeIcon
                     icon={["fab", "facebook"]}
                     size="2x"
                     className="pr-2"
                   />
-                </Link>
+                </a>
               </li>
               <li className="list-inline-item">
-                <Link to="/">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={BANIX_YOUTUBE_URL}
+                >
                   <FontAwesomeIcon
-                    icon={["fab", "linkedin"]}
+                    icon={["fab", "youtube"]}
                     size="2x"
                     className="pr-2"
                   />
-                </Link>
+                </a>
               </li>
               <li className="list-inline-item">
-                <Link to="/">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={BANIX_INSTAGRAM_URL}
+                >
                   <FontAwesomeIcon
-                    icon={["fab", "pinterest"]}
+                    icon={["fab", "instagram"]}
                     size="2x"
                     className="pr-2"
                   />
-                </Link>
+                </a>
               </li>
             </ul>
           </Col>
         </Row>
       </Container>
+
+      <div className="bg-dark text-light">
+        <Container className="py-4">
+          <div className="d-flex align-items-center">
+            <span>&copy; 2021, Banix. All rights reserved. </span>
+            <div className="ml-auto">
+              <span className="mr-2">
+                <FontAwesomeIcon icon={["fab", "cc-visa"]} size="2x" />
+              </span>
+              <span className="mr-2">
+                <FontAwesomeIcon icon={["fab", "cc-mastercard"]} size="2x" />
+              </span>
+              <FontAwesomeIcon icon={["fab", "cc-paypal"]} size="2x" />
+            </div>
+          </div>
+        </Container>
+      </div>
     </footer>
   );
 }

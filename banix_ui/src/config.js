@@ -8,3 +8,11 @@ export const PRODUCT_SPECIFIC_URL = `/api/products`;
 export const USER_LOGIN_URL = `/api/login`;
 export const USER_REGISTER_URL = `/api/register`;
 export const USER_PROFILE_URL = `/api/user-profile`;
+
+export const BANIX_FACEBOOK_URL =
+  "https://www.facebook.com/Banix-100470111898612";
+
+export const BANIX_INSTAGRAM_URL = "https://www.instagram.com/Banix.home";
+export const BANIX_YOUTUBE_URL =
+  "https://www.youtube.com/channel/UCuzzq_j5D1CRhDKwuWvoDQw";
+export const BANIX_TWITTER_URL = "https://twitter.com/banixbangalore";

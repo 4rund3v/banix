@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 import "./components/FontAwesomeIcons";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Header from "./components/misc/Header";
 import HomeScreen from "./screens/HomeScreen";
@@ -10,6 +10,9 @@ import Footer from "./components/misc/Footer";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/registerScreen";
 import ProfileScreen from "./screens/profileScreen";
+import PasswordReset from "./screens/PasswordReset";
+import About from "./screens/About";
+import Default from "./screens/Default";
 
 function BanixApp() {
   return (
@@ -17,12 +20,17 @@ function BanixApp() {
       <Header />
       <main>
         <Container className="content my-2">
-          <Route path="/login" component={LoginScreen} exact />
-          <Route path="/register" component={RegisterScreen} exact />
-          <Route path="/profile" component={ProfileScreen} exact />
-          <Route path="/product/:id" component={ProductScreen} />
-          <Route path="/cart/:id?" component={CartScreen} />
-          <Route path="/" component={HomeScreen} exact />
+          <Switch>
+            <Route path="/login" component={LoginScreen} exact />
+            <Route path="/register" component={RegisterScreen} exact />
+            <Route path="/profile" component={ProfileScreen} exact />
+            <Route path="/product/:id" component={ProductScreen} />
+            <Route path="/cart/:id?" component={CartScreen} />
+            <Route path="/password-reset" component={PasswordReset} />
+            <Route path="/about" component={About} />
+            <Route path="/" component={HomeScreen} exact />
+            <Route component={Default} />
+          </Switch>
         </Container>
       </main>
       <Footer />
