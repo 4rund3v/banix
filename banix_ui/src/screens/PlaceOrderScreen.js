@@ -10,9 +10,15 @@ const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
   console.log("[PlaceOrderScreen] The cart object is : ", cart);
   const { shippingAddress } = cart;
-  let itemsPrice = 8000;
-  let shippingPrice = 300;
-  let totalPrice = 8300;
+  let itemsPrice = cart.cartItems.reduce(
+    (acc, cartItem) =>
+      acc + Number(cartItem.productPrice) * Number(cartItem.qty),
+    0
+  );
+  let shippingPrice = Number(0.17 * itemsPrice).toFixed(2);
+  let totalPrice = Number(Number(itemsPrice) + Number(shippingPrice)).toFixed(
+    2
+  );
   const placeOrderHandler = () => {};
   return (
     <>
