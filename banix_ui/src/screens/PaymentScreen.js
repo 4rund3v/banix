@@ -46,10 +46,10 @@ const PaymentScreen = ({ history }) => {
             ></Form.Check>
             <Form.Check
               type="radio"
-              label="Net Banking"
+              label="Internet-Banking"
               id="netBanking"
               name="paymentMethod"
-              value="netBanking"
+              value="Internet-Banking"
               onChange={(e) => {
                 setPaymentMethod(e.target.value);
               }}

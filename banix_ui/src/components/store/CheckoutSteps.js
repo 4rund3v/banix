@@ -7,7 +7,7 @@ const CheckoutSteps = ({
   loginStep,
   shippingStep,
   paymentStep,
-  placeOrder,
+  placeOrderStep,
 }) => {
   return (
     <Nav className="justify-content-center mb-4">
@@ -39,7 +39,7 @@ const CheckoutSteps = ({
         )}
       </Nav.Item>
       <Nav.Item>
-        {placeOrder ? (
+        {placeOrderStep ? (
           <LinkContainer to="/place-order">
             <Nav.Link>Place Order</Nav.Link>
           </LinkContainer>
