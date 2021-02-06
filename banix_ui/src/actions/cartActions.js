@@ -3,6 +3,7 @@ import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
   CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_PAYMENT_METHOD,
 } from "../constants/cartConstants";
 import { PRODUCT_SPECIFIC_URL } from "../config";
 import { Product } from "../schema/products";
@@ -38,4 +39,12 @@ export const saveShippingAddress = (shippingData) => (dispatch) => {
     payload: shippingData,
   });
   localStorage.setItem("shippingAddress", JSON.stringify(shippingData));
+};
+
+export const savePaymentMethod = (paymentMethod) => (dispatch) => {
+  dispatch({
+    type: CART_SAVE_PAYMENT_METHOD,
+    payload: paymentMethod,
+  });
+  localStorage.setItem("paymentMethod", JSON.stringify(paymentMethod));
 };
