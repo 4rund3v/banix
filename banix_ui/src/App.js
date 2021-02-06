@@ -13,6 +13,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import PasswordReset from "./screens/PasswordReset";
 import About from "./screens/About";
 import Default from "./screens/Default";
+import ShippingScreen from "./screens/ShippingScreen";
 
 function BanixApp() {
   return (
@@ -26,6 +27,7 @@ function BanixApp() {
             <Route path="/profile" component={ProfileScreen} exact />
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/cart/:id?" component={CartScreen} />
+            <Route path="/shipping" component={ShippingScreen} />
             <Route path="/password-reset" component={PasswordReset} />
             <Route path="/about" component={About} />
             <Route path="/" component={HomeScreen} exact />
