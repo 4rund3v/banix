@@ -43,12 +43,13 @@ const ProductScreen = ({ history, match }) => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
   const buyNowHander = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`);
+    history.push("/login?redirect=shipping");
   };
   const pinCode = null;
 
   const colorVariants = ["red", "blue", "white-green"];
   const lengthVariants = ["5 meter", "10 meter", "15 meter", "20 meter"];
+  const productSpeicifications = {};
   console.log("product info recieved is ::", product);
   return (
     <>
@@ -70,97 +71,7 @@ const ProductScreen = ({ history, match }) => {
                   fluid
                 ></Image>
               </Col>
-              {/* <Col md={3}>
-            <ListGroup variant="flush">
-              <ListGroup.Item>
-                <h2>{product.productName}</h2>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Rating
-                  ratingValue={product.productRating}
-                  ratingText={`${product.productTotalReviews} reviews`}
-                />
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <strong>Price: &#8377; {product.productPrice}</strong>
-              </ListGroup.Item>
 
-              <ListGroup.Item>
-                Check Delivery
-                <Row>
-                  <InputGroup>
-                    <Form.Control type="input" placeholder="Enter PinCode" />
-                    <InputGroup.Append>
-                      <Button type="submit" variant="outline-primary">
-                        Check{" "}
-                        <FontAwesomeIcon
-                          icon="map-marker-alt"
-                          aria-hidden="true"
-                        />
-                      </Button>
-                    </InputGroup.Append>
-                  </InputGroup>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Description: {product.productDescription}
-              </ListGroup.Item>
-            </ListGroup>
-          </Col>
-          <Col md={3}> 
-            <Card>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <Row>
-                    <Col> Price:</Col>
-                    <Col>
-                      <strong>&#8377; {product.productPrice}</strong>
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col> Status:</Col>
-                    <Col>
-                      {product.productStock > 0 ? " In Stock" : "Out of Stock"}
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
-                {product.productStock > 0 && (
-                  <ListGroup.Item>
-                    <Row>
-                      <Col> Qty :</Col>
-                      <Col>
-                        <Form.Control
-                          as="select"
-                          value={qty}
-                          onChange={(e) => setQty(e.target.value)}
-                        >
-                          {[...Array(product.productStock).keys()]
-                            .slice(0, 10)
-                            .map((x) => (
-                              <option key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            ))}
-                        </Form.Control>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                )}
-                <ListGroup.Item>
-                  <Button
-                    onClick={addToCartHandler}
-                    className="btn-block"
-                    type="button"
-                    disabled={product.productStock === 0}
-                  >
-                    {" Add to cart"}
-                  </Button>
-                </ListGroup.Item>
-              </ListGroup>
-            </Card>
-          </Col>*/}
               <Col>
                 <span className="product__name">{product.productName}</span>
                 <div className="product__rating">
@@ -226,8 +137,8 @@ const ProductScreen = ({ history, match }) => {
                     </FormGroup>
                   </Form>
                 </div>
-                <div></div>
-                <div className="product__info__purchase_options">
+
+                <div className="product__info__purchase_options py-5">
                   <Button
                     onClick={addToCartHandler}
                     className="btn-block"
@@ -249,6 +160,8 @@ const ProductScreen = ({ history, match }) => {
                 </div>
               </Col>
             </Row>
+            <Card variant="flush"></Card>
+
             {/* <Row>
             <ProductTabs></ProductTabs>
           </Row>
