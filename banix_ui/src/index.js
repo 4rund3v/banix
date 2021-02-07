@@ -4,7 +4,7 @@ import BanixApp from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import "./css/index.css";
+import "./scss/style.scss";
 import { Provider } from "react-redux";
 import store from "./store";
 ReactDOM.render(

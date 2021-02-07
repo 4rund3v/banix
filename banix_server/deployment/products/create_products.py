@@ -16,7 +16,7 @@ def create_default_products():
     if product_details.get("products"):
         for product in product_details["products"]:
             info = Product(**product)
-            print(f"Product info prepared is :: {info}")
+            print(f"[create_default_products] Product info prepared is :: {info}")
             session.add(info)
     session.commit()
 

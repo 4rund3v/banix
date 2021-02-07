@@ -18,7 +18,7 @@ def create_default_users():
         for user in user_details["users"]:
             info = User(**user)
             info.public_id = str(uuid.uuid4())
-            print(f"User info prepared is :: {info}")
+            print(f"[create_default_users] User info prepared is :: {info}")
             session.add(info)
     session.commit()
 

@@ -18,6 +18,8 @@ import {
   faAngleLeft,
   faAngleRight,
   faPaperPlane,
+  faMapMarker,
+  faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -58,5 +60,7 @@ library.add(
   faPaperPlane,
   faTwitter,
   faYoutube,
-  faInstagram
+  faInstagram,
+  faMapMarker,
+  faMapMarkerAlt
 );

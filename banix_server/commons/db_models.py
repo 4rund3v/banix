@@ -73,7 +73,7 @@ class Product(Base):
         return dict(_id= str(self._id),
                     name=self.name,
                     image=self.image,
-                    descirption=self.description,
+                    description=self.description,
                     brand=self.brand,
                     category=self.category,
                     rating=self.rating,
@@ -81,8 +81,3 @@ class Product(Base):
                     price=self.price,
                     stock=self.stock
                     )
-
-
-
-
-

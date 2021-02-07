@@ -24,7 +24,9 @@ function Rating({ ratingValue, ratingText, ratingColor }) {
       {getRatingStar(ratingValue, ratingColor).map((ratingStar, index) => (
         <span key={index}>{ratingStar}</span>
       ))}
-      <span>{ratingText && ratingText}</span>
+      <span className="rating__text">
+        {"   "} {ratingText && ratingText}
+      </span>
     </div>
   );
 }

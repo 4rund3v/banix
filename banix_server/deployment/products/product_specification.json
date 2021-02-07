@@ -1,0 +1,41 @@
+{"product_specifications":[
+  {
+    "product_id": "005",
+    "length": 200,
+    "width":2,
+    "voltage": 1.2,
+    "height": 2,
+    "material": "Plastic, LED",
+    "battery_voltage": 18,
+    "battery_type": "Li-Ion",
+    "operation_time": 3,
+    "weight": 2,
+    "specification": "Add colors to your room with this 5 meter long RGB strip light. You can control this strip through our Vithamas Smart Home app which is available for both android and IOS mobiles. You can chose among 16 Millions of RGB color combinations and set the brightness between 20 percent to 100 percent smoothly. Control your LED strip with voice control in nine different languages English, Hindi, Kannada, Telugu, Tamil, Bengali, Marathi and Malayalam languages support and the commands supported with a particular language selected"
+  },
+  {
+    "product_id": "001",
+    "length": 200,
+    "width":2,
+    "voltage": 1.2,
+    "height": 2,
+    "material": "Plastic, LED",
+    "battery_voltage": 18,
+    "battery_type": "Li-Ion",
+    "operation_time": 3,
+    "weight": 2,
+    "specification": "Add colors to your room with this 5 meter long RGB strip light. You can control this strip through our Vithamas Smart Home app which is available for both android and IOS mobiles. You can chose among 16 Millions of RGB color combinations and set the brightness between 20 percent to 100 percent smoothly. Control your LED strip with voice control in nine different languages English, Hindi, Kannada, Telugu, Tamil, Bengali, Marathi and Malayalam languages support and the commands supported with a particular language selected"
+  },
+  {
+    "product_id": "002",
+    "length": 200,
+    "width":2,
+    "voltage": 1.2,
+    "height": 2,
+    "material": "Plastic, LED",
+    "battery_voltage": 18,
+    "battery_type": "Li-Ion",
+    "operation_time": 3,
+    "weight": 2,
+    "specification": "Add colors to your room with this 5 meter long RGB strip light. You can control this strip through our Vithamas Smart Home app which is available for both android and IOS mobiles. You can chose among 16 Millions of RGB color combinations and set the brightness between 20 percent to 100 percent smoothly. Control your LED strip with voice control in nine different languages English, Hindi, Kannada, Telugu, Tamil, Bengali, Marathi and Malayalam languages support and the commands supported with a particular language selected"
+  },
+  ]}
