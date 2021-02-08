@@ -2,8 +2,8 @@ import React from "react";
 
 const ProductDescriptionTab = ({ product }) => {
   return (
-    <div className="py-3">
-      <p>About this item</p>
+    <div className="typography">
+      <h3>About this item</h3>
       <ul>
         <li>Vithamas app based Smart Control</li>
         <li>
@@ -11,8 +11,8 @@ const ProductDescriptionTab = ({ product }) => {
         </li>
         <li>Mode features Wireless mesh network</li>
       </ul>
-      <p> Product Description : </p>
-      {product.productDescription}
+      <h3> Product Description : </h3>
+      <p>{product.productDescription}</p>
     </div>
   );
 };

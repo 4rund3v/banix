@@ -161,29 +161,44 @@ const ProductScreen = ({ history, match }) => {
               </Col>
             </Row>
             <Card variant="flush"></Card>
-
-            {/* <Row>
+          </Container>
+          {/* <Row>
             <ProductTabs></ProductTabs>
           </Row>
           <Row>
           <BlockProductsCarousel title="Related Products" layout="grid-4-sm" products={products} withSidebar />
           </Row> */}
-            <Row className="justify-content-md-center">
-              <Col>
-                <Tabs defaultActiveKey="description">
-                  <Tab eventKey="description" title="Description">
-                    <ProductDescriptionTab product={product} />
-                  </Tab>
-                  <Tab eventKey="speification" title="Specification">
-                    <ProductSpecificationTab product={product} />
-                  </Tab>
-                  <Tab eventKey="reviews" title="Reviews">
-                    <ProductReviewTab product={product} />
-                  </Tab>
-                </Tabs>
-              </Col>
-            </Row>
-          </Container>
+          <div className="product-tabs">
+            <Tabs defaultActiveKey="description">
+              <Tab
+                className="product-tabs__item"
+                eventKey="description"
+                title="Description"
+              >
+                <div className="product-tabs__content">
+                  <ProductDescriptionTab product={product} />
+                </div>
+              </Tab>
+              <Tab
+                className="product-tabs__item"
+                eventKey="speification"
+                title="Specification"
+              >
+                <div className="product-tabs__content">
+                  <ProductSpecificationTab product={product} />
+                </div>
+              </Tab>
+              <Tab
+                className="product-tabs__item"
+                eventKey="reviews"
+                title="Reviews"
+              >
+                <div className="product-tabs__content">
+                  <ProductReviewTab product={product} />
+                </div>
+              </Tab>
+            </Tabs>
+          </div>
         </div>
       )}
     </>
