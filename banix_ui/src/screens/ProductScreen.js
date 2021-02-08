@@ -52,33 +52,34 @@ const ProductScreen = ({ history, match }) => {
   const colorVariants = ["red", "blue", "white-green"];
   const lengthVariants = ["5 meter", "10 meter", "15 meter", "20 meter"];
   const productSpeicifications = {};
+  const checkDeliveryHandler = () => {};
   const productDisplayImages = [
     {
       image_url:
-        "http://localhost:7700/images/details/products/005/item_005_1.jpg",
+        "http://localhost:8086/images/details/products/005/item_005_1.jpg",
       thumbnail_url:
-        "http://localhost:7700/images/details/products/005/item_005_1.jpg",
+        "http://localhost:8086/images/details/products/005/item_005_1.jpg",
       text: "Product Image Info",
     },
     {
       image_url:
-        "http://localhost:7700/images/details/products/005/item_005_2.jpg",
+        "http://localhost:8086/images/details/products/005/item_005_2.jpg",
       thumbnail_url:
-        "http://localhost:7700/images/details/products/005/item_005_2.jpg",
+        "http://localhost:8086/images/details/products/005/item_005_2.jpg",
       text: "Product Image Info",
     },
     {
       image_url:
-        "http://localhost:7700/images/details/products/005/item_005_3.jpg",
+        "http://localhost:8086/images/details/products/005/item_005_3.jpg",
       thumbnail_url:
-        "http://localhost:7700/images/details/products/005/item_005_3.jpg",
+        "http://localhost:8086/images/details/products/005/item_005_3.jpg",
       text: "Product Image Info",
     },
     {
       image_url:
-        "http://localhost:7700/images/details/products/005/item_005_4.jpg",
+        "http://localhost:8086/images/details/products/005/item_005_4.jpg",
       thumbnail_url:
-        "http://localhost:7700/images/details/products/005/item_005_4.jpg",
+        "http://localhost:8086/images/details/products/005/item_005_4.jpg",
       text: "Product Image Info",
     },
   ];
@@ -181,6 +182,17 @@ const ProductScreen = ({ history, match }) => {
                         ))}
                     </FormGroup>
                   </Form>
+                  <InputGroup>
+                    <Form.Control type="text" placeholder="Delivery PinCode" />
+                    <InputGroup.Append>
+                      <Button
+                        className="btn btn-secondary"
+                        onClick={checkDeliveryHandler}
+                      >
+                        Check!
+                      </Button>
+                    </InputGroup.Append>
+                  </InputGroup>
                 </div>
 
                 <div className="product__info__purchase_options py-5">

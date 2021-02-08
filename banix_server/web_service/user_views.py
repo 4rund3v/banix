@@ -128,8 +128,3 @@ def update_user_profile(current_user_info):
             session.close()
     user_info = session.query(User).filter(User._id == current_user_info['_id']).first()
     return {"user_info": user_info.as_dict()}
-
-
-
-
-
