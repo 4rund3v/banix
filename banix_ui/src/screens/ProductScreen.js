@@ -13,10 +13,12 @@ import {
   FormGroup,
   Container,
   Tabs,
+  Carousel,
+  CarouselItem,
   Tab,
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import ProductImageGallery from "../components/store/ProductImageGallery";
 import Rating from "../components/store/Rating";
 import { getProductDetails } from "../actions/productActions";
 import { IMAGE_URL } from "../config";
@@ -50,6 +52,36 @@ const ProductScreen = ({ history, match }) => {
   const colorVariants = ["red", "blue", "white-green"];
   const lengthVariants = ["5 meter", "10 meter", "15 meter", "20 meter"];
   const productSpeicifications = {};
+  const productDisplayImages = [
+    {
+      image_url:
+        "http://localhost:7700/images/details/products/005/item_005_1.jpg",
+      thumbnail_url:
+        "http://localhost:7700/images/details/products/005/item_005_1.jpg",
+      text: "Product Image Info",
+    },
+    {
+      image_url:
+        "http://localhost:7700/images/details/products/005/item_005_2.jpg",
+      thumbnail_url:
+        "http://localhost:7700/images/details/products/005/item_005_2.jpg",
+      text: "Product Image Info",
+    },
+    {
+      image_url:
+        "http://localhost:7700/images/details/products/005/item_005_3.jpg",
+      thumbnail_url:
+        "http://localhost:7700/images/details/products/005/item_005_3.jpg",
+      text: "Product Image Info",
+    },
+    {
+      image_url:
+        "http://localhost:7700/images/details/products/005/item_005_4.jpg",
+      thumbnail_url:
+        "http://localhost:7700/images/details/products/005/item_005_4.jpg",
+      text: "Product Image Info",
+    },
+  ];
   console.log("product info recieved is ::", product);
   return (
     <>
@@ -65,11 +97,24 @@ const ProductScreen = ({ history, match }) => {
           <Container>
             <Row>
               <Col md={6}>
-                <Image
+                {/* <Image
                   src={`/images/details${product.productImage}`}
                   alt={product.productName}
                   fluid
-                ></Image>
+                ></Image> */}
+                <Carousel>
+                  {productDisplayImages.map((productImage, index) => (
+                    <CarouselItem key={index}>
+                      <img
+                        className="d-block w-100"
+                        src={productImage.image_url}
+                        alt={productImage.text}
+                        fluid
+                      />
+                    </CarouselItem>
+                  ))}
+                </Carousel>
+                {/* <ProductImageGallery productImageList={productDisplayImages} /> */}
               </Col>
 
               <Col>
@@ -103,7 +148,7 @@ const ProductScreen = ({ history, match }) => {
                   <li className="product__meta-brand px-2">SKU: 83690/32</li>
                 </ul>
                 <div className="product__info">
-                  <div className="product__price">{product.productPrice}</div>
+                  <div className="product__prices">{product.productPrice}</div>
                   <h3>Color</h3>
                   <Form className="product__options">
                     <FormGroup>
