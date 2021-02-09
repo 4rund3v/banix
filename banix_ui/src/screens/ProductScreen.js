@@ -16,6 +16,7 @@ import {
   Carousel,
   CarouselItem,
   Tab,
+  FormControl,
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductImageGallery from "../components/store/ProductImageGallery";
@@ -28,6 +29,7 @@ import { Product } from "../schema/products";
 import ProductDescriptionTab from "../components/store/ProductDescriptionTab";
 import ProductSpecificationTab from "../components/store/ProductSpecificationTab";
 import ProductReviewTab from "../components/store/ProductReviewTab";
+import axios from "axios";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -47,42 +49,56 @@ const ProductScreen = ({ history, match }) => {
   const buyNowHander = () => {
     history.push("/login?redirect=shipping");
   };
-  const pinCode = null;
+  const [pinCode, setPinCode] = useState("");
 
   const colorVariants = ["red", "blue", "white-green"];
   const lengthVariants = ["5 meter", "10 meter", "15 meter", "20 meter"];
+  const [deliveryInfo, setDeliveryInfo] = useState({});
+
   const productSpeicifications = {};
-  const checkDeliveryHandler = () => {};
+
+  const checkDeliveryHandler = () => {
+    console.log("Check delivery invoked !!", pinCode);
+    const url = `/api/serviceability?pin_code=${pinCode}`;
+    console.log("invoking URL", url);
+    axios
+      .get(url)
+      .then(({ data }) => {
+        console.log("data recivied from backend is ::: ", data);
+        if (data) {
+          setDeliveryInfo({
+            deliveryDays: data.estimated_delivery_days,
+            rate: data.rate,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("Unable to fetch the delivery information", error);
+      });
+  };
   const productDisplayImages = [
     {
-      image_url:
-        "http://localhost:8086/images/details/products/005/item_005_1.jpg",
-      thumbnail_url:
-        "http://localhost:8086/images/details/products/005/item_005_1.jpg",
+      image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_1.jpg`,
+      thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_1.jpg`,
       text: "Product Image Info",
     },
     {
-      image_url:
-        "http://localhost:8086/images/details/products/005/item_005_2.jpg",
-      thumbnail_url:
-        "http://localhost:8086/images/details/products/005/item_005_2.jpg",
+      image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_2.jpg`,
+      thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_2.jpg`,
       text: "Product Image Info",
     },
     {
-      image_url:
-        "http://localhost:8086/images/details/products/005/item_005_3.jpg",
-      thumbnail_url:
-        "http://localhost:8086/images/details/products/005/item_005_3.jpg",
+      image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_3.jpg`,
+      thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_3.jpg`,
       text: "Product Image Info",
     },
     {
-      image_url:
-        "http://localhost:8086/images/details/products/005/item_005_4.jpg",
-      thumbnail_url:
-        "http://localhost:8086/images/details/products/005/item_005_4.jpg",
+      image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_4.jpg`,
+      thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_4.jpg`,
       text: "Product Image Info",
     },
   ];
+
   console.log("product info recieved is ::", product);
   return (
     <>
@@ -92,17 +108,12 @@ const ProductScreen = ({ history, match }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger"> {error}</Message>
+        <Message variant="danger">{error}</Message>
       ) : (
         <div classname="product__page">
           <Container>
             <Row>
               <Col md={6}>
-                {/* <Image
-                  src={`/images/details${product.productImage}`}
-                  alt={product.productName}
-                  fluid
-                ></Image> */}
                 <Carousel>
                   {productDisplayImages.map((productImage, index) => (
                     <CarouselItem key={index}>
@@ -115,7 +126,6 @@ const ProductScreen = ({ history, match }) => {
                     </CarouselItem>
                   ))}
                 </Carousel>
-                {/* <ProductImageGallery productImageList={productDisplayImages} /> */}
               </Col>
 
               <Col>
@@ -128,11 +138,7 @@ const ProductScreen = ({ history, match }) => {
                     />
                   </div>
                 </div>
-                <div className="product__description">
-                  {product.productDescription &&
-                    product.productDescription.substring(0, 200)}
-                  <Link to="#">{"... more"}</Link>
-                </div>
+
                 <ul className="product__meta text-muted">
                   <li className="product__meta-availability px-2">
                     {"Availability : "}
@@ -142,16 +148,31 @@ const ProductScreen = ({ history, match }) => {
                       <span className="text-danger">Out Of Stock</span>
                     )}
                   </li>
-                  <li className="product__meta-brand px-2">
-                    Brand:
-                    <Link to="/">Banix</Link>
-                  </li>
-                  <li className="product__meta-brand px-2">SKU: 83690/32</li>
                 </ul>
                 <div className="product__info">
-                  <div className="product__prices">{product.productPrice}</div>
-                  <h3>Color</h3>
-                  <Form className="product__options">
+                  <div className="product__prices">
+                    {product.productSellingPrice < product.productPrice ? (
+                      <span>
+                        <span className="text-secondary">Price:</span>{" "}
+                        <span className="text-danger">
+                          &#8377;
+                          {product.productSellingPrice}
+                        </span>
+                        {"  "}
+                        <del className="text-muted">
+                          &#8377;
+                          {product.productPrice}
+                        </del>
+                      </span>
+                    ) : (
+                      <span>
+                        &#8377;
+                        {product.productPrice}
+                      </span>
+                    )}
+                  </div>
+                  {/* <Form className="product__variants">
+                    <h3>Color</h3>
                     <FormGroup>
                       {colorVariants &&
                         colorVariants.map((color, index) => (
@@ -181,9 +202,16 @@ const ProductScreen = ({ history, match }) => {
                           </Form.Label>
                         ))}
                     </FormGroup>
-                  </Form>
+                  </Form> */}
                   <InputGroup>
-                    <Form.Control type="text" placeholder="Delivery PinCode" />
+                    <FormControl
+                      id="zip"
+                      type="text"
+                      pattern="[0-9]{6}"
+                      placeholder="Delivery PinCode"
+                      value={pinCode}
+                      onChange={(e) => setPinCode(e.target.value)}
+                    />
                     <InputGroup.Append>
                       <Button
                         className="btn btn-secondary"
@@ -193,9 +221,24 @@ const ProductScreen = ({ history, match }) => {
                       </Button>
                     </InputGroup.Append>
                   </InputGroup>
+                  {deliveryInfo &&
+                    deliveryInfo.deliveryDays &&
+                    (deliveryInfo.deliveryDays === -1 ? (
+                      <div className="product__delivery_info">
+                        <span className="text-danger">
+                          Cannot deliver to location
+                        </span>{" "}
+                      </div>
+                    ) : (
+                      <div className="product__delivery_info">
+                        <span className="text-dark">
+                          Delivery in {deliveryInfo.deliveryDays} Days
+                        </span>{" "}
+                        |<span>+ &#8377; {deliveryInfo.rate}</span>
+                      </div>
+                    ))}
                 </div>
-
-                <div className="product__info__purchase_options py-5">
+                <div className="product__info__purchase_options py-2">
                   <Button
                     onClick={addToCartHandler}
                     className="btn-block"
@@ -207,7 +250,7 @@ const ProductScreen = ({ history, match }) => {
                   </Button>
                   <Button
                     onClick={buyNowHander}
-                    className="btn-block "
+                    className="btn-block"
                     type="button"
                     variant="success"
                     disabled={product.productStock === 0}

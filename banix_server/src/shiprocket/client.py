@@ -40,15 +40,18 @@ class ShiprocketClient():
             query_data = json.dumps({"weight": 2, "cod": 0, "pickup_postcode": src_pin_code, "delivery_postcode": dst_pin_code })
             print(f"Data prepared is : {query_data}")
             resp = self.active_session.get(shiprocket_consts.COURIER_SERVICEABILITY_URL, data=query_data)
-            print(f"Response Prepared is : {resp}")
             resp.raise_for_status()
-            print(f"[ShiprocketClient][check_serviceability] The serviceablity response is :: {resp.json()}")
-            resp_data = resp.json()
-            recommended_option = resp_data["data"]["available_courier_companies"][0]
-            serviceablity["estimated_delivery_days"] =recommended_option["estimated_delivery_days"]
-            serviceablity["courier_name"] = recommended_option["courier_name"]
-            serviceablity["courier_company_id"] = recommended_option["courier_company_id"]
-            serviceablity["rate"] = recommended_option["rate"]
+            if resp.status_code == 404:
+                serviceablity["estimated_delivery_days"] = -1
+            else:
+                resp_data = resp.json()
+                print(f"[ShiprocketClient][check_serviceability] The serviceablity response is :: {resp_data}")
+                recommended_option = resp_data["data"]["available_courier_companies"][0]
+                serviceablity["estimated_delivery_days"] =recommended_option["estimated_delivery_days"]
+                serviceablity["courier_name"] = recommended_option["courier_name"]
+                serviceablity["courier_company_id"] = recommended_option["courier_company_id"]
+                serviceablity["rate"] = recommended_option["rate"]
+                print(f"[ShiprocketClient][check_serviceability] The serviceability info prepared is : {serviceablity}")
         except Exception as ex:
             print(f"[ShiprocketClient][check_serviceability] Unable to fetch the serviceablity : {ex}")
         return serviceablity

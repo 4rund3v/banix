@@ -4,6 +4,7 @@ export class Product {
     this.productName = rawProduct.name;
     this.productDescription = rawProduct.description;
     this.productPrice = rawProduct.price;
+    this.productSellingPrice = rawProduct.price - 30;
     this.productRating = rawProduct.rating;
     this.productTotalReviews = rawProduct.total_reviews;
     this.productStock = rawProduct.stock;
