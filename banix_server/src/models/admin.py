@@ -10,7 +10,7 @@ class Admin(Base):
     name = Column(String(30))
     email_id = Column(String(50))
     password = Column(String(200))
-    role_details = relationship("Role", back_populates="admin", cascade="all, delete, delete-orphan")
+    role = relationship("Role", back_populates="admin", cascade="all, delete, delete-orphan")
 
     def __repr__(self):
         return f"""<Admin(name={self.name}) email_id={self.email_id}>"""
@@ -19,4 +19,4 @@ class Admin(Base):
         return dict(admin_id=self.admin_id,
                     name=self.name,
                     email_id=self.email_id,
-                    role_details=self.role_details.role_name)
+                    role_details=self.role.role_name)

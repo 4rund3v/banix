@@ -10,8 +10,8 @@ class Vendor(Base):
     vendor_name = Column(String)
     email_id = Column(String)
     primary_mobile_number = Column(Integer)
-    role_details = relationship("Role", back_populates="vendors", cascade="all, delete, delete-orphan")
-    product_details = relationship("Product", back_populates="vendors", cascade="all, delete, delete-orphan")
+    role = relationship("Role", back_populates="vendors", cascade="all, delete, delete-orphan")
+    # products = relationship("Product", back_populates="vendors", cascade="all, delete, delete-orphan")
 
     def __repr__(self):
         return "<Vendor(vendor_name={})>".format(self.vendor_name)

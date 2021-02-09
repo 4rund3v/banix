@@ -2,17 +2,18 @@ from src.models import Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
+
 class Customer(Base):
 
     __tablename__ = "customers"
 
     customer_id = Column(Integer, primary_key=True, autoincrement=True)
     display_name = Column(String)
-    username =  Column(String)
+    username = Column(String)
     email_id = Column(String)
     password = Column(String)
-    role_details = relationship("Role", back_populates="customers", cascade="all, delete, delete-orphan")
-    cart_details = relationship("Cart", back_populates="customers", cascade="all, delete, delete-orphan")
+    role = relationship("Role", back_populates="customers", uselist=False, cascade="all, delete, delete-orphan")
+    # cart_details = relationship("Cart", back_populates="customers", cascade="all, delete, delete-orphan")
     public_id = Column(String)
     primary_mobile_number = Column(Integer)
 
@@ -20,13 +21,13 @@ class Customer(Base):
         return "<Customer(name={})>".format(self.username)
 
     def as_dict(self):
-        return dict( customer_id=str(self.customer_id),
+        return dict(customer_id=str(self.customer_id),
                     display_name=str(self.display_name),
                     username=str(self.username),
                     email_id=str(self.email_id),
                     public_id=str(self.public_id),
                     primary_mobile_number=self.primary_mobile_number,
-                    role_details=self.role_details.role_name,
+                    role=self.role.role_name,
                     )
 
 

@@ -5,10 +5,11 @@ import sys
 import uuid
 import jwt
 from datetime import datetime, timedelta
+
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
 
-from src.models import Customer
+from src.models import Customer, Role
 from src.db_utils import Session, engine
 
 auth_blueprint = Blueprint("auth", __name__)
@@ -23,12 +24,13 @@ def authenticate_customer_login():
     result = {"customer_info": {}}
     try:
         session = Session()
-        customer =  session.query(Customer).filter(Customer.email_id == form_data["email_id"]).filter(Customer.password == form_data["password"]).first()
+        customer = session.query(Customer).filter(Customer.email_id == form_data["email_id"]).filter(
+            Customer.password == form_data["password"]).first()
         if customer:
             result["customer_info"] = customer.as_dict()
             token = jwt.encode({'public_id': customer.public_id,
-                                'exp' : datetime.utcnow() + timedelta(minutes = 300)},
-                                "banix")
+                                'exp': datetime.utcnow() + timedelta(minutes=300)},
+                               "banix")
             result["token"] = token.decode("UTF-8")
         print(f"[authenticate_customer_login] The result prepared is :: {result}")
         return result
@@ -40,29 +42,38 @@ def authenticate_customer_login():
     abort(make_response(jsonify(message="Invalid details provided."), 401))
 
 
-@auth_blueprint.route("/customer/register", methods=["POST"])
+@auth_blueprint.route("/register", methods=["POST"])
 def register_customer():
     session = None
-    print("[register_customer ]In the creation of the Customer")
     form_data = request.get_json()
+    print(f"[register_customer ]In the creation of the Customer : {form_data}")
     try:
         session = Session()
-        existing_customer = session.query(Customer).filter(Customer.email_id==form_data["email_id"]).first()
+        existing_customer = session.query(Customer).filter(Customer.email_id == form_data["email_id"]).first()
         if existing_customer:
-            return jsonify({ 'message' : 'Customer with the same email id already exists !!' }), 401
-        new_customer_info = Customer(**form_data)
+            return jsonify({'message': 'Customer with the same email id already exists !!'}), 401
+        new_customer_info = Customer(display_name=form_data["display_name"],
+                                     username=form_data["display_name"],
+                                     email_id=form_data["email_id"],
+                                     password=form_data["password"])
+        print(new_customer_info)
+        print("Linking Role: ")
+        customer_role = Role(customers=new_customer_info,
+                             role_name="customer")
+        print(customer_role)
         new_customer_info.public_id = str(uuid.uuid4())
         if not new_customer_info.display_name:
-            new_customer_info.display_name =  new_customer_info.email_id.split("@")[0]
+            new_customer_info.display_name = new_customer_info.email_id.split("@")[0]
         print(f"[register_customer] Customer info prepared is :: {new_customer_info}")
-        resp = session.add(new_customer_info)
-        print(f"[register_customer] Customer added to database response  is :: {resp}")
+        session.add(customer_role)
+        session.add(new_customer_info)
+        print(f"[register_customer] Customer added to database response  is :: {new_customer_info}")
         session.commit()
         result = {"customer_info": new_customer_info.as_dict()}
         print(f"[register_customer] The result prepared is :: {result}")
         token = jwt.encode({'public_id': new_customer_info.public_id,
-                            'exp' : datetime.utcnow() + timedelta(minutes = 300)
-        }, "banix")
+                            'exp': datetime.utcnow() + timedelta(minutes=300)
+                            }, "banix")
         result["token"] = token.decode("UTF-8")
         return result
     except Exception as ex:
