@@ -28,12 +28,12 @@ export const login = (email, password) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    console.log("Logging in the user with the data ", USER_LOGIN_URL, {
+    console.log("Logging in the customer with the data ", USER_LOGIN_URL, {
       email,
       password,
     });
     const { data } = await axios.post(
-      USER_LOGIN_URL,
+      `${process.env.REACT_APP_API_SERVER_URL}${USER_LOGIN_URL}`,
       { email_id: email, password },
       config
     );
@@ -83,13 +83,13 @@ export const register = (name, email, password) => async (dispatch) => {
       password,
     });
     const { data } = await axios.post(
-      USER_REGISTER_URL,
+      `${process.env.REACT_APP_API_SERVER_URL}${USER_REGISTER_URL}`,
       { display_name: name, email_id: email, password },
       config
     );
     // just to make sure that the empty {} is not saved as user info
     if (!data.user_info) {
-      throw "No user information recieved.";
+      throw "No customer information recieved.";
     }
 
     dispatch({
@@ -131,7 +131,10 @@ export const getUserDetails = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(USER_PROFILE_URL, config);
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API_SERVER_URL}${USER_PROFILE_URL}`,
+      config
+    );
     // just to make sure that the empty {} is not saved as user info
     if (!data.user_info) {
       throw "No user information recieved.";
@@ -170,7 +173,11 @@ export const updateUserDetails = (user) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(USER_PROFILE_URL, user, config);
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_API_SERVER_URL}${USER_PROFILE_URL}`,
+      user,
+      config
+    );
     // just to make sure that the empty {} is not saved as user info
     if (!data.user_info) {
       throw "No user information recieved.";

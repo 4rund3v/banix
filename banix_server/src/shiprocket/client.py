@@ -16,6 +16,9 @@ class ShiprocketClient():
         pass
 
     def connect(self):
+        """
+         Creates an connection to the shiprocket server
+        """
         try:
             _session = session()
             _session.headers.update({'Content-Type': 'application/json'})
@@ -32,13 +35,16 @@ class ShiprocketClient():
         return False
 
     def check_serviceability(self, src_pin_code, dst_pin_code):
+        """
+         Check the serviceablity of the courier to the given pin code.
+        """
         serviceablity = {
         "estimated_delivery_days": -1
         }
         try:
             self.active_session.headers.update({'Content-Type': 'application/json'})
             query_data = json.dumps({"weight": 2, "cod": 0, "pickup_postcode": src_pin_code, "delivery_postcode": dst_pin_code })
-            print(f"Data prepared is : {query_data}")
+            print(f"[ShiprocketClient][check_serviceability] Data prepared is : {query_data}")
             resp = self.active_session.get(shiprocket_consts.COURIER_SERVICEABILITY_URL, data=query_data)
             resp.raise_for_status()
             if resp.status_code == 404:
@@ -47,7 +53,7 @@ class ShiprocketClient():
                 resp_data = resp.json()
                 print(f"[ShiprocketClient][check_serviceability] The serviceablity response is :: {resp_data}")
                 recommended_option = resp_data["data"]["available_courier_companies"][0]
-                serviceablity["estimated_delivery_days"] =recommended_option["estimated_delivery_days"]
+                serviceablity["estimated_delivery_days"] = recommended_option["estimated_delivery_days"]
                 serviceablity["courier_name"] = recommended_option["courier_name"]
                 serviceablity["courier_company_id"] = recommended_option["courier_company_id"]
                 serviceablity["rate"] = recommended_option["rate"]

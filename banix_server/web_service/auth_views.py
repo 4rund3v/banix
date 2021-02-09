@@ -8,68 +8,65 @@ from datetime import datetime, timedelta
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
 
-from commons.db_models import User
-from commons.utils import Session, engine
+from src.models import Customer
+from src.db_utils import Session, engine
 
 auth_blueprint = Blueprint("auth", __name__)
 
 
-
-@auth_blueprint.route("/api/login", methods=["POST"])
-@auth_blueprint.route("/login", methods=["POST"])
-def authenticate_user_login():
-    print("At the user login place")
+@auth_blueprint.route("/customer/login", methods=["POST"])
+def authenticate_customer_login():
+    print("[authenticate_customer_login] At the Customer login place")
     form_data = request.get_json()
-    print(f"Posted form data is : {form_data} ")
+    print(f"[authenticate_customer_login] Posted form data is : {form_data} ")
     session = None
-    result = {"user_info": {}}
+    result = {"customer_info": {}}
     try:
         session = Session()
-        user =  session.query(User).filter(User.email_id == form_data["email_id"]).filter(User.password == form_data["password"]).first()
-        if user:
-            result["user_info"] = user.as_dict()
-            token = jwt.encode({'public_id': user.public_id, 'exp' : datetime.utcnow() + timedelta(minutes = 300)
-        }, "banix")
+        customer =  session.query(Customer).filter(Customer.email_id == form_data["email_id"]).filter(Customer.password == form_data["password"]).first()
+        if customer:
+            result["customer_info"] = customer.as_dict()
+            token = jwt.encode({'public_id': customer.public_id,
+                                'exp' : datetime.utcnow() + timedelta(minutes = 300)},
+                                "banix")
             result["token"] = token.decode("UTF-8")
-        print(f"[authenticate_user_login] The result prepared is :: {result}")
+        print(f"[authenticate_customer_login] The result prepared is :: {result}")
         return result
     except Exception as ex:
-        print("[authenticate_user_login] Exception: {}".format(ex))
+        print("[authenticate_customer_login] Exception: {}".format(ex))
     finally:
         if session:
             session.close()
     abort(make_response(jsonify(message="Invalid details provided."), 401))
 
 
-@auth_blueprint.route("/api/register", methods=["POST"])
-@auth_blueprint.route("/register", methods=["POST"])
-def register_user():
+@auth_blueprint.route("/customer/register", methods=["POST"])
+def register_customer():
     session = None
-    print("In the creation of the Users")
+    print("[register_customer ]In the creation of the Customer")
     form_data = request.get_json()
-
     try:
         session = Session()
-        existing_user = session.query(User).filter(User.email_id==form_data["email_id"]).first()
-        if existing_user:
-            return jsonify({ 'message' : 'User already exists !!' }), 401
-        new_user_info = User(**form_data)
-        new_user_info.public_id = str(uuid.uuid4())
-        new_user_info.user_role = "user"
-        if not new_user_info.display_name:
-            new_user_info.display_name =  new_user_info.email_id.split("@")[0]
-        print(f"[create_user]User info prepared is :: {new_user_info}")
-        resp = session.add(new_user_info)
-        print(f"User added to database response  is :: {resp}")
+        existing_customer = session.query(Customer).filter(Customer.email_id==form_data["email_id"]).first()
+        if existing_customer:
+            return jsonify({ 'message' : 'Customer with the same email id already exists !!' }), 401
+        new_customer_info = Customer(**form_data)
+        new_customer_info.public_id = str(uuid.uuid4())
+        if not new_customer_info.display_name:
+            new_customer_info.display_name =  new_customer_info.email_id.split("@")[0]
+        print(f"[register_customer] Customer info prepared is :: {new_customer_info}")
+        resp = session.add(new_customer_info)
+        print(f"[register_customer] Customer added to database response  is :: {resp}")
         session.commit()
-        result = {"user_info": new_user_info.as_dict()}
-        print(f"[create_user] The result prepared is :: {result}")
-        token = jwt.encode({'public_id': new_user_info.public_id, 'exp' : datetime.utcnow() + timedelta(minutes = 300)
+        result = {"customer_info": new_customer_info.as_dict()}
+        print(f"[register_customer] The result prepared is :: {result}")
+        token = jwt.encode({'public_id': new_customer_info.public_id,
+                            'exp' : datetime.utcnow() + timedelta(minutes = 300)
         }, "banix")
         result["token"] = token.decode("UTF-8")
         return result
     except Exception as ex:
-        print("[get_users] Exception: {}".format(ex))
+        print("[register_customer] Exception: {}".format(ex))
     finally:
         if session:
             session.close()

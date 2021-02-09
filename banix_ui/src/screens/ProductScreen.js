@@ -62,7 +62,7 @@ const ProductScreen = ({ history, match }) => {
     const url = `/api/serviceability?pin_code=${pinCode}`;
     console.log("invoking URL", url);
     axios
-      .get(url)
+      .get(`${process.env.REACT_APP_API_SERVER_URL}${url}`)
       .then(({ data }) => {
         console.log("data recivied from backend is ::: ", data);
         if (data) {

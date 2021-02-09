@@ -16,7 +16,9 @@ export const listProducts = () => async (dispatch) => {
       "[listProducts] The product list url is ::: ",
       PRODUCT_LIST_URL
     );
-    const { data } = await axios.get(PRODUCT_LIST_URL);
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API_SERVER_URL}${PRODUCT_LIST_URL}`
+    );
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
       payload: data.products,
@@ -35,7 +37,9 @@ export const listProducts = () => async (dispatch) => {
 export const getProductDetails = (productId) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`${PRODUCT_SPECIFIC_URL}/${productId}`);
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API_SERVER_URL}${PRODUCT_SPECIFIC_URL}/${productId}`
+    );
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data.product,

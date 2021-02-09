@@ -4,11 +4,14 @@ from datetime import datetime, timedelta
 from functools import wraps
 # imports for PyJWT authentication
 import jwt
-from commons.db_models import User
-from commons.utils import Session, engine
+from src.models import Customer
+from src.db_utils import Session, engine
 import re
 
 def token_required(f):
+    """
+     This function evaluates the request to have the Authorization token header in the request header
+    """
     @wraps(f)
     def decorated(*args, **kwargs):
         token = None
@@ -17,23 +20,23 @@ def token_required(f):
         if 'Authorization' in request.headers:
             token = request.headers['Authorization']
         token = re.sub("^(Bearer )", "", token)
-        print(f"token recieved is ::: {token}")
+        print(f"[token_required] token recieved is ::: {token}")
         # return 401 if token is not passed
         if not token:
             return jsonify({'message' : 'Token is missing !!'}), 401
-        print("Decoding the token !! {}".format(token))
+        print("[token_required] Decoding the token !! {}".format(token))
         try:
             # decoding the payload to fetch the stored details
             data = jwt.decode(token, "banix")
             print(f"The data decoded is ::: {data}")
             session = Session()
-            current_user =  session.query(User).filter_by(public_id = data['public_id']).first()
+            current_customer =  session.query(Customer).filter_by(public_id = data['public_id']).first()
         except Exception as ex:
-            print(f"Error decoding the data ::: {ex}")
+            print(f"[token_required] Error decoding the data ::: {ex}")
             return jsonify({ 'message' : 'Token is invalid !!' }), 401
         finally:
             if session:
                 session.close()
-        # returns the current logged in users contex to the routes
-        return  f(current_user.as_dict(), *args, **kwargs)
+        # returns the current logged in customers contex to the routes
+        return f(current_customer.as_dict(), *args, **kwargs)
     return decorated

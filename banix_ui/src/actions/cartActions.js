@@ -9,7 +9,9 @@ import { PRODUCT_SPECIFIC_URL } from "../config";
 import { Product } from "../schema/products";
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(`${PRODUCT_SPECIFIC_URL}/${productId}`);
+  const { data } = await axios.get(
+    `${process.env.REACT_APP_API_SERVER_URL}${PRODUCT_SPECIFIC_URL}/${productId}`
+  );
   const product = new Product(data.product);
   dispatch({
     type: CART_ADD_ITEM,

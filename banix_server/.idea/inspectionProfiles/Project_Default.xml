@@ -1,0 +1,18 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="src.users.api.agcore" />
+          <option value="src.authentication.api.agcore" />
+          <option value="src.usergroups.api.agcore" />
+          <option value="tags.api.agcore" />
+          <option value="dam.resource_api.resource_api.agcore" />
+          <option value="files.serve_strategy.agcore" />
+          <option value="bins.api.agcore" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
