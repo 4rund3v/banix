@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+
 import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
-import { login } from "../actions/userActions";
+import { login } from "../actions/customerActions";
 import FormContainer from "../components/misc/FormContainer";
 
 const LoginScreen = ({ location, history }) => {
@@ -13,22 +14,18 @@ const LoginScreen = ({ location, history }) => {
 
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
-  console.log(" The userInfo is :: ", userInfo);
-  console.log(" The location is :: ", location);
+  const customerLogin = useSelector((state) => state.customerLogin);
+  const { loading, error, customerInfo } = customerLogin;
+  console.log("[LoginScreen] The customerInfo is :: ", customerInfo);
   const redirect = location.search ? location.search.split("=")[1] : "/";
-  console.log(" The redirect url is : ", redirect);
 
   useEffect(() => {
-    if (userInfo && userInfo.username) {
-      console.log("userinfo found :", userInfo);
+    if (customerInfo && customerInfo.username) {
       history.push(redirect);
     }
-  }, [history, userInfo, redirect]);
+  }, [history, customerInfo, redirect]);
 
   const submitHandler = (e) => {
-    console.log("Calling the submit handler !!", e);
     e.preventDefault();
     dispatch(login(email, password));
   };

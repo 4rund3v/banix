@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
 import FormContainer from "../components/misc/FormContainer";
-import { register } from "../actions/userActions";
+import { register } from "../actions/customerActions";
 
 const RegisterScreen = ({ location, history }) => {
   const [email, setEmail] = useState("");
@@ -16,16 +16,16 @@ const RegisterScreen = ({ location, history }) => {
   const [message, setMessage] = useState(null);
   const dispatch = useDispatch();
 
-  const userRegister = useSelector((state) => state.userRegister);
-  const { loading, error, userInfo } = userRegister;
+  const cusomerRegister = useSelector((state) => state.customerRegister);
+  const { loading, error, customerInfo } = cusomerRegister;
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
-    if (userInfo && userInfo.username) {
+    if (customerInfo && customerInfo.username) {
       history.push(redirect);
     }
-  }, [history, userInfo, redirect]);
+  }, [history, customerInfo, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();

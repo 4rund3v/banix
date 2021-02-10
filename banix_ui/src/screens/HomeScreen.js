@@ -14,7 +14,8 @@ const HomeScreen = () => {
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
-  console.log("Products recieved from backend is ", products);
+
+  console.log("[HomeScreen] Products recieved from backend is ", products);
   return (
     <>
       {loading ? (

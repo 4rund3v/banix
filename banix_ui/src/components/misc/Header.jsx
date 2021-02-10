@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBox from "./SearchBox";
-import { logout } from "../../actions/userActions";
+import { logout } from "../../actions/customerActions";
 import { Button } from "react-bootstrap";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const customerLogin = useSelector((state) => state.customerLogin);
+  const { customerInfo } = customerLogin;
 
-  console.log("[Header] The userinfo is :: ", userInfo);
+  console.log("[Header] The customer info is :: ", customerInfo);
   const logoutHandler = () => {
     console.log("Logout Invoked");
     dispatch(logout());
@@ -39,8 +39,8 @@ const Header = () => {
                 </Button>
               </Nav.Link>
             </LinkContainer>
-            {userInfo ? (
-              <NavDropdown title={userInfo.display_name} id="username">
+            {customerInfo ? (
+              <NavDropdown title={customerInfo.display_name} id="username">
                 <LinkContainer to="/profile">
                   <NavDropdown.Item>Profile</NavDropdown.Item>
                 </LinkContainer>

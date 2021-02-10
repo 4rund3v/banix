@@ -9,51 +9,47 @@ import {
 import { cartReducer } from "./reducers/cartReducers";
 
 import {
-  userLoginReducer,
-  userRegisterReducer,
-  userDetailsReducer,
-  userTokenReducer,
-  userDetailsUpdateReducer,
-} from "./reducers/userReducers";
+  customerLoginReducer,
+  customerRegisterReducer,
+  customerDetailsReducer,
+  customerDetailsUpdateReducer,
+  customerTokenReducer,
+} from "./reducers/customerReducers";
 
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   cart: cartReducer,
-  userLogin: userLoginReducer,
-  userToken: userTokenReducer,
-  userRegister: userRegisterReducer,
-  userDetails: userDetailsReducer,
-  userDetailsUpdate: userDetailsUpdateReducer,
+  customerLogin: customerLoginReducer,
+  customerRegister: customerRegisterReducer,
+  customerDetails: customerDetailsReducer,
+  customerDetailsUpdate: customerDetailsUpdateReducer,
+  customerToken: customerTokenReducer,
 });
 
+// Customer related info fetch
+const customerInfoFromStorage = localStorage.getItem("customerInfo")
+  ? JSON.parse(localStorage.getItem("customerInfo"))
+  : null;
+const tokenFromStorage = localStorage.getItem("accessToken")
+  ? JSON.parse(localStorage.getItem("accessToken"))
+  : null;
+// Customer cart related info fetch
 const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
   : [];
-
-const userInfoFromStorage = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
-  : null;
-
+// Customer shipping address fecth
 const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
   ? JSON.parse(localStorage.getItem("shippingAddress"))
   : {};
 
-const tokenFromStorage = localStorage.getItem("accessToken")
-  ? JSON.parse(localStorage.getItem("accessToken"))
-  : null;
-
-console.log(
-  "[store] Initial State : the token from storage is :: ",
-  tokenFromStorage
-);
 const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
   },
-  userLogin: { userInfo: userInfoFromStorage },
-  userToken: { tokenInfo: tokenFromStorage },
+  customerLogin: { customerInfo: customerInfoFromStorage },
+  customerToken: { tokenInfo: tokenFromStorage },
 };
 
 const middleware = [thunk];

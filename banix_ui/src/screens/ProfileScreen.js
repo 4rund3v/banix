@@ -5,7 +5,10 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
-import { getUserDetails, updateUserDetails } from "../actions/userActions";
+import {
+  getCustomerDetails,
+  updateCustomerDetails,
+} from "../actions/customerActions";
 
 const ProfileScreen = ({ locaiton, history }) => {
   const [displayName, setDisplayName] = useState("");
@@ -17,42 +20,44 @@ const ProfileScreen = ({ locaiton, history }) => {
 
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-  console.log("[ProfileScreen] the userInfo is : ", userInfo);
+  const customerLogin = useSelector((state) => state.customerLogin);
+  const { customerInfo } = customerLogin;
+  console.log("[ProfileScreen] the customerInfo is : ", customerInfo);
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
-  console.log("[ProfileScreen] the userdetails is : ", user);
+  const customerDetails = useSelector((state) => state.customerDetails);
+  const { loading, error, customer } = customerDetails;
+  console.log("[ProfileScreen] the customerDetails is : ", customer);
 
-  const userDetailsUpdate = useSelector((state) => state.userDetailsUpdate);
-  const { success } = userDetailsUpdate;
+  const customerDetailsUpdate = useSelector(
+    (state) => state.customerDetailsUpdate
+  );
+  const { success } = customerDetailsUpdate;
 
   useEffect(() => {
-    if (!userInfo) {
+    if (!customerInfo) {
       history.push("/login");
     } else {
-      if (!user.username) {
-        dispatch(getUserDetails());
+      if (!customer.username) {
+        dispatch(getCustomerDetails());
       } else {
-        if (user.display_name) {
-          setDisplayName(user.display_name);
+        if (customer.display_name) {
+          setDisplayName(customer.display_name);
         }
-        if (user.primary_mobile_number) {
-          setMobileNumber(user.primary_mobile_number);
+        if (customer.primary_mobile_number) {
+          setMobileNumber(customer.primary_mobile_number);
         }
       }
     }
-  }, [dispatch, history, userInfo, user]);
+  }, [dispatch, history, customerInfo, customer]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (password && password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
-      // DISPATCH user profile update
+      // DISPATCH customer profile update
       dispatch(
-        updateUserDetails({
+        updateCustomerDetails({
           display_name: displayName,
           primary_mobile_number: mobileNumber,
         })
