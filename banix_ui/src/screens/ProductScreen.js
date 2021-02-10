@@ -4,13 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Row,
   Col,
-  Image,
-  ListGroup,
   Card,
   Button,
   Form,
   InputGroup,
-  FormGroup,
   Container,
   Tabs,
   Carousel,
@@ -18,11 +15,8 @@ import {
   Tab,
   FormControl,
 } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ProductImageGallery from "../components/store/ProductImageGallery";
 import Rating from "../components/store/Rating";
 import { getProductDetails } from "../actions/productActions";
-import { IMAGE_URL } from "../config";
 import Loader from "../components/misc/Loader";
 import Message from "../components/misc/Message";
 import { Product } from "../schema/products";
@@ -58,23 +52,22 @@ const ProductScreen = ({ history, match }) => {
   const productSpeicifications = {};
 
   const checkDeliveryHandler = () => {
-    console.log("Check delivery invoked !!", pinCode);
-    const url = `/api/serviceability?pin_code=${pinCode}`;
-    console.log("invoking URL", url);
-    axios
-      .get(`${process.env.REACT_APP_API_SERVER_URL}${url}`)
-      .then(({ data }) => {
-        console.log("data recivied from backend is ::: ", data);
-        if (data) {
-          setDeliveryInfo({
-            deliveryDays: data.estimated_delivery_days,
-            rate: data.rate,
-          });
-        }
-      })
-      .catch((error) => {
-        console.log("Unable to fetch the delivery information", error);
-      });
+    console.log("[ProductScreen] Check delivery invoked !!", pinCode);
+
+    // axios
+    //   .get(`${process.env.REACT_APP_API_SERVER_URL}${url}`)
+    //   .then(({ data }) => {
+    //     console.log("data recivied from backend is ::: ", data);
+    //     if (data) {
+    //       setDeliveryInfo({
+    //         deliveryDays: data.estimated_delivery_days,
+    //         rate: data.rate,
+    //       });
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log("Unable to fetch the delivery information", error);
+    //   });
   };
   const productDisplayImages = [
     {

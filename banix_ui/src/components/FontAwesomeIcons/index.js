@@ -28,7 +28,7 @@ import {
   faTwitter,
   faInstagram,
   faCcMastercard,
-  faPaypal,
+  faCcPaypal,
   faCcVisa,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
@@ -55,7 +55,7 @@ library.add(
   faPinterest,
   faInstagram,
   faCcMastercard,
-  faPaypal,
+  faCcPaypal,
   faCcVisa,
   faPaperPlane,
   faTwitter,

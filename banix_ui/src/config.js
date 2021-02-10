@@ -6,6 +6,8 @@ export const GUEST_USER_IMAGE = `${IMAGE_URL}/assets/guest_user.svg`;
 export const BASE_API_URL = process.env.REACT_APP_API_SERVER_URL;
 export const PRODUCT_LIST_URL = `${BASE_API_URL}/api/products`;
 export const PRODUCT_SPECIFIC_URL = `${BASE_API_URL}/api/products`;
+export const SERVICEABILITY_URL = `${BASE_API_URL}/api/serviceability`;
+
 export const CUSTOMER_LOGIN_URL = `${BASE_API_URL}/api/customer/login`;
 export const CUSTOMER_REGISTER_URL = `${BASE_API_URL}/api/register`;
 export const CUSTOMER_PROFILE_URL = `${BASE_API_URL}/api/customer-profile`;
