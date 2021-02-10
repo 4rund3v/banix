@@ -25,7 +25,6 @@ class Product(Base):
     def as_dict(self):
         return dict(product_id=str(self.product_id),
                     name=self.name,
-                    description=self.description,
                     brand=self.brand,
                     category=self.category,
                     rating=self.rating,

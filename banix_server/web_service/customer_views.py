@@ -30,10 +30,10 @@ def get_customers(current_customer_info):
             session.close()
 
 
-@customer_blueprint.route("/customer/profile")
+@customer_blueprint.route("/customers/profile")
 @token_required
 def fetch_customer_profile(current_customer_info):
-    print(f"[fetch_customer_profile] Fetching the profile information for the customer : {current_customer_info} ")
+    print(f"[fetch_customer_profile] Fetching the profile information for the customers : {current_customer_info} ")
     customer_info = {}
     customer_info["display_name"] = current_customer_info["display_name"]
     customer_info["username"] = current_customer_info["username"]
@@ -44,14 +44,14 @@ def fetch_customer_profile(current_customer_info):
 
 
 
-@customer_blueprint.route("/customer/profile", methods=["PUT"])
+@customer_blueprint.route("/customers/profile", methods=["PUT"])
 @token_required
 def update_customer_profile(current_customer_info):
-    print(f"[update_customer_profile] Updating the customer profile information : {current_customer_info} ")
+    print(f"[update_customer_profile] Updating the customers profile information : {current_customer_info} ")
     form_data = request.get_json()
     session = None
     modified_customer_info = {}
-    print(f" [update_customer_profile] In the Updation of the customer profile of the Customers : {form_data}")
+    print(f" [update_customer_profile] In the Updation of the customers profile of the Customers : {form_data}")
     if "display_name" in form_data:
         modified_customer_info["display_name"] = form_data["display_name"]
     if "primary_mobile_number" in form_data:

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ProductPrice from "./ProductPrice";
 import Rating from "./Rating";
 
 class ProductCard extends Component {
@@ -17,10 +18,10 @@ class ProductCard extends Component {
     const { product } = this.state;
     if (this.state.product) {
       productCard = (
-        <Card className="my-3 p-3 rounded">
+        <Card className="my-3 p-2 rounded">
           <Link to={`/product/${product.productId}`} className="productLink">
             <Card.Img
-              src={`/images/homepage${product.productImage}`}
+              src={`/media/images/homepage${product.productPrimaryImage}`}
               variant="top"
             ></Card.Img>
           </Link>
@@ -37,7 +38,9 @@ class ProductCard extends Component {
                 ratingText={`${product.productTotalReviews} reviews`}
               />
             </Card.Text>
-            <Card.Text as="h3">&#8377; {product.productPrice}</Card.Text>
+            <Card.Text>
+              <ProductPrice product={product} />
+            </Card.Text>
           </Card.Body>
         </Card>
       );

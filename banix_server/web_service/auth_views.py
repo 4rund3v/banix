@@ -15,7 +15,7 @@ from src.db_utils import Session, engine
 auth_blueprint = Blueprint("auth", __name__)
 
 
-@auth_blueprint.route("/customer/login", methods=["POST"])
+@auth_blueprint.route("/customers/login", methods=["POST"])
 def authenticate_customer_login():
     print("[authenticate_customer_login] At the Customer login place")
     form_data = request.get_json()
@@ -59,7 +59,7 @@ def register_customer():
         print(new_customer_info)
         print("Linking Role: ")
         customer_role = Role(customers=new_customer_info,
-                             role_name="customer")
+                             role_name="customers")
         print(customer_role)
         new_customer_info.public_id = str(uuid.uuid4())
         if not new_customer_info.display_name:

@@ -24,7 +24,7 @@ import ProductDescriptionTab from "../components/store/ProductDescriptionTab";
 import ProductSpecificationTab from "../components/store/ProductSpecificationTab";
 import ProductReviewTab from "../components/store/ProductReviewTab";
 import axios from "axios";
-
+import ProductPrice from "../components/store/ProductPrice";
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
 
@@ -144,25 +144,7 @@ const ProductScreen = ({ history, match }) => {
                 </ul>
                 <div className="product__info">
                   <div className="product__prices">
-                    {product.productSellingPrice < product.productPrice ? (
-                      <span>
-                        <span className="text-secondary">Price:</span>{" "}
-                        <span className="text-danger">
-                          &#8377;
-                          {product.productSellingPrice}
-                        </span>
-                        {"  "}
-                        <del className="text-muted">
-                          &#8377;
-                          {product.productPrice}
-                        </del>
-                      </span>
-                    ) : (
-                      <span>
-                        &#8377;
-                        {product.productPrice}
-                      </span>
-                    )}
+                    <ProductPrice product={product} />
                   </div>
                   {/* <Form className="product__variants">
                     <h3>Color</h3>

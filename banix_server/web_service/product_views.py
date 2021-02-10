@@ -1,11 +1,22 @@
-from flask import Flask, jsonify, abort, Blueprint
+from flask import Flask, jsonify , abort, Blueprint, request
 import json
 import os
 import sys
+import uuid
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
 from src.models import Product
 from src.db_utils import Session, engine
+build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(build_path)
+from src.models import Customer
+from src.db_utils import Session, engine
+from authorization import token_required
+from src.shiprocket import shiprocket_client_session as scs
+
+order_blueprint = Blueprint("orders", __name__)
+
+
 
 product_blueprint = Blueprint("products", __name__)
 
@@ -46,3 +57,13 @@ def fetch_specific_product(product_id):
     finally:
         if session:
             session.close()
+
+
+# @product_blueprint.route("/products/<product_id>/serviceability", methods=["GET"])
+@product_blueprint.route("/products/<product_id>/serviceability", methods=["GET"])
+def check_product_serviceability(product_id):
+    dst_pin_code = request.args.get('pin_code')
+    print(f"[check_product_serviceability] The serviceability request was made for product [{product_id}]"
+          f" for the dst pin code [{dst_pin_code}]")
+    serviceablity = scs.check_serviceability(src_pin_code=560036, dst_pin_code=dst_pin_code)
+    return serviceablity

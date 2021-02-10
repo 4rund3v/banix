@@ -24,8 +24,7 @@ const HomeScreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <Row>
-          {products.map((rawProduct) => {
-            const product = new Product(rawProduct);
+          {products.map((product) => {
             return (
               <Col key={product.productId} sm={12} md={6} lg={4} xl={3}>
                 <ProductCard key={product.productId} product={product} />

@@ -16,14 +16,19 @@ import {
   SERVICEABILITY_URL,
 } from "../config";
 
+import { Product } from "../schema/products";
+
 export const listProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     console.log("[listProducts] The product list url is :::", PRODUCT_LIST_URL);
     const { data } = await axios.get(PRODUCT_LIST_URL);
+    const processedPoducts = data.products.map(
+      (rawProduct) => new Product(rawProduct)
+    );
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
-      payload: data.products,
+      payload: processedPoducts,
     });
   } catch (error) {
     dispatch({

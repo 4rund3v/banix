@@ -3,8 +3,8 @@ import sys
 import json
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
-from commons.db_models import Product
-from commons.utils import session
+from src.models import Product
+from src.db_utils import session
 
 def create_default_products():
     PRODUCTS_STORE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "products.json")

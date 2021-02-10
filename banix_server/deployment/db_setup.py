@@ -7,7 +7,6 @@ from src.models import Base
 from src.db_utils import session, engine
 
 from products.create_products import create_default_products
-from users.create_users import create_default_users
 
 print("[db_setup]Creating the databases if not existing.")
 Base.metadata.create_all(engine)
