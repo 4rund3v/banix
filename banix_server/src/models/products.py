@@ -35,7 +35,6 @@ class Product(Base):
                     )
 
 
-
 class ProductVariant(Base):
 
     __tablename__ = "product_variant"
@@ -71,6 +70,19 @@ class ProductMedia(Base):
     product_carousel_media = relationship("ProductCarouselMedia", back_populates="product_media", cascade="all, delete, delete-orphan")
     product_demonstration_media = relationship("ProductDemonstrationMedia", back_populates="product_media", cascade="all, delete, delete-orphan")
 
+    def to_dict(self):
+        product_carousel_media = []
+        if self.product_carousel_media:
+            product_carousel_media = []
+        product_demonstration_media = []
+        if self.product_demonstration_media:
+            product_demonstration_media = []
+        return dict(product_media_id=self.product_media_id,
+                    primary_image_id=self.primary_image_id,
+                    primary_video_id=self.primary_video_id,
+                    product_carousel_media=product_carousel_media,
+                    product_demonstration_media=product_demonstration_media
+                    )
 
 class ProductCarouselMedia(Base):
     __tablename__ = "product_carousel_media"
@@ -81,6 +93,8 @@ class ProductCarouselMedia(Base):
     product_media_foreign_id = Column(Integer, ForeignKey("product_media.product_media_id"), nullable=False)
     product_media = relationship("ProductMedia", back_populates="product_carousel_media")
 
+    def to_dict(self):
+        return dict(carousel_media_id=self.carousel_media_id,media_id=self.media_id, media_type=self.media_type)
 
 class ProductDemonstrationMedia(Base):
     __tablename__ = "product_demonstration_media"
@@ -88,6 +102,7 @@ class ProductDemonstrationMedia(Base):
     demonstration_media_id = Column(Integer, primary_key=True, autoincrement=True)
     media_id = Column(String(300))
     media_type = Column(String(30))
+
     product_media_foreign_id = Column(Integer, ForeignKey("product_media.product_media_id"), nullable=False)
     product_media = relationship("ProductMedia", back_populates="product_demonstration_media")
 
@@ -123,6 +138,7 @@ class ProductDimensions(Base):
     weight = Column(Integer)
     product_specification_foreign_id = Column(Integer, ForeignKey("product_specification.product_specification_id"), nullable=False)
     product_specification = relationship("ProductSpecification", back_populates="product_dimensions")
+
 
 class ProductBoxDimensions(Base):
     __tablename__ = "product_box_dimensions"

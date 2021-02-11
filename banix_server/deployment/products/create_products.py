@@ -18,6 +18,7 @@ def create_default_products():
             info = Product(**product)
             print(f"[create_default_products] Product info prepared is :: {info}")
             session.add(info)
+
     session.commit()
 
 if __name__ == "__main__":

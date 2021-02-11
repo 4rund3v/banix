@@ -5,7 +5,8 @@ import sys
 import uuid
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
-from src.models import Product
+from src.models import (Product, ProductMedia, ProductVariant, ProductCarouselMedia,
+                        ProductDemonstrationMedia, ProductDimensions, ProductBoxDimensions, ProductSpecification)
 from src.db_utils import Session, engine
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
@@ -15,8 +16,6 @@ from authorization import token_required
 from src.shiprocket import shiprocket_client_session as scs
 
 order_blueprint = Blueprint("orders", __name__)
-
-
 
 product_blueprint = Blueprint("products", __name__)
 
@@ -31,7 +30,13 @@ def fetch_products():
     try:
         session = Session()
         products = session.query(Product).all()
-        result["products"] = [p.as_dict() for p in products]
+        for product in products:
+            prod = product.as_dict()
+            product_media = session.query(ProductMedia).filter(ProductMedia.products == product).first()
+            if product_media:
+                print(f"product media is : {product_media}")
+                prod["product_media"] = product_media.to_dict()
+            result["products"].append(prod)
     except Exception as ex:
         print("[fetch_products] Exception: {}".format(ex))
     finally:
@@ -47,9 +52,15 @@ def fetch_specific_product(product_id):
     print("[fetch_specific_product] product_id: {}".format(product_id))
     try:
         session = Session()
-        product = session.query(Product).filter(Product.product_id == product_id).first()
+        product = session.query(Product,).filter(Product.product_id == product_id).first()
         if product:
             result["product"] = product.as_dict()
+            product_media = session.query(ProductMedia).filter(ProductMedia.products == product).first()
+            if product_media:
+                print(f"product media is : {product_media}")
+                result["product"]["product_media"] = product_media.to_dict()
+                for pcm in session.query(ProductCarouselMedia).filter(ProductCarouselMedia.product_media == product_media).all():
+                    result["product"]["product_media"]["product_carousel_media"].append(pcm.to_dict())
         print(f"[fetch_specific_product] The result prepared is :: {result}")
         return result
     except Exception as ex:

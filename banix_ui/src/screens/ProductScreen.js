@@ -25,6 +25,7 @@ import ProductSpecificationTab from "../components/store/ProductSpecificationTab
 import ProductReviewTab from "../components/store/ProductReviewTab";
 import axios from "axios";
 import ProductPrice from "../components/store/ProductPrice";
+
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
 
@@ -69,28 +70,28 @@ const ProductScreen = ({ history, match }) => {
     //     console.log("Unable to fetch the delivery information", error);
     //   });
   };
-  const productDisplayImages = [
-    {
-      image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_1.jpg`,
-      thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_1.jpg`,
-      text: "Product Image Info",
-    },
-    {
-      image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_2.jpg`,
-      thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_2.jpg`,
-      text: "Product Image Info",
-    },
-    {
-      image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_3.jpg`,
-      thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_3.jpg`,
-      text: "Product Image Info",
-    },
-    {
-      image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_4.jpg`,
-      thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_4.jpg`,
-      text: "Product Image Info",
-    },
-  ];
+  // const productDisplayImages = [
+  //   {
+  //     image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_1.jpg`,
+  //     thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_1.jpg`,
+  //     text: "Product Image Info",
+  //   },
+  //   {
+  //     image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_2.jpg`,
+  //     thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_2.jpg`,
+  //     text: "Product Image Info",
+  //   },
+  //   {
+  //     image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_3.jpg`,
+  //     thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_3.jpg`,
+  //     text: "Product Image Info",
+  //   },
+  //   {
+  //     image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_4.jpg`,
+  //     thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_4.jpg`,
+  //     text: "Product Image Info",
+  //   },
+  // ];
 
   console.log("product info recieved is ::", product);
   return (
@@ -108,16 +109,37 @@ const ProductScreen = ({ history, match }) => {
             <Row>
               <Col md={6}>
                 <Carousel>
-                  {productDisplayImages.map((productImage, index) => (
-                    <CarouselItem key={index}>
-                      <img
-                        className="d-block w-100"
-                        src={productImage.image_url}
-                        alt={productImage.text}
-                        fluid
-                      />
-                    </CarouselItem>
-                  ))}
+                  {product.productCarouselMedia.map((productMedia, index) =>
+                    productMedia.mediaType === "image" ? (
+                      <CarouselItem key={index}>
+                        <img
+                          className="d-block w-100"
+                          src={`${process.env.REACT_APP_MEDIA_SERVER_URL}/media/images/carousel/${productMedia.mediaId}`}
+                          alt={productMedia.text}
+                          fluid
+                        />
+                      </CarouselItem>
+                    ) : (
+                      <CarouselItem key={index}>
+                        <video
+                          id="vid"
+                          autoPlay
+                          loop
+                          muted
+                          width="100%"
+                          height="100%"
+                          controls
+                          poster={`${process.env.REACT_APP_MEDIA_SERVER_URL}/media/images/carousel/${product.productPrimaryImage}`}
+                          onclick={() => {}}
+                        >
+                          <source
+                            src={`${process.env.REACT_APP_MEDIA_SERVER_URL}/media/videos/low/${productMedia.mediaId}`}
+                            type="video/mp4"
+                          />
+                        </video>
+                      </CarouselItem>
+                    )
+                  )}
                 </Carousel>
               </Col>
 
