@@ -10,11 +10,8 @@ import time
 import uuid
 from src.models import ProductMedia, ProductCarouselMedia, Product
 from src.db_utils import Session
+from configuration import MEDIA_SOURCE_PATH, MEDIA_PROCESSED_PATH, MEDIA_IMAGE_PROXY_PATH, MEDIA_VIDEO_PROXY_PATH
 
-media_source_path = "/home/arun/assets/media/raw"
-media_processed_path = "/home/arun/assets/media/processed"
-media_image_proxy_path = "/home/arun/assets/media/images"
-media_video_proxy_path = "/home/arun/assets/media/videos"
 
 mime = mimetypes.MimeTypes()
 
@@ -73,7 +70,7 @@ def add_to_folders_to_remove(product):
     pass
 
 def generate_image_proxy(media_id, src_path, profile):
-    dst_path = os.path.join(media_image_proxy_path, profile["profile"], media_id)
+    dst_path = os.path.join(MEDIA_IMAGE_PROXY_PATH, profile["profile"], media_id)
     if not os.path.exists(os.path.dirname(dst_path)):
         os.makedirs(os.path.dirname(dst_path))
     width = profile["resolution"].split("x")[0]
@@ -84,7 +81,7 @@ def generate_image_proxy(media_id, src_path, profile):
     return None
 
 def generate_video_proxy(media_id, src_path, profile):
-    dst_path = os.path.join(media_video_proxy_path, profile["profile"], media_id)
+    dst_path = os.path.join(MEDIA_VIDEO_PROXY_PATH, profile["profile"], media_id)
     if not os.path.exists(os.path.dirname(dst_path)):
         os.makedirs(os.path.dirname(dst_path))
     width = profile["resolution"].split("x")[0]
@@ -98,20 +95,20 @@ def generate_video_proxy(media_id, src_path, profile):
 if __name__ == "__main__":
     while True:
         try:
-            raw_media_folders = os.listdir(media_source_path)
+            raw_media_folders = os.listdir(MEDIA_SOURCE_PATH)
             for product in raw_media_folders:
                 product_id = product.split("prod_", 1)[-1]
                 print(f"Processing the folder {product}: {product_id}")
                 if product_info := check_valid_product(product_id):
                     print(f"processing the product : {product_info}")
-                    media = os.listdir(os.path.join(media_source_path, product))
+                    media = os.listdir(os.path.join(MEDIA_SOURCE_PATH, product))
                     if not media:
                         add_to_folders_to_remove(product_id)
                         break
                     product_media = ProductMedia(products=product_info)
                     for item in media:
                         media_id = str(uuid.uuid4())+"__"+str(item)
-                        src_path = os.path.join(os.path.join(media_source_path, product, item))
+                        src_path = os.path.join(os.path.join(MEDIA_SOURCE_PATH, product, item))
                         mime_type = mime.guess_type(item)
                         print(f"{item} has mime type {mime_type}")
                         if mime_type and mime_type[0].startswith("image"):
@@ -133,8 +130,8 @@ if __name__ == "__main__":
                     sess.add(product_media)
                     sess.commit()
                     print(f"Product Media : {product_media}")
-                    shutil.move(src=os.path.join(media_source_path, product),
-                                dst=os.path.join(media_processed_path))
+                    shutil.move(src=os.path.join(MEDIA_SOURCE_PATH, product),
+                                dst=os.path.join(MEDIA_PROCESSED_PATH))
                 else:
                     print(f"Invalid Product id : {product_id}")
                     add_to_folders_to_remove(product)
@@ -142,7 +139,7 @@ if __name__ == "__main__":
             for folder_to_remove in FOLDERS_TO_REMOVE:
                 if FOLDERS_TO_REMOVE[folder_to_remove] > 3:
                     print(f"Removing the folder : {folder_to_remove}")
-                    shutil.rmtree(os.path.join(media_source_path, folder_to_remove))
+                    shutil.rmtree(os.path.join(MEDIA_SOURCE_PATH, folder_to_remove))
         except Exception as ex:
             print(f"Exception while walking for proxy : {ex}")
         time.sleep(60)
