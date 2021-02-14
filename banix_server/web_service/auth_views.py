@@ -42,7 +42,7 @@ def authenticate_customer_login():
     abort(make_response(jsonify(message="Invalid details provided."), 401))
 
 
-@auth_blueprint.route("/register", methods=["POST"])
+@auth_blueprint.route("/customers/register", methods=["POST"])
 def register_customer():
     session = None
     form_data = request.get_json()

@@ -8,9 +8,9 @@ export const PRODUCT_LIST_URL = `${BASE_API_URL}/api/products`;
 export const PRODUCT_SPECIFIC_URL = `${BASE_API_URL}/api/products`;
 export const SERVICEABILITY_URL = `${BASE_API_URL}/api/serviceability`;
 
-export const CUSTOMER_LOGIN_URL = `${BASE_API_URL}/api/customer/login`;
-export const CUSTOMER_REGISTER_URL = `${BASE_API_URL}/api/register`;
-export const CUSTOMER_PROFILE_URL = `${BASE_API_URL}/api/customer-profile`;
+export const CUSTOMER_LOGIN_URL = `${BASE_API_URL}/api/customers/login`;
+export const CUSTOMER_REGISTER_URL = `${BASE_API_URL}/api/customers/register`;
+export const CUSTOMER_PROFILE_URL = `${BASE_API_URL}/api/customers/profile`;
 
 // Social MediaLinks
 export const BANIX_YOUTUBE_URL =
