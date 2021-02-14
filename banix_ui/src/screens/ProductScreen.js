@@ -4,27 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Row,
   Col,
-  Card,
   Button,
-  Form,
   InputGroup,
   Container,
-  Tabs,
   Carousel,
   CarouselItem,
-  Tab,
   FormControl,
+  Form,
 } from "react-bootstrap";
 import Rating from "../components/store/Rating";
 import { getProductDetails } from "../actions/productActions";
 import Loader from "../components/misc/Loader";
 import Message from "../components/misc/Message";
 import { Product } from "../schema/products";
-import ProductDescriptionTab from "../components/store/ProductDescriptionTab";
-import ProductSpecificationTab from "../components/store/ProductSpecificationTab";
-import ProductReviewTab from "../components/store/ProductReviewTab";
-import axios from "axios";
+import ProductTabs from "../components/store/ProductTabs";
 import ProductPrice from "../components/store/ProductPrice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -46,15 +41,12 @@ const ProductScreen = ({ history, match }) => {
   };
   const [pinCode, setPinCode] = useState("");
 
-  const colorVariants = ["red", "blue", "white-green"];
-  const lengthVariants = ["5 meter", "10 meter", "15 meter", "20 meter"];
   const [deliveryInfo, setDeliveryInfo] = useState({});
 
   const productSpeicifications = {};
 
   const checkDeliveryHandler = () => {
     console.log("[ProductScreen] Check delivery invoked !!", pinCode);
-
     // axios
     //   .get(`${process.env.REACT_APP_API_SERVER_URL}${url}`)
     //   .then(({ data }) => {
@@ -70,28 +62,6 @@ const ProductScreen = ({ history, match }) => {
     //     console.log("Unable to fetch the delivery information", error);
     //   });
   };
-  // const productDisplayImages = [
-  //   {
-  //     image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_1.jpg`,
-  //     thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_1.jpg`,
-  //     text: "Product Image Info",
-  //   },
-  //   {
-  //     image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_2.jpg`,
-  //     thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_2.jpg`,
-  //     text: "Product Image Info",
-  //   },
-  //   {
-  //     image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_3.jpg`,
-  //     thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_3.jpg`,
-  //     text: "Product Image Info",
-  //   },
-  //   {
-  //     image_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_4.jpg`,
-  //     thumbnail_url: `${process.env.REACT_APP_IMAGE_SERVER_URL}/images/details/products/005/item_005_4.jpg`,
-  //     text: "Product Image Info",
-  //   },
-  // ];
 
   console.log("product info recieved is ::", product);
   return (
@@ -104,10 +74,10 @@ const ProductScreen = ({ history, match }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <div classname="product__page">
+        <div className="product__page">
           <Container>
             <Row>
-              <Col md={6}>
+              <Col md={8} fluid>
                 <Carousel>
                   {product.productCarouselMedia.map((productMedia, index) =>
                     productMedia.mediaType === "image" ? (
@@ -200,45 +170,68 @@ const ProductScreen = ({ history, match }) => {
                         ))}
                     </FormGroup>
                   </Form> */}
-                  <InputGroup>
-                    <FormControl
-                      id="zip"
-                      type="text"
-                      pattern="[0-9]{6}"
-                      placeholder="Delivery PinCode"
-                      value={pinCode}
-                      onChange={(e) => setPinCode(e.target.value)}
-                    />
-                    <InputGroup.Append>
-                      <Button
-                        className="btn btn-secondary"
-                        onClick={checkDeliveryHandler}
+                  <div className="product__actions-item">
+                    <InputGroup className="mb-3">
+                      <InputGroup.Text>
+                        {"   "}
+                        Quantity
+                      </InputGroup.Text>
+                      <FormControl
+                        as="select"
+                        value={qty}
+                        onChange={(e) => setQty(e.target.value)}
                       >
-                        Check!
-                      </Button>
-                    </InputGroup.Append>
-                  </InputGroup>
-                  {deliveryInfo &&
-                    deliveryInfo.deliveryDays &&
-                    (deliveryInfo.deliveryDays === -1 ? (
-                      <div className="product__delivery_info">
-                        <span className="text-danger">
-                          Cannot deliver to location
-                        </span>{" "}
-                      </div>
-                    ) : (
-                      <div className="product__delivery_info">
-                        <span className="text-dark">
-                          Delivery in {deliveryInfo.deliveryDays} Days
-                        </span>{" "}
-                        |<span>+ &#8377; {deliveryInfo.rate}</span>
-                      </div>
-                    ))}
+                        {[...Array(product.productStock).keys()]
+                          .slice(0, 10)
+                          .map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
+                      </FormControl>
+                    </InputGroup>
+                  </div>
+                  <div className="product__actions-item">
+                    <InputGroup>
+                      <FormControl
+                        id="zip"
+                        type="text"
+                        pattern="[0-9]{6}"
+                        placeholder="Delivery PinCode"
+                        value={pinCode}
+                        onChange={(e) => setPinCode(e.target.value)}
+                      />
+                      <InputGroup.Append>
+                        <Button
+                          className="btn btn-secondary"
+                          onClick={checkDeliveryHandler}
+                        >
+                          Check!
+                        </Button>
+                      </InputGroup.Append>
+                    </InputGroup>
+                    {deliveryInfo &&
+                      deliveryInfo.deliveryDays &&
+                      (deliveryInfo.deliveryDays === -1 ? (
+                        <div className="product__delivery_info">
+                          <span className="text-danger">
+                            Cannot deliver to location
+                          </span>{" "}
+                        </div>
+                      ) : (
+                        <div className="product__delivery_info">
+                          <span className="text-dark">
+                            Delivery in {deliveryInfo.deliveryDays} Days
+                          </span>{" "}
+                          |<span>+ &#8377; {deliveryInfo.rate}</span>
+                        </div>
+                      ))}
+                  </div>
                 </div>
                 <div className="product__info__purchase_options py-2">
                   <Button
                     onClick={addToCartHandler}
-                    className="btn-block"
+                    className="btn-block py-2"
                     type="button"
                     variant="warning"
                     disabled={product.productStock === 0}
@@ -255,9 +248,35 @@ const ProductScreen = ({ history, match }) => {
                     {"Buy Now"}
                   </Button>
                 </div>
+                <div>
+                  <span className="text-muted">{"You can also buy from "}</span>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={
+                      "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW"
+                    }
+                  >
+                    <Button className="btn btn-info" onClick={() => {}}>
+                      {"  "}
+                      <FontAwesomeIcon icon={["fab", "amazon"]} />
+                    </Button>
+                  </a>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={
+                      "https://www.flipkart.com/vithamas-app-controlled-rgb-light-strip/p/itm5a0fb24e774a2"
+                    }
+                  >
+                    <Button className="btn btn-info ml-2" onClick={() => {}}>
+                      {"  "}
+                      <FontAwesomeIcon icon={["fab", "facebook"]} />
+                    </Button>
+                  </a>
+                </div>
               </Col>
             </Row>
-            <Card variant="flush"></Card>
           </Container>
           {/* <Row>
             <ProductTabs></ProductTabs>
@@ -265,37 +284,9 @@ const ProductScreen = ({ history, match }) => {
           <Row>
           <BlockProductsCarousel title="Related Products" layout="grid-4-sm" products={products} withSidebar />
           </Row> */}
-          <div className="product-tabs">
-            <Tabs defaultActiveKey="description">
-              <Tab
-                className="product-tabs__item"
-                eventKey="description"
-                title="Description"
-              >
-                <div className="product-tabs__content">
-                  <ProductDescriptionTab product={product} />
-                </div>
-              </Tab>
-              <Tab
-                className="product-tabs__item"
-                eventKey="speification"
-                title="Specification"
-              >
-                <div className="product-tabs__content">
-                  <ProductSpecificationTab product={product} />
-                </div>
-              </Tab>
-              <Tab
-                className="product-tabs__item"
-                eventKey="reviews"
-                title="Reviews"
-              >
-                <div className="product-tabs__content">
-                  <ProductReviewTab product={product} />
-                </div>
-              </Tab>
-            </Tabs>
-          </div>
+          <Row>
+            <ProductTabs product={product} />
+          </Row>
         </div>
       )}
     </>

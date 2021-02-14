@@ -31,6 +31,8 @@ import {
   faCcPaypal,
   faCcVisa,
   faYoutube,
+  faAmazon,
+  faFacebookF,
 } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -62,5 +64,7 @@ library.add(
   faYoutube,
   faInstagram,
   faMapMarker,
-  faMapMarkerAlt
+  faMapMarkerAlt,
+  faAmazon,
+  faFacebookF
 );
