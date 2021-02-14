@@ -1,4 +1,5 @@
 from multiprocessing import Pool
+
 import mimetypes
 import os
 import re
@@ -8,10 +9,11 @@ import subprocess as sp
 import sys
 import time
 import uuid
+build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(build_path)
+from configuration import MEDIA_SOURCE_PATH, MEDIA_PROCESSED_PATH, MEDIA_IMAGE_PROXY_PATH, MEDIA_VIDEO_PROXY_PATH
 from src.models import ProductMedia, ProductCarouselMedia, Product
 from src.db_utils import Session
-from configuration import MEDIA_SOURCE_PATH, MEDIA_PROCESSED_PATH, MEDIA_IMAGE_PROXY_PATH, MEDIA_VIDEO_PROXY_PATH
-
 
 mime = mimetypes.MimeTypes()
 

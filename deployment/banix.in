@@ -1,0 +1,25 @@
+
+server {
+#	listen 80;
+#	listen [::]:80;
+	listen 7700;
+	listen [::]:7700;
+
+#	server_name example.com;
+
+	root /opt/banix/banix_ui/build;
+	index index.html;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+
+        location /api/ {
+             include proxy_params;
+             proxy_pass http://0.0.0.0:7701/;
+        }
+        location /media {
+            alias /home/administrator/banix/media;
+	    try_files $uri $uri/ =404;
+        }
+}
