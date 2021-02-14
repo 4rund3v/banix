@@ -392,3 +392,22 @@
   object-fit: cover;
   z-index: 4;
 }
+
+// product price
+.product_price_main_default {
+  color: #000;
+}
+.product_price_main {
+  color: #fd0303;
+  padding: 2px;
+}
+.product_price_discount {
+  color: #66f176;
+  font-size: 1.3rem;
+  padding: 2px;
+}
+.product_price_muted {
+  font-size: 1.3rem;
+  color: #b1acaa;
+  padding: 2px;
+}
