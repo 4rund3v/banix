@@ -1,6 +1,5 @@
 import React from "react";
 import ImageGallery from "react-image-gallery";
-import ReactPlayer from "react-player";
 
 const ProductGallery = ({ productMedia }) => {
   console.log(
