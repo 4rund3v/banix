@@ -18,7 +18,7 @@ class ProductCard extends Component {
     const { product } = this.state;
     if (this.state.product) {
       productCard = (
-        <Card className="my-3 p-2 rounded">
+        <Card className="my-3 p-2 rounded shadow">
           <Link to={`/product/${product.productId}`} className="productLink">
             <Card.Img
               src={`${process.env.REACT_APP_SERVER_URL}/media/images/card/${product.productPrimaryImage}`}
