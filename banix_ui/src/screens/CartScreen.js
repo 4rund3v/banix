@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/misc/Message";
 import { Link } from "react-router-dom";
-import { IMAGE_URL } from "../config";
 import {
   Row,
   Col,
@@ -25,7 +24,7 @@ const CartScreen = ({ match, location, history }) => {
 
   useEffect(() => {
     if (productId && qty) {
-      console.log("adding to the cart: ", productId, qty);
+      console.log("[CartScreen] Adding to the cart: ", productId, qty);
       dispatch(addToCart(productId, qty));
     }
   }, [dispatch, productId, qty]);
@@ -36,7 +35,7 @@ const CartScreen = ({ match, location, history }) => {
   const checkoutHandler = () => {
     history.push("/login?redirect=shipping");
   };
-
+  console.log("[cartScreen] The cart info is ::: ", cartItems);
   return (
     <Row>
       <Col md={8}>
@@ -54,7 +53,7 @@ const CartScreen = ({ match, location, history }) => {
               >
                 <Col md={2}>
                   <Image
-                    src={`/images/cart${cartItem.productImage}`}
+                    src={`${process.env.REACT_APP_SERVER_URL}/media/images/cart/${cartItem.productPrimaryImage}`}
                     alt={cartItem.productName}
                     fluid
                     rounded
@@ -66,7 +65,7 @@ const CartScreen = ({ match, location, history }) => {
                   </Link>
                 </Col>
                 <Col md={2}>
-                  <strong> &#8377; {cartItem.productPrice}</strong>
+                  <strong> &#8377; {cartItem.productSellingPrice}</strong>
                 </Col>
                 <Col md={2}>
                   <Form.Control
@@ -113,11 +112,14 @@ const CartScreen = ({ match, location, history }) => {
             </h2>
           </ListGroup.Item>
           <ListGroup.Item>
-            &#8377;{" "}
-            {cartItems.reduce(
-              (acc, cartItem) => acc + cartItem.productPrice * cartItem.qty,
-              0
-            )}
+            <span className="justify-content-center align-items-center">
+              &#8377;{" "}
+              {cartItems.reduce(
+                (acc, cartItem) =>
+                  acc + cartItem.productSellingPrice * cartItem.qty,
+                0
+              )}
+            </span>
           </ListGroup.Item>
           <ListGroup.Item>
             <Button

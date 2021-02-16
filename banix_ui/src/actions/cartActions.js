@@ -9,17 +9,18 @@ import { PRODUCT_SPECIFIC_URL } from "../config";
 import { Product } from "../schema/products";
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_API_SERVER_URL}${PRODUCT_SPECIFIC_URL}/${productId}`
-  );
+  const url = `${PRODUCT_SPECIFIC_URL}/${productId}`;
+  console.log("[addToCart] The url prepared is ", url);
+  const { data } = await axios.get(url);
   const product = new Product(data.product);
   dispatch({
     type: CART_ADD_ITEM,
     payload: {
       productId: product.productId,
-      productImage: product.productImage,
+      productPrimaryImage: product.productPrimaryImage,
       productName: product.productName,
-      productPrice: product.productPrice,
+      productCostPrice: product.productCostPrice,
+      productSellingPrice: product.productSellingPrice,
       productStock: product.productStock,
       qty,
     },

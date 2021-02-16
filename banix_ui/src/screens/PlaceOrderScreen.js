@@ -12,7 +12,7 @@ const PlaceOrderScreen = () => {
   const { shippingAddress } = cart;
   let itemsPrice = cart.cartItems.reduce(
     (acc, cartItem) =>
-      acc + Number(cartItem.productPrice) * Number(cartItem.qty),
+      acc + Number(cartItem.productSellingPrice) * Number(cartItem.qty),
     0
   );
   let shippingPrice = Number(0.17 * itemsPrice).toFixed(2);
@@ -55,7 +55,7 @@ const PlaceOrderScreen = () => {
                       <Row>
                         <Col md={2}>
                           <Image
-                            src={`/images/cart${cartItem.productImage}`}
+                            src={`${process.env.REACT_APP_SERVER_URL}/media/images/cart/${cartItem.productPrimaryImage}`}
                             alt={cartItem.productName}
                             fluid
                             rounded
@@ -67,10 +67,12 @@ const PlaceOrderScreen = () => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {cartItem.qty} x &#8377; {cartItem.productPrice} =
+                          {cartItem.qty} x &#8377;{" "}
+                          {cartItem.productSellingPrice} =
                           <strong>
                             {" "}
-                            &#8377; {cartItem.qty * cartItem.productPrice}
+                            &#8377;{" "}
+                            {cartItem.qty * cartItem.productSellingPrice}
                           </strong>
                         </Col>
                       </Row>

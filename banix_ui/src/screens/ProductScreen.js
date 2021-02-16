@@ -48,7 +48,7 @@ const ProductScreen = ({ history, match }) => {
   const checkDeliveryHandler = () => {
     console.log("[ProductScreen] Check delivery invoked !!", pinCode);
     // axios
-    //   .get(`${process.env.REACT_APP_API_SERVER_URL}${url}`)
+    //   .get(`${process.env.REACT_APP_SERVER_URL}${url}`)
     //   .then(({ data }) => {
     //     console.log("data recivied from backend is ::: ", data);
     //     if (data) {
@@ -84,7 +84,7 @@ const ProductScreen = ({ history, match }) => {
                       <CarouselItem key={index}>
                         <img
                           className="d-block w-100"
-                          src={`${process.env.REACT_APP_MEDIA_SERVER_URL}/media/images/carousel/${productMedia.mediaId}`}
+                          src={`${process.env.REACT_APP_SERVER_URL}/media/images/carousel/${productMedia.mediaId}`}
                           alt={productMedia.text}
                           fluid
                         />
@@ -99,11 +99,11 @@ const ProductScreen = ({ history, match }) => {
                           width="100%"
                           height="100%"
                           controls
-                          poster={`${process.env.REACT_APP_MEDIA_SERVER_URL}/media/images/carousel/${product.productPrimaryImage}`}
+                          poster={`${process.env.REACT_APP_SERVER_URL}/media/images/carousel/${product.productPrimaryImage}`}
                           onclick={() => {}}
                         >
                           <source
-                            src={`${process.env.REACT_APP_MEDIA_SERVER_URL}/media/videos/low/${productMedia.mediaId}`}
+                            src={`${process.env.REACT_APP_SERVER_URL}/media/videos/low/${productMedia.mediaId}`}
                             type="video/mp4"
                           />
                         </video>

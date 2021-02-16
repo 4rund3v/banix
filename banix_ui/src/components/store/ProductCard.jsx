@@ -21,7 +21,7 @@ class ProductCard extends Component {
         <Card className="my-3 p-2 rounded">
           <Link to={`/product/${product.productId}`} className="productLink">
             <Card.Img
-              src={`${process.env.REACT_APP_MEDIA_SERVER_URL}/media/images/card/${product.productPrimaryImage}`}
+              src={`${process.env.REACT_APP_SERVER_URL}/media/images/card/${product.productPrimaryImage}`}
               variant="top"
             ></Card.Img>
           </Link>

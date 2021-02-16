@@ -394,6 +394,9 @@
 }
 
 // product price
+.product__price {
+  display: inline-flexbox;
+}
 .product_price_main_default {
   color: #000;
 }
