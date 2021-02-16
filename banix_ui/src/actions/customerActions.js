@@ -22,6 +22,8 @@ import {
   CUSTOMER_PROFILE_URL,
 } from "../config";
 
+import { Customer } from "../schema/customer";
+
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({
@@ -46,19 +48,21 @@ export const login = (email, password) => async (dispatch) => {
       "[customerActions][login] the data recieved after login is :: ",
       data
     );
+
     if (!data.customer_info) {
       throw new Error("No customer information recieved.");
     }
+    const customerInfo = new Customer(data.customer_info);
     dispatch({
       type: CUSTOMER_LOGIN_SUCCESS,
-      payload: data.customer_info,
+      payload: customerInfo,
     });
 
     dispatch({
       type: CUSTOMER_TOKEN_UPDATED,
       payload: { token: data.token },
     });
-    localStorage.setItem("customerInfo", JSON.stringify(data.customer_info));
+    localStorage.setItem("customerInfo", JSON.stringify(customerInfo));
     localStorage.setItem("accessToken", JSON.stringify({ token: data.token }));
   } catch (error) {
     dispatch({
@@ -151,13 +155,13 @@ export const getCustomerDetails = () => async (dispatch, getState) => {
     if (!data.customer_info) {
       throw new Error("No customer information recieved.");
     }
-
+    const customerInfo = new Customer(data.customer_info);
     dispatch({
       type: CUSTOMER_PROFILE_DETAILS_FETCH_SUCCESS,
-      payload: data.customer_info,
+      payload: customerInfo,
     });
 
-    localStorage.setItem("customerInfo", JSON.stringify(data.customer_info));
+    localStorage.setItem("customerInfo", JSON.stringify(customerInfo));
   } catch (error) {
     dispatch({
       type: CUSTOMER_PROFILE_DETAILS_FETCH_FAIL,
@@ -193,13 +197,13 @@ export const updateCustomerDetails = (customer) => async (
     if (!data.customer_info) {
       throw new Error("No customer information recieved.");
     }
-
+    const customerInfo = new Customer(data.customer_info);
     dispatch({
       type: CUSTOMER_PROFILE_DETAILS_UPDATE_SUCCESS,
-      payload: data.customer_info,
+      payload: customerInfo,
     });
 
-    localStorage.setItem("customerInfo", JSON.stringify(data.customer_info));
+    localStorage.setItem("customerInfo", JSON.stringify(customerInfo));
   } catch (error) {
     dispatch({
       type: CUSTOMER_PROFILE_DETAILS_UPDATE_FAIL,

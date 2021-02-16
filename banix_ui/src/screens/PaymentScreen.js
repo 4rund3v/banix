@@ -32,7 +32,6 @@ const PaymentScreen = ({ history }) => {
       <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label as="legend"> Select Method</Form.Label>
-
           <Col>
             <Form.Check
               type="radio"

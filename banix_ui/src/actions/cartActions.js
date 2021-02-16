@@ -7,7 +7,7 @@ import {
 } from "../constants/cartConstants";
 import { PRODUCT_SPECIFIC_URL } from "../config";
 import { Product } from "../schema/products";
-
+import { CustomerAddress } from "../schema/customer";
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
   const url = `${PRODUCT_SPECIFIC_URL}/${productId}`;
   console.log("[addToCart] The url prepared is ", url);
@@ -37,11 +37,12 @@ export const removeFromCart = (productId) => (dispatch, getState) => {
 };
 
 export const saveShippingAddress = (shippingData) => (dispatch) => {
+  const shippingInfo = new CustomerAddress(shippingData);
   dispatch({
     type: CART_SAVE_SHIPPING_ADDRESS,
-    payload: shippingData,
+    payload: shippingInfo,
   });
-  localStorage.setItem("shippingAddress", JSON.stringify(shippingData));
+  localStorage.setItem("shippingAddress", JSON.stringify(shippingInfo));
 };
 
 export const savePaymentMethod = (paymentMethod) => (dispatch) => {

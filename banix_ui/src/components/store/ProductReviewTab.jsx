@@ -8,7 +8,7 @@ const ProductReviewTab = () => {
       <h3>Customer Reviews</h3>
       <ol className="reviews-list__content">
         <li className="reviews-list__item">
-          <p className="justify-content-md-left">
+          <div className="justify-content-md-left">
             {" "}
             Arun Dev <span className="text-muted">verified Buyer</span>
             <Rating ratingValue={4} />
@@ -18,10 +18,10 @@ const ProductReviewTab = () => {
               }
             </div>
             <div className=" review__date">{"27 May, 2018"}</div>
-          </p>
+          </div>
         </li>
         <li className="reviews-list__item">
-          <p className="justify-content-md-left">
+          <div className="justify-content-md-left">
             {" "}
             Jhon Marshal <span className="text-muted">verified Buyer</span>
             <Rating ratingValue={4} />
@@ -31,10 +31,10 @@ const ProductReviewTab = () => {
               }
             </div>
             <div className=" review__date">{"27 May, 2018"}</div>
-          </p>
+          </div>
         </li>
         <li className="reviews-list__item">
-          <p className="justify-content-md-left">
+          <div className="justify-content-md-left">
             {" "}
             Pavithra <span className="text-muted">verified Buyer</span>
             <Rating ratingValue={4} />
@@ -44,7 +44,7 @@ const ProductReviewTab = () => {
               }
             </div>
             <div className=" review__date">{"27 May, 2018"}</div>
-          </p>
+          </div>
         </li>
       </ol>
     </div>

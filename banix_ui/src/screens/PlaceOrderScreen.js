@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import Message from "../components/misc/Message";
 import CheckoutSteps from "../components/store/CheckoutSteps";
+import AddressCard from "../components/store/AddressCard";
 
 const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
@@ -31,8 +32,7 @@ const PlaceOrderScreen = () => {
               <p>
                 <strong>Address:</strong>
                 <br />
-                {shippingAddress.address},{shippingAddress.city}{" "}
-                {shippingAddress.state} {shippingAddress.pinCode},
+                <AddressCard shippingAddress={shippingAddress} />
               </p>
             </ListGroup.Item>
 

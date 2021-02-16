@@ -28,9 +28,10 @@ def token_required(f):
         try:
             # decoding the payload to fetch the stored details
             data = jwt.decode(token, "banix")
-            print(f"The data decoded is ::: {data}")
+            print(f"The data[public_id] decoded is ::: {data['public_id']}")
             session = Session()
             current_customer =  session.query(Customer).filter_by(public_id = data['public_id']).first()
+            current_customer_info = current_customer.as_dict()
         except Exception as ex:
             print(f"[token_required] Error decoding the data ::: {ex}")
             return jsonify({ 'message' : 'Token is invalid !!' }), 401
@@ -38,5 +39,5 @@ def token_required(f):
             if session:
                 session.close()
         # returns the current logged in customers contex to the routes
-        return f(current_customer.as_dict(), *args, **kwargs)
+        return f(current_customer_info, *args, **kwargs)
     return decorated

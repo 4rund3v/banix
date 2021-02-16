@@ -60,7 +60,7 @@ def update_customer_profile(current_customer_info):
     try:
         if modified_customer_info:
             session = Session()
-            resp = session.query(Customer).filter(Customer._id == current_customer_info['_id']).update(modified_customer_info)
+            resp = session.query(Customer).filter(Customer.customer_id == current_customer_info['customer_id']).update(modified_customer_info)
             print(f"[update_customer_profile] The db updated info is : {resp}")
             session.commit()
         else:
@@ -70,5 +70,5 @@ def update_customer_profile(current_customer_info):
     finally:
         if session:
             session.close()
-    customer_info = session.query(Customer).filter(Customer._id == current_customer_info['_id']).first()
+    customer_info = session.query(Customer).filter(Customer.customer_id == current_customer_info['customer_id']).first()
     return {"customer_info": customer_info.as_dict()}

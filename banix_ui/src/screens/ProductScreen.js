@@ -74,71 +74,69 @@ const ProductScreen = ({ history, match }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <div className="product__page">
-          <Container>
-            <Row>
-              <Col md={8} fluid>
-                <Carousel>
-                  {product.productCarouselMedia.map((productMedia, index) =>
-                    productMedia.mediaType === "image" ? (
-                      <CarouselItem key={index}>
-                        <img
-                          className="d-block w-100"
-                          src={`${process.env.REACT_APP_SERVER_URL}/media/images/carousel/${productMedia.mediaId}`}
-                          alt={productMedia.text}
-                          fluid
+        <Container className="product__page">
+          <Row>
+            <Col md={8} fluid>
+              <Carousel>
+                {product.productCarouselMedia.map((productMedia, index) =>
+                  productMedia.mediaType === "image" ? (
+                    <CarouselItem key={index}>
+                      <img
+                        className="d-block w-100"
+                        src={`${process.env.REACT_APP_SERVER_URL}/media/images/carousel/${productMedia.mediaId}`}
+                        alt={productMedia.text}
+                      />
+                    </CarouselItem>
+                  ) : (
+                    <CarouselItem key={index}>
+                      <video
+                        id="vid"
+                        autoPlay
+                        loop
+                        muted
+                        width="100%"
+                        height="100%"
+                        controls
+                        poster={`${process.env.REACT_APP_SERVER_URL}/media/images/carousel/${product.productPrimaryImage}`}
+                        onClick={() => {}}
+                      >
+                        <source
+                          src={`${process.env.REACT_APP_SERVER_URL}/media/videos/low/${productMedia.mediaId}`}
+                          type="video/mp4"
                         />
-                      </CarouselItem>
-                    ) : (
-                      <CarouselItem key={index}>
-                        <video
-                          id="vid"
-                          autoPlay
-                          loop
-                          muted
-                          width="100%"
-                          height="100%"
-                          controls
-                          poster={`${process.env.REACT_APP_SERVER_URL}/media/images/carousel/${product.productPrimaryImage}`}
-                          onclick={() => {}}
-                        >
-                          <source
-                            src={`${process.env.REACT_APP_SERVER_URL}/media/videos/low/${productMedia.mediaId}`}
-                            type="video/mp4"
-                          />
-                        </video>
-                      </CarouselItem>
-                    )
-                  )}
-                </Carousel>
-              </Col>
+                      </video>
+                    </CarouselItem>
+                  )
+                )}
+              </Carousel>
+            </Col>
 
-              <Col>
-                <span className="product__name">{product.productName}</span>
-                <div className="product__rating">
-                  <div className="product__rating-stars">
-                    <Rating
-                      ratingValue={product.productRating}
-                      ratingText={`${product.productTotalReviews} Reviews`}
-                    />
-                  </div>
+            <Col>
+              <span className="product__name">{product.productName}</span>
+              <div className="product__rating">
+                <div className="product__rating-stars">
+                  <Rating
+                    ratingValue={product.productRating}
+                    ratingText={`${product.productTotalReviews} Reviews`}
+                  />
                 </div>
+              </div>
 
-                <ul className="product__meta text-muted">
-                  <li className="product__meta-availability px-2">
-                    {"Availability : "}
-                    {product.productStock > 0 ? (
-                      <span className="text-success">In Stock</span>
-                    ) : (
-                      <span className="text-danger">Out Of Stock</span>
-                    )}
-                  </li>
-                </ul>
-                <div className="product__info">
-                  <div className="product__prices">
-                    <ProductPrice product={product} />
-                  </div>
-                  {/* <Form className="product__variants">
+              <ul className="product__meta text-muted">
+                <li className="product__meta-availability px-2">
+                  {"Availability : "}
+                  {product.productStock > 0 ? (
+                    <span className="text-success">In Stock</span>
+                  ) : (
+                    <span className="text-danger">Out Of Stock</span>
+                  )}
+                </li>
+              </ul>
+              <div className="product__info">
+                <div className="product__prices">
+                  <ProductPrice product={product} />
+                </div>
+                {/* <Form className="product__variants">
                     <h3>Color</h3>
                     <FormGroup>
                       {colorVariants &&
@@ -170,114 +168,114 @@ const ProductScreen = ({ history, match }) => {
                         ))}
                     </FormGroup>
                   </Form> */}
-                  <div className="product__actions-item">
-                    <InputGroup className="mb-3">
-                      <InputGroup.Text>
-                        {"   "}
-                        Quantity
-                      </InputGroup.Text>
-                      <FormControl
-                        as="select"
-                        value={qty}
-                        onChange={(e) => setQty(e.target.value)}
+                <div className="product__actions-item">
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text>
+                      {"   "}
+                      Quantity
+                    </InputGroup.Text>
+                    <FormControl
+                      as="select"
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                    >
+                      {[...Array(product.productStock).keys()]
+                        .slice(0, 10)
+                        .map((x) => (
+                          <option key={x + 1} value={x + 1}>
+                            {x + 1}
+                          </option>
+                        ))}
+                    </FormControl>
+                  </InputGroup>
+                </div>
+                <div className="product__actions-item">
+                  <InputGroup>
+                    <FormControl
+                      id="zip"
+                      type="text"
+                      pattern="[0-9]{6}"
+                      placeholder="Delivery PinCode"
+                      value={pinCode}
+                      onChange={(e) => setPinCode(e.target.value)}
+                    />
+                    <InputGroup.Append>
+                      <Button
+                        className="btn btn-secondary"
+                        onClick={checkDeliveryHandler}
                       >
-                        {[...Array(product.productStock).keys()]
-                          .slice(0, 10)
-                          .map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                      </FormControl>
-                    </InputGroup>
-                  </div>
-                  <div className="product__actions-item">
-                    <InputGroup>
-                      <FormControl
-                        id="zip"
-                        type="text"
-                        pattern="[0-9]{6}"
-                        placeholder="Delivery PinCode"
-                        value={pinCode}
-                        onChange={(e) => setPinCode(e.target.value)}
-                      />
-                      <InputGroup.Append>
-                        <Button
-                          className="btn btn-secondary"
-                          onClick={checkDeliveryHandler}
-                        >
-                          Check!
-                        </Button>
-                      </InputGroup.Append>
-                    </InputGroup>
-                    {deliveryInfo &&
-                      deliveryInfo.deliveryDays &&
-                      (deliveryInfo.deliveryDays === -1 ? (
-                        <div className="product__delivery_info">
-                          <span className="text-danger">
-                            Cannot deliver to location
-                          </span>{" "}
-                        </div>
-                      ) : (
-                        <div className="product__delivery_info">
-                          <span className="text-dark">
-                            Delivery in {deliveryInfo.deliveryDays} Days
-                          </span>{" "}
-                          |<span>+ &#8377; {deliveryInfo.rate}</span>
-                        </div>
-                      ))}
-                  </div>
+                        Check!
+                      </Button>
+                    </InputGroup.Append>
+                  </InputGroup>
+                  {deliveryInfo &&
+                    deliveryInfo.deliveryDays &&
+                    (deliveryInfo.deliveryDays === -1 ? (
+                      <div className="product__delivery_info">
+                        <span className="text-danger">
+                          Cannot deliver to location
+                        </span>{" "}
+                      </div>
+                    ) : (
+                      <div className="product__delivery_info">
+                        <span className="text-dark">
+                          Delivery in {deliveryInfo.deliveryDays} Days
+                        </span>{" "}
+                        |<span>+ &#8377; {deliveryInfo.rate}</span>
+                      </div>
+                    ))}
                 </div>
-                <div className="product__info__purchase_options py-2">
-                  <Button
-                    onClick={addToCartHandler}
-                    className="btn-block py-2"
-                    type="button"
-                    variant="warning"
-                    disabled={product.productStock === 0}
-                  >
-                    {"Add To Cart"}
+              </div>
+              <div className="product__info__purchase_options py-2">
+                <Button
+                  onClick={addToCartHandler}
+                  className="btn-block py-2"
+                  type="button"
+                  variant="warning"
+                  disabled={product.productStock === 0}
+                >
+                  {"Add To Cart"}
+                </Button>
+                <Button
+                  onClick={buyNowHander}
+                  className="btn-block"
+                  type="button"
+                  variant="success"
+                  disabled={product.productStock === 0}
+                >
+                  {"Buy Now"}
+                </Button>
+              </div>
+              <div>
+                <span className="text-muted">{"You can also buy from "}</span>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={
+                    "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW"
+                  }
+                >
+                  <Button className="btn btn-info" onClick={() => {}}>
+                    {"  "}
+                    <FontAwesomeIcon icon={["fab", "amazon"]} />
                   </Button>
-                  <Button
-                    onClick={buyNowHander}
-                    className="btn-block"
-                    type="button"
-                    variant="success"
-                    disabled={product.productStock === 0}
-                  >
-                    {"Buy Now"}
+                </a>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={
+                    "https://www.flipkart.com/vithamas-app-controlled-rgb-light-strip/p/itm5a0fb24e774a2"
+                  }
+                >
+                  <Button className="btn btn-info ml-2" onClick={() => {}}>
+                    {"  "}
+                    <FontAwesomeIcon icon={["fab", "facebook"]} />
                   </Button>
-                </div>
-                <div>
-                  <span className="text-muted">{"You can also buy from "}</span>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={
-                      "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW"
-                    }
-                  >
-                    <Button className="btn btn-info" onClick={() => {}}>
-                      {"  "}
-                      <FontAwesomeIcon icon={["fab", "amazon"]} />
-                    </Button>
-                  </a>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={
-                      "https://www.flipkart.com/vithamas-app-controlled-rgb-light-strip/p/itm5a0fb24e774a2"
-                    }
-                  >
-                    <Button className="btn btn-info ml-2" onClick={() => {}}>
-                      {"  "}
-                      <FontAwesomeIcon icon={["fab", "facebook"]} />
-                    </Button>
-                  </a>
-                </div>
-              </Col>
-            </Row>
-          </Container>
+                </a>
+              </div>
+            </Col>
+          </Row>
+
           {/* <Row>
             <ProductTabs></ProductTabs>
           </Row>
@@ -287,7 +285,7 @@ const ProductScreen = ({ history, match }) => {
           <Row>
             <ProductTabs product={product} />
           </Row>
-        </div>
+        </Container>
       )}
     </>
   );

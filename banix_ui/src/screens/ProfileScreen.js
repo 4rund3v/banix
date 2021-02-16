@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
@@ -8,6 +8,9 @@ import {
   getCustomerDetails,
   updateCustomerDetails,
 } from "../actions/customerActions";
+import FormContainer from "../components/misc/FormContainer";
+import CustomerAddress from "../components/store/CustomerAddress";
+import AddressCard from "../components/store/AddressCard";
 
 const ProfileScreen = ({ locaiton, history }) => {
   const [displayName, setDisplayName] = useState("");
@@ -37,13 +40,14 @@ const ProfileScreen = ({ locaiton, history }) => {
       history.push("/login");
     } else {
       if (!customer.username) {
+        console.log("[profileScreen] Fetching the customer Details");
         dispatch(getCustomerDetails());
       } else {
-        if (customer.display_name) {
-          setDisplayName(customer.display_name);
+        if (customer.displayName) {
+          setDisplayName(customer.displayName);
         }
-        if (customer.primary_mobile_number) {
-          setMobileNumber(customer.primary_mobile_number);
+        if (customer.primaryMobileNumber) {
+          setMobileNumber(customer.primaryMobileNumber);
         }
       }
     }
@@ -63,11 +67,11 @@ const ProfileScreen = ({ locaiton, history }) => {
       );
     }
   };
-
+  const customerShippingAddresses = [];
   return (
     <Row>
-      <Col md={6}>
-        <h2> Update {displayName}'s Profile</h2>
+      <Col md={4}>
+        <h2> Update Your Profile</h2>
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
         {success && <Message variant="success">Profile Updated</Message>}
@@ -75,7 +79,7 @@ const ProfileScreen = ({ locaiton, history }) => {
         {!error && (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="name">
-              <Form.Label>User Name</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 type="name"
                 placeholder="Enter Name"
@@ -84,7 +88,7 @@ const ProfileScreen = ({ locaiton, history }) => {
               ></Form.Control>
             </Form.Group>
             <Form.Group controlId="mobileNumber">
-              <Form.Label>User Mobile Number</Form.Label>
+              <Form.Label>Mobile Number</Form.Label>
               <Form.Control
                 type="tel"
                 pattern="[0-9]{10}"
@@ -117,8 +121,18 @@ const ProfileScreen = ({ locaiton, history }) => {
           </Form>
         )}
       </Col>
-      <Col md={6}>
-        <h2>Shipping Addresses</h2>
+      <Col md={8}>
+        <h2>Shipping Address Options</h2>
+        {customerShippingAddresses.length > 0 ? (
+          customerShippingAddresses.map((shippingAddress, idx) => (
+            <AddressCard key={idx} shippingAddress={shippingAddress} />
+          ))
+        ) : (
+          <div>
+            <h3>Enter Shipping Details</h3>
+            <CustomerAddress />
+          </div>
+        )}
       </Col>
     </Row>
   );
