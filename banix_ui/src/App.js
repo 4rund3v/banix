@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 import "./components/FontAwesomeIcons";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/misc/Header";
 import HomeScreen from "./screens/HomeScreen";
