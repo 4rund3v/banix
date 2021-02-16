@@ -49,20 +49,6 @@ const ProductScreen = ({ history, match }) => {
 
   const checkDeliveryHandler = () => {
     console.log("[ProductScreen] Check delivery invoked !!", pinCode);
-    // axios
-    //   .get(`${process.env.REACT_APP_SERVER_URL}${url}`)
-    //   .then(({ data }) => {
-    //     console.log("data recivied from backend is ::: ", data);
-    //     if (data) {
-    //       setDeliveryInfo({
-    //         deliveryDays: data.estimated_delivery_days,
-    //         rate: data.rate,
-    //       });
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log("Unable to fetch the delivery information", error);
-    //   });
   };
 
   console.log("product info recieved is ::", product);

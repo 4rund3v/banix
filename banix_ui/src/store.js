@@ -16,6 +16,9 @@ import {
   customerTokenReducer,
 } from "./reducers/customerReducers";
 
+import { shippingCostReducer } from "./reducers/shippingReducers";
+import { OrderCreateReducer } from "./reducers/orderReducers";
+
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
@@ -25,6 +28,7 @@ const reducer = combineReducers({
   customerDetails: customerDetailsReducer,
   customerDetailsUpdate: customerDetailsUpdateReducer,
   customerToken: customerTokenReducer,
+  orderCreate: OrderCreateReducer,
 });
 
 // Customer related info fetch

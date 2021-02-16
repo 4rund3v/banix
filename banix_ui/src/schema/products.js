@@ -28,4 +28,9 @@ export class Product {
       }
     }
   }
+  toRawDict() {
+    return {
+      product_id: this.productId,
+    };
+  }
 }

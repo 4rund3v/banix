@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,7 +7,11 @@ import Message from "../components/misc/Message";
 import CheckoutSteps from "../components/store/CheckoutSteps";
 import AddressCard from "../components/store/AddressCard";
 
-const PlaceOrderScreen = () => {
+import { createOrder } from "../actions/orderActions";
+import { Order } from "../schema/order";
+
+const PlaceOrderScreen = ({ history }) => {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   console.log("[PlaceOrderScreen] The cart object is : ", cart);
   const { shippingAddress } = cart;
@@ -20,7 +24,23 @@ const PlaceOrderScreen = () => {
   let totalPrice = Number(Number(itemsPrice) + Number(shippingPrice)).toFixed(
     2
   );
-  const placeOrderHandler = () => {};
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order.orderId}`);
+    }
+    // eslint-disable-next-line
+  }, [history, success]);
+
+  const placeOrderHandler = () => {
+    const order = new Order();
+    order.orderItems = cart.cartItems;
+    order.orderShippingInfo = cart.shippingAddress;
+    order.orderPaymentType = cart.paymentMethod;
+    console.log("[placeOrderHandler] The order info prepared is : ", order);
+    dispatch(createOrder(order.toRawDict()));
+  };
   return (
     <>
       <CheckoutSteps loginStep shippingStep paymentStep placeOrder />
@@ -108,6 +128,9 @@ const PlaceOrderScreen = () => {
                 </Row>
               </ListGroup.Item>
             </ListGroup>
+            <ListGroup.Item>
+              {error && <Message variant="danger">{error}</Message>}
+            </ListGroup.Item>
             <ListGroup.Item>
               <Button
                 type="button"

@@ -56,11 +56,10 @@ def register_customer():
                                      username=form_data["display_name"],
                                      email_id=form_data["email_id"],
                                      password=form_data["password"])
-        print(new_customer_info)
-        print("Linking Role: ")
+        print("New Customer Info : ", new_customer_info)
         customer_role = Role(customers=new_customer_info,
                              role_name="customers")
-        print(customer_role)
+        print("Linking Role: ", customer_role)
         new_customer_info.public_id = str(uuid.uuid4())
         if not new_customer_info.display_name:
             new_customer_info.display_name = new_customer_info.email_id.split("@")[0]

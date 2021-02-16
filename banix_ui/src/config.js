@@ -12,6 +12,8 @@ export const CUSTOMER_LOGIN_URL = `${BASE_API_URL}/api/customers/login`;
 export const CUSTOMER_REGISTER_URL = `${BASE_API_URL}/api/customers/register`;
 export const CUSTOMER_PROFILE_URL = `${BASE_API_URL}/api/customers/profile`;
 
+export const CREATE_ORDER_URL = `${BASE_API_URL}/api/orders`;
+
 // Social MediaLinks
 export const BANIX_YOUTUBE_URL =
   "https://www.youtube.com/channel/UCuzzq_j5D1CRhDKwuWvoDQw";
