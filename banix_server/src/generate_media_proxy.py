@@ -94,6 +94,18 @@ def generate_video_proxy(media_id, src_path, profile):
     return
 
 
+def generate_video_poster(media_id, poster_id, src_path):
+    dst_path = os.path.join(MEDIA_VIDEO_PROXY_PATH, "poster", poster_id)
+    if not os.path.exists(os.path.dirname(dst_path)):
+        os.makedirs(os.path.dirname(dst_path))
+    width = 480
+    cmd = f"ffmpeg -y -i {src_path} -deinterlace -an -ss 35 -f mjpeg -t 1 -r 1 scale={width}:-2,setsar=1:1 {dst_path}"
+    print(f"[generate_video_poster] The command prepared is : [{cmd}] ")
+    res = sp.call(shlex.split(cmd))
+    print(f"[generate_video_poster] The result is :{res}")
+    return
+
+
 if __name__ == "__main__":
     while True:
         try:
@@ -128,7 +140,9 @@ if __name__ == "__main__":
                                 generate_video_proxy(media_id=media_id,
                                                      src_path=src_path,
                                                      profile=profile)
-                            ProductCarouselMedia(product_media=product_media, media_id=media_id, media_type="video")
+                            poster_id = media_id+"__.jpg"
+                            generate_video_poster(media_id=media_id,poster_id=poster_id, src_path=src_path)
+                            ProductCarouselMedia(product_media=product_media, media_id=media_id, poster_id=poster_id,media_type="video")
                     sess.add(product_media)
                     sess.commit()
                     print(f"Product Media : {product_media}")

@@ -20,6 +20,8 @@ import { Product } from "../schema/products";
 import ProductTabs from "../components/store/ProductTabs";
 import ProductPrice from "../components/store/ProductPrice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ImageGallery from "react-image-gallery";
+import ProductGallery from "../components/store/ProductGallery";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -77,38 +79,7 @@ const ProductScreen = ({ history, match }) => {
         <Container className="product__page">
           <Row>
             <Col md={8} fluid>
-              <Carousel>
-                {product.productCarouselMedia.map((productMedia, index) =>
-                  productMedia.mediaType === "image" ? (
-                    <CarouselItem key={index}>
-                      <img
-                        className="d-block w-100"
-                        src={`${process.env.REACT_APP_SERVER_URL}/media/images/carousel/${productMedia.mediaId}`}
-                        alt={productMedia.text}
-                      />
-                    </CarouselItem>
-                  ) : (
-                    <CarouselItem key={index}>
-                      <video
-                        id="vid"
-                        autoPlay
-                        loop
-                        muted
-                        width="100%"
-                        height="100%"
-                        controls
-                        poster={`${process.env.REACT_APP_SERVER_URL}/media/images/carousel/${product.productPrimaryImage}`}
-                        onClick={() => {}}
-                      >
-                        <source
-                          src={`${process.env.REACT_APP_SERVER_URL}/media/videos/low/${productMedia.mediaId}`}
-                          type="video/mp4"
-                        />
-                      </video>
-                    </CarouselItem>
-                  )
-                )}
-              </Carousel>
+              <ProductGallery productMedia={product.productCarouselMedia} />
             </Col>
 
             <Col>

@@ -21,6 +21,7 @@ export class Product {
             mediaId: carouselMedia.media_id,
             mediaType: carouselMedia.media_type,
             mediaText: this.productName,
+            mediaPoster: carouselMedia.poster_id,
           };
           this.productCarouselMedia.push(item);
         });

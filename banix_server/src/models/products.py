@@ -89,12 +89,13 @@ class ProductCarouselMedia(Base):
 
     carousel_media_id = Column(Integer, primary_key=True, autoincrement=True)
     media_id = Column(String(300))
+    poster_id = Column(String(300))
     media_type = Column(String(30))
     product_media_foreign_id = Column(Integer, ForeignKey("product_media.product_media_id"), nullable=False)
     product_media = relationship("ProductMedia", back_populates="product_carousel_media")
 
     def to_dict(self):
-        return dict(carousel_media_id=self.carousel_media_id,media_id=self.media_id, media_type=self.media_type)
+        return dict(carousel_media_id=self.carousel_media_id,poster_id=self.poster_id,media_id=self.media_id, media_type=self.media_type)
 
 class ProductDemonstrationMedia(Base):
     __tablename__ = "product_demonstration_media"
