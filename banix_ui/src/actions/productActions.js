@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -5,17 +6,17 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAILED,
+} from "../constants/productConstants";
+import {
   SERVICEABILITY_REQUEST,
   SERVICEABILITY_SUCCESS,
   SERVICEABILITY_FAILED,
-} from "../constants/productConstants";
-import axios from "axios";
+} from "../constants/shippingConstants";
 import {
   PRODUCT_LIST_URL,
   PRODUCT_SPECIFIC_URL,
   SERVICEABILITY_URL,
 } from "../config";
-
 import { Product } from "../schema/products";
 
 export const listProducts = () => async (dispatch) => {

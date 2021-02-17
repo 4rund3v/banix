@@ -15,7 +15,6 @@ import {
   CUSTOMER_PROFILE_DETAILS_UPDATE_FAIL,
 } from "../constants/customerConstants";
 
-import axios from "axios";
 import {
   CUSTOMER_LOGIN_URL,
   CUSTOMER_REGISTER_URL,
@@ -23,6 +22,7 @@ import {
 } from "../config";
 
 import { Customer } from "../schema/customer";
+import axios from "axios";
 
 export const login = (email, password) => async (dispatch) => {
   try {
