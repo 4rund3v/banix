@@ -1,7 +1,7 @@
 {
   "name": "banix_ui",
   "version": "0.1.0",
-  "proxy": "http://localhost:3300",
+  "proxy": "http://localhost:7700",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
