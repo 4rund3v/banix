@@ -8,7 +8,7 @@ class Orders(Base):
 
     order_id = Column(Integer, primary_key=True, autoincrement=True)
     order_customer_id = Column(Integer, ForeignKey("customers.customer_id"), nullable=False)
-    order_payment_type_id = Column(Integer, ForeignKey("payment_type.payment_id"), nullable=False)
+    payment_type = relationship("PaymentType", back_populates="orders")
     order_items = relationship("OrderItem", cascade="all, delete, delete-orphan")
     order_date = Column(String(30), nullable=False)
     order_price = Column(Integer, nullable=False)
