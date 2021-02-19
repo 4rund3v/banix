@@ -24,21 +24,20 @@ const ProductGallery = ({ productMedia }) => {
         <source src={item.original} type="video/mp4" />
       </video>
     );
-    // return <ReactPlayer url={item.original} />;
   };
   productMedia.map((item, idx) => {
     if (item.mediaType === "image") {
       items.push({
         type: item.mediaType,
         text: item.mediaText,
-        original: `${process.env.REACT_APP_SERVER_URL}/media/images/carousel/${item.mediaId}`,
-        thumbnail: `${process.env.REACT_APP_SERVER_URL}/media/images/card/${item.mediaId}`,
+        original: `/media/images/carousel/${item.mediaId}`,
+        thumbnail: `/media/images/card/${item.mediaId}`,
       });
     } else if (item.mediaType === "video") {
       items.push({
         type: item.mediaType,
-        original: `${process.env.REACT_APP_SERVER_URL}/media/videos/low/${item.mediaId}`,
-        thumbnail: `${process.env.REACT_APP_SERVER_URL}/media/videos/poster/${item.mediaPoster}`,
+        original: `/media/videos/low/${item.mediaId}`,
+        thumbnail: `/media/videos/poster/${item.mediaPoster}`,
         renderItem: mediaRenderer,
       });
     }

@@ -1,6 +1,7 @@
 import React from "react";
 
-const ProductPrice = ({ product }) => {
+const ProductPrice = ({ product, onlyPrice }) => {
+  console.log("ProductPrice : the product recieved is :: ", onlyPrice);
   const discountPercentage = Math.round(
     Number(
       ((Number(product.productCostPrice) -
@@ -11,7 +12,14 @@ const ProductPrice = ({ product }) => {
   );
   return (
     <span className="product__price">
-      {product.productSellingPrice < product.productCostPrice ? (
+      {onlyPrice ? (
+        <span className="product_price_main_default">
+          &#8377;
+          {product.productSellingPrice <= product.productCostPrice
+            ? product.productSellingPrice
+            : product.productCostPrice}
+        </span>
+      ) : product.productSellingPrice < product.productCostPrice ? (
         <>
           <span className="text-secondary">Price:</span>{" "}
           <span className="product_price_main">
@@ -30,7 +38,9 @@ const ProductPrice = ({ product }) => {
       ) : (
         <span className="product_price_main_default">
           &#8377;
-          {product.productCostPrice}
+          {product.productSellingPrice <= product.productCostPrice
+            ? product.productSellingPrice
+            : product.productCostPrice}
         </span>
       )}
     </span>

@@ -18,10 +18,10 @@ class ProductCard extends Component {
     const { product } = this.state;
     if (this.state.product) {
       productCard = (
-        <Card className="my-3 p-2 rounded shadow">
+        <Card className="my-3 p-2 rounded">
           <Link to={`/product/${product.productId}`} className="productLink">
             <Card.Img
-              src={`${process.env.REACT_APP_SERVER_URL}/media/images/card/${product.productPrimaryImage}`}
+              src={`/media/images/card/${product.productPrimaryImage}`}
               variant="top"
             ></Card.Img>
           </Link>
@@ -39,7 +39,7 @@ class ProductCard extends Component {
               />
             </Card.Text>
             <Card.Text>
-              <ProductPrice product={product} />
+              <ProductPrice product={product} onlyPrice={true}/>
             </Card.Text>
           </Card.Body>
         </Card>

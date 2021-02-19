@@ -99,7 +99,7 @@ def generate_video_poster(media_id, poster_id, src_path):
     if not os.path.exists(os.path.dirname(dst_path)):
         os.makedirs(os.path.dirname(dst_path))
     width = 480
-    cmd = f"ffmpeg -y -i {src_path} -deinterlace -an -ss 35 -f mjpeg -t 1 -r 1 scale={width}:-2,setsar=1:1 {dst_path}"
+    cmd = f"ffmpeg -y -i {src_path} -deinterlace -an -ss 00:00:35 -f mjpeg -t 1 -r 1 {dst_path}"
     print(f"[generate_video_poster] The command prepared is : [{cmd}] ")
     res = sp.call(shlex.split(cmd))
     print(f"[generate_video_poster] The result is :{res}")

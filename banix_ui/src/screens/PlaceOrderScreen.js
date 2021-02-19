@@ -75,7 +75,7 @@ const PlaceOrderScreen = ({ history }) => {
                       <Row>
                         <Col md={2}>
                           <Image
-                            src={`${process.env.REACT_APP_SERVER_URL}/media/images/cart/${cartItem.productPrimaryImage}`}
+                            src={`/media/images/cart/${cartItem.productPrimaryImage}`}
                             alt={cartItem.productName}
                             fluid
                             rounded
