@@ -71,10 +71,10 @@ def fetch_specific_product(product_id):
 
 
 # @product_blueprint.route("/products/<product_id>/serviceability", methods=["GET"])
-@product_blueprint.route("/products/<product_id>/serviceability", methods=["GET"])
-def check_product_serviceability(product_id):
+@product_blueprint.route("/products/serviceability", methods=["GET"])
+def check_product_serviceability():
     dst_pin_code = request.args.get('pin_code')
-    print(f"[check_product_serviceability] The serviceability request was made for product [{product_id}]"
+    print(f"[check_product_serviceability] The serviceability request was made for pin [{dst_pin_code}]"
           f" for the dst pin code [{dst_pin_code}]")
     serviceablity = scs.check_serviceability(src_pin_code=560036, dst_pin_code=dst_pin_code)
     return serviceablity

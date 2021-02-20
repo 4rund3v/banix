@@ -2,6 +2,7 @@ from configuration import shiprocket_username, shiprocket_password
 from src.shiprocket import constants as shiprocket_consts
 from requests import session
 import json
+import uuid
 
 class ShiprocketClient():
     """
@@ -38,7 +39,7 @@ class ShiprocketClient():
         """
          Check the serviceablity of the courier to the given pin code.
         """
-        serviceablity = {
+        serviceability = {
         "estimated_delivery_days": -1
         }
         try:
@@ -48,16 +49,18 @@ class ShiprocketClient():
             resp = self.active_session.get(shiprocket_consts.COURIER_SERVICEABILITY_URL, data=query_data)
             resp.raise_for_status()
             if resp.status_code == 404:
-                serviceablity["estimated_delivery_days"] = -1
+                serviceability["estimated_delivery_days"] = -1
             else:
                 resp_data = resp.json()
                 print(f"[ShiprocketClient][check_serviceability] The serviceablity response is :: {resp_data}")
                 recommended_option = resp_data["data"]["available_courier_companies"][0]
-                serviceablity["estimated_delivery_days"] = recommended_option["estimated_delivery_days"]
-                serviceablity["courier_name"] = recommended_option["courier_name"]
-                serviceablity["courier_company_id"] = recommended_option["courier_company_id"]
-                serviceablity["rate"] = recommended_option["rate"]
-                print(f"[ShiprocketClient][check_serviceability] The serviceability info prepared is : {serviceablity}")
+                serviceability["estimated_delivery_days"] = recommended_option["estimated_delivery_days"]
+                serviceability["courier_name"] = recommended_option["courier_name"]
+                serviceability["courier_company_id"] = recommended_option["courier_company_id"]
+                serviceability["rate"] = recommended_option["rate"]
+                serviceability["dst_pin_code"] = dst_pin_code
+                serviceability["serviceability_id"] = str(uuid.uuid4())
+                print(f"[ShiprocketClient][check_serviceability] The serviceability info prepared is : {serviceability}")
         except Exception as ex:
             print(f"[ShiprocketClient][check_serviceability] Unable to fetch the serviceablity : {ex}")
-        return serviceablity
+        return serviceability
