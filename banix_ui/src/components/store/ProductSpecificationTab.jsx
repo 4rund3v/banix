@@ -1,13 +1,11 @@
 import React from "react";
-import { Row, Col, Table } from "react-bootstrap";
 
 const ProductSpecificationTab = () => {
   return (
-    <div className="typography">
-      <h3>Technical Specifications</h3>
-      <Table striped bordered>
-        <tbody>
-          {/* 
+    <div className="spec">
+      <h3 className="spec__header">Product Specifications</h3>
+      <div className="spec__section">
+        {/* 
             Height	0.2 Inches
             Length	78.74 Inches
             Width	0.57 Inches
@@ -21,60 +19,61 @@ const ProductSpecificationTab = () => {
             Wattage	120.00
             Manufacturer	Banix
             */}
-          <tr>
-            <td>Height</td>
-            <td>0.2 Inches</td>
-          </tr>
-          <tr>
-            <td>Length</td>
-            <td>78.74 Inches</td>
-          </tr>
-          <tr>
-            <td>Width</td>
-            <td>0.57 Inches</td>
-          </tr>
-          <tr>
-            <td>Weight</td>
-            <td>40 Grams</td>
-          </tr>
-          <tr>
-            <td>Style</td>
-            <td>Hue Lightstrip Base 2 mts</td>
-          </tr>
-          <tr>
-            <td>Color</td>
-            <td>Multi-Colored</td>
-          </tr>
-          <tr>
-            <td>Material</td>
-            <td>Polycarbonate and Synthetic</td>
-          </tr>
-          <tr>
-            <td>Included Components</td>
-            <td>1 Vitamas Led 2-meter Lightstrip, 1AC Adapter, 1PowerCable</td>
-          </tr>
-          <tr>
-            <td>Batteries Included</td>
-            <td>No</td>
-          </tr>
-          <tr>
-            <td>Batteries Required</td>
-            <td>No</td>
-          </tr>
-          <tr>
-            <td>Wattage</td>
-            <td>120.00</td>
-          </tr>
-          <tr>
-            <td>Manufacturer</td>
-            <td>Banix</td>
-          </tr>
-          <tr>
-            <td>Color</td>
-            <td>Multi-Colored</td>
-          </tr>
-        </tbody>
-      </Table>
+                  <h4 className="spec__section-title">{"General"}</h4>
+
+      <div className="spec__row">
+          <div className="spec__name">Height</div>
+          <div className="spec__value">0.2 Inches</div>
+      </div>
+      <div className="spec__row">
+            <div className="spec__name">Length</div>
+            <div className="spec__value">78.74 Inches</div>
+          </div>
+          <div className="spec__row">
+            <div className="spec__name">Width</div>
+            <div className="spec__value">0.57 Inches</div>
+          </div>
+          <div className="spec__row">
+            <div className="spec__name">Weight</div>
+            <div className="spec__value">40 Grams</div>
+          </div>
+          <div className="spec__row">
+            <div className="spec__name">Style</div>
+            <div className="spec__value">Hue Lightstrip Base 2 mts</div>
+          </div>
+          <div className="spec__row">
+            <div className="spec__name">Color</div>
+            <div className="spec__value">Multi-Colored</div>
+          </div>
+          <div className="spec__row">
+            <div className="spec__name">Material</div>
+            <div className="spec__value">Polycarbonate and Synthetic</div>
+          </div>
+          <div className="spec__row">
+            <div className="spec__name">Included Components</div>
+            <div className="spec__value">1 Vitamas Led 2-meter Lightstrip, 1AC Adapter, 1PowerCable</div>
+          </div>
+          <div className="spec__row">
+            <div className="spec__name">Batteries Included</div>
+            <div className="spec__value">No</div>
+          </div>
+          <div className="spec__row">
+            <div className="spec__name">Batteries Required</div>
+            <div className="spec__value">No</div>
+          </div>
+          <div className="spec__row">
+            <div className="spec__name">Wattage</div>
+            <div className="spec__value">120.00</div>
+          </div>
+          <div className="spec__row">
+            <div className="spec__name">Manufacturer</div>
+            <div className="spec__value">Banix</div>
+          </div>
+          <div className="spec__row">
+            <div className="spec__name">Color</div>
+            <div className="spec__value">Multi-Colored</div>
+          </div>
+      </div>
     </div>
   );
 };

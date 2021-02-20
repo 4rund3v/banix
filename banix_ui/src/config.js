@@ -1,7 +1,7 @@
 // Base URL info
 export const PRODUCT_LIST_URL = `/api/products`;
 export const PRODUCT_SPECIFIC_URL = `/api/products`;
-export const SERVICEABILITY_URL = `/api/serviceability`;
+export const SERVICEABILITY_URL = `/api/products/serviceability`;
 
 export const CUSTOMER_LOGIN_URL = `/api/customers/login`;
 export const CUSTOMER_REGISTER_URL = `/api/customers/register`;

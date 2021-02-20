@@ -29,6 +29,7 @@ const reducer = combineReducers({
   customerDetailsUpdate: customerDetailsUpdateReducer,
   customerToken: customerTokenReducer,
   orderCreate: OrderCreateReducer,
+  shippingCost: shippingCostReducer,
 });
 
 // Customer related info fetch

@@ -9,7 +9,7 @@ export const shippingCostReducer = (state = {}, action) => {
     case SERVICEABILITY_REQUEST:
       return { loading: true };
     case SERVICEABILITY_SUCCESS:
-      return { loading: false, product: action.payload };
+      return { loading: false, serviceability: action.payload };
     case SERVICEABILITY_FAILED:
       return { loading: false, error: action.payload };
     default:

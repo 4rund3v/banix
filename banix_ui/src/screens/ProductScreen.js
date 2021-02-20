@@ -13,14 +13,16 @@ import {
   Form,
 } from "react-bootstrap";
 import Rating from "../components/store/Rating";
-import { getProductDetails } from "../actions/productActions";
+import {
+  getProductDetails,
+  fetchServiceabilityDetails,
+} from "../actions/productActions";
 import Loader from "../components/misc/Loader";
 import Message from "../components/misc/Message";
 import { Product } from "../schema/products";
 import ProductTabs from "../components/store/ProductTabs";
 import ProductPrice from "../components/store/ProductPrice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ImageGallery from "react-image-gallery";
 import ProductGallery from "../components/store/ProductGallery";
 
 const ProductScreen = ({ history, match }) => {
@@ -43,15 +45,18 @@ const ProductScreen = ({ history, match }) => {
   };
   const [pinCode, setPinCode] = useState("");
 
+  const shippingCost = useSelector((state) => state.shippingCost);
+  const { shippingLoading, shippingError, serviceability } = shippingCost;
   const [deliveryInfo, setDeliveryInfo] = useState({});
-
-  const productSpeicifications = {};
-
+  useEffect(() => {
+    setDeliveryInfo(serviceability);
+  }, [serviceability]);
   const checkDeliveryHandler = () => {
     console.log("[ProductScreen] Check delivery invoked !!", pinCode);
+    dispatch(fetchServiceabilityDetails(product.productId, pinCode));
   };
-
-  console.log("product info recieved is ::", product);
+  console.log("[ProductScreen] The deliveryInfo info is ::: ", deliveryInfo);
+  console.log("[ProductScreen]product info recieved is ::", product);
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
@@ -93,38 +98,7 @@ const ProductScreen = ({ history, match }) => {
                 <div className="product__prices">
                   <ProductPrice product={product} />
                 </div>
-                {/* <Form className="product__variants">
-                    <h3>Color</h3>
-                    <FormGroup>
-                      {colorVariants &&
-                        colorVariants.map((color, index) => (
-                          <Form.Label
-                            className="input-radio-color__item input-radio-color__item--white"
-                            data-toggle="tooltip"
-                            title={color}
-                          >
-                            <input type="radio" name="color" />
-                            <span>{color}</span>
-                          </Form.Label>
-                        ))}
-                    </FormGroup>
-                  </Form>
-                  <h3>Size</h3>
-                  <Form className="product__options">
-                    <FormGroup>
-                      {lengthVariants &&
-                        lengthVariants.map((length, index) => (
-                          <Form.Label
-                            className="input-radio-color__item input-radio-color__item--white"
-                            data-toggle="tooltip"
-                            title={length}
-                          >
-                            <input type="radio" name="length" />
-                            <span>{length}</span>
-                          </Form.Label>
-                        ))}
-                    </FormGroup>
-                  </Form> */}
+
                 <div className="product__actions-item">
                   <InputGroup className="mb-3">
                     <InputGroup.Text>
@@ -166,19 +140,20 @@ const ProductScreen = ({ history, match }) => {
                     </InputGroup.Append>
                   </InputGroup>
                   {deliveryInfo &&
-                    deliveryInfo.deliveryDays &&
-                    (deliveryInfo.deliveryDays === -1 ? (
+                    deliveryInfo.courierCompanyId &&
+                    (deliveryInfo.estimatedDeliveryDays === -1 ? (
                       <div className="product__delivery_info">
                         <span className="text-danger">
-                          Cannot deliver to location
+                          Cannot deliver to location `$
+                          {deliveryInfo.deliveryPinCode}`
                         </span>{" "}
                       </div>
                     ) : (
                       <div className="product__delivery_info">
                         <span className="text-dark">
-                          Delivery in {deliveryInfo.deliveryDays} Days
+                          Delivery in {deliveryInfo.estimatedDeliveryDays} Days
                         </span>{" "}
-                        |<span>+ &#8377; {deliveryInfo.rate}</span>
+                        |<strong>+ &#8377; {deliveryInfo.deliveryRate}</strong>
                       </div>
                     ))}
                 </div>

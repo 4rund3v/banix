@@ -18,6 +18,7 @@ import {
   SERVICEABILITY_URL,
 } from "../config";
 import { Product } from "../schema/products";
+import { ServiceabilityInfo } from "../schema/shipping";
 
 export const listProducts = () => async (dispatch) => {
   try {
@@ -61,15 +62,29 @@ export const getProductDetails = (productId) => async (dispatch) => {
   }
 };
 
-export const fetchServiceabilityDetails = (pinCode) => async (dispatch) => {
+export const fetchServiceabilityDetails = (productId, pinCode) => async (
+  dispatch
+) => {
+  console.log(
+    "fetchServiceabilityDetails :: productId &  pinCode are ",
+    productId,
+    pinCode
+  );
   try {
     dispatch({ type: SERVICEABILITY_REQUEST });
     const { data } = await axios.get(
       `${SERVICEABILITY_URL}?pin_code=${pinCode}`
     );
+    const serviceabilityInfo = new ServiceabilityInfo(data);
+    console.log(
+      "[fetchServiceabilityDetails] Data recieved is  & the serviceability info prepared is :: ",
+      data,
+      serviceabilityInfo
+    );
+
     dispatch({
       type: SERVICEABILITY_SUCCESS,
-      payload: data,
+      payload: serviceabilityInfo,
     });
   } catch (error) {
     dispatch({
