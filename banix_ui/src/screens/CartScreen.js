@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/misc/Message";
 import { Link } from "react-router-dom";
+import { addToCart, removeFromCart } from "../actions/cartActions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Row,
   Col,
@@ -11,8 +13,6 @@ import {
   Button,
   Card,
 } from "react-bootstrap";
-import { addToCart, removeFromCart } from "../actions/cartActions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id;
