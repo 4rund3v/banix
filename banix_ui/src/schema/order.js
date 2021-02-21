@@ -16,6 +16,7 @@ export class Order {
       if (rawOrder.order_items) {
         rawOrder.order_items.map((rawOrderItem) => {
           this.orderItems.push(new OrderItem(rawOrderItem));
+          return null;
         });
       }
     } else {

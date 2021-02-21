@@ -7,10 +7,7 @@ import {
   Button,
   InputGroup,
   Container,
-  Carousel,
-  CarouselItem,
   FormControl,
-  Form,
 } from "react-bootstrap";
 import Rating from "../components/store/Rating";
 import {
@@ -56,7 +53,7 @@ const ProductScreen = ({ history, match }) => {
     dispatch(fetchServiceabilityDetails(product.productId, pinCode));
   };
   console.log("[ProductScreen] The deliveryInfo info is ::: ", deliveryInfo);
-  console.log("[ProductScreen]product info recieved is ::", product);
+  console.log("[ProductScreen] product info recieved is ::", product);
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
@@ -139,7 +136,13 @@ const ProductScreen = ({ history, match }) => {
                       </Button>
                     </InputGroup.Append>
                   </InputGroup>
-                  {deliveryInfo &&
+
+                  {shippingLoading ? (
+                    <> </>
+                  ) : shippingError ? (
+                    <Message variant="danger">{shippingError}</Message>
+                  ) : (
+                    deliveryInfo &&
                     deliveryInfo.courierCompanyId &&
                     (deliveryInfo.estimatedDeliveryDays === -1 ? (
                       <div className="product__delivery_info">
@@ -155,7 +158,8 @@ const ProductScreen = ({ history, match }) => {
                         </span>{" "}
                         |<strong>+ &#8377; {deliveryInfo.deliveryRate}</strong>
                       </div>
-                    ))}
+                    ))
+                  )}
                 </div>
               </div>
               <div className="product__info__purchase_options py-2">

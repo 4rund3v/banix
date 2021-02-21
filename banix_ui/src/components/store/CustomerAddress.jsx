@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { saveShippingAddress } from "../../actions/cartActions";
 
 const CustomerAddress = ({ shippingAddress, onSubmitHandler }) => {
@@ -135,7 +135,7 @@ const CustomerAddress = ({ shippingAddress, onSubmitHandler }) => {
         ></Form.Control>
       </Form.Group>
       <Button type="submit" variant="primary">
-        Continue
+        Save Shipping Address
       </Button>
     </Form>
   );

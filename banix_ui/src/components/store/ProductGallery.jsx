@@ -8,7 +8,7 @@ const ProductGallery = ({ productMedia }) => {
   );
   const items = [];
   const mediaRenderer = (item) => {
-    console.log("mediaRenderer", item);
+    console.log("[ProductGallery] mediaRenderer rendering item ::: ", item);
     return (
       <video
         id="vid"
@@ -41,8 +41,8 @@ const ProductGallery = ({ productMedia }) => {
         renderItem: mediaRenderer,
       });
     }
+    return null;
   });
-  //   const videoRender =  === "v" ? videoRenderer : null;
 
   return (
     <ImageGallery

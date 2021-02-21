@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import ProductCard from "../components/store/ProductCard";
-import { Product } from "../schema/products";
 import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
 import { useDispatch, useSelector } from "react-redux";

@@ -24,6 +24,7 @@ export class Product {
             mediaPoster: carouselMedia.poster_id,
           };
           this.productCarouselMedia.push(item);
+          return null;
         });
       }
     }
