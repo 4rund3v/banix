@@ -2,7 +2,7 @@ import os
 import sys
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
-from src.models import Orders, OrderItem, OrderShippingInfo, PaymentType, Product, ProductSpecification
+from src.models import Orders, OrderItem, OrderShippingInfo, PaymentInfo, Product, ProductSpecification, Address
 from src.db_utils import Session, engine
 from src.shiprocket import shiprocket_client_session as scs
 from authorization import token_required
@@ -10,6 +10,7 @@ from flask import Flask, jsonify, abort, Blueprint, request
 import json
 import uuid
 import math
+import datetime
 order_blueprint = Blueprint("orders", __name__)
 
 def get_total_price(shipping_price: int, tax_price: int, selling_price: int) -> int:
@@ -81,7 +82,6 @@ def preape_order_info(current_customer_info):
     return result
 
 
-
 @order_blueprint.route("/orders", methods=["POST"])
 @token_required
 def create_order(current_customer_info):
@@ -93,18 +93,24 @@ def create_order(current_customer_info):
         session = Session()
         print(f"[create_order] The form data recieved to create an order is {form_data}")
         new_order = Orders(order_customer_id=current_customer_info["customer_id"])
-        new_order.total_price = form_data["total_price"]
-        new_order.total_selling_price = form_data["total_selling_price"]
-        new_order.total_shipping_price = form_data["total_shipping_price"]
-        new_order.total_tax_price = form_data["total_tax_price"]        
+        new_order.order_total_price = form_data["order_price"]["total_price"]
+        new_order.order_selling_price = form_data["order_price"]["total_selling_price"]
+        new_order.order_shipping_price = form_data["order_price"]["total_shipping_price"]
+        new_order.order_tax_price = form_data["order_price"]["total_tax_price"]
+        new_order.order_date = str(datetime.datetime.now())
+        shipping_address = Address(**form_data["order_shipping_address"])
+        print(f"[create_order] Shipping Address Created is : {shipping_address}")
+        new_order.order_shipping_address = shipping_address
         print(f"[create_order] Order Created is : {new_order}")
-        payment_type = PaymentType(orders=new_order,
-                                   method_name=form_data["order_payment_id"]["paymentMethod"])
-        print(f"[create_order] Payment Type Created is : {payment_type}")
+        payment_info = PaymentInfo(orders=new_order,
+                                   payment_gateway=form_data["order_payment_info"]["payment_gateway"],
+                                   payment_method=form_data["order_payment_info"]["payment_method"],
+                                   payment_transaction_id=form_data["order_payment_info"]["payment_transaction_id"])
+        print(f"[create_order] PaymentInfo Created is : {payment_info}")
         for order_item in form_data["order_items"]:
             print(f"[create_order] Order item is  :: {order_item}")
             new_order_item = OrderItem(orders=new_order,
-                                       product_id=order_item["product_id"],
+                                       order_product_foreign_id=order_item["product_id"],
                                        order_item_quantity = order_item["qty"],                                       
                                        order_item_selling_price = order_item["selling_price"],
                                        order_item_shipping_price = order_item["shipping_price"],
@@ -112,7 +118,8 @@ def create_order(current_customer_info):
                                        order_item_total_price = order_item["total_price"],
                                        )
             session.add(new_order_item)
-        session.add(payment_type)
+        session.add(shipping_address)
+        session.add(payment_info)
         session.add(new_order)
         session.commit()
     except Exception as ex:

@@ -7,10 +7,11 @@ import {
   PREPARE_ORDER_INFO_SUCCESS,
   PREPARE_ORDER_INFO_FAIL,
 } from "../constants/orderConstants";
+
 import { CREATE_ORDER_URL, PREPARE_ORDER_INFO_URL } from "../config";
 import { Order, orderInfo } from "../schema/order";
 
-export const createOrder = (order, orderInfo) => async (dispatch, getState) => {
+export const createOrder = (order) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_CREATE_REQUEST,
@@ -27,10 +28,7 @@ export const createOrder = (order, orderInfo) => async (dispatch, getState) => {
       },
     };
     console.log("[createOrder] The order recieved to create is :: ", order);
-    console.log(
-      "[createOrder] The order info recieved to create is :: ",
-      orderInfo
-    );
+
     const { data } = await axios.post(CREATE_ORDER_URL, order, config);
     // // just to make sure that the empty {} is not saved as customer info
     // if (!data.customer_info) {

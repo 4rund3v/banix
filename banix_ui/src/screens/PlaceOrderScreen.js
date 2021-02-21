@@ -57,11 +57,32 @@ const PlaceOrderScreen = ({ history }) => {
 
   const placeOrderHandler = () => {
     const order = new Order();
+    order.orderInfoId = orderInfo.orderInfoId;
     order.orderItems = cartItems;
+    order.orderPrice = {
+      totalShippingPrice: orderInfo.totalShippingPrice,
+      totalSellingPrice: orderInfo.totalSellingPrice,
+      totalTaxPrice: orderInfo.totalTaxPrice,
+      totalPrice: orderInfo.totalPrice,
+    };
+    orderInfo.productPriceInfo.map((productPriceInfo) => {
+      order.orderItemPriceInfo.push({
+        productId: productPriceInfo.productId,
+        sellingPrice: productPriceInfo.sellingPrice,
+        shippingPrice: productPriceInfo.shippingPrice,
+        taxPrice: productPriceInfo.taxPrice,
+        totalPrice: productPriceInfo.totalPrice,
+      });
+      return null;
+    });
     order.orderShippingInfo = shippingAddress;
-    order.orderPaymentType = paymentMethod;
+    order.orderPaymentInfo = {
+      paymentGateway: "RazorPay",
+      paymentMethod,
+      paymentTransactionId: Date.now(),
+    };
     console.log("[placeOrderHandler] The order info prepared is : ", order);
-    dispatch(createOrder(order.toRawDict(), orderInfo));
+    dispatch(createOrder(order.toRawDict()));
   };
 
   return (

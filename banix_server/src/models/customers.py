@@ -1,5 +1,5 @@
 from src.models import Base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 
@@ -43,7 +43,9 @@ class Address(Base):
     city_info = Column(String(200), nullable=False)
     state_info = Column(String(200), nullable=False)
     address_type = Column(String(20))
-
+    customer_id = Column(Integer, ForeignKey("customers.customer_id"))
+    order_id = Column(Integer, ForeignKey("orders.order_id"))
+    
     def __repr__(self):
         return f"""<Address ({self.full_name},({self.mobile_number} pincode:[{self.pincode}]))>"""
 

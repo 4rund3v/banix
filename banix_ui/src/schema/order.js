@@ -4,8 +4,8 @@ export class Order {
       this.orderId = rawOrder.order_id;
       this.orderPrice = rawOrder.order_price;
       this.orderDate = rawOrder.order_date;
-      this.orderPaymentType = null;
-
+      this.orderPaymentInfo = null;
+      this.orderItemPriceInfo = [];
       this.orderShippingInfo = null;
       if (rawOrder.order_shipping_info) {
         this.orderShippingInfo = new orderShippingInfo(
@@ -21,24 +21,72 @@ export class Order {
       }
     } else {
       this.orderId = null;
-      this.orderPrice = null;
+      this.orderPrice = {};
+      this.orderItemPriceInfo = [];
       this.orderDate = null;
-      this.orderPaymentType = null;
+      this.orderPaymentInfo = null;
       this.orderShippingInfo = null;
       this.orderItems = [];
+      this.productPriceInfo = [];
     }
   }
   toDict() {
     return {};
   }
   toRawDict() {
+    let shippingInfo = {};
+    if (this.orderShippingInfo) {
+      shippingInfo["full_name"] = this.orderShippingInfo.fullName;
+      shippingInfo["mobile_number"] = this.orderShippingInfo.mobileNumber;
+      shippingInfo["pincode"] = this.orderShippingInfo.pinCode;
+      shippingInfo["building_info"] = this.orderShippingInfo.buildingInfo;
+      shippingInfo["street_info"] = this.orderShippingInfo.streetInfo;
+      shippingInfo["landmark_info"] = this.orderShippingInfo.landmarkInfo;
+      shippingInfo["city_info"] = this.orderShippingInfo.cityInfo;
+      shippingInfo["state_info"] = this.orderShippingInfo.stateInfo;
+    }
+    let orderPrice = {};
+    if (this.orderPrice) {
+      orderPrice["total_price"] = this.orderPrice.totalShippingPrice;
+      orderPrice["total_selling_price"] = this.orderPrice.totalSellingPrice;
+      orderPrice["total_shipping_price"] = this.orderPrice.totalShippingPrice;
+      orderPrice["total_tax_price"] = this.orderPrice.totalTaxPrice;
+      orderPrice["total_price"] = this.orderPrice.totalPrice;
+    }
+    let orderItems = [];
+    console.log(this.orderItems.length);
+    if (this.orderItems && this.orderItemPriceInfo) {
+      for (let i = 0; i < this.orderItems.length; i++) {
+        let orderItem = this.orderItems[i];
+        let productPriceInfo = this.orderItemPriceInfo.filter(
+          (item) => item.productId === orderItem.productId
+        )[0];
+        let temp = {};
+        temp["product_id"] = orderItem.productId;
+        temp["total_price"] = productPriceInfo.totalPrice;
+        temp["shipping_price"] = productPriceInfo.shippingPrice;
+        temp["tax_price"] = productPriceInfo.taxPrice;
+        temp["selling_price"] = productPriceInfo.sellingPrice;
+        temp["qty"] = orderItem.qty;
+        orderItems.push(temp);
+      }
+    }
+    let paymentInfo = {};
+    if (this.orderPaymentInfo) {
+      paymentInfo[
+        "payment_method"
+      ] = this.orderPaymentInfo.paymentMethod.paymentMethod;
+      paymentInfo["payment_gateway"] = this.orderPaymentInfo.paymentGateway;
+      paymentInfo[
+        "payment_transaction_id"
+      ] = this.orderPaymentInfo.paymentTransactionId;
+    }
     return {
       order_id: this.orderId,
-      order_price: this.orderPrice,
-      order_date: this.orderDate,
-      order_payment_id: this.orderPaymentType,
-      order_items: this.orderItems,
-      order_shipping_address: this.orderShippingInfo,
+      order_price: orderPrice,
+      order_items: orderItems,
+      order_payment_info: paymentInfo,
+      order_shipping_address: shippingInfo,
     };
   }
 }
@@ -78,5 +126,8 @@ export class orderInfo {
         return null;
       });
     }
+  }
+  toRawDict(self) {
+    return {};
   }
 }
