@@ -62,6 +62,7 @@ def fetch_specific_product(product_id):
                 result["product"]["product_media"] = product_media.to_dict()
                 for pcm in session.query(ProductCarouselMedia).filter(ProductCarouselMedia.product_media == product_media).all():
                     result["product"]["product_media"]["product_carousel_media"].append(pcm.to_dict())
+                result["product"]["product_media"]["product_carousel_media"].sort(key=lambda m: m["media_type"])
         print(f"[fetch_specific_product] The result prepared is :: {result}")
         return result
     except Exception as ex:
