@@ -8,6 +8,8 @@ import {
 import { PRODUCT_SPECIFIC_URL } from "../config";
 import { Product } from "../schema/products";
 import { CustomerAddress } from "../schema/customer";
+import { toast } from "react-toastify";
+
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
   const url = `${PRODUCT_SPECIFIC_URL}/${productId}`;
   console.log("[addToCart] The url prepared is ", url);
@@ -25,6 +27,7 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
       qty,
     },
   });
+  toast.success(`Product "${product.productName}" added to cart!`);
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 

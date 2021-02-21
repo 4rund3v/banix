@@ -9,18 +9,22 @@ import {
   Container,
   FormControl,
 } from "react-bootstrap";
-import Rating from "../components/store/Rating";
+import { ToastContainer } from "react-toastify";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   getProductDetails,
   fetchServiceabilityDetails,
 } from "../actions/productActions";
+import { addToCart } from "../actions/cartActions";
+
+import { Product } from "../schema/products";
 import Loader from "../components/misc/Loader";
 import Message from "../components/misc/Message";
-import { Product } from "../schema/products";
 import ProductTabs from "../components/store/ProductTabs";
 import ProductPrice from "../components/store/ProductPrice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductGallery from "../components/store/ProductGallery";
+import Rating from "../components/store/Rating";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -35,7 +39,8 @@ const ProductScreen = ({ history, match }) => {
   }, [dispatch, match]);
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`);
+    // history.push(`/cart/${match.params.id}?qty=${qty}`);
+    dispatch(addToCart(product.productId, qty));
   };
   const buyNowHander = () => {
     history.push("/login?redirect=shipping");
@@ -56,6 +61,8 @@ const ProductScreen = ({ history, match }) => {
   console.log("[ProductScreen] product info recieved is ::", product);
   return (
     <>
+      <ToastContainer autoClose={5000} hideProgressBar />
+
       <Link className="btn btn-light my-3" to="/">
         {"Go Back"}
       </Link>

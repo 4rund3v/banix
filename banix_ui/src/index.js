@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import BanixApp from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import "./scss/style.scss";
 import { Provider } from "react-redux";
