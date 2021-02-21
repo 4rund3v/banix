@@ -10,7 +10,7 @@ import {
 import { CREATE_ORDER_URL, PREPARE_ORDER_INFO_URL } from "../config";
 import { Order, orderInfo } from "../schema/order";
 
-export const createOrder = (order) => async (dispatch, getState) => {
+export const createOrder = (order, orderInfo) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_CREATE_REQUEST,
@@ -26,19 +26,20 @@ export const createOrder = (order) => async (dispatch, getState) => {
         Authorization: `Bearer ${tokenInfo.token}`,
       },
     };
+    console.log("[createOrder] The order recieved to create is :: ", order);
     console.log(
       "[createOrder] The order info recieved to create is :: ",
-      order
+      orderInfo
     );
     const { data } = await axios.post(CREATE_ORDER_URL, order, config);
     // // just to make sure that the empty {} is not saved as customer info
     // if (!data.customer_info) {
     //   throw new Error("No customer information recieved.");
     // }
-    const orderInfo = new Order(data.order_info);
+    const newOrder = new Order(data.order_info);
     dispatch({
       type: ORDER_CREATE_SUCCESS,
-      payload: orderInfo,
+      payload: newOrder,
     });
   } catch (error) {
     dispatch({

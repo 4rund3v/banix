@@ -93,23 +93,24 @@ def create_order(current_customer_info):
         session = Session()
         print(f"[create_order] The form data recieved to create an order is {form_data}")
         new_order = Orders(order_customer_id=current_customer_info["customer_id"])
-        print(f"Order Created is : {new_order}")
+        new_order.total_price = form_data["total_price"]
+        new_order.total_selling_price = form_data["total_selling_price"]
+        new_order.total_shipping_price = form_data["total_shipping_price"]
+        new_order.total_tax_price = form_data["total_tax_price"]        
+        print(f"[create_order] Order Created is : {new_order}")
         payment_type = PaymentType(orders=new_order,
-                               method_name=form_data["order_payment_id"]["paymentMethod"])
-        print(f"[create_order]New Order Created is : {new_order}")
-        print(f"[create_order]Payment Type Created is : {payment_type}")
-
+                                   method_name=form_data["order_payment_id"]["paymentMethod"])
+        print(f"[create_order] Payment Type Created is : {payment_type}")
         for order_item in form_data["order_items"]:
-            print(f"[create_order]Order item is  :: {order_item}")
-            order_item_total_price=order_item.qty * order_item.productSellingPrice  + 100
-            order_item_shipping_price = 100
-            order_item_selling_price = order_item.qty * order_item.productSellingPrice
+            print(f"[create_order] Order item is  :: {order_item}")
             new_order_item = OrderItem(orders=new_order,
-                                       product_id=order_item.productId,
-                                       order_item_total_price = order_item_total_price,
-                                       order_item_selling_price =order_item_selling_price,
-                                       order_item_shipping_price =order_item_shipping_price,
-                                       order_item_quantity = order_item.qty)
+                                       product_id=order_item["product_id"],
+                                       order_item_quantity = order_item["qty"],                                       
+                                       order_item_selling_price = order_item["selling_price"],
+                                       order_item_shipping_price = order_item["shipping_price"],
+                                       order_item_tax_price = order_item["tax_price"],
+                                       order_item_total_price = order_item["total_price"],
+                                       )
             session.add(new_order_item)
         session.add(payment_type)
         session.add(new_order)

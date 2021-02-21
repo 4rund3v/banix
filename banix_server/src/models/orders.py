@@ -11,7 +11,10 @@ class Orders(Base):
     payment_type = relationship("PaymentType", back_populates="orders")
     order_items = relationship("OrderItem", cascade="all, delete, delete-orphan")
     order_date = Column(String(30), nullable=False)
-    order_price = Column(Integer, nullable=False)
+    order_item_total_price = Column(Integer, nullable=False)
+    order_shipping_price = Column(Integer, nullable=False)
+    order_tax_price = Column(Integer, nullable=False)
+    order_selling_price = Column(Integer, nullable=False)
     order_shipping_info = relationship("OrderShippingInfo", uselist=False, cascade="all, delete, delete-orphan")
 
     def __repr__(self):
@@ -31,6 +34,7 @@ class OrderItem(Base):
     order_item_total_price = Column(Integer, nullable=False)
     order_item_selling_price = Column(Integer, nullable=False)
     order_item_shipping_price = Column(Integer, nullable=False)
+    order_item_tax_price = Column(Integer, nullable=False)
     order_item_quantity = Column(Integer, nullable=False)
 
     def __repr__(self):
@@ -43,6 +47,7 @@ class OrderItem(Base):
                 order_item_total_price=self.order_item_total_price,
                 order_item_selling_price=self.order_item_selling_price,
                 order_item_shipping_price=self.order_item_shipping_price,
+                order_item_tax_price=self.order_item_tax_price,
                 order_item_quantity=self.order_item_quantity)
 
 class OrderShippingInfo(Base):

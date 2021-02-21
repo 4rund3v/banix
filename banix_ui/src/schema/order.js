@@ -63,7 +63,20 @@ export class orderInfo {
     this.pinCode = rawOrderInfo.pin_code;
     this.totalSellingPrice = rawOrderInfo.total_selling_price;
     this.totalShippingPrice = rawOrderInfo.total_shipping_price;
-    this.totalTaxPrice = rawOrderInfo.total_selling_price;
+    this.totalTaxPrice = rawOrderInfo.total_tax_price;
     this.totalPrice = rawOrderInfo.total_price;
+    this.productPriceInfo = [];
+    if (rawOrderInfo.product_price_info) {
+      rawOrderInfo.product_price_info.map((productPriceInfo) => {
+        this.productPriceInfo.push({
+          productId: productPriceInfo.product_id,
+          sellingPrice: productPriceInfo.price_details.selling_price,
+          shippingPrice: productPriceInfo.price_details.shipping_price,
+          taxPrice: productPriceInfo.price_details.tax_price,
+          totalPrice: productPriceInfo.price_details.total_price,
+        });
+        return null;
+      });
+    }
   }
 }

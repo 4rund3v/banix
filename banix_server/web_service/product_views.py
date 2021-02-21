@@ -37,7 +37,6 @@ def fetch_products():
                 print(f"[fetch_products] product media is : {product_media}")
                 prod["product_media"] = product_media.to_dict()
             result["products"].append(prod)
-        resu
     except Exception as ex:
         print("[fetch_products] Exception: {}".format(ex))
     finally:

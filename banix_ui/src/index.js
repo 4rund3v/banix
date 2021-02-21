@@ -4,6 +4,11 @@ import BanixApp from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import "typeface-roboto";
+import "typeface-roboto/files/roboto-latin-300.woff2";
+import "typeface-roboto/files/roboto-latin-400.woff2";
+import "typeface-roboto/files/roboto-latin-500.woff2";
+import "typeface-roboto/files/roboto-latin-700.woff2";
 
 import "./scss/style.scss";
 import { Provider } from "react-redux";

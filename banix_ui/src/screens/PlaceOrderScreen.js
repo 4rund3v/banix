@@ -61,7 +61,7 @@ const PlaceOrderScreen = ({ history }) => {
     order.orderShippingInfo = shippingAddress;
     order.orderPaymentType = paymentMethod;
     console.log("[placeOrderHandler] The order info prepared is : ", order);
-    dispatch(createOrder(order.toRawDict()));
+    dispatch(createOrder(order.toRawDict(), orderInfo));
   };
 
   return (
