@@ -62,8 +62,7 @@ const ProductScreen = ({ history, match }) => {
   console.log("[ProductScreen] product info recieved is ::", product);
   return (
     <>
-      <ToastContainer autoClose={5000} hideProgressBar />
-
+      <ToastContainer autoClose={2000} hideProgressBar />
       <Link className="btn btn-light my-3" to="/">
         {"Go Back"}
       </Link>

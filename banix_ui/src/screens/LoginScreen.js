@@ -7,7 +7,6 @@ import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
 import { login } from "../actions/customerActions";
 import FormContainer from "../components/misc/FormContainer";
-
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

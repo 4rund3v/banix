@@ -14,7 +14,7 @@ import {
   CUSTOMER_PROFILE_DETAILS_UPDATE_SUCCESS,
   CUSTOMER_PROFILE_DETAILS_UPDATE_FAIL,
 } from "../constants/customerConstants";
-
+import { toast } from "react-toastify";
 import {
   CUSTOMER_LOGIN_URL,
   CUSTOMER_REGISTER_URL,
@@ -57,6 +57,7 @@ export const login = (email, password) => async (dispatch) => {
       type: CUSTOMER_LOGIN_SUCCESS,
       payload: customerInfo,
     });
+    toast.success(`Logged In !`);
 
     dispatch({
       type: CUSTOMER_TOKEN_UPDATED,

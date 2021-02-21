@@ -24,18 +24,22 @@ def authenticate_customer_login():
     result = {"customer_info": {}}
     try:
         session = Session()
-        customer = session.query(Customer).filter(Customer.email_id == form_data["email_id"]).filter(
-            Customer.password == form_data["password"]).first()
+        customer = session.query(Customer).filter(Customer.email_id == form_data["email_id"]).first()
         if customer:
-            result["customer_info"] = customer.as_dict()
-            token = jwt.encode({'public_id': customer.public_id,
+            if customer.password == form_data["password"]:
+                result["customer_info"] = customer.as_dict()
+                token = jwt.encode({'public_id': customer.public_id,
                                 'exp': datetime.utcnow() + timedelta(minutes=300)},
                                "banix")
-            result["token"] = token.decode("UTF-8")
-        print(f"[authenticate_customer_login] The result prepared is :: {result}")
-        return result
-    except Exception as ex:
-        print("[authenticate_customer_login] Exception: {}".format(ex))
+                result["token"] = token.decode("UTF-8")
+                print(f"[authenticate_customer_login] The result prepared is :: {result}")
+                return result
+            else:
+                abort(make_response(jsonify(message="Invalid password provided."), 401))
+        else:
+            abort(make_response(jsonify(message="Email address not registered."), 401))        
+    except ValueError as ve:
+        print("[authenticate_customer_login] ValueError: {}".format(ve))
     finally:
         if session:
             session.close()
@@ -51,7 +55,7 @@ def register_customer():
         session = Session()
         existing_customer = session.query(Customer).filter(Customer.email_id == form_data["email_id"]).first()
         if existing_customer:
-            return jsonify({'message': 'Customer with the same email id already exists !!'}), 401
+            abort(make_response(jsonify(message='Email Address already registered, Try Login'), 401))
         new_customer_info = Customer(display_name=form_data["display_name"],
                                      username=form_data["display_name"],
                                      email_id=form_data["email_id"],
@@ -75,7 +79,7 @@ def register_customer():
                             }, "banix")
         result["token"] = token.decode("UTF-8")
         return result
-    except Exception as ex:
+    except ValueError as ex:
         print("[register_customer] Exception: {}".format(ex))
     finally:
         if session:
