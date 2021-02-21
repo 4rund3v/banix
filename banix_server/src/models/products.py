@@ -49,7 +49,7 @@ class ProductVariant(Base):
     products = relationship("Product", back_populates="product_variant")
     product_media = relationship("ProductMedia", back_populates="product_variant",
                                           cascade="all, delete, delete-orphan")
-    product_specification = relationship("ProductSpecification", back_populates="product_variant",
+    product_specification = relationship("ProductSpecification",uselist=False, back_populates="product_variant",
                                                    cascade="all, delete, delete-orphan")
 
 
@@ -114,9 +114,9 @@ class ProductSpecification(Base):
 
     product_specification_id = Column(Integer, primary_key=True, autoincrement=True)
     product_description = Column(String(1000))
-    product_dimensions = relationship("ProductDimensions", back_populates="product_specification",
+    product_dimensions = relationship("ProductDimensions",uselist=False, back_populates="product_specification",
                                                    cascade="all, delete, delete-orphan")
-    product_box_dimensions = relationship("ProductBoxDimensions", back_populates="product_specification",
+    product_box_dimensions = relationship("ProductBoxDimensions",uselist=False, back_populates="product_specification",
                                           cascade="all, delete, delete-orphan")
     product_box_contents = Column(String(500))
 
@@ -125,11 +125,26 @@ class ProductSpecification(Base):
 
     product_variant_foreign_id = Column(Integer, ForeignKey("product_variant.product_variant_id"), nullable=True)
     product_variant = relationship("ProductVariant", back_populates="product_specification")
-
+    def as_dict(self):
+        print("[ProductSpecification][as_dict] is called ")
+        if self.product_dimensions:
+            product_dimensions = self.product_dimensions.as_dict()
+        else:
+            product_dimensions = {}
+        if self.product_box_dimensions:
+            product_box_dimensions = self.product_box_dimensions.as_dict()
+        else:
+            product_box_dimensions = {}
+        return dict(product_specification_id= self.product_specification_id,
+            product_description=self.product_description,
+            product_dimensions=product_dimensions,
+            product_box_dimensions=product_box_dimensions
+            )
 
 class ProductDimensions(Base):
 
     __tablename__ = "product_dimensions"
+
     product_dimensions_id = Column(Integer, primary_key=True, autoincrement=True, )
     # in mm
     width = Column(Integer)
@@ -137,8 +152,17 @@ class ProductDimensions(Base):
     depth = Column(Integer)
     # in grams
     weight = Column(Integer)
+    length = Column(Integer)
     product_specification_foreign_id = Column(Integer, ForeignKey("product_specification.product_specification_id"), nullable=False)
-    product_specification = relationship("ProductSpecification", back_populates="product_dimensions")
+    product_specification = relationship("ProductSpecification", uselist=False, back_populates="product_dimensions")
+
+    def as_dict(self):
+        print("[ProductDimensions][as_dict] is called ")
+        
+        return dict(width=self.width,
+                    height=self.height,
+                    depth=self.depth,
+                    weight=self.weight)
 
 
 class ProductBoxDimensions(Base):
@@ -150,6 +174,16 @@ class ProductBoxDimensions(Base):
     depth = Column(Integer)
     # in grams
     weight = Column(Integer)
+    length = Column(Integer)
     product_specification_foreign_id = Column(Integer, ForeignKey("product_specification.product_specification_id"),
                                               nullable=False)
-    product_specification = relationship("ProductSpecification", back_populates="product_box_dimensions")
+    product_specification = relationship("ProductSpecification",uselist=False, back_populates="product_box_dimensions")
+
+    def as_dict(self):
+        print("[ProductBoxDimensions][as_dict] is called ")
+        
+        return dict(width=self.width,
+                    height=self.height,
+                    depth=self.depth,
+                    weight=self.weight,
+                    length=self.length)

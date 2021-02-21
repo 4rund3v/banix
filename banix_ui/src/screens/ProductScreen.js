@@ -39,10 +39,11 @@ const ProductScreen = ({ history, match }) => {
   }, [dispatch, match]);
 
   const addToCartHandler = () => {
-    // history.push(`/cart/${match.params.id}?qty=${qty}`);
     dispatch(addToCart(product.productId, qty));
+    // history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
   const buyNowHander = () => {
+    dispatch(addToCart(product.productId, qty));
     history.push("/login?redirect=shipping");
   };
   const [pinCode, setPinCode] = useState("");

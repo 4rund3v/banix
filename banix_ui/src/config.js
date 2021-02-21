@@ -8,7 +8,7 @@ export const CUSTOMER_REGISTER_URL = `/api/customers/register`;
 export const CUSTOMER_PROFILE_URL = `/api/customers/profile`;
 
 export const CREATE_ORDER_URL = `/api/orders`;
-
+export const PREPARE_ORDER_INFO_URL = `/api/prepare-order`;
 // Social MediaLinks
 export const BANIX_YOUTUBE_URL =
   "https://www.youtube.com/channel/UCuzzq_j5D1CRhDKwuWvoDQw";

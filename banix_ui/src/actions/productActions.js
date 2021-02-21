@@ -73,7 +73,7 @@ export const fetchServiceabilityDetails = (productId, pinCode) => async (
   try {
     dispatch({ type: SERVICEABILITY_REQUEST });
     const { data } = await axios.get(
-      `${SERVICEABILITY_URL}?pin_code=${pinCode}`
+      `${SERVICEABILITY_URL}?pin_code=${pinCode}&product_id=${productId}`
     );
     const serviceabilityInfo = new ServiceabilityInfo(data);
     console.log(

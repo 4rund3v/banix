@@ -35,7 +35,7 @@ class ShiprocketClient():
             print(f"[ShiprocketClient][connect] Unable to connect to the shiprocket client : {ex}")
         return False
 
-    def check_serviceability(self, src_pin_code, dst_pin_code):
+    def check_serviceability(self, product_weight:int, src_pin_code: int, dst_pin_code: int):
         """
          Check the serviceablity of the courier to the given pin code.
         """
@@ -44,7 +44,9 @@ class ShiprocketClient():
         }
         try:
             self.active_session.headers.update({'Content-Type': 'application/json'})
-            query_data = json.dumps({"weight": 2, "cod": 0, "pickup_postcode": src_pin_code, "delivery_postcode": dst_pin_code })
+            query_data = json.dumps({"weight": product_weight, "cod": 0,
+                                     "pickup_postcode": src_pin_code,
+                                     "delivery_postcode": dst_pin_code })
             print(f"[ShiprocketClient][check_serviceability] Data prepared is : {query_data}")
             resp = self.active_session.get(shiprocket_consts.COURIER_SERVICEABILITY_URL, data=query_data)
             resp.raise_for_status()
@@ -52,7 +54,7 @@ class ShiprocketClient():
                 serviceability["estimated_delivery_days"] = -1
             else:
                 resp_data = resp.json()
-                print(f"[ShiprocketClient][check_serviceability] The serviceablity response is :: {resp_data}")
+                # print(f"[ShiprocketClient][check_serviceability] The serviceablity response is :: {resp_data}")
                 recommended_option = resp_data["data"]["available_courier_companies"][0]
                 serviceability["estimated_delivery_days"] = recommended_option["estimated_delivery_days"]
                 serviceability["courier_name"] = recommended_option["courier_name"]
@@ -64,3 +66,25 @@ class ShiprocketClient():
         except Exception as ex:
             print(f"[ShiprocketClient][check_serviceability] Unable to fetch the serviceablity : {ex}")
         return serviceability
+
+    def check_delivery_cost(self, product_weight:int, src_pin_code: int, dst_pin_code: int):
+        delivery_cost = -1
+        try:
+            self.active_session.headers.update({'Content-Type': 'application/json'})
+            query_data = json.dumps({"weight": product_weight, "cod": 0,
+                                     "pickup_postcode": src_pin_code,
+                                     "delivery_postcode": dst_pin_code })
+            print(f"[ShiprocketClient][check_delivery_cost] Data prepared is : {query_data}")
+            resp = self.active_session.get(shiprocket_consts.COURIER_SERVICEABILITY_URL, data=query_data)
+            resp.raise_for_status()
+            if resp.status_code == 404:
+                serviceability["estimated_delivery_days"] = -1
+            else:
+                resp_data = resp.json()
+                # print(f"[ShiprocketClient][check_delivery_cost] The serviceablity response is :: {resp_data}")
+                recommended_option = resp_data["data"]["available_courier_companies"][0]
+                delivery_cost = recommended_option["rate"]
+                print(f"[ShiprocketClient][check_delivery_cost] The delivery cost info  is : {delivery_cost}")
+        except Exception as ex:
+            print(f"[ShiprocketClient][check_delivery_cost] Unable to fetch the delivery cost : {ex}")
+        return delivery_cost

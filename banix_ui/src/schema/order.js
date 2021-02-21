@@ -55,3 +55,15 @@ export class orderShippingInfo {
     return {};
   }
 }
+
+export class orderInfo {
+  constructor(rawOrderInfo) {
+    this.customerId = rawOrderInfo.customer_id;
+    this.orderInfoId = rawOrderInfo.order_info_id;
+    this.pinCode = rawOrderInfo.pin_code;
+    this.totalSellingPrice = rawOrderInfo.total_selling_price;
+    this.totalShippingPrice = rawOrderInfo.total_shipping_price;
+    this.totalTaxPrice = rawOrderInfo.total_selling_price;
+    this.totalPrice = rawOrderInfo.total_price;
+  }
+}

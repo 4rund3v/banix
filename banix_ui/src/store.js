@@ -17,19 +17,29 @@ import {
 } from "./reducers/customerReducers";
 
 import { shippingCostReducer } from "./reducers/shippingReducers";
-import { OrderCreateReducer } from "./reducers/orderReducers";
+import {
+  OrderCreateReducer,
+  OrderPrepareReducer,
+} from "./reducers/orderReducers";
 
 const reducer = combineReducers({
+  // listing the products
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  shippingCost: shippingCostReducer,
+  // customer cart
   cart: cartReducer,
+  // customer login
   customerLogin: customerLoginReducer,
+  customerToken: customerTokenReducer,
   customerRegister: customerRegisterReducer,
+  // customer profile
   customerDetails: customerDetailsReducer,
   customerDetailsUpdate: customerDetailsUpdateReducer,
-  customerToken: customerTokenReducer,
+
+  // Order information
+  orderPrepare: OrderPrepareReducer,
   orderCreate: OrderCreateReducer,
-  shippingCost: shippingCostReducer,
 });
 
 // Customer related info fetch
@@ -52,6 +62,7 @@ const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
+    paymentMethod: null,
   },
   customerLogin: { customerInfo: customerInfoFromStorage },
   customerToken: { tokenInfo: tokenFromStorage },
