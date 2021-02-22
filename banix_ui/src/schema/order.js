@@ -3,17 +3,50 @@ export class Order {
     if (rawOrder) {
       this.orderId = rawOrder.order_id;
       this.orderInfoId = rawOrder.order_info_id;
-      this.orderPrice = rawOrder.order_price;
+      this.orderCustomerId = rawOrder.order_customer_id;
+      this.orderPrice = {};
       this.orderDate = rawOrder.order_date;
+      this.orderCreatedDatetime = rawOrder.order;
       this.orderPaymentInfo = null;
       this.orderItemPriceInfo = [];
+      this.orderShippingAddress = {};
       this.orderShippingInfo = null;
+      this.orderItems = [];
+      // Order Price
+      if (rawOrder.order_price) {
+        this.orderPrice = {
+          totalPrice: rawOrder["total_price"],
+          totalSellingPrice: rawOrder["total_selling_price"],
+          totalShippingPrice: rawOrder["total_shipping_price"],
+          totalTaxPrice: rawOrder["total_tax_price"],
+        };
+      }
+      // Order Shipping Address
+      if (rawOrder.order_shipping_address) {
+        this.orderShippingAddress["fullName"] =
+          rawOrder.order_shipping_address["full_name"];
+        this.orderShippingAddress["mobileNumber"] =
+          rawOrder.order_shipping_address["mobile_number"];
+        this.orderShippingAddress["pinCode"] =
+          rawOrder.order_shipping_address["pincode"];
+        this.orderShippingAddress["buildingInfo"] =
+          rawOrder.order_shipping_address["building_info"];
+        this.orderShippingAddress["streetInfo"] =
+          rawOrder.order_shipping_address["street_info"];
+        this.orderShippingAddress["landmarkInfo"] =
+          rawOrder.order_shipping_address["landmark_info"];
+        this.orderShippingAddress["cityInfo"] =
+          rawOrder.order_shipping_address["city_info"];
+        this.orderShippingAddress["stateInfo"] =
+          rawOrder.order_shipping_address["state_info"];
+      }
+      // Order Shipping related information
       if (rawOrder.order_shipping_info) {
         this.orderShippingInfo = new orderShippingInfo(
           rawOrder.order_shipping_info
         );
       }
-      this.orderItems = [];
+      // Order Items information
       if (rawOrder.order_items) {
         rawOrder.order_items.map((rawOrderItem) => {
           this.orderItems.push(new OrderItem(rawOrderItem));
@@ -23,35 +56,43 @@ export class Order {
     } else {
       this.orderId = null;
       this.orderInfoId = null;
+      this.orderCustomerId = null;
       this.orderPrice = {};
-      this.orderItemPriceInfo = [];
-      this.orderDate = null;
       this.orderPaymentInfo = null;
+      this.orderItemPriceInfo = [];
+      this.orderShippingAddress = {};
       this.orderShippingInfo = null;
       this.orderItems = [];
       this.productPriceInfo = [];
+      this.orderDate = null;
+      this.orderCreatedDatetime = null;
     }
   }
-  toDict() {
-    return {};
-  }
+
   toRawDict() {
     // shipping information
-    let shippingInfo = {};
-    if (this.orderShippingInfo) {
-      shippingInfo["full_name"] = this.orderShippingInfo.fullName;
-      shippingInfo["mobile_number"] = this.orderShippingInfo.mobileNumber;
-      shippingInfo["pincode"] = this.orderShippingInfo.pinCode;
-      shippingInfo["building_info"] = this.orderShippingInfo.buildingInfo;
-      shippingInfo["street_info"] = this.orderShippingInfo.streetInfo;
-      shippingInfo["landmark_info"] = this.orderShippingInfo.landmarkInfo;
-      shippingInfo["city_info"] = this.orderShippingInfo.cityInfo;
-      shippingInfo["state_info"] = this.orderShippingInfo.stateInfo;
+    let orderShippingAddress = {};
+    if (this.orderShippingAddress) {
+      orderShippingAddress["full_name"] = this.orderShippingAddress.fullName;
+      orderShippingAddress[
+        "mobile_number"
+      ] = this.orderShippingAddress.mobileNumber;
+      orderShippingAddress["pincode"] = this.orderShippingAddress.pinCode;
+      orderShippingAddress[
+        "building_info"
+      ] = this.orderShippingAddress.buildingInfo;
+      orderShippingAddress[
+        "street_info"
+      ] = this.orderShippingAddress.streetInfo;
+      orderShippingAddress[
+        "landmark_info"
+      ] = this.orderShippingAddress.landmarkInfo;
+      orderShippingAddress["city_info"] = this.orderShippingAddress.cityInfo;
+      orderShippingAddress["state_info"] = this.orderShippingAddress.stateInfo;
     }
     // order price information
     let orderPrice = {};
     if (this.orderPrice) {
-      orderPrice["total_price"] = this.orderPrice.totalShippingPrice;
       orderPrice["total_selling_price"] = this.orderPrice.totalSellingPrice;
       orderPrice["total_shipping_price"] = this.orderPrice.totalShippingPrice;
       orderPrice["total_tax_price"] = this.orderPrice.totalTaxPrice;
@@ -92,7 +133,7 @@ export class Order {
       order_price: orderPrice,
       order_items: orderItems,
       order_payment_info: paymentInfo,
-      order_shipping_address: shippingInfo,
+      order_shipping_address: orderShippingAddress,
     };
   }
 }
@@ -120,6 +161,8 @@ export class orderInfo {
     this.totalTaxPrice = rawOrderInfo.total_tax_price;
     this.totalPrice = rawOrderInfo.total_price;
     this.productPriceInfo = [];
+    this.paymentInfo = {};
+
     if (rawOrderInfo.product_price_info) {
       rawOrderInfo.product_price_info.map((productPriceInfo) => {
         this.productPriceInfo.push({
@@ -131,6 +174,13 @@ export class orderInfo {
         });
         return null;
       });
+    }
+    if (rawOrderInfo.payment_info) {
+      this.paymentInfo.amount = rawOrderInfo.payment_info.amount;
+      this.paymentInfo.currency = rawOrderInfo.payment_info.currency;
+      this.paymentInfo.paymentOrderId = rawOrderInfo.payment_info.id;
+      this.paymentInfo.receiptId = rawOrderInfo.payment_info.receipt;
+      this.paymentInfo.amount = rawOrderInfo.payment_info.amount;
     }
   }
   toRawDict(self) {

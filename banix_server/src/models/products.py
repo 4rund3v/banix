@@ -125,8 +125,9 @@ class ProductSpecification(Base):
 
     product_variant_foreign_id = Column(Integer, ForeignKey("product_variant.product_variant_id"), nullable=True)
     product_variant = relationship("ProductVariant", back_populates="product_specification")
+    
     def to_dict(self):
-        print("[ProductSpecification][as_dict] is called ")
+        print("[ProductSpecification][to_dict] is called ")
         if self.product_dimensions:
             product_dimensions = self.product_dimensions.to_dict()
         else:
@@ -181,7 +182,6 @@ class ProductBoxDimensions(Base):
 
     def to_dict(self):
         print("[ProductBoxDimensions][to_dict] is called ")
-        
         return dict(width=self.width,
                     height=self.height,
                     depth=self.depth,

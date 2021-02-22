@@ -1,6 +1,7 @@
 from src.models import Base
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
+from datetime import datetime
 
 class Orders(Base):
     __tablename__ = "orders"
@@ -17,6 +18,9 @@ class Orders(Base):
     order_selling_price = Column(Integer, nullable=False)
     order_shipping_address = relationship("Address", uselist=False,cascade="all, delete, delete-orphan")
     order_shipping_info = relationship("OrderShippingInfo", uselist=False, cascade="all, delete, delete-orphan")
+    order_status = Column(String(10), nullable=False)
+    order_created_datetime = Column(DateTime(), default=datetime.now)
+    order_updated_datetime = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
 
     def __repr__(self):
         return f"""<Orders order_id{self.order_id} order_total_price{self.order_total_price}>"""
@@ -50,7 +54,10 @@ class Orders(Base):
                     order_tax_price=self.order_tax_price,
                     order_selling_price=self.order_selling_price,
                     order_shipping_address=order_shipping_address,
-                    order_shipping_info=order_shipping_info
+                    order_shipping_info=order_shipping_info,
+                    order_status=self.order_status,
+                    order_created_datetime=str(self.order_created_datetime),
+                    order_updated_datetime=str(self.order_updated_datetime),
                     )
 
 
@@ -86,11 +93,19 @@ class OrderShippingInfo(Base):
     order_item_shipping_price_id = Column(Integer, primary_key=True, autoincrement=True)
     order_shipping_status = Column(String, nullable=False)
     order_foreign_id = Column(Integer, ForeignKey("orders.order_id"), nullable=False)
+    shipping_info_created_datetime = Column(DateTime(), default=datetime.now)
+    shipping_info_updated_datetime = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
 
     def __repr__(self):
         return f"""<OrderShippingInfo order_item_shipping_price_id{self.order_item_shipping_price_id} order foreign key {self.order_foreign_id}>"""
 
     def to_dict(self):
-        return dict(order_item_shipping_price_id=self.order_item_shipping_price_id,
+        return dict(
+                order_item_shipping_price_id=self.order_item_shipping_price_id,
                 order_shipping_status=self.order_shipping_status,
-                order_foreign_id=self.order_foreign_id)
+                order_foreign_id=self.order_foreign_id, 
+                shipping_info_created_datetime=str(self.shipping_info_created_datetime),
+                shipping_info_updated_datetime=str(self.shipping_info_updated_datetime)
+                )
+
+

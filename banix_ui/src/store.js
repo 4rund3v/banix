@@ -20,6 +20,8 @@ import { shippingCostReducer } from "./reducers/shippingReducers";
 import {
   OrderCreateReducer,
   OrderPrepareReducer,
+  OrderDetailsReducer,
+  OrderListReducer,
 } from "./reducers/orderReducers";
 
 const reducer = combineReducers({
@@ -36,10 +38,11 @@ const reducer = combineReducers({
   // customer profile
   customerDetails: customerDetailsReducer,
   customerDetailsUpdate: customerDetailsUpdateReducer,
-
   // Order information
   orderPrepare: OrderPrepareReducer,
   orderCreate: OrderCreateReducer,
+  orderDetails: OrderDetailsReducer,
+  orderList: OrderListReducer,
 });
 
 // Customer related info fetch

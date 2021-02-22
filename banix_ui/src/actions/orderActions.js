@@ -6,9 +6,19 @@ import {
   PREPARE_ORDER_INFO_REQUEST,
   PREPARE_ORDER_INFO_SUCCESS,
   PREPARE_ORDER_INFO_FAIL,
+  ORDER_DETAILS_REQUEST,
+  ORDER_DETAILS_SUCCESS,
+  ORDER_DETAILS_FAIL,
+  ORDER_LIST_REQUEST,
+  ORDER_LIST_SUCCESS,
+  ORDER_LIST_FAIL,
 } from "../constants/orderConstants";
 
-import { CREATE_ORDER_URL, PREPARE_ORDER_INFO_URL } from "../config";
+import {
+  CREATE_ORDER_URL,
+  PREPARE_ORDER_INFO_URL,
+  CUSTOMER_ORDERS_URL,
+} from "../config";
 import { Order, orderInfo } from "../schema/order";
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -30,15 +40,12 @@ export const createOrder = (order) => async (dispatch, getState) => {
     console.log("[createOrder] The order recieved to create is :: ", order);
 
     const { data } = await axios.post(CREATE_ORDER_URL, order, config);
-    // // just to make sure that the empty {} is not saved as customer info
-    // if (!data.customer_info) {
-    //   throw new Error("No customer information recieved.");
-    // }
     const newOrder = new Order(data.order_info);
     dispatch({
       type: ORDER_CREATE_SUCCESS,
       payload: newOrder,
     });
+    console.log("[createOrder] The order data prepared is :: ", newOrder);
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,
@@ -97,6 +104,82 @@ export const fetchOderInfo = (cartItems, shippingAddress) => async (
   } catch (error) {
     dispatch({
       type: PREPARE_ORDER_INFO_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getOrderDetails = (orderId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_DETAILS_REQUEST,
+    });
+    const {
+      customerToken: { tokenInfo },
+    } = getState();
+    console.log("[getOrderDetails] The customer token is :: ", tokenInfo);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${tokenInfo.token}`,
+      },
+    };
+    const url = `${CUSTOMER_ORDERS_URL}/${orderId}`;
+    console.log("[getOrderDetails] The order id url is ", url);
+    const { data } = await axios.get(url, config);
+    console.log(
+      "[getOrderDetails] The order details fetched  is :: ",
+      orderId,
+      data
+    );
+    if (!data.oder_info) {
+      throw new Error("No order information recieved.");
+    }
+    dispatch({
+      type: ORDER_DETAILS_SUCCESS,
+      payload: data.order_info,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getOrderList = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_LIST_REQUEST,
+    });
+    const {
+      customerToken: { tokenInfo },
+    } = getState();
+    console.log("[getOrderList] The customer token is :: ", tokenInfo);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${tokenInfo.token}`,
+      },
+    };
+    const url = `${CUSTOMER_ORDERS_URL}`;
+    console.log("[getOrderList] The order id url is ", url);
+    const { data } = await axios.get(url, config);
+    console.log("[getOrderList] The order details fetched  is :: ", data);
+    if (!data.orders) {
+      throw new Error("No order information recieved.");
+    }
+    dispatch({
+      type: ORDER_LIST_SUCCESS,
+      payload: data.orders,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

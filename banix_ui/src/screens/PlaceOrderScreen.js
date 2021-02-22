@@ -12,6 +12,20 @@ import { fetchOderInfo } from "../actions/orderActions";
 import { createOrder } from "../actions/orderActions";
 import { Order } from "../schema/order";
 
+const loadScript = (src) => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = () => {
+      resolve(true);
+    };
+    script.onerror = () => {
+      resolve(false);
+    };
+    document.body.appendChild(script);
+  });
+};
+
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -24,6 +38,10 @@ const PlaceOrderScreen = ({ history }) => {
     }, // eslint-disable-next-line
     []
   );
+
+  const customerLogin = useSelector((state) => state.customerLogin);
+  const { customerInfo } = customerLogin;
+  console.log("[PlaceOrderScreen] The customerInfo object is : ", customerInfo);
 
   const orderInfoPrepared = useSelector((state) => state.orderPrepare);
   console.log(
@@ -43,14 +61,41 @@ const PlaceOrderScreen = ({ history }) => {
     error: orderCreationError,
   } = orderCreate;
 
+  const displayRazorPay = async () => {
+    const res = await loadScript(
+      `https://checkout.razorpay.com/v1/checkout.js`
+    );
+    if (!res) {
+      alert(`Unable to ping payment gatewat. Are you online ?`);
+      return;
+    }
+    console.log("The orderinfo payment info is", orderInfo.paymentInfo);
+    const options = {
+      key: "rzp_test_1VGt9vNNSuXQ5X",
+      amount: orderInfo.paymentInfo.amount,
+      currency: orderInfo.paymentInfo.currency,
+      name: "Banix",
+      description: `Product Purchase`,
+      image: "https://example.com/your_logo",
+      order_id: orderInfo.paymentInfo.paymentOrderId,
+      // callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+      prefill: {
+        name: customerInfo.displayName,
+        email: customerInfo.emailId,
+        contact: customerInfo.primaryMobileNumber || "9999999999",
+      },
+    };
+    console.log("[displayRazorPay] options prepared is ::", options);
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
   useEffect(() => {
     if (orderCreationSuccess) {
-      // history.push(`/order/${order.orderId}`);
-      console.log(
-        "[PlaceOrderScreen] on success :",
-        order,
-        orderCreationSuccess
-      );
+      console.log("[PlaceOrderScreen] on success ", order);
+      if (order) {
+        //   history.push(`/order/${order.orderId}`);
+        displayRazorPay();
+      }
     }
     // eslint-disable-next-line
   }, [history, orderCreationSuccess]);
@@ -75,7 +120,7 @@ const PlaceOrderScreen = ({ history }) => {
       });
       return null;
     });
-    order.orderShippingInfo = shippingAddress;
+    order.orderShippingAddress = shippingAddress;
     order.orderPaymentInfo = {
       paymentGateway: "RazorPay",
       paymentMethod,
