@@ -31,7 +31,7 @@ def token_required(f):
             print(f"The data[public_id] decoded is ::: {data['public_id']}")
             session = Session()
             current_customer =  session.query(Customer).filter_by(public_id = data['public_id']).first()
-            current_customer_info = current_customer.as_dict()
+            current_customer_info = current_customer.to_dict()
         except Exception as ex:
             print(f"[token_required] Error decoding the data ::: {ex}")
             return jsonify({ 'message' : 'Token is invalid !!' }), 401

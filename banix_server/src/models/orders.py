@@ -1,14 +1,14 @@
 from src.models import Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from src.models.customers import Address
 
 class Orders(Base):
     __tablename__ = "orders"
 
     order_id = Column(Integer, primary_key=True, autoincrement=True)
     order_customer_id = Column(Integer, ForeignKey("customers.customer_id"), nullable=False)
-    payment_info = relationship("PaymentInfo", back_populates="orders")
+    order_info_id =  Column(String(100), unique=True, nullable=False)    
+    payment_info = relationship("PaymentInfo",uselist=False, back_populates="orders")
     order_items = relationship("OrderItem", cascade="all, delete, delete-orphan")
     order_date = Column(String(30), nullable=False)
     order_total_price = Column(Integer, nullable=False)
@@ -22,7 +22,36 @@ class Orders(Base):
         return f"""<Orders order_id{self.order_id} order_total_price{self.order_total_price}>"""
 
     def to_dict(self):
-        return dict(order_id=self.order_id, order_total_price=self.order_total_price)
+        payment_info = {}
+        if self.payment_info:
+            payment_info = self.payment_info.to_dict()
+        
+        order_items = []
+        if self.order_items:
+            for order_item in self.order_items:
+                order_items.append(order_item.to_dict())
+
+        order_shipping_address = {}
+        if self.order_shipping_address:
+            order_shipping_address = self.order_shipping_address.to_dict()
+
+        order_shipping_info = {}
+        if self.order_shipping_info:
+            order_shipping_info = self.order_shipping_info.to_dict()
+
+        return dict(order_id=self.order_id,
+                    order_customer_id=self.order_customer_id,
+                    order_info_id=self.order_info_id,
+                    payment_info=payment_info,
+                    order_items=order_items,
+                    order_date=self.order_date,
+                    order_total_price=self.order_total_price,
+                    order_shipping_price=self.order_shipping_price,
+                    order_tax_price=self.order_tax_price,
+                    order_selling_price=self.order_selling_price,
+                    order_shipping_address=order_shipping_address,
+                    order_shipping_info=order_shipping_info
+                    )
 
 
 class OrderItem(Base):

@@ -20,7 +20,7 @@ def get_customers(current_customer_info):
     try:
         session = Session()
         customers = session.query(Customer).all()
-        result = {"customers": [c.as_dict() for c in customers]}
+        result = {"customers": [c.to_dict() for c in customers]}
         print(f"[get_customers] The result prepared is :: {result}")
         return result
     except Exception as ex:
@@ -71,4 +71,4 @@ def update_customer_profile(current_customer_info):
         if session:
             session.close()
     customer_info = session.query(Customer).filter(Customer.customer_id == current_customer_info['customer_id']).first()
-    return {"customer_info": customer_info.as_dict()}
+    return {"customer_info": customer_info.to_dict()}

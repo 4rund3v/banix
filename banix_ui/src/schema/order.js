@@ -2,6 +2,7 @@ export class Order {
   constructor(rawOrder) {
     if (rawOrder) {
       this.orderId = rawOrder.order_id;
+      this.orderInfoId = rawOrder.order_info_id;
       this.orderPrice = rawOrder.order_price;
       this.orderDate = rawOrder.order_date;
       this.orderPaymentInfo = null;
@@ -21,6 +22,7 @@ export class Order {
       }
     } else {
       this.orderId = null;
+      this.orderInfoId = null;
       this.orderPrice = {};
       this.orderItemPriceInfo = [];
       this.orderDate = null;
@@ -34,6 +36,7 @@ export class Order {
     return {};
   }
   toRawDict() {
+    // shipping information
     let shippingInfo = {};
     if (this.orderShippingInfo) {
       shippingInfo["full_name"] = this.orderShippingInfo.fullName;
@@ -45,6 +48,7 @@ export class Order {
       shippingInfo["city_info"] = this.orderShippingInfo.cityInfo;
       shippingInfo["state_info"] = this.orderShippingInfo.stateInfo;
     }
+    // order price information
     let orderPrice = {};
     if (this.orderPrice) {
       orderPrice["total_price"] = this.orderPrice.totalShippingPrice;
@@ -53,8 +57,19 @@ export class Order {
       orderPrice["total_tax_price"] = this.orderPrice.totalTaxPrice;
       orderPrice["total_price"] = this.orderPrice.totalPrice;
     }
+    // order payment information
+    let paymentInfo = {};
+    if (this.orderPaymentInfo) {
+      paymentInfo[
+        "payment_method"
+      ] = this.orderPaymentInfo.paymentMethod.paymentMethod;
+      paymentInfo["payment_gateway"] = this.orderPaymentInfo.paymentGateway;
+      paymentInfo[
+        "payment_transaction_id"
+      ] = this.orderPaymentInfo.paymentTransactionId;
+    }
+    // order items information
     let orderItems = [];
-    console.log(this.orderItems.length);
     if (this.orderItems && this.orderItemPriceInfo) {
       for (let i = 0; i < this.orderItems.length; i++) {
         let orderItem = this.orderItems[i];
@@ -71,18 +86,9 @@ export class Order {
         orderItems.push(temp);
       }
     }
-    let paymentInfo = {};
-    if (this.orderPaymentInfo) {
-      paymentInfo[
-        "payment_method"
-      ] = this.orderPaymentInfo.paymentMethod.paymentMethod;
-      paymentInfo["payment_gateway"] = this.orderPaymentInfo.paymentGateway;
-      paymentInfo[
-        "payment_transaction_id"
-      ] = this.orderPaymentInfo.paymentTransactionId;
-    }
     return {
       order_id: this.orderId,
+      order_info_id: this.orderInfoId,
       order_price: orderPrice,
       order_items: orderItems,
       order_payment_info: paymentInfo,

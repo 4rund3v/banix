@@ -31,7 +31,7 @@ def fetch_products():
         session = Session()
         products = session.query(Product).all()
         for product in products:
-            prod = product.as_dict()
+            prod = product.to_dict()
             product_media = session.query(ProductMedia).filter(ProductMedia.products == product).first()
             if product_media:
                 print(f"[fetch_products] product media is : {product_media}")
@@ -54,7 +54,7 @@ def fetch_specific_product(product_id):
         session = Session()
         product = session.query(Product,).filter(Product.product_id == product_id).first()
         if product:
-            result["product"] = product.as_dict()
+            result["product"] = product.to_dict()
             product_media = session.query(ProductMedia).filter(ProductMedia.products == product).first()
             if product_media:
                 print(f"product media is : {product_media}")
@@ -82,7 +82,7 @@ def check_product_serviceability():
     try:
         session = Session()
         product_specification = session.query(ProductSpecification).filter_by(product_foreign_id=product_id).first()
-        print(f"[check_product_serviceability] the product specification fetched is : {product_specification} {product_specification.as_dict()}")
+        print(f"[check_product_serviceability] the product specification fetched is : {product_specification} {product_specification.to_dict()}")
         product_weight = round(( product_specification.product_box_dimensions.weight )/1000, 2) 
         serviceablity = scs.check_serviceability(product_weight=product_weight,
                                                  src_pin_code=560036,

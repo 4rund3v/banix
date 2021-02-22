@@ -22,7 +22,7 @@ class Product(Base):
     def __repr__(self):
         return "<Product(name={})>".format(self.name)
 
-    def as_dict(self):
+    def to_dict(self):
         return dict(product_id=str(self.product_id),
                     name=self.name,
                     brand=self.brand,
@@ -125,14 +125,14 @@ class ProductSpecification(Base):
 
     product_variant_foreign_id = Column(Integer, ForeignKey("product_variant.product_variant_id"), nullable=True)
     product_variant = relationship("ProductVariant", back_populates="product_specification")
-    def as_dict(self):
+    def to_dict(self):
         print("[ProductSpecification][as_dict] is called ")
         if self.product_dimensions:
-            product_dimensions = self.product_dimensions.as_dict()
+            product_dimensions = self.product_dimensions.to_dict()
         else:
             product_dimensions = {}
         if self.product_box_dimensions:
-            product_box_dimensions = self.product_box_dimensions.as_dict()
+            product_box_dimensions = self.product_box_dimensions.to_dict()
         else:
             product_box_dimensions = {}
         return dict(product_specification_id= self.product_specification_id,
@@ -156,8 +156,8 @@ class ProductDimensions(Base):
     product_specification_foreign_id = Column(Integer, ForeignKey("product_specification.product_specification_id"), nullable=False)
     product_specification = relationship("ProductSpecification", uselist=False, back_populates="product_dimensions")
 
-    def as_dict(self):
-        print("[ProductDimensions][as_dict] is called ")
+    def to_dict(self):
+        print("[ProductDimensions][to_dict] is called ")
         
         return dict(width=self.width,
                     height=self.height,
@@ -179,8 +179,8 @@ class ProductBoxDimensions(Base):
                                               nullable=False)
     product_specification = relationship("ProductSpecification",uselist=False, back_populates="product_box_dimensions")
 
-    def as_dict(self):
-        print("[ProductBoxDimensions][as_dict] is called ")
+    def to_dict(self):
+        print("[ProductBoxDimensions][to_dict] is called ")
         
         return dict(width=self.width,
                     height=self.height,

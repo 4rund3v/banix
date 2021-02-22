@@ -5,6 +5,7 @@ import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
+import { ToastContainer } from "react-toastify";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const HomeScreen = () => {
   console.log("[HomeScreen] Products recieved from backend is ", products);
   return (
     <>
+      <ToastContainer autoClose={1500} hideProgressBar />
       {loading ? (
         <Loader />
       ) : error ? (

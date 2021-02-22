@@ -18,9 +18,9 @@ def get_total_price(shipping_price: int, tax_price: int, selling_price: int) -> 
 
 def fetch_complete_price_details(session, product_id, qty, dst_pin_code):
     product = session.query(Product).filter_by(product_id=product_id).first()
-    print("[fetch_complete_price_details] Product info is :: {}".format(product.as_dict()))
+    print("[fetch_complete_price_details] Product info is :: {}".format(product.to_dict()))
     product_specification = session.query(ProductSpecification).filter_by(product_foreign_id=product_id).first()
-    print(f"[fetch_complete_price_details] the product specification fetched is : {product_specification} {product_specification.as_dict()}")
+    print(f"[fetch_complete_price_details] the product specification fetched is : {product_specification} {product_specification.to_dict()}")
     price_details = {}
     price_details["shipping_price"] = calculate_shipping_price(product_weight=product_specification.product_box_dimensions.weight,
                                                                qty=qty,
@@ -93,6 +93,7 @@ def create_order(current_customer_info):
         session = Session()
         print(f"[create_order] The form data recieved to create an order is {form_data}")
         new_order = Orders(order_customer_id=current_customer_info["customer_id"])
+        new_order.order_info_id = form_data["order_info_id"]
         new_order.order_total_price = form_data["order_price"]["total_price"]
         new_order.order_selling_price = form_data["order_price"]["total_selling_price"]
         new_order.order_shipping_price = form_data["order_price"]["total_shipping_price"]
@@ -122,6 +123,10 @@ def create_order(current_customer_info):
         session.add(payment_info)
         session.add(new_order)
         session.commit()
+
+        if order_info := session.query(Orders).filter_by(order_info_id=form_data["order_info_id"]).first():
+            print(f"[create_order] The order_info is :: {order_info} ")
+            result["order_info"] = order_info.to_dict()
     except Exception as ex:
         print(f"[create_order] Exception while creating an order : {ex}")    
     finally:

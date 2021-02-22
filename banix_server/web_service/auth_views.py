@@ -27,7 +27,7 @@ def authenticate_customer_login():
         customer = session.query(Customer).filter(Customer.email_id == form_data["email_id"]).first()
         if customer:
             if customer.password == form_data["password"]:
-                result["customer_info"] = customer.as_dict()
+                result["customer_info"] = customer.to_dict()
                 token = jwt.encode({'public_id': customer.public_id,
                                 'exp': datetime.utcnow() + timedelta(minutes=300)},
                                "banix")
@@ -72,7 +72,7 @@ def register_customer():
         session.add(new_customer_info)
         print(f"[register_customer] Customer added to database response  is :: {new_customer_info}")
         session.commit()
-        result = {"customer_info": new_customer_info.as_dict()}
+        result = {"customer_info": new_customer_info.to_dict()}
         print(f"[register_customer] The result prepared is :: {result}")
         token = jwt.encode({'public_id': new_customer_info.public_id,
                             'exp': datetime.utcnow() + timedelta(minutes=300)

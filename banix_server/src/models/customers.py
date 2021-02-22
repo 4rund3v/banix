@@ -20,7 +20,7 @@ class Customer(Base):
     def __repr__(self):
         return "<Customer(name={})>".format(self.username)
 
-    def as_dict(self):
+    def to_dict(self):
         return dict(customer_id=str(self.customer_id),
                     display_name=str(self.display_name),
                     username=str(self.username),
