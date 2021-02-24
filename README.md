@@ -1,4 +1,4 @@
-# banix : smart electonics store
+## banix : smart electonics store
 The Code for the banix website, both backend and frontend
 
 
