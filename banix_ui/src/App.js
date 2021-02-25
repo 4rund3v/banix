@@ -35,6 +35,8 @@ function BanixApp() {
               <Route path="/place-order" component={PlaceOrderScreen} />
               <Route path="/password-reset" component={PasswordReset} />
               <Route path="/about" component={About} />
+              <Route path="/privacy" component={About} />
+              <Route path="/warranty" component={About} />
               <Route path="/" component={HomeScreen} exact />
               <Route component={Default} />
             </Switch>
