@@ -1,9 +1,8 @@
 import React from "react";
-
+import { Helmet } from "react-helmet";
+import { Container, Row, Card, Col } from "react-bootstrap";
 import PageBreadcrumb from "../shared/PageBreadcrumb";
 import BlockMap from "../shared/BlockMap";
-import { Helmet } from "react-helmet";
-import { Container, Row } from "react-bootstrap";
 
 const SitePageContactUs = () => {
   const breadcrumb = [
@@ -22,11 +21,11 @@ const SitePageContactUs = () => {
       <PageBreadcrumb header="Contact Us" breadcrumb={breadcrumb} />
 
       <div className="block">
-        <div className="container">
-          <div className="card mb-0">
-            <div className="card-body contact-us">
-              <div className="contact-us__container">
-                <div className="row">
+        <Container className="container">
+          <Card className="mb-0">
+            <Card.Body className="contact-us">
+              <Container className="contact-us__container">
+                <Row>
                   <div className="col-12 col-lg-6 pb-4 pb-lg-0">
                     <h4 className="contact-us__header card-title">
                       Our Address
@@ -113,11 +112,11 @@ const SitePageContactUs = () => {
                       </button>
                     </form>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                </Row>
+              </Container>
+            </Card.Body>
+          </Card>
+        </Container>
       </div>
     </React.Fragment>
   );

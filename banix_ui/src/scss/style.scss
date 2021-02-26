@@ -11,10 +11,12 @@
 @import "./common/page-header";
 @import "./common/animation";
 @import "./common/base";
+
 @import "./blocks/block-map";
 @import "./blocks/block_banner";
 @import "./blocks/block_categories";
 
+@import "./pages/about-us";
 main {
   min-height: 80vh;
   font-family: "Roboto";
