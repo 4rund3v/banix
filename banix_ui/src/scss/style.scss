@@ -15,6 +15,7 @@
 @import "./common/animation";
 @import "./common/base";
 @import "./common/nav-links";
+@import "./common/document";
 
 @import "./blocks/block-map";
 @import "./blocks/block_banner";
@@ -25,9 +26,10 @@
 @import "./pages/privacy";
 
 main {
-  min-height: 80vh;
+  min-height: 85vh;
   font-family: "Roboto";
 }
+
 /* Product Card */
 .card-img-top {
   width: 100%;
