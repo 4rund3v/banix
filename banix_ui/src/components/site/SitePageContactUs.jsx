@@ -3,11 +3,12 @@ import React from "react";
 import PageBreadcrumb from "../shared/PageBreadcrumb";
 import BlockMap from "../shared/BlockMap";
 import { Helmet } from "react-helmet";
+import { Container, Row } from "react-bootstrap";
 
 const SitePageContactUs = () => {
   const breadcrumb = [
-    { title: "Home", url: "" },
-    { title: "Contact Us", url: "" },
+    { title: "Home", url: "/" },
+    { title: "Contact Us", url: "/site/contact-us" },
   ];
 
   return (

@@ -8,6 +8,12 @@
 @import "./typography";
 @import "./product";
 @import "./spec";
+@import "./common/page-header";
+@import "./common/animation";
+@import "./common/base";
+@import "./blocks/block-map";
+@import "./blocks/block_banner";
+@import "./blocks/block_categories";
 
 main {
   min-height: 80vh;
