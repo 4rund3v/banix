@@ -40,7 +40,13 @@ function Footer() {
             <h5 className="font-weight-bold">Information</h5>
             <ul className="list-unstyled">
               <li>
-                <Link to="/about">About Us</Link>
+                <Link to="/site/about-us">About Us</Link>
+              </li>
+              <li>
+                <Link to="/site/contact-us">Contact Us</Link>
+              </li>
+              <li>
+                <Link to="/site/faq">FAQ</Link>
               </li>
               <li>
                 <Link to="/terms">Terms of Use</Link>

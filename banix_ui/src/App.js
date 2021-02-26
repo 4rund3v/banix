@@ -1,6 +1,11 @@
 import { Container } from "react-bootstrap";
 import "./components/FontAwesomeIcons";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/misc/Header";
 import HomeScreen from "./screens/HomeScreen";
@@ -16,6 +21,11 @@ import Default from "./screens/Default";
 import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import SitePageAboutUs from "./components/site/SitePageAboutUs";
+import SitePageContactUs from "./components/site/SitePageContactUs";
+import SitePageFAQ from "./components/site/SitePageFAQ";
+import SitePageTerms from "./components/site/SitePageTerms";
+import SitePagePrivacyPolicy from "./components/site/SitePagePrivacyPolicy";
 
 function BanixApp() {
   return (
@@ -34,9 +44,19 @@ function BanixApp() {
               <Route path="/payment" component={PaymentScreen} />
               <Route path="/place-order" component={PlaceOrderScreen} />
               <Route path="/password-reset" component={PasswordReset} />
-              <Route path="/about" component={About} />
+
               <Route path="/privacy" component={About} />
               <Route path="/warranty" component={About} />
+
+              <Route path="/site/about-us" component={SitePageAboutUs} />
+              <Route path="/site/contact-us" component={SitePageContactUs} />
+              <Route path="/site/faq" component={SitePageFAQ} />
+              <Route path="/site/terms" component={SitePageTerms} />
+              <Route
+                path="/site/privacy-policy"
+                component={SitePagePrivacyPolicy}
+              />
+
               <Route path="/" component={HomeScreen} exact />
               <Route component={Default} />
             </Switch>
