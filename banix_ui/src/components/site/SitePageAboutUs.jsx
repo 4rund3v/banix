@@ -30,11 +30,11 @@ const SitePageAboutUs = () => {
                   providing job careers and our business is a very challenging
                   and advancers job site.
                 </p>
-
+                <h3>Our Purpose</h3>
                 <p>
                   As we are an Indian based company, we understand Indian users
                   mentalities and design our products as per their expectations
-                  and requirements. our purpose is to develop products with
+                  and requirements. Our purpose is to develop products with
                   international standards at a reasonable price. And to give the
                   right platform to utilize and improve an individual’s skills
                   by working here.

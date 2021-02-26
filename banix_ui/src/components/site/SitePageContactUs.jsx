@@ -34,16 +34,17 @@ const SitePageContactUs = () => {
                     <div className="contact-us__address">
                       <p>
                         <span>
-                          25/1, Infant Mercy Ground floor Mallappa Layout,
+                          25/1, Banix, Infant Mercy Ground floor Mallappa
+                          Layout,
                         </span>
                         <br />
                         <span>Seegehalli, K R Puram,</span>
                         <br />
                         <span>Bangalore 560049, Karnataka.</span>
                         <br />
-                        Email: support@banix.in
+                        Email: care@banix.in
                         <br />
-                        Phone Number: +91 9999999999
+                        Phone Number: +91 7411607657
                       </p>
 
                       <p>

@@ -46,10 +46,10 @@ function Footer() {
                 <Link to="/site/contact-us">Contact Us</Link>
               </li>
               <li>
-                <Link to="/site/faq">FAQ</Link>
+                <Link to="/site/privacy-policy">Privacy Policy</Link>
               </li>
               <li>
-                <Link to="/terms">Terms of Use</Link>
+                <Link to="/site/terms">Terms of Use</Link>
               </li>
               <li>
                 <Link to="/careers">Careers</Link>
