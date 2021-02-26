@@ -49,7 +49,7 @@ function Footer() {
                 <Link to="/site/privacy-policy">Privacy Policy</Link>
               </li>
               <li>
-                <Link to="/site/terms">Terms of Use</Link>
+                <Link to="/site/terms">Terms and Conditions</Link>
               </li>
               <li>
                 <Link to="/careers">Careers</Link>

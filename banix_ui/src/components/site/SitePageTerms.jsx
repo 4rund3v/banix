@@ -1,47 +1,65 @@
 import React from "react";
+import { Helmet } from "react-helmet";
+import { Container, Row, Card, Col } from "react-bootstrap";
+import PageBreadcrumb from "../shared/PageBreadcrumb";
 
 const SitePageTerms = () => {
+  const breadcrumb = [
+    { title: "Home", url: "/" },
+    { title: "Terms and Conditions", url: "/site/terms" },
+  ];
   return (
-    <div>
-      <h2>Terms and Conditions</h2>
-      <p>
-        <span>
-          Please read these Terms before using the Site. By using the Site, you
-          hereby represent, warrant, understand, agree to and accept these Terms
-          in their entirety whether or not you register as a purchaser on the
-          Site (&quot;Users&quot;).
-        </span>
-        <span>
-          Banix site is owned and operated by Banix, registered in Bangalore,
-          India. These Terms of Use (the &quot;Terms&quot; or
-          &quot;Agreement&quot;) set forth the terms and conditions under which
-          individuals may use the websites www.banix.in These Terms include the
-          Company’s Privacy Policy, which is incorporated herein. If you object
-          to anything in these Terms or the Privacy Policy do not access and/or
-          use the Site.{" "}
-        </span>
-        By placing your order on banix.in you agree to the following terms and
-        conditions: These Terms, including the Privacy Policy, are subject to
-        change by Company at any time. We will notify you about significant
-        changes in these Terms by sending a notice to the email address
-        registered in your account, or by placing a prominent notice on our
-        Site, so that you can choose whether to continue using our Site. Changes
-        or clarifications will take effect immediately upon posting of the
-        updated Terms on our Site. You should periodically check the Site for
-        updates. Any use of the Site or the Products (as defined below) by you
-        after the effective date of any changes will constitute your acceptance
-        of such changes. If you need to contact us please email us using our
-        online form care@banix.in Registered office: Banix Infant Mercy Mallappa
-        Layout Seegehalli Bangalore, KA, IN,560049 Banix.in is completely
-        dedicated to your total satisfaction. All of our terms and conditions
-        have been put in place to protect the interests of our customers and to
-        provide the best possible service to you all. Outlined below are all of
-        our terms and conditions. If you want to buy from this site or use our
-        web site you can only do so on these terms and conditions, and by using
-        this web site you are agreeing to be bound by them. Although they are
-        written in small print, they are designed to be fair to both parties.
-      </p>{" "}
-      {/* Accepted Methods of Payment For security details, please see our privacy
+    <>
+      <Helmet>
+        <title>{`Terms and Conditions — Banix}`}</title>
+      </Helmet>
+
+      <PageBreadcrumb header="Terms and Conditions" breadcrumb={breadcrumb} />
+      <div className="block">
+        <Container className="container">
+          <div className="terms__body">
+            <div className="terms__text typography">
+              <p>
+                <span>
+                  Please read these Terms before using the Site. By using the
+                  Site, you hereby represent, warrant, understand, agree to and
+                  accept these Terms in their entirety whether or not you
+                  register as a purchaser on the Site (&quot;Users&quot;).
+                </span>
+                <span>
+                  Banix site is owned and operated by Banix, registered in
+                  Bangalore, India. These Terms of Use (the &quot;Terms&quot; or
+                  &quot;Agreement&quot;) set forth the terms and conditions
+                  under which individuals may use the websites www.banix.in
+                  These Terms include the Company’s Privacy Policy, which is
+                  incorporated herein. If you object to anything in these Terms
+                  or the Privacy Policy do not access and/or use the Site.{" "}
+                </span>
+                By placing your order on banix.in you agree to the following
+                terms and conditions: These Terms, including the Privacy Policy,
+                are subject to change by Company at any time. We will notify you
+                about significant changes in these Terms by sending a notice to
+                the email address registered in your account, or by placing a
+                prominent notice on our Site, so that you can choose whether to
+                continue using our Site. Changes or clarifications will take
+                effect immediately upon posting of the updated Terms on our
+                Site. You should periodically check the Site for updates. Any
+                use of the Site or the Products (as defined below) by you after
+                the effective date of any changes will constitute your
+                acceptance of such changes. If you need to contact us please
+                email us using our online form care@banix.in Registered office:
+                Banix Infant Mercy Mallappa Layout Seegehalli Bangalore, KA,
+                IN,560049 Banix.in is completely dedicated to your total
+                satisfaction. All of our terms and conditions have been put in
+                place to protect the interests of our customers and to provide
+                the best possible service to you all. Outlined below are all of
+                our terms and conditions. If you want to buy from this site or
+                use our web site you can only do so on these terms and
+                conditions, and by using this web site you are agreeing to be
+                bound by them. Although they are written in small print, they
+                are designed to be fair to both parties.
+              </p>{" "}
+              {/* Accepted Methods of Payment For security details, please see our privacy
       statement. Shop with confidence at banix.in using our secure server. Once
       you&#39;ve decided what you want to buy, you can pay through gateway which
       accepts all major credit and debit cards. If you are ordering outside of
@@ -104,7 +122,11 @@ const SitePageTerms = () => {
       the right to restrict, refuse or terminate access of any person to the
       Site or any part thereof effective immediately without notice at any time
       and for any reason whatsoever at its sole discretion. */}
-    </div>
+            </div>
+          </div>
+        </Container>
+      </div>
+    </>
   );
 };
 

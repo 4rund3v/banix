@@ -1,9 +1,18 @@
 import React from "react";
-
+import { Helmet } from "react-helmet";
+import PageBreadcrumb from "../shared/PageBreadcrumb";
 const SitePagePrivacyPolicy = () => {
+  const breadcrumb = [
+    { title: "Home", url: "/" },
+    { title: "Privacy Policy", url: "/site/privacy-policy" },
+  ];
   return (
     <div>
-      <h3>Privacy Policy</h3>
+      <Helmet>
+        <title>{`Privacy Policy — Banix}`}</title>
+      </Helmet>
+      <PageBreadcrumb header="Privacy Policy" breadcrumb={breadcrumb} />
+
       <p>
         Banix Online Marketing India Ltd (Banix) operates banix.in and may
         operate other websites. It is Banix's policy to respect your privacy

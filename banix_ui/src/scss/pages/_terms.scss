@@ -1,0 +1,21 @@
+/*
+// .terms
+*/
+@import "../variables";
+@import "../functions";
+@import "../direction";
+
+.terms {
+}
+
+.terms__body {
+  background: $body-bg;
+  border-radius: 4px 4px 0 0;
+  padding: 25px 32px 15px;
+}
+.terms__title {
+  text-align: center;
+}
+.terms__text {
+  text-align: left;
+}
