@@ -25,6 +25,7 @@ import SitePageAboutUs from "./components/site/SitePageAboutUs";
 import SitePageContactUs from "./components/site/SitePageContactUs";
 import SitePageTerms from "./components/site/SitePageTerms";
 import SitePagePrivacyPolicy from "./components/site/SitePagePrivacyPolicy";
+import CustomerAccountScreen from "./screens/CustomerAccountScreen";
 
 function BanixApp() {
   return (
@@ -37,7 +38,7 @@ function BanixApp() {
               {/* Customer links*/}
               <Route path="/login" component={LoginScreen} exact />
               <Route path="/register" component={RegisterScreen} exact />
-              <Route path="/profile" component={ProfileScreen} exact />
+              <Route path="/account" component={CustomerAccountScreen} />
               <Route path="/password-reset" component={PasswordReset} />
               {/* Product Links */}
               <Route path="/product/:id" component={ProductScreen} />
