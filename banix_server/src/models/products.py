@@ -15,14 +15,27 @@ class Product(Base):
     selling_price = Column(Integer)
     cost_price = Column(Integer)
     stock = Column(Integer)
-    product_media = relationship("ProductMedia", back_populates="products", cascade="all, delete, delete-orphan")
+    product_media = relationship("ProductMedia", back_populates="products",uselist=False,cascade="all, delete, delete-orphan")
     product_variant = relationship("ProductVariant", back_populates="products", cascade="all, delete, delete-orphan")
-    product_specification = relationship("ProductSpecification", back_populates="products", cascade="all, delete, delete-orphan")
+    product_specification = relationship("ProductSpecification", uselist=False, back_populates="products", cascade="all, delete, delete-orphan")
 
     def __repr__(self):
         return "<Product(name={})>".format(self.name)
 
     def to_dict(self):
+        product_specification = {}
+        if self.product_specification:
+            product_specification = self.product_specification.to_dict()
+
+        product_variant= []
+        if self.product_variant:
+            for variant in self.product_variant:
+                product_variant.append(variant.to_dict())
+
+        product_media = {}
+        if self.product_media:
+            product_media = self.product_media.to_dict
+
         return dict(product_id=str(self.product_id),
                     name=self.name,
                     brand=self.brand,
@@ -31,7 +44,9 @@ class Product(Base):
                     total_reviews=self.total_reviews,
                     cost_price=self.cost_price,
                     selling_price=self.selling_price,
-                    stock=self.stock
+                    stock=self.stock,
+                    product_specification=product_specification,
+                    product_variant=product_variant,
                     )
 
 
@@ -136,10 +151,14 @@ class ProductSpecification(Base):
             product_box_dimensions = self.product_box_dimensions.to_dict()
         else:
             product_box_dimensions = {}
+        product_box_contents = []
+        if self.product_box_contents:
+            product_box_contents = self.product_box_contents.split(",")
         return dict(product_specification_id= self.product_specification_id,
             product_description=self.product_description,
             product_dimensions=product_dimensions,
-            product_box_dimensions=product_box_dimensions
+            product_box_contents=product_box_contents,
+            product_box_dimensions=product_box_dimensions,
             )
 
 class ProductDimensions(Base):

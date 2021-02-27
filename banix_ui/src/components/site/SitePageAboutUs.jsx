@@ -5,6 +5,10 @@ import PageBreadcrumb from "../shared/PageBreadcrumb";
 import BlockMap from "../shared/BlockMap";
 
 const SitePageAboutUs = () => {
+  const breadcrumb = [
+    { title: "Home", url: "/" },
+    { title: "Contact Us", url: "/site/contact-us" },
+  ];
   return (
     <div className="block about-us">
       <Helmet>

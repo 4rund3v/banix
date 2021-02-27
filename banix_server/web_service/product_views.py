@@ -15,7 +15,6 @@ from src.db_utils import Session, engine
 from authorization import token_required
 from src.shiprocket import shiprocket_client_session as scs
 
-order_blueprint = Blueprint("orders", __name__)
 
 product_blueprint = Blueprint("products", __name__)
 

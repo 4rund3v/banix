@@ -6,6 +6,8 @@ import { Tabs, Tab } from "react-bootstrap";
 
 const ProductTabs = ({ product }) => {
   const [tabKey, setTabKey] = useState("description");
+  const productReviews = [];
+  const { productSpecification, productName } = product;
   return (
     <div className="product-tabs">
       <Tabs
@@ -19,7 +21,12 @@ const ProductTabs = ({ product }) => {
           title="Description"
         >
           <div className="product-tabs__content">
-            <ProductDescriptionTab product={product} />
+            <ProductDescriptionTab
+              productName={productName}
+              productFeatures={productSpecification.productFeatures}
+              productDescription={productSpecification.productDescription}
+              productBoxContents={productSpecification.productBoxContents}
+            />
           </div>
         </Tab>
         <Tab
@@ -28,12 +35,15 @@ const ProductTabs = ({ product }) => {
           title="Specification"
         >
           <div className="product-tabs__content">
-            <ProductSpecificationTab product={product} />
+            <ProductSpecificationTab
+              productDimensions={productSpecification.productDimensions}
+              productBoxDimensions={productSpecification.productBoxDimensions}
+            />
           </div>
         </Tab>
         <Tab className="product-tabs__item" eventKey="reviews" title="Reviews">
           <div className="product-tabs__content">
-            <ProductReviewTab product={product} />
+            <ProductReviewTab productReviews={productReviews} />
           </div>
         </Tab>
       </Tabs>

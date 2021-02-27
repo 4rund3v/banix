@@ -18,7 +18,7 @@ const HomeScreen = () => {
   console.log("[HomeScreen] Products recieved from backend is ", products);
   return (
     <>
-      <ToastContainer autoClose={1500} hideProgressBar />
+      <ToastContainer autoClose={2000} hideProgressBar />
       {loading ? (
         <Loader />
       ) : error ? (

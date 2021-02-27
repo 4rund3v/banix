@@ -17,13 +17,12 @@ import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import PasswordReset from "./screens/PasswordReset";
 import About from "./screens/About";
-import Default from "./screens/Default";
+import NotFoundScreen from "./screens/NotFoundScreen";
 import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import SitePageAboutUs from "./components/site/SitePageAboutUs";
 import SitePageContactUs from "./components/site/SitePageContactUs";
-import SitePageFAQ from "./components/site/SitePageFAQ";
 import SitePageTerms from "./components/site/SitePageTerms";
 import SitePagePrivacyPolicy from "./components/site/SitePagePrivacyPolicy";
 
@@ -35,30 +34,33 @@ function BanixApp() {
         <main>
           <Container className="content my-2">
             <Switch>
+              {/* Customer links*/}
               <Route path="/login" component={LoginScreen} exact />
               <Route path="/register" component={RegisterScreen} exact />
               <Route path="/profile" component={ProfileScreen} exact />
+              <Route path="/password-reset" component={PasswordReset} />
+              {/* Product Links */}
               <Route path="/product/:id" component={ProductScreen} />
               <Route path="/cart/:id?" component={CartScreen} />
               <Route path="/shipping" component={ShippingScreen} />
               <Route path="/payment" component={PaymentScreen} />
               <Route path="/place-order" component={PlaceOrderScreen} />
-              <Route path="/password-reset" component={PasswordReset} />
-
-              <Route path="/privacy" component={About} />
-              <Route path="/warranty" component={About} />
-
+              {/* site pages links */}
+              {/* Customer Service Related links*/}
+              <Route path="/site/order-tracking" component={About} />
+              <Route path="/site/returns" component={About} />
+              <Route path="/site/refunds" component={About} />
+              <Route path="/site/shipping" component={About} />
+              {/* Information Related links*/}
               <Route path="/site/about-us" component={SitePageAboutUs} />
               <Route path="/site/contact-us" component={SitePageContactUs} />
-              <Route path="/site/faq" component={SitePageFAQ} />
               <Route path="/site/terms" component={SitePageTerms} />
               <Route
                 path="/site/privacy-policy"
                 component={SitePagePrivacyPolicy}
               />
-
               <Route path="/" component={HomeScreen} exact />
-              <Route component={Default} />
+              <Route component={NotFoundScreen} />
             </Switch>
           </Container>
         </main>

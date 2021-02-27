@@ -16,7 +16,7 @@ class ProductCard extends Component {
   render() {
     let productCard = null;
     const { product } = this.state;
-    if (this.state.product) {
+    if (product) {
       productCard = (
         <Card className="p-1 rounded">
           <Link to={`/product/${product.productId}`} className="productLink">
@@ -39,7 +39,7 @@ class ProductCard extends Component {
               />
             </Card.Text>
             <Card.Text>
-              Price : <ProductPrice product={product} onlyPrice={true}/>
+              Price : <ProductPrice product={product} onlyPrice={true} />
             </Card.Text>
           </Card.Body>
         </Card>

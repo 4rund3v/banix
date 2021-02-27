@@ -1,20 +1,35 @@
 import React from "react";
 
-const ProductDescriptionTab = ({ product }) => {
+const ProductDescriptionTab = ({
+  productName,
+  productFeatures,
+  productDescription,
+  productBoxContents,
+}) => {
   return (
     <div className="typography">
-      <h3>About this item</h3>
-      <p>
+      <span>{productName}</span>
+      <h3>About this Item</h3>
+      <ul>
+        {productFeatures &&
+          productFeatures.map((productFeature, idx) => (
+            <li key={idx}>{productFeature}</li>
+          ))}
+      </ul>
+      <h3>Product Description</h3>
+      <p>{productDescription}</p>
+
+      <div className="box-content__section">
+        <h3>Box Contents</h3>
         <ul>
-          <li>Vithamas app based Smart Control</li>
-          <li>
-            Multi color adjustment voice controlled strip light scenes and music
-          </li>
-          <li>Mode features Wireless mesh network</li>
+          {productBoxContents &&
+            productBoxContents.map((boxItem, idx) => (
+              <li key={idx} className="box-content__row">
+                {boxItem}
+              </li>
+            ))}
         </ul>
-      </p>
-      <h3> Product Description : </h3>
-      <p>{product.productDescription}</p>
+      </div>
     </div>
   );
 };

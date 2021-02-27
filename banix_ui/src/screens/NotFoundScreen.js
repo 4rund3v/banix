@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Default = () => {
+const NotFoundScreen = () => {
   return (
     <React.Fragment>
       <div className="d-flex flex-column align-items-center justify-content-center">
@@ -12,4 +12,4 @@ const Default = () => {
   );
 };
 
-export default Default;
+export default NotFoundScreen;

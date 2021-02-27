@@ -9,7 +9,7 @@ const SitePagePrivacyPolicy = () => {
   return (
     <div>
       <Helmet>
-        <title>{`Privacy Policy — Banix}`}</title>
+        <title>{`Privacy Policy — Banix`}</title>
       </Helmet>
       <PageBreadcrumb breadcrumb={breadcrumb} />
       <div className="document">
