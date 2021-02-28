@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const AddressCard = ({ address }) => {
+import { Button } from "react-bootstrap";
+
+const AddressCard = ({ address, history }) => {
+  console.log("[AddressCard] address", history);
+  const editHandler = () => {
+    // history.push("/account/addresses/update-address");
+  };
   return (
     <React.Fragment key={address.id}>
       <div className="address-card__body">
@@ -20,9 +26,17 @@ const AddressCard = ({ address }) => {
           </div>
         </div>
         <div className="address-card__footer">
-          <Link to="/">Edit</Link>
-          &nbsp;&nbsp;
-          <Link to="/">Remove</Link>
+          <Button
+            className="mr-2"
+            variant="outline-info"
+            size="sm"
+            onClick={editHandler}
+          >
+            Edit
+          </Button>
+          <Button className="mr-2" variant="outline-info" size="sm">
+            Remove
+          </Button>
         </div>
       </div>
     </React.Fragment>

@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // third-party
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCustomerAddress } from "../../actions/customerActions";
+import AddressCard from "./AddressCard";
+import { Row, Col } from "react-bootstrap";
 
 const AccountAddresses = ({ match }) => {
-  const addresses = [];
+  const dispatch = useDispatch();
+
+  const customerAddress = useSelector((state) => state.customerAddress);
+  const { loadingAddress, errorAddress, addresses } = customerAddress;
+  useEffect(() => {
+    dispatch(getCustomerAddress());
+  }, [dispatch]);
+
+  console.log("[AccountDashboard] The addresses are ::: ", addresses);
   return (
     <div className="addresses-list">
       <Helmet>
@@ -19,7 +31,14 @@ const AccountAddresses = ({ match }) => {
         <div className="btn btn-secondary btn-sm">Add New</div>
       </Link>
       <div className="addresses-list__divider" />
-      {addresses}
+      {addresses.map((addressItem) => {
+        return (
+          <div className="addresses-list__item card address-card">
+            <AddressCard address={addressItem} />
+            <div className="addresses-list__divider" />
+          </div>
+        );
+      })}
     </div>
   );
 };

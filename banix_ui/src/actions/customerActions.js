@@ -20,14 +20,18 @@ import {
   CUSTOMER_PROFILE_DETAILS_UPDATE_REQUEST,
   CUSTOMER_PROFILE_DETAILS_UPDATE_SUCCESS,
   CUSTOMER_PROFILE_DETAILS_UPDATE_FAIL,
-  //address creation
-  CUSTOMER_ADDRESS_CREATE_REQUEST,
-  CUSTOMER_ADDRESS_CREATE_SUCCESS,
-  CUSTOMER_ADDRESS_CREATE_FAIL,
   //address fetch
   CUSTOMER_ADDRESS_FETCH_REQUEST,
   CUSTOMER_ADDRESS_FETCH_SUCCESS,
   CUSTOMER_ADDRESS_FETCH_FAIL,
+  //address creation
+  CUSTOMER_ADDRESS_CREATE_REQUEST,
+  CUSTOMER_ADDRESS_CREATE_SUCCESS,
+  CUSTOMER_ADDRESS_CREATE_FAIL,
+  // address update
+  CUSTOMER_ADDRESS_UPDATE_REQUEST,
+  CUSTOMER_ADDRESS_UPDATE_SUCCESS,
+  CUSTOMER_ADDRESS_UPDATE_FAIL,
 } from "../constants/customerConstants";
 
 import {
@@ -322,6 +326,54 @@ export const createCustomerAddress = (customerAddress) => async (
   } catch (error) {
     dispatch({
       type: CUSTOMER_ADDRESS_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateCustomerAddress = (modifiedCustomerAddress) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: CUSTOMER_ADDRESS_UPDATE_REQUEST,
+    });
+    const {
+      customerToken: { tokenInfo },
+    } = getState();
+    console.log("[updateCustomerAddress] The customer token is :: ", tokenInfo);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenInfo.token}`,
+      },
+    };
+    const cusstomerAddressUpdateData = modifiedCustomerAddress.toRawDict();
+    console.log(
+      "updateCustomerAddress  customer address data to update is ::: ",
+      cusstomerAddressUpdateData
+    );
+    const url = `${CUSTOMER_ADDRESS_URL}/${modifiedCustomerAddress.addressId}`;
+    const { data } = await axios.put(url, cusstomerAddressUpdateData, config);
+    // just to make sure that the empty {} is not saved as customer info
+    console.log(
+      "updateCustomerAddress  customer address addition response ",
+      data
+    );
+    if (!data.address_id) {
+      throw new Error("No address information recieved.");
+    }
+    dispatch({
+      type: CUSTOMER_ADDRESS_UPDATE_SUCCESS,
+      payload: null,
+    });
+  } catch (error) {
+    dispatch({
+      type: CUSTOMER_ADDRESS_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

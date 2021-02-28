@@ -12,6 +12,7 @@ export class Customer {
 export class CustomerAddress {
   constructor(rawAddress) {
     if (rawAddress) {
+      this.addressId = rawAddress.address_id;
       this.fullName = rawAddress.full_name;
       this.mobileNumber = rawAddress.mobile_number;
       this.pinCode = rawAddress.pincode;
@@ -21,6 +22,7 @@ export class CustomerAddress {
       this.cityInfo = rawAddress.city_info;
       this.stateInfo = rawAddress.state_info;
     } else {
+      this.addressId = null;
       this.fullName = null;
       this.mobileNumber = null;
       this.pinCode = null;

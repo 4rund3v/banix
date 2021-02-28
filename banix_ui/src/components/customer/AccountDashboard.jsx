@@ -31,8 +31,10 @@ const AccountDashboard = ({ match }) => {
     dispatch(getCustomerAddress(defaultAddress));
   }, [dispatch]);
 
-  const orders = [];
   console.log("[AccountDashboard] The addresses are ::: ", addresses);
+
+  const orders = [];
+
   return (
     <div className="dashboard">
       <Helmet>
