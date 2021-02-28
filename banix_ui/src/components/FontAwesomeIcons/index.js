@@ -33,6 +33,7 @@ import {
   faYoutube,
   faAmazon,
   faFacebookF,
+  faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -66,5 +67,6 @@ library.add(
   faMapMarker,
   faMapMarkerAlt,
   faAmazon,
-  faFacebookF
+  faFacebookF,
+  faLinkedinIn
 );

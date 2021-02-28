@@ -26,6 +26,9 @@ import SitePageContactUs from "./components/site/SitePageContactUs";
 import SitePageTerms from "./components/site/SitePageTerms";
 import SitePagePrivacyPolicy from "./components/site/SitePagePrivacyPolicy";
 import CustomerAccountScreen from "./screens/CustomerAccountScreen";
+import SitePageWarranty from "./components/site/sitePageWarranty";
+import SitePageShipping from "./components/site/sitePageShipping";
+import SitePageReturns from "./components/site/sitePageReturns";
 
 function BanixApp() {
   return (
@@ -48,18 +51,24 @@ function BanixApp() {
               <Route path="/place-order" component={PlaceOrderScreen} />
               {/* site pages links */}
               {/* Customer Service Related links*/}
-              <Route path="/site/order-tracking" component={About} />
-              <Route path="/site/returns" component={About} />
-              <Route path="/site/refunds" component={About} />
-              <Route path="/site/shipping" component={About} />
+              <Route path="/site/contact-us" component={SitePageContactUs} />
+              <Route
+                path="/site/warranty-refunds"
+                component={SitePageWarranty}
+              />
+              <Route path="/site/returns" component={SitePageReturns} />
+              <Route path="/site/shipping" component={SitePageShipping} />
               {/* Information Related links*/}
               <Route path="/site/about-us" component={SitePageAboutUs} />
-              <Route path="/site/contact-us" component={SitePageContactUs} />
               <Route path="/site/terms" component={SitePageTerms} />
+
               <Route
                 path="/site/privacy-policy"
                 component={SitePagePrivacyPolicy}
               />
+              <Route path="/site/terms" component={SitePageTerms} />
+
+              {/*  Default Routes*/}
               <Route path="/" component={HomeScreen} exact />
               <Route component={NotFoundScreen} />
             </Switch>

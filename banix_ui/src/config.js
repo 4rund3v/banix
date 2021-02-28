@@ -24,5 +24,5 @@ export const BANIX_YOUTUBE_URL =
 export const BANIX_TWITTER_URL = "https://twitter.com/banixbangalore";
 export const BANIX_INSTAGRAM_URL = "https://www.instagram.com/Banix.home";
 export const BANIX_FACEBOOK_URL = "https://www.facebook.com/banix21";
-export const BANIX_LINKEDININ_URL =
+export const BANIX_LINKEDIN_URL =
   "https://www.linkedin.com/in/banix-bangalore-4b3526206";

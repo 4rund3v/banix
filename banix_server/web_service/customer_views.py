@@ -104,6 +104,7 @@ def fetch_customer_address(current_customer_info):
             session.close()
     return result
 
+
 @customer_blueprint.route("/customers/address", methods=["POST"])
 @token_required
 def add_customer_address(current_customer_info):
@@ -125,6 +126,7 @@ def add_customer_address(current_customer_info):
             session.close()
     return result
     pass
+
 
 @customer_blueprint.route("/customers/address/<address_id>", methods=["PUT"])
 @token_required

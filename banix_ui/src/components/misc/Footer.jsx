@@ -10,6 +10,7 @@ import {
   BANIX_TWITTER_URL,
   BANIX_INSTAGRAM_URL,
   BANIX_YOUTUBE_URL,
+  BANIX_LINKEDIN_URL,
 } from "../../config";
 
 function Footer() {
@@ -19,21 +20,26 @@ function Footer() {
         <Row className="bg-light text-dark ">
           <Col>
             <h5 className="font-weight-bold">Customer Service</h5>
+
             <ul className="list-unstyled">
               <li>
-                <Link to="/order_tracking">Order Tracking</Link>
+                <Link to="/site/contact-us">Contact Us</Link>
               </li>
               <li>
-                <Link to="/returns_and_exchanges">Returns and Exchanges</Link>
+                <Link to="/site/returns">Returns</Link>
               </li>
+
               <li>
-                <Link to="/refunds">Refunds</Link>
+                <Link to="/site/warranty-refunds">Warranty</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/delivery_and_collections">
-                  Delivery & Collections
+                  Delivery and Collections
                 </Link>
-              </li>
+              </li> 
+              <li>
+                <Link to="/site/returns-exchanges">Returns and Exchanges</Link>
+              </li>*/}
             </ul>
           </Col>
           <Col>
@@ -43,16 +49,13 @@ function Footer() {
                 <Link to="/site/about-us">About Us</Link>
               </li>
               <li>
-                <Link to="/site/contact-us">Contact Us</Link>
+                <Link to="/site/shipping">Shipping</Link>
               </li>
               <li>
                 <Link to="/site/privacy-policy">Privacy Policy</Link>
               </li>
               <li>
                 <Link to="/site/terms">Terms and Conditions</Link>
-              </li>
-              <li>
-                <Link to="/careers">Careers</Link>
               </li>
             </ul>
           </Col>
@@ -106,6 +109,19 @@ function Footer() {
                 >
                   <FontAwesomeIcon
                     icon={["fab", "instagram"]}
+                    size="2x"
+                    className="pr-2"
+                  />
+                </a>
+              </li>
+              <li className="list-inline-item">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={BANIX_LINKEDIN_URL}
+                >
+                  <FontAwesomeIcon
+                    icon={["fab", "linkedin-in"]}
                     size="2x"
                     className="pr-2"
                   />

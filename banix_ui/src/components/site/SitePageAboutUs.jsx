@@ -36,12 +36,14 @@ const SitePageAboutUs = () => {
                 </p>
                 <h3>Our Purpose</h3>
                 <p>
-                  As we are an Indian based company, we understand Indian users
-                  mentalities and design our products as per their expectations
-                  and requirements. Our purpose is to develop products with
-                  international standards at a reasonable price. And to give the
-                  right platform to utilize and improve an individual’s skills
-                  by working here.
+                  As we are an Indian based company, we understand Indian user’s
+                  mentalities. We design and develop our products as per their
+                  expectations and requirements.
+                  <br />
+                  Our purpose is to develop our products with international
+                  standards at a reasonable price and to make it in India, and
+                  to give a right platform to utilize and improve individual’s
+                  skills by working here.
                 </p>
               </div>
             </div>
