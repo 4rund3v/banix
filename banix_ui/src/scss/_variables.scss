@@ -83,7 +83,7 @@
 // -- direction
 // ----------------------------------------
 $direction: ltr !default; // or rtl
-$both-directions: true !default;
+$both-directions: false !default;
 
 $inline-start: if($direction == ltr, left, right) !default;
 $inline-end: if($direction == ltr, right, left) !default;

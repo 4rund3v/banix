@@ -1,28 +1,43 @@
+import axios from "axios";
+import { toast } from "react-toastify";
+// Third party
 import {
+  // LOGIN process
   CUSTOMER_LOGIN_FAIL,
   CUSTOMER_LOGIN_REQUEST,
   CUSTOMER_LOGIN_SUCCESS,
   CUSTOMER_LOGOUT,
+  CUSTOMER_TOKEN_UPDATED,
+  // Registration
   CUSTOMER_REGISTER_FAIL,
   CUSTOMER_REGISTER_REQUEST,
   CUSTOMER_REGISTER_SUCCESS,
-  CUSTOMER_TOKEN_UPDATED,
+  // fetch profile details
   CUSTOMER_PROFILE_DETAILS_FETCH_REQUEST,
   CUSTOMER_PROFILE_DETAILS_FETCH_SUCCESS,
   CUSTOMER_PROFILE_DETAILS_FETCH_FAIL,
+  // Profile details update
   CUSTOMER_PROFILE_DETAILS_UPDATE_REQUEST,
   CUSTOMER_PROFILE_DETAILS_UPDATE_SUCCESS,
   CUSTOMER_PROFILE_DETAILS_UPDATE_FAIL,
+  //address creation
+  CUSTOMER_ADDRESS_CREATE_REQUEST,
+  CUSTOMER_ADDRESS_CREATE_SUCCESS,
+  CUSTOMER_ADDRESS_CREATE_FAIL,
+  //address fetch
+  CUSTOMER_ADDRESS_FETCH_REQUEST,
+  CUSTOMER_ADDRESS_FETCH_SUCCESS,
+  CUSTOMER_ADDRESS_FETCH_FAIL,
 } from "../constants/customerConstants";
-import { toast } from "react-toastify";
+
 import {
   CUSTOMER_LOGIN_URL,
   CUSTOMER_REGISTER_URL,
   CUSTOMER_PROFILE_URL,
+  CUSTOMER_ADDRESS_URL,
 } from "../config";
 
-import { Customer } from "../schema/customer";
-import axios from "axios";
+import { Customer, CustomerAddress } from "../schema/customer";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -208,6 +223,105 @@ export const updateCustomerDetails = (customer) => async (
   } catch (error) {
     dispatch({
       type: CUSTOMER_PROFILE_DETAILS_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getCustomerAddress = (defaultAddress) => async (
+  dispatch,
+  getState
+) => {
+  const {
+    customerToken: { tokenInfo },
+  } = getState();
+  console.log("[getCustomerAddress] The customer token is :: ", tokenInfo);
+  try {
+    dispatch({
+      type: CUSTOMER_ADDRESS_FETCH_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenInfo.token}`,
+      },
+    };
+    const url = defaultAddress
+      ? `${CUSTOMER_ADDRESS_URL}?default=true`
+      : CUSTOMER_ADDRESS_URL;
+    console.log("[getCustomerAddress] The data fetch url is ::: ", url);
+    const { data } = await axios.get(url, config);
+    console.log("[getCustomerAddress] The data recieved is ::: ", data);
+    // just to make sure that the empty {} is not saved as customer info
+    if (!data.addresses) {
+      throw new Error("No customer address recieved.");
+    }
+
+    const addressInfo = [];
+    for (let i = 0; i < data.addresses.length; i++) {
+      addressInfo.push(new CustomerAddress(data.addresses[i]));
+    }
+    dispatch({
+      type: CUSTOMER_ADDRESS_FETCH_SUCCESS,
+      payload: addressInfo,
+    });
+  } catch (error) {
+    dispatch({
+      type: CUSTOMER_ADDRESS_FETCH_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const createCustomerAddress = (customerAddress) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: CUSTOMER_ADDRESS_CREATE_REQUEST,
+    });
+    const {
+      customerToken: { tokenInfo },
+    } = getState();
+    console.log("[createCustomerAddress] The customer token is :: ", tokenInfo);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenInfo.token}`,
+      },
+    };
+    const cusstomerAddressPostData = customerAddress.toRawDict();
+    console.log(
+      "createCustomerAddress  customer address data to post is ::: ",
+      cusstomerAddressPostData
+    );
+    const { data } = await axios.post(
+      CUSTOMER_ADDRESS_URL,
+      cusstomerAddressPostData,
+      config
+    );
+    // just to make sure that the empty {} is not saved as customer info
+    console.log(
+      "createCustomerAddress  customer address addition response ",
+      data
+    );
+    if (!data.address_id) {
+      throw new Error("No address information recieved.");
+    }
+    dispatch({
+      type: CUSTOMER_ADDRESS_CREATE_SUCCESS,
+      payload: null,
+    });
+  } catch (error) {
+    dispatch({
+      type: CUSTOMER_ADDRESS_CREATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // third-party
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
@@ -8,15 +8,12 @@ import { Link } from "react-router-dom";
 // import allOrders from "../../data/accountOrders";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCustomerDetails,
-  updateCustomerDetails,
-} from "../../actions/customerActions";
+import { getCustomerAddress } from "../../actions/customerActions";
 import Message from "../misc/Message";
 import Loader from "../misc/Loader";
-import { useState, useEffect } from "react";
+import AddressCard from "./AddressCard";
 
-const AccountDashboard = () => {
+const AccountDashboard = ({ match }) => {
   const dispatch = useDispatch();
 
   const customerLogin = useSelector((state) => state.customerLogin);
@@ -27,11 +24,15 @@ const AccountDashboard = () => {
   const { loading, error, customer } = customerDetails;
   console.log("[AccountDashboard] the customerDetails is : ", customerDetails);
 
-  const customerCartInfo = useSelector((state) => state.cart);
-  const { shippingAddress } = customerCartInfo;
-  console.log("[AccountDashboard] the shippingAddress is : ", shippingAddress);
-  const address = [];
+  const customerAddress = useSelector((state) => state.customerAddress);
+  const { loadingAddress, errorAddress, addresses } = customerAddress;
+  useEffect(() => {
+    const defaultAddress = true;
+    dispatch(getCustomerAddress(defaultAddress));
+  }, [dispatch]);
+
   const orders = [];
+  console.log("[AccountDashboard] The addresses are ::: ", addresses);
   return (
     <div className="dashboard">
       <Helmet>
@@ -56,33 +57,21 @@ const AccountDashboard = () => {
         {/* {address.default && (
           <div className="address-card__badge">Default Address</div>
         )} */}
-        {shippingAddress && (
-          <div className="address-card__badge">Default Address</div>
+        {addresses && addresses.length >= 1 ? (
+          <>
+            <div className="address-card__badge">Default Address</div>
+            <AddressCard address={addresses[0]} />
+          </>
+        ) : (
+          <Link
+            to={`${match.path}/add-address`}
+            className="card-body profile-card__body"
+          >
+            {/* TODO : fix classname*/}
+            <div className="addresses-list__plus" />
+            <div className="btn btn-secondary">Add New Address</div>
+          </Link>
         )}
-        <div className="address-card__body">
-          <div className="address-card__name">{`${shippingAddress.fullName}`}</div>
-          <div className="address-card__row">
-            {shippingAddress.buildingInfo}
-            <br />
-            {shippingAddress.streetInfo}
-            <br />
-            {shippingAddress.cityInfo}, {shippingAddress.pinCode}
-            <br />
-          </div>
-          <div className="address-card__row">
-            <div className="address-card__row-title">Phone Number</div>
-            <div className="address-card__row-content">
-              {shippingAddress.mobileNumber}
-            </div>
-          </div>
-          {/* <div className="address-card__row">
-            <div className="address-card__row-title">Email Address</div>
-            <div className="address-card__row-content">{address.email}</div>
-          </div> */}
-          <div className="address-card__footer">
-            <Link to="/">Edit Address</Link>
-          </div>
-        </div>
       </div>
       <div className="dashboard__orders card">
         <div className="card-header">

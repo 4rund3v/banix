@@ -14,6 +14,9 @@ import {
   customerDetailsReducer,
   customerDetailsUpdateReducer,
   customerTokenReducer,
+  customerAddressReducer,
+  customerAddressCreateReducer,
+  customerAddressUpdateReducer,
 } from "./reducers/customerReducers";
 
 import { shippingCostReducer } from "./reducers/shippingReducers";
@@ -38,6 +41,10 @@ const reducer = combineReducers({
   // customer profile
   customerDetails: customerDetailsReducer,
   customerDetailsUpdate: customerDetailsUpdateReducer,
+  // customer address
+  customerAddress: customerAddressReducer,
+  // customerAddressCreate: customerAddressCreateReducer,
+  // customerAddressUpdate: customerAddressUpdateReducer,
   // Order information
   orderPrepare: OrderPrepareReducer,
   orderCreate: OrderCreateReducer,

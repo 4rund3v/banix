@@ -7,6 +7,8 @@ import PageBreadcrumb from "../components/shared/PageBreadcrumb";
 
 // pages
 import AccountAddresses from "../components/customer/AccountAddresses";
+import CreateCustomerAddress from "../components/customer/CreateCustomerAddress";
+import UpdateCustomerAddress from "../components/customer/UpdateCustomerAddress";
 import AccountDashboard from "../components/customer/AccountDashboard";
 import AccountOrders from "../components/customer/AccountOrders";
 import AccountPassword from "../components/customer/AccountPassword";
@@ -78,6 +80,16 @@ const CustomerAccountScreen = ({ match, location }) => {
                   exact
                   path={`${match.path}/addresses`}
                   component={AccountAddresses}
+                />
+                <Route
+                  exact
+                  path={`${match.path}/addresses/add-address`}
+                  component={CreateCustomerAddress}
+                />
+                <Route
+                  exact
+                  path={`${match.path}/addresses/update-address`}
+                  component={UpdateCustomerAddress}
                 />
                 <Route
                   exact

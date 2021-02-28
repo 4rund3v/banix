@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 
-const AddressCard = ({ shippingAddress }) => {
+const ShippingAddressCard = ({ shippingAddress }) => {
   console.log("[AddressCard] The shipping Address is ::: ", shippingAddress);
   return (
     <Card key={shippingAddress.addressId} style={{ width: "20rem" }}>
@@ -24,4 +24,4 @@ const AddressCard = ({ shippingAddress }) => {
   );
 };
 
-export default AddressCard;
+export default ShippingAddressCard;

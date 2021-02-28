@@ -2,7 +2,7 @@ import os
 import sys
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
-from src.models import Customer
+from src.models import Customer, Address
 from src.db_utils import Session, engine
 from authorization import token_required
 from flask import Flask, jsonify, abort, Blueprint, request
@@ -72,3 +72,61 @@ def update_customer_profile(current_customer_info):
             session.close()
     customer_info = session.query(Customer).filter(Customer.customer_id == current_customer_info['customer_id']).first()
     return {"customer_info": customer_info.to_dict()}
+
+
+
+@customer_blueprint.route("/customers/address", methods=["GET"])
+@token_required
+def fetch_customer_address(current_customer_info):
+
+
+    session = None
+    default_address = request.args.get("default", False)
+    result = {}
+    result["addresses"] =[]
+    result["customer_id"] = current_customer_info['customer_id']
+    result["default_address"] = default_address
+    print(f"[fetch_customer_address] In the fetch of the cusstomer address customer_id : {current_customer_info['customer_id']}")
+    try:
+        session = Session()
+        if default_address:
+            # address = session.query(Address).filter_by(default_address=True).first()
+            address = session.query(Address).first()
+            result["addresses"].append(address.to_dict())
+        else:
+            addresses = session.query(Address).all()
+            for address in addresses:
+                result["addresses"].append(address.to_dict())
+    except Exception as ex:
+        print(f"[fetch_customer_address] Unable to fetch the addresses : {ex} ")
+    finally:
+        if session:
+            session.close()
+    return result
+
+@customer_blueprint.route("/customers/address", methods=["POST"])
+@token_required
+def add_customer_address(current_customer_info):
+    session = None
+    result = {}
+    form_data = request.get_json()
+    print(f"[add_customer_address] In the creation of cusstomer address : {current_customer_info['customer_id']},new address : {form_data} ")
+    try:
+        session = Session()
+        new_address = Address(**form_data)
+        new_address.customer_id = current_customer_info['customer_id']
+        session.add(new_address)
+        session.commit()
+        result["address_id"] = new_address.address_id
+    except Exception as ex:
+        print(f"[add_customer_address] Unable to fetch the addresses : {ex} ")
+    finally:
+        if session:
+            session.close()
+    return result
+    pass
+
+@customer_blueprint.route("/customers/address/<address_id>", methods=["PUT"])
+@token_required
+def update_customer_address(current_customer_info, address_id):
+    pass

@@ -7,7 +7,7 @@ import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
 
 import CheckoutSteps from "../components/store/CheckoutSteps";
-import AddressCard from "../components/store/AddressCard";
+import ShippingAddressCard from "../components/store/ShippingAddressCard";
 import { fetchOderInfo } from "../actions/orderActions";
 import { createOrder } from "../actions/orderActions";
 import { Order } from "../schema/order";
@@ -148,7 +148,7 @@ const PlaceOrderScreen = ({ history }) => {
                     <strong>Address:</strong>
                     <br />
                   </p>
-                  <AddressCard shippingAddress={shippingAddress} />
+                  <ShippingAddressCard shippingAddress={shippingAddress} />
                 </ListGroup.Item>
 
                 <ListGroup.Item>

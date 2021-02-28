@@ -13,6 +13,7 @@ export const CUSTOMER_REGISTER_URL = `/api/customers/register`;
 export const CUSTOMER_PROFILE_URL = `/api/customers/profile`;
 // To fetch the customer orders
 export const CUSTOMER_ORDERS_URL = `/api/customers/orders`;
+export const CUSTOMER_ADDRESS_URL = `/api/customers/address`;
 // To create an order
 export const CREATE_ORDER_URL = `/api/orders`;
 // To fetch the order information
