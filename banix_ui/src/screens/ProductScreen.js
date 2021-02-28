@@ -28,11 +28,26 @@ import Rating from "../components/store/Rating";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
-
+  var initialCheck = false;
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product: rawProduct } = productDetails;
 
+  const customerLogin = useSelector((state) => state.customerLogin);
+  const {
+    loading: loadingCustomer,
+    error: errorCustomer,
+    customerInfo,
+  } = customerLogin;
+  console.log("[ProductScreen] The customer info is : ", customerInfo);
+
+  const cartInfo = useSelector((state) => state.cart);
+  const {
+    loading: loadingshippingAddress,
+    error: errorShippingAddress,
+    shippingAddress,
+  } = cartInfo;
+  console.log("[ProductScreen] the shipping address is : ", shippingAddress);
   const product = new Product(rawProduct);
   useEffect(() => {
     dispatch(getProductDetails(match.params.id));
@@ -42,11 +57,12 @@ const ProductScreen = ({ history, match }) => {
     dispatch(addToCart(product.productId, qty));
     // history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
+
   const buyNowHander = () => {
     dispatch(addToCart(product.productId, qty));
     history.push("/login?redirect=shipping");
   };
-  const [pinCode, setPinCode] = useState("");
+  const [pinCode, setPinCode] = useState(shippingAddress.pinCode || "");
 
   const shippingCost = useSelector((state) => state.shippingCost);
   const { shippingLoading, shippingError, serviceability } = shippingCost;
@@ -58,8 +74,16 @@ const ProductScreen = ({ history, match }) => {
     console.log("[ProductScreen] Check delivery invoked !!", pinCode);
     dispatch(fetchServiceabilityDetails(product.productId, pinCode));
   };
+
   console.log("[ProductScreen] The deliveryInfo info is ::: ", deliveryInfo);
   console.log("[ProductScreen] product info recieved is ::", product);
+  useEffect(() => {
+    if (pinCode) {
+      console.log("Checking delivery options :: ", pinCode, initialCheck);
+      checkDeliveryHandler();
+    }
+  }, []);
+
   return (
     <>
       <ToastContainer autoClose={2000} hideProgressBar />
@@ -100,7 +124,12 @@ const ProductScreen = ({ history, match }) => {
               </ul>
               <div className="product__info">
                 <div className="product__prices">
-                  <ProductPrice product={product} />
+                  <ProductPrice
+                    product={product}
+                    deliveryRate={
+                      deliveryInfo ? deliveryInfo.deliveryRate : null
+                    }
+                  />
                 </div>
 
                 <div className="product__actions-item">
@@ -154,8 +183,12 @@ const ProductScreen = ({ history, match }) => {
                     (deliveryInfo.estimatedDeliveryDays === -1 ? (
                       <div className="product__delivery_info">
                         <span className="text-danger">
-                          Cannot deliver to location `$
-                          {deliveryInfo.deliveryPinCode}`
+                          Cannot deliver to location
+                          {` ${
+                            deliveryInfo.deliveryPinCode
+                              ? deliveryInfo.deliveryPinCode
+                              : pinCode
+                          }`}
                         </span>{" "}
                       </div>
                     ) : (
@@ -163,7 +196,6 @@ const ProductScreen = ({ history, match }) => {
                         <span className="text-dark">
                           Delivery in {deliveryInfo.estimatedDeliveryDays} Days
                         </span>{" "}
-                        |<strong>+ &#8377; {deliveryInfo.deliveryRate}</strong>
                       </div>
                     ))
                   )}

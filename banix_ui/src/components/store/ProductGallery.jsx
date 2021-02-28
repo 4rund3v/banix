@@ -2,13 +2,8 @@ import React from "react";
 import ImageGallery from "react-image-gallery";
 
 const ProductGallery = ({ productMedia }) => {
-  console.log(
-    "[ProductGallery] The media items recieved are :: ",
-    productMedia
-  );
   const items = [];
   const mediaRenderer = (item) => {
-    console.log("[ProductGallery] mediaRenderer rendering item ::: ", item);
     return (
       <video
         id="vid"
