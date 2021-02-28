@@ -31,7 +31,7 @@ const PlaceOrderScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   console.log("[PlaceOrderScreen] The cart object is : ", cart);
 
-  const { cartItems, shippingAddress, paymentMethod } = cart;
+  const { cartItems, shippingAddress } = cart;
   useEffect(
     () => {
       dispatch(fetchOderInfo(cartItems, shippingAddress));
@@ -123,7 +123,6 @@ const PlaceOrderScreen = ({ history }) => {
     order.orderShippingAddress = shippingAddress;
     order.orderPaymentInfo = {
       paymentGateway: "RazorPay",
-      paymentMethod,
       paymentTransactionId: Date.now(),
     };
     console.log("[placeOrderHandler] The order info prepared is : ", order);
@@ -151,13 +150,13 @@ const PlaceOrderScreen = ({ history }) => {
                   <ShippingAddressCard shippingAddress={shippingAddress} />
                 </ListGroup.Item>
 
-                <ListGroup.Item>
+                {/* <ListGroup.Item>
                   <h2>Payment Method</h2>
                   <p>
                     <strong>Method: </strong>
                     {paymentMethod.paymentMethod}
                   </p>
-                </ListGroup.Item>
+                </ListGroup.Item> */}
 
                 <ListGroup.Item>
                   <h2>Order Items</h2>
@@ -209,7 +208,7 @@ const PlaceOrderScreen = ({ history }) => {
                       <Col md={6}>Items Price</Col>
                       <Col md={4}>
                         <span className="font-weight-bold text-right">
-                          &#8377;{orderInfo.totalSellingPrice}
+                          &#8377; {orderInfo.totalSellingPrice}
                         </span>
                       </Col>
                     </Row>
@@ -219,8 +218,7 @@ const PlaceOrderScreen = ({ history }) => {
                       <Col md={6}>Shipping</Col>
                       <Col md={4}>
                         <span className="font-weight-bold text-right">
-                          &#8377;
-                          {orderInfo.totalShippingPrice}
+                          &#8377; {orderInfo.totalShippingPrice}
                         </span>
                       </Col>
                     </Row>
@@ -230,7 +228,7 @@ const PlaceOrderScreen = ({ history }) => {
                       <Col md={6}>Tax</Col>
                       <Col md={4}>
                         <span className="font-weight-bold text-right">
-                          &#8377;{orderInfo.totalTaxPrice}
+                          &#8377; {orderInfo.totalTaxPrice}
                         </span>
                       </Col>
                     </Row>
@@ -240,7 +238,7 @@ const PlaceOrderScreen = ({ history }) => {
                       <Col md={6}>Total</Col>
                       <Col md={4}>
                         <span className="font-weight-bold text-right">
-                          &#8377;{orderInfo.totalPrice}
+                          &#8377; {orderInfo.totalPrice}
                         </span>
                       </Col>
                     </Row>

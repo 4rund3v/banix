@@ -29,15 +29,6 @@ const CheckoutSteps = ({
         )}
       </Nav.Item>
       <Nav.Item>
-        {paymentStep ? (
-          <LinkContainer to="/payment">
-            <Nav.Link>Payment</Nav.Link>
-          </LinkContainer>
-        ) : (
-          <Nav.Link disabled>Payment</Nav.Link>
-        )}
-      </Nav.Item>
-      <Nav.Item>
         {placeOrderStep ? (
           <LinkContainer to="/place-order">
             <Nav.Link>Place Order</Nav.Link>

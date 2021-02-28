@@ -8,7 +8,7 @@ const ShippingScreen = ({ history }) => {
   const shippingAddress = useSelector((state) => state.cart.shippingAddress);
 
   const onSubmitHandler = (e) => {
-    history.push("/payment");
+    history.push("/place-order");
   };
 
   return (

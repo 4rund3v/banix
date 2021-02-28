@@ -7,6 +7,7 @@ import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
 import { login } from "../actions/customerActions";
 import FormContainer from "../components/misc/FormContainer";
+
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,8 +17,17 @@ const LoginScreen = ({ location, history }) => {
   const customerLogin = useSelector((state) => state.customerLogin);
   const { loading, error, customerInfo } = customerLogin;
   console.log("[LoginScreen] The customerInfo is :: ", customerInfo);
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  let redirect = location.search ? location.search.split("=")[1] : "/";
+  console.log("[LoginScreen] The redirection from login is :::", redirect);
 
+  const shippingAddress = useSelector((state) => state.cart.shippingAddress);
+
+  if (redirect === "shipping") {
+    console.log("[LoginScreen] redirect invoked : ", shippingAddress, redirect);
+    if (shippingAddress && shippingAddress.pinCode) {
+      redirect = "place-order";
+    }
+  }
   useEffect(() => {
     if (customerInfo && customerInfo.username) {
       history.push(redirect);
