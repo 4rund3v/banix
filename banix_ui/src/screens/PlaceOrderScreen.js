@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
+// thrid party
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+//components
 import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
-
 import CheckoutSteps from "../components/store/CheckoutSteps";
 import ShippingAddressCard from "../components/store/ShippingAddressCard";
+// actions
 import { fetchOderInfo } from "../actions/orderActions";
 import { createOrder } from "../actions/orderActions";
+// data schema
 import { Order } from "../schema/order";
 
 const loadScript = (src) => {
@@ -41,13 +43,13 @@ const PlaceOrderScreen = ({ history }) => {
 
   const customerLogin = useSelector((state) => state.customerLogin);
   const { customerInfo } = customerLogin;
-  console.log("[PlaceOrderScreen] The customerInfo object is : ", customerInfo);
+  // console.log("[PlaceOrderScreen] The customerInfo object is : ", customerInfo);
 
   const orderInfoPrepared = useSelector((state) => state.orderPrepare);
-  console.log(
-    "[PlaceOrderScreen] the order info prepared is ::: ",
-    orderInfoPrepared
-  );
+  // console.log(
+  //   "[PlaceOrderScreen] the order info prepared is ::: ",
+  //   orderInfoPrepared
+  // );
   const {
     orderInfo,
     loading: orderDetailsLoading,
@@ -69,7 +71,7 @@ const PlaceOrderScreen = ({ history }) => {
       alert(`Unable to ping payment gatewat. Are you online ?`);
       return;
     }
-    console.log("The orderinfo payment info is", orderInfo.paymentInfo);
+    // console.log("The orderinfo payment info is", orderInfo.paymentInfo);
     const options = {
       key: "rzp_test_1VGt9vNNSuXQ5X",
       amount: orderInfo.paymentInfo.amount,
@@ -78,11 +80,10 @@ const PlaceOrderScreen = ({ history }) => {
       description: `Product Purchase`,
       image: "https://example.com/your_logo",
       order_id: orderInfo.paymentInfo.paymentOrderId,
-      // callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
       prefill: {
         name: customerInfo.displayName,
         email: customerInfo.emailId,
-        contact: customerInfo.primaryMobileNumber || "9999999999",
+        contact: customerInfo.primaryMobileNumber || null,
       },
     };
     console.log("[displayRazorPay] options prepared is ::", options);

@@ -16,7 +16,7 @@ const Header = () => {
             banix
           </Navbar.Brand>
         </LinkContainer>
-        <Nav className="ml-auto  align-items-center justify-content-center">
+        <Nav className="ml-auto align-items-center justify-content-center">
           <Navbar.Toggle
             aria-controls="basic-navbar-nav"
             className="rounded-0"
