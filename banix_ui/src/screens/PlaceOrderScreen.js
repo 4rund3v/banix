@@ -150,14 +150,6 @@ const PlaceOrderScreen = ({ history }) => {
                   <ShippingAddressCard shippingAddress={shippingAddress} />
                 </ListGroup.Item>
 
-                {/* <ListGroup.Item>
-                  <h2>Payment Method</h2>
-                  <p>
-                    <strong>Method: </strong>
-                    {paymentMethod.paymentMethod}
-                  </p>
-                </ListGroup.Item> */}
-
                 <ListGroup.Item>
                   <h2>Order Items</h2>
                   {cart.cartItems.length === 0 ? (

@@ -72,7 +72,6 @@ const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
-    paymentMethod: null,
   },
   customerLogin: { customerInfo: customerInfoFromStorage },
   customerToken: { tokenInfo: tokenFromStorage },

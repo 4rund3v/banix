@@ -100,15 +100,7 @@ export class Order {
     }
     // order payment information
     let paymentInfo = {};
-    if (this.orderPaymentInfo) {
-      paymentInfo[
-        "payment_method"
-      ] = this.orderPaymentInfo.paymentMethod.paymentMethod;
-      paymentInfo["payment_gateway"] = this.orderPaymentInfo.paymentGateway;
-      paymentInfo[
-        "payment_transaction_id"
-      ] = this.orderPaymentInfo.paymentTransactionId;
-    }
+
     // order items information
     let orderItems = [];
     if (this.orderItems && this.orderItemPriceInfo) {

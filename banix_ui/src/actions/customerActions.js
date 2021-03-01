@@ -57,16 +57,7 @@ export const login = (email, password) => async (dispatch) => {
       email_id: email,
       password: password,
     };
-    console.log(
-      "[customerActions][login] Logging in the customer with the data ",
-      CUSTOMER_LOGIN_URL,
-      loginData
-    );
     const { data } = await axios.post(CUSTOMER_LOGIN_URL, loginData, config);
-    console.log(
-      "[customerActions][login] the data recieved after login is :: ",
-      data
-    );
 
     if (!data.customer_info) {
       throw new Error("No customer information recieved.");
@@ -77,7 +68,6 @@ export const login = (email, password) => async (dispatch) => {
       payload: customerInfo,
     });
     toast.success(`Logged In !`);
-
     dispatch({
       type: CUSTOMER_TOKEN_UPDATED,
       payload: { token: data.token },
@@ -130,18 +120,19 @@ export const register = (name, email, password) => async (dispatch) => {
     if (!data.customer_info) {
       throw new Error("No customer information recieved.");
     }
+    const customerInfo = new Customer(data.customer_info);
 
     dispatch({
       type: CUSTOMER_REGISTER_SUCCESS,
-      payload: data.customer_info,
+      payload: customerInfo,
     });
 
     dispatch({
       type: CUSTOMER_LOGIN_SUCCESS,
-      payload: data.customer_info,
+      payload: customerInfo,
     });
 
-    localStorage.setItem("customerInfo", JSON.stringify(data.customer_info));
+    localStorage.setItem("customerInfo", JSON.stringify(customerInfo));
     localStorage.setItem("accessToken", JSON.stringify({ token: data.token }));
   } catch (error) {
     dispatch({

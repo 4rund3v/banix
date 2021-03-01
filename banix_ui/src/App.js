@@ -1,34 +1,28 @@
 import { Container } from "react-bootstrap";
 import "./components/FontAwesomeIcons";
-import {
-  HashRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
-import Header from "./components/misc/Header";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
-import Footer from "./components/misc/Footer";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import ProfileScreen from "./screens/ProfileScreen";
 import PasswordReset from "./screens/PasswordReset";
-import About from "./screens/About";
 import NotFoundScreen from "./screens/NotFoundScreen";
 import ShippingScreen from "./screens/ShippingScreen";
-import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import CustomerAccountScreen from "./screens/CustomerAccountScreen";
+// site pages
 import SitePageAboutUs from "./components/site/SitePageAboutUs";
 import SitePageContactUs from "./components/site/SitePageContactUs";
 import SitePageTerms from "./components/site/SitePageTerms";
-import SitePagePrivacyPolicy from "./components/site/SitePagePrivacyPolicy";
-import CustomerAccountScreen from "./screens/CustomerAccountScreen";
 import SitePageWarranty from "./components/site/sitePageWarranty";
 import SitePageShipping from "./components/site/sitePageShipping";
 import SitePageReturns from "./components/site/sitePageReturns";
+import SitePagePrivacyPolicy from "./components/site/SitePagePrivacyPolicy";
 
 function BanixApp() {
   return (
@@ -47,7 +41,6 @@ function BanixApp() {
               <Route path="/product/:id" component={ProductScreen} />
               <Route path="/cart/:id?" component={CartScreen} />
               <Route path="/shipping" component={ShippingScreen} />
-              <Route path="/payment" component={PaymentScreen} />
               <Route path="/place-order" component={PlaceOrderScreen} />
               {/* site pages links */}
               {/* Customer Service Related links*/}
