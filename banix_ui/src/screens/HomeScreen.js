@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
+// third party
 import { Row, Col } from "react-bootstrap";
-import ProductCard from "../components/store/ProductCard";
-import Message from "../components/misc/Message";
-import Loader from "../components/misc/Loader";
-import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../actions/productActions";
 import { ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+// components
+import Loader from "../components/misc/Loader";
+import Message from "../components/misc/Message";
+import ProductCard from "../components/store/ProductCard";
+// product actions
+import { listProducts } from "../actions/productActions";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -14,7 +17,6 @@ const HomeScreen = () => {
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
-
   console.log("[HomeScreen] Products recieved from backend is ", products);
   return (
     <>

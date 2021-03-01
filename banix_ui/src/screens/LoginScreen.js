@@ -1,29 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// third
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Row, Col, Button } from "react-bootstrap";
-
+// components
 import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
-import { login } from "../actions/customerActions";
 import FormContainer from "../components/misc/FormContainer";
+// actions
+import { login } from "../actions/customerActions";
 
 const LoginScreen = ({ location, history }) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const dispatch = useDispatch();
-
   const customerLogin = useSelector((state) => state.customerLogin);
   const { loading, error, customerInfo } = customerLogin;
-  console.log("[LoginScreen] The customerInfo is :: ", customerInfo);
   let redirect = location.search ? location.search.split("=")[1] : "/";
-  console.log("[LoginScreen] The redirection from login is :::", redirect);
 
   const shippingAddress = useSelector((state) => state.cart.shippingAddress);
-
   if (redirect === "shipping") {
-    console.log("[LoginScreen] redirect invoked : ", shippingAddress, redirect);
     if (shippingAddress && shippingAddress.pinCode) {
       redirect = "place-order";
     }

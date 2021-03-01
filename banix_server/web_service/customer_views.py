@@ -91,10 +91,10 @@ def fetch_customer_address(current_customer_info):
         session = Session()
         if default_address:
             # address = session.query(Address).filter_by(default_address=True).first()
-            address = session.query(Address).first()
+            address = session.query(Address).filter_by(customer_id=result["customer_id"]).first()
             result["addresses"].append(address.to_dict())
         else:
-            addresses = session.query(Address).all()
+            addresses = session.query(Address).filter_by(customer_id=result["customer_id"]).all()
             for address in addresses:
                 result["addresses"].append(address.to_dict())
     except Exception as ex:
