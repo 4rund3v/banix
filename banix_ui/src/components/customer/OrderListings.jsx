@@ -1,67 +1,28 @@
 import React from "react";
-import { Row, Container, Col, Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Row, Container, Col } from "react-bootstrap";
+import OrderDetailsHeader from "./OrderDetailsHeader";
+import OrderItemInfo from "./OrderItemInfo";
 
-const numberWithCommas = (x) => {
-  var parts = x.toString().split(".");
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return parts.join(".");
-};
-const prepareOrderListing = (orderItem) => {
-  const ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(
-    orderItem.orderDate
-  );
-  const mo = new Intl.DateTimeFormat("en", { month: "long" }).format(
-    orderItem.orderDate
-  );
-  const da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(
-    orderItem.orderDate
-  );
-  const orderPlacedDate = `${da}-${mo}-${ye}`;
-  const orderPrice = numberWithCommas(orderItem.orderPrice.totalPrice);
-
+const prepareOrderListing = (order, buyAgainHandler) => {
   return (
-    <Row className="order__listing-row justify-content-md-center">
+    <Row key={order.orderInfoId} className="order__listing-row">
       <Col xs={12}>
-        <Row>
-          <Col sm={3} className="order__listing-col">
-            <p className="order__listing-text-header">
-              Order Placed <br />
-              {orderPlacedDate}
-            </p>
-          </Col>
-          <Col sm={3} className="order__listing-col">
-            <p className="order__listing-text-header">
-              Total
-              <br />
-              &#8377; {orderPrice}
-            </p>
-          </Col>
-          <Col sm={3} className="order__listing-col">
-            <p className="order__listing-text-header">
-              Order Details <br />
-              <Link to={`/account/orders/order-info/${orderItem.orderId}`}>
-                banix-{orderItem.orderId}
-              </Link>
-            </p>
-          </Col>
-          <Col sm={3} className="order__listing-col">
-            <p className="order__listing-text-header">
-              Download
-              <br />
-              <Link to="">Invoice</Link>
-            </p>
-          </Col>
-        </Row>
+        <OrderDetailsHeader order={order} />
+        {order.orderItems.map((item) => (
+          <OrderItemInfo
+            key={item.orderProductId}
+            orderProductInfo={item}
+            buyAgainHandler={buyAgainHandler}
+          />
+        ))}
       </Col>
     </Row>
   );
 };
-const OrderListings = ({ orderList }) => {
-  console.log("[OrderListings] The order list is ::: ", orderList);
+const OrderListings = ({ orderList, buyAgainHandler }) => {
   return (
     <Container>
-      {orderList.map((orderItem) => prepareOrderListing(orderItem))}
+      {orderList.map((order) => prepareOrderListing(order, buyAgainHandler))}
     </Container>
   );
 };

@@ -47,9 +47,10 @@ export const getProductDetails = (productId) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
     const { data } = await axios.get(`${PRODUCT_SPECIFIC_URL}/${productId}`);
+    const productDetails = new Product(data.product);
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
-      payload: data.product,
+      payload: productDetails,
     });
   } catch (error) {
     dispatch({

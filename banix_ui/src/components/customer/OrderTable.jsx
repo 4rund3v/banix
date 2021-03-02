@@ -1,25 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-const numberWithCommas = (x) => {
-  var parts = x.toString().split(".");
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return parts.join(".");
-};
+import { numberWithCommas, getDateStringFromIsoTimestamp } from "../../utils";
 
 const OrderTable = ({ orderList }) => {
-  console.log("[OrderTable] the orders are :: ", orderList);
   const orders = orderList.slice(0, 3).map((order) => {
-    const ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(
-      order.orderDate
-    );
-    const mo = new Intl.DateTimeFormat("en", { month: "long" }).format(
-      order.orderDate
-    );
-    const da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(
-      order.orderDate
-    );
-    const orderDate = `${da}-${mo}-${ye}`;
+    const orderDate = getDateStringFromIsoTimestamp(order.Date);
     const orderPrice = numberWithCommas(order.orderPrice.totalPrice);
     return (
       <tr key={order.id}>

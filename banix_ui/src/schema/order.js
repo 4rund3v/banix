@@ -138,6 +138,14 @@ export class Order {
 }
 
 export class OrderItem {
+  constructor(rawOrderItem) {
+    this.orderProductId = rawOrderItem["order_product_foreign_id"];
+    this.orderItemQty = rawOrderItem["order_item_quantity"];
+    this.totalPrice = rawOrderItem["order_item_total_price"];
+    this.totalSellingPrice = rawOrderItem["order_item_selling_price"];
+    this.totalShippingPrice = rawOrderItem["order_item_shipping_price"];
+    this.totalTaxPrice = rawOrderItem["order_item_tax_price"];
+  }
   toRawDict() {
     return {};
   }

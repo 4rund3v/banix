@@ -28,10 +28,9 @@ import Rating from "../components/store/Rating";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
-  var initialCheck = false;
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product: rawProduct } = productDetails;
+  const { loading, error, product } = productDetails;
 
   const customerLogin = useSelector((state) => state.customerLogin);
   const {
@@ -48,7 +47,6 @@ const ProductScreen = ({ history, match }) => {
     shippingAddress,
   } = cartInfo;
   console.log("[ProductScreen] the shipping address is : ", shippingAddress);
-  const product = new Product(rawProduct);
   useEffect(() => {
     dispatch(getProductDetails(match.params.id));
   }, [dispatch, match]);
@@ -71,15 +69,12 @@ const ProductScreen = ({ history, match }) => {
     setDeliveryInfo(serviceability);
   }, [serviceability]);
   const checkDeliveryHandler = () => {
-    console.log("[ProductScreen] Check delivery invoked !!", pinCode);
     dispatch(fetchServiceabilityDetails(product.productId, pinCode));
   };
 
-  console.log("[ProductScreen] The deliveryInfo info is ::: ", deliveryInfo);
-  console.log("[ProductScreen] product info recieved is ::", product);
   useEffect(() => {
     if (pinCode) {
-      console.log("Checking delivery options :: ", pinCode, initialCheck);
+      console.log("Checking delivery options :: ", pinCode);
       checkDeliveryHandler();
     }
   }, []);
