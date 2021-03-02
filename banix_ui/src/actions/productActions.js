@@ -45,6 +45,7 @@ export const listProducts = () => async (dispatch) => {
 
 export const getProductDetails = (productId) => async (dispatch) => {
   try {
+    console.log("[getProductDetails] invoked :::", productId);
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
     const { data } = await axios.get(`${PRODUCT_SPECIFIC_URL}/${productId}`);
     const productDetails = new Product(data.product);
