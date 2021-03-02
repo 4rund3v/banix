@@ -1,13 +1,6 @@
 import React from "react";
-
-import {
-  Navbar,
-  Nav,
-  Container,
-  NavDropdown,
-  Button,
-  Image,
-} from "react-bootstrap";
+// third party
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // components

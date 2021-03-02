@@ -1,7 +1,7 @@
 import React from "react";
 // third party
 import { useDispatch, useSelector } from "react-redux";
-import { Nav, Button, Dropdown, Image } from "react-bootstrap";
+import { Nav, Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,7 +22,12 @@ const AccountInfo = () => {
         <>
           <Dropdown>
             <Dropdown.Toggle id="dropdown-basic">
-              <img src="images/user-profile.svg" height={25} roundedCircle />
+              <img
+                src="images/user-profile.svg"
+                alt="user-profile-icon"
+                height={25}
+                roundedCircle
+              />
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item>
