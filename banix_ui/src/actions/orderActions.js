@@ -163,6 +163,7 @@ export const getOrderList = () => async (dispatch, getState) => {
     console.log("[getOrderList] The customer token is :: ", tokenInfo);
     const config = {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${tokenInfo.token}`,
       },
     };
@@ -173,9 +174,14 @@ export const getOrderList = () => async (dispatch, getState) => {
     if (!data.orders) {
       throw new Error("No order information recieved.");
     }
+    let orderList = [];
+    data.orders.map((rawOrderInfo) => {
+      orderList.push(new Order(rawOrderInfo));
+      return null;
+    });
     dispatch({
       type: ORDER_LIST_SUCCESS,
-      payload: data.orders,
+      payload: orderList,
     });
   } catch (error) {
     dispatch({

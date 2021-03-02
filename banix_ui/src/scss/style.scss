@@ -16,6 +16,8 @@
 @import "./components/addresses-list";
 @import "./components/dashboard";
 @import "./components/site-header";
+@import "./components/card-table";
+@import "./components/order-listing";
 
 @import "./common/page-header";
 @import "./common/animation";
@@ -32,7 +34,7 @@
 @import "./pages/privacy";
 
 main {
-  min-height: 85vh;
+  min-height: 90vh;
   font-family: "Roboto";
 }
 

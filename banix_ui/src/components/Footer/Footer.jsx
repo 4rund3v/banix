@@ -15,7 +15,7 @@ import {
 
 function Footer() {
   return (
-    <footer>
+    <footer className="mt-5">
       <Container>
         <Row className="bg-light text-dark ">
           <Col>

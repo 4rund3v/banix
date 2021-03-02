@@ -1,16 +1,16 @@
+from flask import Flask, jsonify, abort, Blueprint, request
+from sqlalchemy import desc
+import json
 import os
 import sys
+import uuid
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
 from src.models import Customer, Address
 from src.db_utils import Session, engine
 from authorization import token_required
-from flask import Flask, jsonify, abort, Blueprint, request
-import json
 
-import uuid
 customer_blueprint = Blueprint("customers", __name__)
-
 
 @customer_blueprint.route("/customers")
 @token_required
@@ -78,8 +78,6 @@ def update_customer_profile(current_customer_info):
 @customer_blueprint.route("/customers/address", methods=["GET"])
 @token_required
 def fetch_customer_address(current_customer_info):
-
-
     session = None
     default_address = request.args.get("default", False)
     result = {}
@@ -90,13 +88,14 @@ def fetch_customer_address(current_customer_info):
     try:
         session = Session()
         if default_address:
-            # address = session.query(Address).filter_by(default_address=True).first()
-            address = session.query(Address).filter_by(customer_id=result["customer_id"]).first()
-            result["addresses"].append(address.to_dict())
+            address = session.query(Address).filter_by(customer_id=result["customer_id"], default_address=True).first()
+            if address:
+                result["addresses"].append(address.to_dict())
         else:
             addresses = session.query(Address).filter_by(customer_id=result["customer_id"]).all()
             for address in addresses:
                 result["addresses"].append(address.to_dict())
+            result["addresses"].sort(key=lambda k: k.get("default_address"))
     except Exception as ex:
         print(f"[fetch_customer_address] Unable to fetch the addresses : {ex} ")
     finally:
@@ -125,7 +124,6 @@ def add_customer_address(current_customer_info):
         if session:
             session.close()
     return result
-    pass
 
 
 @customer_blueprint.route("/customers/address/<address_id>", methods=["PUT"])

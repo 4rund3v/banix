@@ -26,7 +26,6 @@ const AccountInfo = () => {
                 src="images/user-profile.svg"
                 alt="user-profile-icon"
                 height={25}
-                roundedCircle
               />
             </Dropdown.Toggle>
             <Dropdown.Menu>

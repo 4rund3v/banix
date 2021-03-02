@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 // third-party
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-
-// data stubs
-// import addresses from "../../data/accountAddresses";
-// import allOrders from "../../data/accountOrders";
-import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+// actions
 import { getCustomerAddress } from "../../actions/customerActions";
-import Message from "../misc/Message";
-import Loader from "../misc/Loader";
+import { getOrderList } from "../../actions/orderActions";
+// components
+// import Message from "../misc/Message";
+// import Loader from "../misc/Loader";
 import AddressCard from "./AddressCard";
+import ProfileCard from "./ProfileCard";
+import OrderTable from "./OrderTable";
 
 const AccountDashboard = ({ match }) => {
   const dispatch = useDispatch();
@@ -30,35 +30,22 @@ const AccountDashboard = ({ match }) => {
     const defaultAddress = true;
     dispatch(getCustomerAddress(defaultAddress));
   }, [dispatch]);
-
   console.log("[AccountDashboard] The addresses are ::: ", addresses);
 
-  const orders = [];
-
+  const orderList = useSelector((state) => state.orderList);
+  const { loading: loadingOrders, error: errorOrders, orders } = orderList;
+  useEffect(() => {
+    const latestOrders = true;
+    dispatch(getOrderList(latestOrders));
+  }, [dispatch]);
+  console.log("[AccountDashboard] The orders fetched are ::: ", orders);
   return (
     <div className="dashboard">
       <Helmet>
-        <title>{`My Account — ${customerInfo.displayName}`}</title>
+        <title>{`My Account — Banix`}</title>
       </Helmet>
-
-      <div className="dashboard__profile card profile-card">
-        <div className="card-body profile-card__body">
-          <div className="profile-card__avatar">
-            <img src="images/user-avatar.png" alt="" />
-          </div>
-          <div className="profile-card__name">{customerInfo.displayName}</div>
-          <div className="profile-card__email">{customerInfo.emailId}</div>
-          <div className="profile-card__edit">
-            <Link to="profile" className="btn btn-secondary btn-sm">
-              Edit Profile
-            </Link>
-          </div>
-        </div>
-      </div>
+      <ProfileCard customerInfo={customerInfo} />
       <div className="dashboard__address card address-card address-card--featured">
-        {/* {address.default && (
-          <div className="address-card__badge">Default Address</div>
-        )} */}
         {addresses && addresses.length >= 1 ? (
           <>
             <div className="address-card__badge">Default Address</div>
@@ -66,7 +53,7 @@ const AccountDashboard = ({ match }) => {
           </>
         ) : (
           <Link
-            to={`${match.path}/add-address`}
+            to={`/account/addresses/add-address`}
             className="card-body profile-card__body"
           >
             {/* TODO : fix classname*/}
@@ -75,27 +62,7 @@ const AccountDashboard = ({ match }) => {
           </Link>
         )}
       </div>
-      <div className="dashboard__orders card">
-        <div className="card-header">
-          <h5>Recent Orders</h5>
-        </div>
-        <div className="card-divider" />
-        <div className="card-table">
-          <div className="table-responsive-sm">
-            <table>
-              <thead>
-                <tr>
-                  <th>Order</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>{orders}</tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <OrderTable orderList={orders} />
     </div>
   );
 };

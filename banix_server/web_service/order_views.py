@@ -2,9 +2,10 @@ import os
 import sys
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
-from src.models import Orders, OrderItem, OrderShippingInfo, Address, PaymentInfo
+from src.models import Orders, OrderPrice, OrderStatus, OrderItem, OrderShippingInfo, Address, PaymentInfo
 from src.db_utils import Session, engine
 from src.price_functions import fetch_complete_price_details
+from src.constants import ORDER_PLACED_STATUS
 from authorization import token_required
 from flask import Flask, jsonify, abort, Blueprint, request
 import json
@@ -71,11 +72,14 @@ def create_order(current_customer_info):
         print(f"[create_order] The form data recieved to create an order is {form_data}")
         new_order = Orders(order_customer_id=current_customer_info["customer_id"])
         new_order.order_info_id = form_data["order_info_id"]
-        new_order.order_status = "PAYMENT_PENDING"
-        new_order.order_total_price = form_data["order_price"]["total_price"]
-        new_order.order_selling_price = form_data["order_price"]["total_selling_price"]
-        new_order.order_shipping_price = form_data["order_price"]["total_shipping_price"]
-        new_order.order_tax_price = form_data["order_price"]["total_tax_price"]
+        order_price = OrderPrice(orders=new_order)
+        order_price.order_total_price = form_data["order_price"]["total_price"]
+        order_price.order_selling_price = form_data["order_price"]["total_selling_price"]
+        order_price.order_shipping_price = form_data["order_price"]["total_shipping_price"]
+        order_price.order_tax_price = form_data["order_price"]["total_tax_price"]
+        session.add(order_price)
+        order_status = OrderStatus(orders=new_order)
+        order_status.status = ORDER_PLACED_STATUS
         new_order.order_date = str(datetime.datetime.now())
         shipping_address = Address(**form_data["order_shipping_address"])
         print(f"[create_order] Shipping Address Created is : {shipping_address}")
@@ -109,15 +113,15 @@ def create_order(current_customer_info):
             session.close()
     return result
 
-
-@order_blueprint.route("/customer/orders/")
-@order_blueprint.route("/customer/orders/<order_id>")
+@order_blueprint.route("/customers/orders")
+@order_blueprint.route("/customers/orders/<order_id>")
 @token_required
 def fetch_customer_orders(current_customer_info: dict, order_id: str = None) -> dict:
     """
      to fetch the orders for the customer
     """
     result = {}
+    result["orders"] = []
     session = None
     try:
         session = Session()
@@ -127,8 +131,7 @@ def fetch_customer_orders(current_customer_info: dict, order_id: str = None) -> 
                 print(f"[fetch_customer_orders] The order info fetched is :: {order_info}")
                 result["order_info"] = order_info.to_dict()
         else:
-            result["orders"] = []
-            for order in session.query(Orders).filter_by(order_customer_id=current_customer_info["customer_id"]).order_by(Orders.order_created_datetime.desc()).all():
+            for order in session.query(Orders).filter_by(order_customer_id=current_customer_info["customer_id"]).all():
                 print(f"[fetch_customer_orders] The order info fetched is :: {order}")
                 result["orders"].append(order.to_dict())
     except Exception as ex:
@@ -136,4 +139,5 @@ def fetch_customer_orders(current_customer_info: dict, order_id: str = None) -> 
     finally:
         if session:
             session.close()
+    print(f"[fetch_customer_orders] the orders returned are :: {result['orders']}")
     return result

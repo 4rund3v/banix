@@ -5,21 +5,27 @@ export class Order {
       this.orderInfoId = rawOrder.order_info_id;
       this.orderCustomerId = rawOrder.order_customer_id;
       this.orderPrice = {};
-      this.orderDate = rawOrder.order_date;
+      this.orderStatus = {};
+      this.orderDate = new Date(rawOrder.order_date);
       this.orderCreatedDatetime = rawOrder.order;
       this.orderPaymentInfo = null;
       this.orderItemPriceInfo = [];
       this.orderShippingAddress = {};
       this.orderShippingInfo = null;
       this.orderItems = [];
+
       // Order Price
       if (rawOrder.order_price) {
         this.orderPrice = {
-          totalPrice: rawOrder["total_price"],
-          totalSellingPrice: rawOrder["total_selling_price"],
-          totalShippingPrice: rawOrder["total_shipping_price"],
-          totalTaxPrice: rawOrder["total_tax_price"],
+          totalPrice: rawOrder.order_price["order_total_price"],
+          totalSellingPrice: rawOrder.order_price["order_selling_price"],
+          totalShippingPrice: rawOrder.order_price["order_shipping_price"],
+          totalTaxPrice: rawOrder.order_price["order_tax_price"],
         };
+      }
+      //Order status
+      if (rawOrder.order_status) {
+        this.orderStatus["status"] = rawOrder.order_status["status"];
       }
       // Order Shipping Address
       if (rawOrder.order_shipping_address) {
@@ -58,6 +64,7 @@ export class Order {
       this.orderInfoId = null;
       this.orderCustomerId = null;
       this.orderPrice = {};
+      this.orderStatus = {};
       this.orderPaymentInfo = null;
       this.orderItemPriceInfo = [];
       this.orderShippingAddress = {};
