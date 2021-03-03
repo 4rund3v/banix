@@ -66,6 +66,7 @@ class Orders(Base):
 class OrderPrice(Base):
 
     __tablename__ = "order_price"
+    
     order_price_id = Column(Integer, primary_key=True, autoincrement=True)
     order_foreign_id = Column(Integer, ForeignKey("orders.order_id"), nullable=False)
     orders = relationship("Orders", back_populates="order_price")
