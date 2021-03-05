@@ -23,6 +23,7 @@ import SitePageWarranty from "./components/site/sitePageWarranty";
 import SitePageShipping from "./components/site/sitePageShipping";
 import SitePageReturns from "./components/site/sitePageReturns";
 import SitePagePrivacyPolicy from "./components/site/SitePagePrivacyPolicy";
+import OrderScreen from "./screens/OrderScreen";
 
 function BanixApp() {
   return (
@@ -42,6 +43,7 @@ function BanixApp() {
               <Route path="/cart/:id?" component={CartScreen} />
               <Route path="/shipping" component={ShippingScreen} />
               <Route path="/place-order" component={PlaceOrderScreen} />
+              <Route path="/order-info/:id" component={OrderScreen} />
               {/* site pages links */}
               {/* Customer Service Related links*/}
               <Route path="/site/contact-us" component={SitePageContactUs} />

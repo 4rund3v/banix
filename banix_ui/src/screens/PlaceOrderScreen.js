@@ -85,6 +85,11 @@ const PlaceOrderScreen = ({ history }) => {
         email: customerInfo.emailId,
         contact: customerInfo.primaryMobileNumber || null,
       },
+
+      handler: function (response) {
+        console.log("Success : Payment Done", response);
+        history.push(`/order-info/${order.orderId}`);
+      },
     };
     console.log("[displayRazorPay] options prepared is ::", options);
     const paymentObject = new window.Razorpay(options);
@@ -94,7 +99,6 @@ const PlaceOrderScreen = ({ history }) => {
     if (orderCreationSuccess) {
       console.log("[PlaceOrderScreen] on success ", order);
       if (order) {
-        //   history.push(`/order/${order.orderId}`);
         displayRazorPay();
       }
     }
