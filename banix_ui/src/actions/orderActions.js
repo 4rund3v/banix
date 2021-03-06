@@ -19,7 +19,7 @@ import {
   PREPARE_ORDER_INFO_URL,
   CUSTOMER_ORDERS_URL,
 } from "../config";
-import { Order, orderInfo } from "../schema/order";
+import { Order, OrderInfo } from "../schema/order";
 
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
@@ -99,7 +99,7 @@ export const fetchOderInfo = (cartItems, shippingAddress) => async (
     console.log("[fetchOderInfo] the order information fetched is ::: ", data);
     dispatch({
       type: PREPARE_ORDER_INFO_SUCCESS,
-      payload: new orderInfo(data),
+      payload: new OrderInfo(data),
     });
   } catch (error) {
     dispatch({
@@ -120,26 +120,28 @@ export const getOrderDetails = (orderId) => async (dispatch, getState) => {
     const {
       customerToken: { tokenInfo },
     } = getState();
-    console.log("[getOrderDetails] The customer token is :: ", tokenInfo);
+    // console.log("[getOrderDetails] The customer token is :: ", tokenInfo);
     const config = {
       headers: {
         Authorization: `Bearer ${tokenInfo.token}`,
       },
     };
     const url = `${CUSTOMER_ORDERS_URL}/${orderId}`;
-    console.log("[getOrderDetails] The order id url is ", url);
+    // console.log("[getOrderDetails] The order id url is ", url);
     const { data } = await axios.get(url, config);
-    console.log(
-      "[getOrderDetails] The order details fetched  is :: ",
-      orderId,
-      data
-    );
-    if (!data.oder_info) {
+    // console.log(
+    //   "[getOrderDetails] The order details fetched  is :: ",
+    //   orderId,
+    //   data
+    // );
+    if (!data.order) {
       throw new Error("No order information recieved.");
     }
+    const order = new Order(data.order);
+    // console.log("[getOrderDetails] the order is ", order);
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
-      payload: data.order_info,
+      payload: order,
     });
   } catch (error) {
     dispatch({

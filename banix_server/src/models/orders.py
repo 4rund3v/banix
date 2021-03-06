@@ -148,4 +148,3 @@ class OrderShippingInfo(Base):
                 shipping_info_updated_datetime=str(self.shipping_info_updated_datetime)
                 )
 
-

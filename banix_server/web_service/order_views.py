@@ -127,9 +127,9 @@ def fetch_customer_orders(current_customer_info: dict, order_id: str = None) -> 
         session = Session()
         print(f"[fetch_customer_orders] The customer : {current_customer_info['customer_id']} requesting orders {order_id}")
         if order_id:
-            if order_info := session.query(Orders).filter_by(order_id=order_id).filter_by(order_customer_id=current_customer_info["customer_id"]).first():
-                print(f"[fetch_customer_orders] The order info fetched is :: {order_info}")
-                result["order_info"] = order_info.to_dict()
+            if order := session.query(Orders).filter_by(order_id=order_id).filter_by(order_customer_id=current_customer_info["customer_id"]).first():
+                print(f"[fetch_customer_orders] The order info fetched is :: {order}")
+                result["order"] = order.to_dict()
         else:
             for order in session.query(Orders).filter_by(order_customer_id=current_customer_info["customer_id"]).all():
                 print(f"[fetch_customer_orders] The order info fetched is :: {order}")
@@ -139,5 +139,5 @@ def fetch_customer_orders(current_customer_info: dict, order_id: str = None) -> 
     finally:
         if session:
             session.close()
-    print(f"[fetch_customer_orders] the orders returned are :: {result['orders']}")
+    print(f"[fetch_customer_orders] the orders returned are :: {result}")
     return result

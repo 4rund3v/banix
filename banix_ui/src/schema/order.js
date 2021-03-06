@@ -158,7 +158,8 @@ export class orderShippingInfo {
   }
 }
 
-export class orderInfo {
+export class OrderInfo {
+  // the structure that is maintianed for processing the order request
   constructor(rawOrderInfo) {
     this.customerId = rawOrderInfo.customer_id;
     this.orderInfoId = rawOrderInfo.order_info_id;
