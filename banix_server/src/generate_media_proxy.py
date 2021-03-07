@@ -75,8 +75,8 @@ def generate_image_proxy(media_id, src_path, profile):
     dst_path = os.path.join(MEDIA_IMAGE_PROXY_PATH, profile["profile"], media_id)
     if not os.path.exists(os.path.dirname(dst_path)):
         os.makedirs(os.path.dirname(dst_path))
-    width = profile["resolution"].split("x")[0]
-    cmd = f"ffmpeg -y -i {src_path} -vf scale={width}:-1 {dst_path}"
+    width, height = profile["resolution"].split("x")
+    cmd = f"ffmpeg -y -i {src_path} -vf scale={width}:{height} {dst_path}"
     print(f"[generate_image_proxy] The command prepared is : [{cmd}] ")
     res = sp.call(shlex.split(cmd))
     print(f"[generate_image_proxy] The result is :{res}")
@@ -112,7 +112,7 @@ if __name__ == "__main__":
             raw_media_folders = os.listdir(MEDIA_SOURCE_PATH)
             for product in raw_media_folders:
                 product_id = product.split("prod_", 1)[-1]
-                print(f"Processing the folder {product}: {product_id}")
+                print(f"[main] Processing the folder {product}: {product_id}")
                 if product_info := check_valid_product(product_id):
                     print(f"processing the product : {product_info}")
                     media = os.listdir(os.path.join(MEDIA_SOURCE_PATH, product))
@@ -121,7 +121,7 @@ if __name__ == "__main__":
                         break
                     product_media = ProductMedia(products=product_info)
                     for item in media:
-                        media_id = str(uuid.uuid4())+"__"+str(item)
+                        media_id = str(product_id)+"__"+str(item)
                         src_path = os.path.join(os.path.join(MEDIA_SOURCE_PATH, product, item))
                         mime_type = mime.guess_type(item)
                         print(f"{item} has mime type {mime_type}")

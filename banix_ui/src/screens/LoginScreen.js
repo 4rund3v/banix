@@ -23,10 +23,12 @@ const LoginScreen = ({ location, history }) => {
   if (redirect === "shipping") {
     if (shippingAddress && shippingAddress.pinCode) {
       redirect = "place-order";
+    } else {
+      redirect = "shipping";
     }
   }
   useEffect(() => {
-    if (customerInfo && customerInfo.username) {
+    if (customerInfo && customerInfo.customerId) {
       history.push(redirect);
     }
   }, [history, customerInfo, redirect]);

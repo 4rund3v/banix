@@ -106,8 +106,10 @@ class OrderItem(Base):
 
     order_item_id = Column(Integer, primary_key=True, autoincrement=True)
     order_foreign_id = Column(Integer, ForeignKey("orders.order_id"), nullable=False)
+    
     orders = relationship("Orders", back_populates="order_items")
     order_product_foreign_id = Column(Integer, ForeignKey("products.product_id"), nullable=False)
+    order_item_product_name = Column(String(300), nullable=False)
     order_item_total_price = Column(Integer, nullable=False)
     order_item_selling_price = Column(Integer, nullable=False)
     order_item_shipping_price = Column(Integer, nullable=False)
@@ -115,10 +117,11 @@ class OrderItem(Base):
     order_item_quantity = Column(Integer, nullable=False)
 
     def __repr__(self):
-        return f"""<OrderItem order_item_id{self.order_item_id} order foreign key {self.order_foreign_id}>"""
+        return f"""<OrderItem order_item_id{self.order_item_id} order foreign key {self.order_foreign_id}> order_item_name {self.order_item_product_name}"""
 
     def to_dict(self):
         return dict(order_item_id=self.order_item_id,
+                order_item_product_name=self.order_item_product_name,
                 order_foreign_id=self.order_foreign_id,
                 order_product_foreign_id=self.order_product_foreign_id,
                 order_item_total_price=self.order_item_total_price,
@@ -147,4 +150,3 @@ class OrderShippingInfo(Base):
                 shipping_info_created_datetime=str(self.shipping_info_created_datetime),
                 shipping_info_updated_datetime=str(self.shipping_info_updated_datetime)
                 )
-

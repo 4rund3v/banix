@@ -24,7 +24,7 @@ const OrderDetailsHeader = ({ order }) => {
       <Col sm={3} className="order__listing-col">
         <p className="order__listing-text-header">
           Order Details <br />
-          <Link to={`/account/orders/order-info/${order.orderId}`}>
+          <Link to={`/account/orders-details/${order.orderId}`}>
             banix-{order.orderId}
           </Link>
         </p>

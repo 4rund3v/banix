@@ -21,7 +21,7 @@ const RegisterScreen = ({ location, history }) => {
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
-    if (customerInfo && customerInfo.username) {
+    if (customerInfo && customerInfo.customerId) {
       history.push(redirect);
     }
   }, [history, customerInfo, redirect]);

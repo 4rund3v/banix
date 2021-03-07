@@ -93,6 +93,7 @@ def create_order(current_customer_info):
             print(f"[create_order] Order item is  :: {order_item}")
             new_order_item = OrderItem(orders=new_order,
                                        order_product_foreign_id=order_item["product_id"],
+                                       order_item_product_name=order_item["product_name"],
                                        order_item_quantity = order_item["qty"],                                       
                                        order_item_selling_price = order_item["selling_price"],
                                        order_item_shipping_price = order_item["shipping_price"],

@@ -16,7 +16,7 @@ const ProductPrice = ({ product, deliveryRate, onlyPrice }) => {
       <span className="product__price">
         {onlyPrice ? (
           <span className="product_price_main_default">
-            &#8377;
+            &#8377;{" "}
             {product.productSellingPrice <= product.productCostPrice
               ? product.productSellingPrice
               : product.productCostPrice}
@@ -25,8 +25,7 @@ const ProductPrice = ({ product, deliveryRate, onlyPrice }) => {
           <>
             <span className="text-secondary">Price:</span>{" "}
             <span className="product_price_main">
-              &#8377;
-              {product.productSellingPrice}
+              &#8377; {product.productSellingPrice}
             </span>{" "}
             <del className="product_price_muted">
               &#8377;
@@ -39,7 +38,7 @@ const ProductPrice = ({ product, deliveryRate, onlyPrice }) => {
           </>
         ) : (
           <span className="product_price_main_default">
-            &#8377;
+            &#8377;{"  "}
             {product.productSellingPrice <= product.productCostPrice
               ? product.productSellingPrice
               : product.productCostPrice}

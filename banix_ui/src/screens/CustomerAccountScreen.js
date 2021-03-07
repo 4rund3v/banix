@@ -13,6 +13,7 @@ import AccountDashboard from "../components/customer/AccountDashboard";
 import AccountOrders from "../components/customer/AccountOrders";
 import AccountPassword from "../components/customer/AccountPassword";
 import AccountProfile from "../components/customer/AccountProfile";
+import AccountOrderDetails from "../components/customer/AccountOrderDetails";
 
 const CustomerAccountScreen = ({ match, location }) => {
   const breadcrumb = [
@@ -24,6 +25,7 @@ const CustomerAccountScreen = ({ match, location }) => {
     { title: "Dashboard", url: "dashboard" },
     { title: "Edit Profile", url: "profile" },
     { title: "Order History", url: "orders" },
+    { title: "Order Details", url: "orders-details" },
     { title: "Addresses", url: "addresses" },
     { title: "Password", url: "password" },
     { title: "Logout", url: "login" },
@@ -75,6 +77,11 @@ const CustomerAccountScreen = ({ match, location }) => {
                   exact
                   path={`${match.path}/orders`}
                   component={AccountOrders}
+                />
+                <Route
+                  exact
+                  path={`${match.path}/orders-details/:id`}
+                  component={AccountOrderDetails}
                 />
                 <Route
                   exact

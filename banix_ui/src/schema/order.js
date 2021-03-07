@@ -122,6 +122,7 @@ export class Order {
         temp["shipping_price"] = productPriceInfo.shippingPrice;
         temp["tax_price"] = productPriceInfo.taxPrice;
         temp["selling_price"] = productPriceInfo.sellingPrice;
+        temp["product_name"] = orderItem.productName;
         temp["qty"] = orderItem.qty;
         orderItems.push(temp);
       }
@@ -140,6 +141,7 @@ export class Order {
 export class OrderItem {
   constructor(rawOrderItem) {
     this.orderProductId = rawOrderItem["order_product_foreign_id"];
+    this.orderProductName = rawOrderItem["order_item_product_name"];
     this.orderItemQty = rawOrderItem["order_item_quantity"];
     this.totalPrice = rawOrderItem["order_item_total_price"];
     this.totalSellingPrice = rawOrderItem["order_item_selling_price"];

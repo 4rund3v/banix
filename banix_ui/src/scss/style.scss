@@ -11,13 +11,17 @@
 
 @import "./components/breadcrumb";
 @import "./components/account-nav";
+@import "./components/card";
 @import "./components/product-card";
+@import "./components/profile-card";
 @import "./components/address-card";
 @import "./components/addresses-list";
 @import "./components/dashboard";
 @import "./components/site-header";
 @import "./components/card-table";
 @import "./components/order-listing";
+@import "./components/order-header";
+@import "./components/order-item";
 
 @import "./common/page-header";
 @import "./common/animation";
@@ -38,47 +42,47 @@ main {
   font-family: "Roboto";
 }
 
-/* Product Card */
-.card-img-top {
-  width: 100%;
-  height: 15vw;
-  object-fit: cover;
-}
+// /* Product Card */
+// .card-img-top {
+//   width: 100%;
+//   height: 15vw;
+//   object-fit: cover;
+// }
 
-@media screen and (max-width: 768px) {
-  .card-img-top {
-    width: 100%;
-    height: 40vw;
-    object-fit: cover;
-  }
-  .container {
-    max-width: 100%;
-    width: 100%;
-  }
-  .col-md-3 {
-    width: 100%;
-    float: left;
-    margin: 0;
-  }
-}
+// @media screen and (max-width: 768px) {
+//   .card-img-top {
+//     width: 100%;
+//     height: 40vw;
+//     object-fit: cover;
+//   }
+//   .container {
+//     max-width: 100%;
+//     width: 100%;
+//   }
+//   .col-md-3 {
+//     width: 100%;
+//     float: left;
+//     margin: 0;
+//   }
+// }
 
-.productLink {
-  color: black;
-}
-/* End of Product Card */
+// .productLink {
+//   color: black;
+// }
+// /* End of Product Card */
 
-h1,
-h2 {
-  font-size: 1.4rem;
-  padding: 0.2rem;
-}
-h4 {
-  padding: 1rem 0;
-}
-/* Rating */
-.rating span {
-  margin: 0.1rem;
-}
+// h1,
+// h2 {
+//   font-size: 1.4rem;
+//   padding: 0.2rem;
+// }
+// h4 {
+//   padding: 1rem 0;
+// }
+// /* Rating */
+// .rating span {
+//   margin: 0.1rem;
+// }
 
 .add-cart-button {
   font-family: Roboto;

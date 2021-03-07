@@ -6,6 +6,8 @@ import Message from "../components/misc/Message";
 import Loader from "../components/misc/Loader";
 import { getOrderDetails } from "../actions/orderActions";
 import ShippingAddressCard from "../components/store/ShippingAddressCard";
+import OrderItemRow from "../components/store/OrderItemRow";
+import InvoiceButton from "../components/store/InvoiceButton";
 
 const OrderScreen = ({ match }) => {
   const orderId = match.params.id;
@@ -23,9 +25,14 @@ const OrderScreen = ({ match }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-      <h2>Order Details</h2>
       <Row>
-        <Col md={8}>
+        <Link className="btn btn-info my-3" to="/">
+          {"Return To Store"}
+        </Link>
+      </Row>
+      <h2>Order Details</h2>
+      <Row fluid>
+        <Col md={6}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Shipping</h2>
@@ -46,30 +53,7 @@ const OrderScreen = ({ match }) => {
                 <ListGroup variant="flush">
                   {order.orderItems.map((orderItem, index) => (
                     <ListGroup.Item key={index}>
-                      <Row>
-                        <Col md={2}>
-                          <Image
-                            src={`/media/images/cart/${orderItem.productPrimaryImage}`}
-                            alt={orderItem.productName}
-                            fluid
-                            rounded
-                          />
-                        </Col>
-                        <Col>
-                          <Link to={`/product/${orderItem.productId}`}>
-                            <strong>{orderItem.productName}</strong>
-                          </Link>
-                        </Col>
-                        <Col md={4}>
-                          {orderItem.qty} x &#8377;{" "}
-                          {orderItem.productSellingPrice} =
-                          <strong>
-                            {" "}
-                            &#8377;{" "}
-                            {orderItem.qty * orderItem.productSellingPrice}
-                          </strong>
-                        </Col>
-                      </Row>
+                      <OrderItemRow orderItem={orderItem} />
                     </ListGroup.Item>
                   ))}
                 </ListGroup>
@@ -81,7 +65,8 @@ const OrderScreen = ({ match }) => {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <strong>Order Summary</strong>
+                <InvoiceButton orderId={orderId} />
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
@@ -124,23 +109,6 @@ const OrderScreen = ({ match }) => {
                 </Row>
               </ListGroup.Item>
             </ListGroup>
-
-            {/* {orderCreationError && (
-              <ListGroup.Item>
-                <Message variant="danger">{orderCreationError}</Message>
-              </ListGroup.Item>
-            )} */}
-
-            {/* <ListGroup.Item>
-              <Button
-                type="button"
-                className="btn-block"
-                disabled={cart.cartItems.length === 0}
-                onClick={placeOrderHandler}
-              >
-                Place Order
-              </Button>
-            </ListGroup.Item> */}
           </Card>
         </Col>
       </Row>
