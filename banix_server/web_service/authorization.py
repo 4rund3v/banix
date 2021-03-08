@@ -2,6 +2,11 @@ from flask import Flask, request, jsonify, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
 from functools import wraps
+import os
+import sys
+build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(build_path)
+from configuration import SECRET_KEY
 # imports for PyJWT authentication
 import jwt
 import re
@@ -33,7 +38,7 @@ def token_required(f):
         logger.debug(f"[token_required] Decoding the token !! {token}")
         try:
             # decoding the payload to fetch the stored details
-            data = jwt.decode(token, "banix")
+            data = jwt.decode(token, SECRET_KEY)
             logger.debug(f"The data[public_id] decoded is ::: {data['public_id']}")
             session = Session()
             current_customer = session.query(Customer).filter_by(public_id=data['public_id']).first()

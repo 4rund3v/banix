@@ -33,6 +33,6 @@ def get_logger(module="default"):
                         filename=os.path.join(os.path.join(LOG_PATH, filename)),
                         filemode='w')
     logger = logging.getLogger(module)
-    initialized_modules[module] = initialized_modules
+    initialized_modules[module] = logger
     return logger
 

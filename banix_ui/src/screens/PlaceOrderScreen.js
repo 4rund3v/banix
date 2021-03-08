@@ -76,9 +76,9 @@ const PlaceOrderScreen = ({ history }) => {
       key: process.env.REACT_APP_RAZOR_PAY_TEST_KEY,
       amount: orderInfo.paymentInfo.amount,
       currency: orderInfo.paymentInfo.currency,
-      name: "Banix",
+      name: "banix",
       description: `Product Purchase`,
-      image: "https://banix.in/media/site-logo.png",
+      image: "https://banix.in/images/banix-logo.png",
       order_id: orderInfo.paymentInfo.paymentOrderId,
       prefill: {
         name: customerInfo.displayName,

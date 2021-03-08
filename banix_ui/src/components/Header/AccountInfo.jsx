@@ -25,7 +25,7 @@ const AccountInfo = () => {
               <img
                 src="images/user-profile.svg"
                 alt="user-profile-icon"
-                height={25}
+                height={24}
               />
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -36,7 +36,7 @@ const AccountInfo = () => {
                 <Link to="/account/orders">Orders</Link>
               </Dropdown.Item>
               <Dropdown.Item onClick={logoutHandler}>
-                <Link to="">Sign Out</Link>
+                <Link to="/">Sign Out</Link>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

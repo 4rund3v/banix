@@ -17,7 +17,7 @@ const SitePageAboutUs = () => {
 
       <div
         className="about-us__image"
-        style={{ backgroundImage: 'url("images/about_us.jpg")' }}
+        style={{ backgroundImage: 'url("images/about-us.jpg")' }}
       />
       <Container>
         <Row className="justify-content-center">
