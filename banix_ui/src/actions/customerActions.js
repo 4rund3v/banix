@@ -38,6 +38,7 @@ import {
   CUSTOMER_LOGIN_URL,
   CUSTOMER_REGISTER_URL,
   CUSTOMER_PROFILE_URL,
+  CUSTOMER_PROFILE_PASSWORD_URL,
   CUSTOMER_ADDRESS_URL,
 } from "../config";
 
@@ -204,6 +205,55 @@ export const updateCustomerDetails = (customer) => async (
     };
 
     const { data } = await axios.put(CUSTOMER_PROFILE_URL, customer, config);
+    // just to make sure that the empty {} is not saved as customer info
+    if (!data.customer_info) {
+      throw new Error("No customer information recieved.");
+    }
+    const customerInfo = new Customer(data.customer_info);
+    dispatch({
+      type: CUSTOMER_PROFILE_DETAILS_UPDATE_SUCCESS,
+      payload: customerInfo,
+    });
+
+    localStorage.setItem("customerInfo", JSON.stringify(customerInfo));
+  } catch (error) {
+    dispatch({
+      type: CUSTOMER_PROFILE_DETAILS_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateCustomerPassword = (customerPassword) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: CUSTOMER_PROFILE_DETAILS_UPDATE_REQUEST,
+    });
+    const {
+      customerToken: { tokenInfo },
+    } = getState();
+    console.log(
+      "[updateCustomerPassword] The customer token is :: ",
+      tokenInfo
+    );
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      CUSTOMER_PROFILE_PASSWORD_URL,
+      customerPassword,
+      config
+    );
     // just to make sure that the empty {} is not saved as customer info
     if (!data.customer_info) {
       throw new Error("No customer information recieved.");

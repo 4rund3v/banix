@@ -17,6 +17,7 @@ import {
   customerAddressReducer,
   customerAddressCreateReducer,
   customerAddressUpdateReducer,
+  customerPasswordUpdateReducer,
 } from "./reducers/customerReducers";
 
 import { shippingCostReducer } from "./reducers/shippingReducers";
@@ -41,6 +42,7 @@ const reducer = combineReducers({
   // customer profile
   customerDetails: customerDetailsReducer,
   customerDetailsUpdate: customerDetailsUpdateReducer,
+  customerPasswordUpdate: customerPasswordUpdateReducer,
   // customer address
   customerAddress: customerAddressReducer,
   // customerAddressCreate: customerAddressCreateReducer,

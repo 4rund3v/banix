@@ -11,6 +11,8 @@ export const CUSTOMER_LOGIN_URL = `/api/customers/login`;
 export const CUSTOMER_REGISTER_URL = `/api/customers/register`;
 // To fetch the customer profile information
 export const CUSTOMER_PROFILE_URL = `/api/customers/profile`;
+export const CUSTOMER_PROFILE_PASSWORD_URL = "/api/customers/profile/password";
+
 // To fetch the customer orders
 export const CUSTOMER_ORDERS_URL = `/api/customers/orders`;
 export const CUSTOMER_ADDRESS_URL = `/api/customers/address`;

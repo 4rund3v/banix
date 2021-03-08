@@ -76,7 +76,20 @@ export const customerDetailsUpdateReducer = (state = {}, action) => {
     case CUSTOMER_PROFILE_DETAILS_UPDATE_REQUEST:
       return { loading: true };
     case CUSTOMER_PROFILE_DETAILS_UPDATE_SUCCESS:
-      return { loading: false, success: true, userInfo: action.payload };
+      return { loading: false, success: true, customerInfo: action.payload };
+    case CUSTOMER_PROFILE_DETAILS_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const customerPasswordUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CUSTOMER_PROFILE_DETAILS_UPDATE_REQUEST:
+      return { loading: true };
+    case CUSTOMER_PROFILE_DETAILS_UPDATE_SUCCESS:
+      return { loading: false, success: true, customerInfo: action.payload };
     case CUSTOMER_PROFILE_DETAILS_UPDATE_FAIL:
       return { loading: false, error: action.payload };
     default:

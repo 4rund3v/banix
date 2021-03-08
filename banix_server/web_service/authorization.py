@@ -14,7 +14,6 @@ from src.models import Customer
 from src.db_utils import Session
 
 from src.logger import get_logger
-
 logger = get_logger("web_app")
 
 
@@ -22,7 +21,6 @@ def token_required(f):
     """
      This function evaluates the request to have the Authorization token header in the request header
     """
-
     @wraps(f)
     def decorated(*args, **kwargs):
         token = None
