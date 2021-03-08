@@ -73,12 +73,12 @@ const PlaceOrderScreen = ({ history }) => {
     }
     // console.log("The orderinfo payment info is", orderInfo.paymentInfo);
     const options = {
-      key: "rzp_test_1VGt9vNNSuXQ5X",
+      key: process.env.REACT_APP_RAZOR_PAY_TEST_KEY,
       amount: orderInfo.paymentInfo.amount,
       currency: orderInfo.paymentInfo.currency,
       name: "Banix",
       description: `Product Purchase`,
-      image: "https://example.com/your_logo",
+      image: "https://banix.in/media/site-logo.png",
       order_id: orderInfo.paymentInfo.paymentOrderId,
       prefill: {
         name: customerInfo.displayName,

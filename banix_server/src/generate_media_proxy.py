@@ -2,18 +2,18 @@ from multiprocessing import Pool
 
 import mimetypes
 import os
-import re
 import shlex
 import shutil
 import subprocess as sp
 import sys
 import time
-import uuid
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
 from configuration import MEDIA_SOURCE_PATH, MEDIA_PROCESSED_PATH, MEDIA_IMAGE_PROXY_PATH, MEDIA_VIDEO_PROXY_PATH
 from src.models import ProductMedia, ProductCarouselMedia, Product
 from src.db_utils import Session
+from src.logger import get_logger
+logger = get_logger("proxy")
 
 mime = mimetypes.MimeTypes()
 
@@ -60,7 +60,7 @@ FOLDERS_TO_REMOVE = {}
 
 def check_valid_product(product_id):
     product_info = sess.query(Product).filter(Product.product_id == product_id).first()
-    print(f"[check_valid_product] The product information retrieved is :: {product_info}")
+    logger.debug(f"[check_valid_product] The product information retrieved is :: {product_info}")
     return product_info
 
 
@@ -77,9 +77,9 @@ def generate_image_proxy(media_id, src_path, profile):
         os.makedirs(os.path.dirname(dst_path))
     width, height = profile["resolution"].split("x")
     cmd = f"ffmpeg -y -i {src_path} -vf scale={width}:{height} {dst_path}"
-    print(f"[generate_image_proxy] The command prepared is : [{cmd}] ")
+    logger.debug(f"[generate_image_proxy] The command prepared is : [{cmd}] ")
     res = sp.call(shlex.split(cmd))
-    print(f"[generate_image_proxy] The result is :{res}")
+    logger.debug(f"[generate_image_proxy] The result is :{res}")
     return None
 
 def generate_video_proxy(media_id, src_path, profile):
@@ -88,9 +88,9 @@ def generate_video_proxy(media_id, src_path, profile):
         os.makedirs(os.path.dirname(dst_path))
     width = profile["resolution"].split("x")[0]
     cmd = f"ffmpeg -y -i {src_path} -vf scale={width}:-2,setsar=1:1 -c:v libx264 -c:a copy {dst_path}"
-    print(f"[generate_video_proxy] The command prepared is : [{cmd}] ")
+    logger.debug(f"[generate_video_proxy] The command prepared is : [{cmd}] ")
     res = sp.call(shlex.split(cmd))
-    print(f"[generate_video_proxy] The result is :{res}")
+    logger.debug(f"[generate_video_proxy] The result is :{res}")
     return
 
 
@@ -100,9 +100,9 @@ def generate_video_poster(media_id, poster_id, src_path):
         os.makedirs(os.path.dirname(dst_path))
     width = 480
     cmd = f"ffmpeg -y -i {src_path} -deinterlace -an -ss 00:00:35 -f mjpeg -t 1 -r 1 {dst_path}"
-    print(f"[generate_video_poster] The command prepared is : [{cmd}] ")
+    logger.debug(f"[generate_video_poster] The command prepared is : [{cmd}] ")
     res = sp.call(shlex.split(cmd))
-    print(f"[generate_video_poster] The result is :{res}")
+    logger.debug(f"[generate_video_poster] The result is :{res}")
     return
 
 
@@ -112,9 +112,9 @@ if __name__ == "__main__":
             raw_media_folders = os.listdir(MEDIA_SOURCE_PATH)
             for product in raw_media_folders:
                 product_id = product.split("prod_", 1)[-1]
-                print(f"[main] Processing the folder {product}: {product_id}")
+                logger.debug(f"[main] Processing the folder {product}: {product_id}")
                 if product_info := check_valid_product(product_id):
-                    print(f"processing the product : {product_info}")
+                    logger.debug(f"processing the product : {product_info}")
                     media = os.listdir(os.path.join(MEDIA_SOURCE_PATH, product))
                     if not media:
                         add_to_folders_to_remove(product_id)
@@ -124,7 +124,7 @@ if __name__ == "__main__":
                         media_id = str(product_id)+"__"+str(item)
                         src_path = os.path.join(os.path.join(MEDIA_SOURCE_PATH, product, item))
                         mime_type = mime.guess_type(item)
-                        print(f"{item} has mime type {mime_type}")
+                        logger.debug(f"[main] {item} has mime type {mime_type}")
                         if mime_type and mime_type[0].startswith("image"):
                             if "__primary__" in item:
                                 product_media.primary_image_id = media_id
@@ -145,17 +145,17 @@ if __name__ == "__main__":
                             ProductCarouselMedia(product_media=product_media, media_id=media_id, poster_id=poster_id,media_type="video")
                     sess.add(product_media)
                     sess.commit()
-                    print(f"Product Media : {product_media}")
+                    logger.debug(f"Product Media : {product_media}")
                     shutil.move(src=os.path.join(MEDIA_SOURCE_PATH, product),
                                 dst=os.path.join(MEDIA_PROCESSED_PATH))
                 else:
-                    print(f"Invalid Product id : {product_id}")
+                    logger.debug(f"Invalid Product id : {product_id}")
                     add_to_folders_to_remove(product)
 
             for folder_to_remove in FOLDERS_TO_REMOVE:
                 if FOLDERS_TO_REMOVE[folder_to_remove] > 3:
-                    print(f"Removing the folder : {folder_to_remove}")
+                    logger.debug(f"Removing the folder : {folder_to_remove}")
                     shutil.rmtree(os.path.join(MEDIA_SOURCE_PATH, folder_to_remove))
         except Exception as ex:
-            print(f"Exception while walking for proxy : {ex}")
+            logger.exception(f"Exception while walking for proxy : {ex}")
         time.sleep(60)

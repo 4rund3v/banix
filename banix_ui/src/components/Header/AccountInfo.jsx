@@ -33,7 +33,7 @@ const AccountInfo = () => {
                 <Link to="/account">Account</Link>
               </Dropdown.Item>
               <Dropdown.Item>
-                <Link to="/orders">Orders</Link>
+                <Link to="/account/orders">Orders</Link>
               </Dropdown.Item>
               <Dropdown.Item onClick={logoutHandler}>
                 <Link to="">Sign Out</Link>
