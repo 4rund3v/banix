@@ -9,6 +9,8 @@ import Loader from "../components/misc/Loader";
 import FormContainer from "../components/misc/FormContainer";
 // actions
 import { login } from "../actions/customerActions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { auth, googleAuthProvider } from "../firebase";
 
 const LoginScreen = ({ location, history }) => {
   const dispatch = useDispatch();
@@ -38,6 +40,15 @@ const LoginScreen = ({ location, history }) => {
     dispatch(login(email, password));
   };
 
+  const googleLogin = async (e) => {
+    e.preventDefault();
+    auth.signInWithPopup(googleAuthProvider).then(async (result) => {
+      console.log("googleLogin :::: ", result);
+      // const { user } = result;
+      // dispatch(login(user.email, user.email));
+    });
+  };
+
   return (
     <FormContainer>
       <h1>Sign In</h1>
@@ -62,16 +73,35 @@ const LoginScreen = ({ location, history }) => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="primary">
-          Sign In
+        <Button
+          type="submit"
+          shape="round"
+          className="mb-3"
+          block
+          variant="outline-primary"
+        >
+          <FontAwesomeIcon icon="envelope" /> Sign In
+        </Button>
+        <Button
+          onClick={googleLogin}
+          shape="round"
+          className="mb-3"
+          block
+          variant="outline-danger"
+        >
+          <FontAwesomeIcon icon={["fab", "google"]} /> Login With Google
         </Button>
       </Form>
       <Row className="py-3">
         <Col>
-          New Customer ?{" "}
-          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
-            Register Here
-          </Link>
+          <p>
+            {"New Customer ? "}
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : "/register"}
+            >
+              {"Register Here"}
+            </Link>
+          </p>
         </Col>
       </Row>
     </FormContainer>

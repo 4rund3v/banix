@@ -20,6 +20,7 @@ import {
   faPaperPlane,
   faMapMarker,
   faMapMarkerAlt,
+  faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -34,6 +35,7 @@ import {
   faAmazon,
   faFacebookF,
   faLinkedinIn,
+  faGoogle,
 } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -54,6 +56,7 @@ library.add(
   faSearch,
   faAngleLeft,
   faAngleRight,
+  faEnvelope,
   faFacebook,
   faPinterest,
   faInstagram,
@@ -68,5 +71,6 @@ library.add(
   faMapMarkerAlt,
   faAmazon,
   faFacebookF,
-  faLinkedinIn
+  faLinkedinIn,
+  faGoogle
 );
