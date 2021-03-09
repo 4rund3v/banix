@@ -1,13 +1,12 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Container, Row, Card, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import PageBreadcrumb from "../shared/PageBreadcrumb";
-import BlockMap from "../shared/BlockMap";
 
 const SitePageAboutUs = () => {
   const breadcrumb = [
     { title: "Home", url: "/" },
-    { title: "Contact Us", url: "/site/contact-us" },
+    { title: "About Us", url: "/site/about-us" },
   ];
   return (
     <div className="block about-us">
@@ -15,6 +14,7 @@ const SitePageAboutUs = () => {
         <title>{`About Us — Banix`}</title>
       </Helmet>
 
+      <PageBreadcrumb header="About Us" breadcrumb={breadcrumb} />
       <div
         className="about-us__image"
         style={{ backgroundImage: 'url("images/about-us.jpg")' }}

@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import "./components/FontAwesomeIcons";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "./components/misc/ScrollToTop";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
@@ -14,6 +14,7 @@ import PasswordReset from "./screens/PasswordReset";
 import NotFoundScreen from "./screens/NotFoundScreen";
 import ShippingScreen from "./screens/ShippingScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import OrderScreen from "./screens/OrderScreen";
 import CustomerAccountScreen from "./screens/CustomerAccountScreen";
 // site pages
 import SitePageAboutUs from "./components/site/SitePageAboutUs";
@@ -23,7 +24,6 @@ import SitePageWarranty from "./components/site/sitePageWarranty";
 import SitePageShipping from "./components/site/sitePageShipping";
 import SitePageReturns from "./components/site/sitePageReturns";
 import SitePagePrivacyPolicy from "./components/site/SitePagePrivacyPolicy";
-import OrderScreen from "./screens/OrderScreen";
 
 function BanixApp() {
   return (

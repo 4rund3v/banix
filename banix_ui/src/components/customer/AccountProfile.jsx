@@ -15,7 +15,6 @@ const AccountProfile = ({ history }) => {
   const dispatch = useDispatch();
   const [displayName, setDisplayName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
-  const [message, setMessage] = useState(null);
   const customerLogin = useSelector((state) => state.customerLogin);
   const { customerInfo } = customerLogin;
   console.log("[ProfileScreen] the customerInfo is : ", customerInfo);
@@ -66,7 +65,6 @@ const AccountProfile = ({ history }) => {
         <h5>Edit Profile</h5>
       </div>
       <div className="card-divider"> </div>
-      {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
       {success && <Message variant="success">Profile Updated</Message>}
       {loading && <Loader />}

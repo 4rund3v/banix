@@ -11,7 +11,7 @@ MODULE_MAPPING = {
     "shipping": "shipping_tracker.log",
     "payment": "payment_tracker.log",
     "proxy": "proxy.log",
-    "web_app": "web-app.log",
+    "web_app": "web_app.log",
     "default": "default.log"
 }
 

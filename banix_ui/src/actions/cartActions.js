@@ -3,7 +3,6 @@ import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
   CART_SAVE_SHIPPING_ADDRESS,
-  CART_SAVE_PAYMENT_METHOD,
 } from "../constants/cartConstants";
 import { PRODUCT_SPECIFIC_URL } from "../config";
 import { Product } from "../schema/products";
@@ -12,7 +11,6 @@ import { toast } from "react-toastify";
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
   const url = `${PRODUCT_SPECIFIC_URL}/${productId}`;
-  console.log("[addToCart] The url prepared is ", url);
   const { data } = await axios.get(url);
   const product = new Product(data.product);
   dispatch({

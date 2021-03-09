@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 // third-party
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
@@ -13,32 +13,26 @@ import AddressCard from "./AddressCard";
 import ProfileCard from "./ProfileCard";
 import OrderTable from "./OrderTable";
 
-const AccountDashboard = ({ match }) => {
+const AccountDashboard = () => {
   const dispatch = useDispatch();
 
   const customerLogin = useSelector((state) => state.customerLogin);
   const { customerInfo } = customerLogin;
-  console.log("[AccountDashboard] the customerInfo is : ", customerInfo);
-
-  const customerDetails = useSelector((state) => state.customerDetails);
-  const { loading, error, customer } = customerDetails;
-  console.log("[AccountDashboard] the customerDetails is : ", customerDetails);
 
   const customerAddress = useSelector((state) => state.customerAddress);
-  const { loadingAddress, errorAddress, addresses } = customerAddress;
+  const { addresses } = customerAddress;
   useEffect(() => {
     const defaultAddress = true;
     dispatch(getCustomerAddress(defaultAddress));
   }, [dispatch]);
-  console.log("[AccountDashboard] The addresses are ::: ", addresses);
 
   const orderList = useSelector((state) => state.orderList);
-  const { loading: loadingOrders, error: errorOrders, orders } = orderList;
+  const { orders } = orderList;
   useEffect(() => {
     const latestOrders = true;
     dispatch(getOrderList(latestOrders));
   }, [dispatch]);
-  console.log("[AccountDashboard] The orders fetched are ::: ", orders);
+
   return (
     <div className="dashboard">
       <Helmet>

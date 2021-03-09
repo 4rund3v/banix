@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 // third party
 import { useDispatch, useSelector } from "react-redux";
 // functions / actions
@@ -9,7 +9,7 @@ import OrderListings from "./OrderListings";
 const AccountOrders = ({ history }) => {
   const dispatch = useDispatch();
   const orderList = useSelector((state) => state.orderList);
-  const { loading: loadingOrders, error: errorOrders, orders } = orderList;
+  const { orders } = orderList;
 
   useEffect(() => {
     dispatch(getOrderList());

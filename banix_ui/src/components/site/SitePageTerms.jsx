@@ -1,8 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-
-import { Container, Row, Card, Col } from "react-bootstrap";
 import PageBreadcrumb from "../shared/PageBreadcrumb";
 
 const SitePageTerms = () => {

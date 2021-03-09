@@ -1,10 +1,11 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import PageBreadcrumb from "../shared/PageBreadcrumb";
+
 const SitePageWarranty = () => {
   const breadcrumb = [
     { title: "Home", url: "/" },
-    { title: "Privacy Policy", url: "/site/warranty-refunds" },
+    { title: "Warranty", url: "/site/warranty-refunds" },
   ];
   return (
     <div>
@@ -59,9 +60,9 @@ const SitePageWarranty = () => {
             so it is returned to its original specifications or replace it with
             a product of same or higher value, if the original product is
             discontinued.
-            <br />
-              The warranty is applicable for the orders which are purchased only
-            via Banix site and other marketplace with seller name as Banix.
+            <br />  The warranty is applicable for the orders which are
+            purchased only via Banix site and other marketplace with seller name
+            as Banix.
           </p>
         </div>
       </div>

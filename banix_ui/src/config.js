@@ -5,8 +5,10 @@ export const PRODUCT_LIST_URL = `/api/products`;
 export const PRODUCT_SPECIFIC_URL = `/api/products`;
 // To check if the product is serviceable
 export const SERVICEABILITY_URL = `/api/products/serviceability`;
-// To Suppor the customer login
+// To Support the customer login
 export const CUSTOMER_LOGIN_URL = `/api/customers/login`;
+// To Support the customer login status check
+export const CUSTOMER_LOGIN_STATUS_URL = "/api/customer/login/status";
 // To register the customer
 export const CUSTOMER_REGISTER_URL = `/api/customers/register`;
 // To fetch the customer profile information

@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 // third-party
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCustomerAddress } from "../../actions/customerActions";
 import AddressCard from "./AddressCard";
-import { Row, Col } from "react-bootstrap";
 
 const AccountAddresses = ({ match }) => {
   const dispatch = useDispatch();
 
   const customerAddress = useSelector((state) => state.customerAddress);
-  const { loadingAddress, errorAddress, addresses } = customerAddress;
+  const { addresses } = customerAddress;
   useEffect(() => {
     dispatch(getCustomerAddress());
   }, [dispatch]);
 
-  console.log("[AccountDashboard] The addresses are ::: ", addresses);
   return (
     <div className="addresses-list">
       <Helmet>

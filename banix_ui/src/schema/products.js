@@ -73,6 +73,7 @@ export class Product {
         );
       }
       this.productSpecification["productBoxContents"] = productBoxContents;
+      this.productFeatures = productFeatures;
     }
 
     if (rawProduct.product_media) {

@@ -3,6 +3,9 @@ import {
   CUSTOMER_LOGIN_SUCCESS,
   CUSTOMER_LOGIN_FAIL,
   CUSTOMER_LOGOUT,
+  CUSTOMER_LOGIN_STATUS_REQUEST,
+  CUSTOMER_LOGIN_STATUS_SUCCESS,
+  CUSTOMER_LOGIN_STATUS_FAIL,
   CUSTOMER_REGISTER_REQUEST,
   CUSTOMER_REGISTER_SUCCESS,
   CUSTOMER_REGISTER_FAIL,
@@ -13,9 +16,6 @@ import {
   CUSTOMER_PROFILE_DETAILS_UPDATE_SUCCESS,
   CUSTOMER_PROFILE_DETAILS_UPDATE_FAIL,
   CUSTOMER_TOKEN_UPDATED,
-  CUSTOMER_ADDRESS_CREATE_REQUEST,
-  CUSTOMER_ADDRESS_CREATE_SUCCESS,
-  CUSTOMER_ADDRESS_CREATE_FAIL,
   CUSTOMER_ADDRESS_FETCH_REQUEST,
   CUSTOMER_ADDRESS_FETCH_SUCCESS,
   CUSTOMER_ADDRESS_FETCH_FAIL,
@@ -31,6 +31,26 @@ export const customerLoginReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case CUSTOMER_LOGOUT:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const customerLoginStatusReducer = (
+  state = { loggedInStatus: false },
+  action
+) => {
+  switch (action.type) {
+    case CUSTOMER_LOGIN_STATUS_REQUEST:
+      return { loading: true };
+    case CUSTOMER_LOGIN_STATUS_SUCCESS:
+      console.log(
+        "customerLoginStatusReducer  on success ::: ",
+        action.payload
+      );
+      return { loading: false, loggedInStatus: action.payload };
+    case CUSTOMER_LOGIN_STATUS_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

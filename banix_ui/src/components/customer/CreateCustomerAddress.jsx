@@ -4,8 +4,6 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 import { createCustomerAddress } from "../../actions/customerActions";
 import { CustomerAddress } from "../../schema/customer";
-import Message from "../misc/Message";
-import Loader from "../misc/Loader";
 
 const CreateCustomerAddress = ({ history, match, props }) => {
   const [fullName, setFullName] = useState("");

@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Container, Row, Card, Col } from "react-bootstrap";
+import { Container, Row, Card } from "react-bootstrap";
 import PageBreadcrumb from "../shared/PageBreadcrumb";
 import BlockMap from "../shared/BlockMap";
 

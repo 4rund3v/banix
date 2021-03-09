@@ -1,5 +1,6 @@
 from flask import  jsonify, abort, Blueprint, request, make_response
 import os
+import re
 import sys
 import uuid
 import jwt
@@ -46,6 +47,37 @@ def authenticate_customer_login():
         if session:
             session.close()
     abort(make_response(jsonify(message="Invalid details provided."), 401))
+
+
+@auth_blueprint.route("/customer/login/status", methods=["GET"])
+def check_customer_login_status():
+    token = None
+    session = None
+    current_customer_info = None
+    # jwt is passed in the request header
+    if 'Authorization' in request.headers:
+        token = request.headers['Authorization']
+        token = re.sub("^(Bearer )", "", token)
+        logger.debug(f"[check_customer_login_status] token received is ::: {token}")
+    # return 401 if token is not passed
+    else:
+        return jsonify({'message': 'Token is missing !!'}), 401
+    logger.debug(f"[check_customer_login_status] Decoding the token !! {token}")
+    try:
+        # decoding the payload to fetch the stored details
+        data = jwt.decode(token, SECRET_KEY)
+        logger.debug(f"[check_customer_login_status] The data[public_id] decoded is ::: {data['public_id']}")
+        session = Session()
+        current_customer = session.query(Customer).filter_by(public_id=data['public_id']).first()
+        current_customer_info = current_customer.to_dict()
+    except Exception as ex:
+        logger.exception(f"[token_required] Error decoding the data ::: {ex}")
+        return jsonify({'message': 'Token is invalid !!'}), 401
+    finally:
+        if session:
+            session.close()
+    # returns the current logged in customers context to the routes
+    return {"customer_info": current_customer_info}
 
 
 @auth_blueprint.route("/customers/register", methods=["POST"])

@@ -32,6 +32,9 @@ import {
   CUSTOMER_ADDRESS_UPDATE_REQUEST,
   CUSTOMER_ADDRESS_UPDATE_SUCCESS,
   CUSTOMER_ADDRESS_UPDATE_FAIL,
+  CUSTOMER_LOGIN_STATUS_REQUEST,
+  CUSTOMER_LOGIN_STATUS_FAIL,
+  CUSTOMER_LOGIN_STATUS_SUCCESS,
 } from "../constants/customerConstants";
 
 import {
@@ -40,6 +43,7 @@ import {
   CUSTOMER_PROFILE_URL,
   CUSTOMER_PROFILE_PASSWORD_URL,
   CUSTOMER_ADDRESS_URL,
+  CUSTOMER_LOGIN_STATUS_URL,
 } from "../config";
 
 import { Customer, CustomerAddress } from "../schema/customer";
@@ -78,6 +82,49 @@ export const login = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CUSTOMER_LOGIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const loginStatusCheck = () => async (dispatch, getState) => {
+  try {
+    const {
+      customerToken: { tokenInfo },
+      customerLogin: { customerInfo },
+    } = getState();
+
+    dispatch({
+      type: CUSTOMER_LOGIN_STATUS_REQUEST,
+    });
+    if (!customerInfo) {
+      throw new Error("Customer Info not found, cannot check status of token");
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(CUSTOMER_LOGIN_STATUS_URL, config);
+    if (!data.customer_info) {
+      throw new Error("No customer information recieved.");
+    }
+
+    dispatch({
+      type: CUSTOMER_LOGIN_STATUS_SUCCESS,
+      payload: true,
+    });
+  } catch (error) {
+    localStorage.removeItem("customerInfo");
+    localStorage.removeItem("accessToken");
+    dispatch({ type: CUSTOMER_LOGOUT });
+    dispatch({
+      type: CUSTOMER_LOGIN_STATUS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

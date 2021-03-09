@@ -10,13 +10,12 @@ import { cartReducer } from "./reducers/cartReducers";
 
 import {
   customerLoginReducer,
+  customerLoginStatusReducer,
   customerRegisterReducer,
   customerDetailsReducer,
   customerDetailsUpdateReducer,
   customerTokenReducer,
   customerAddressReducer,
-  customerAddressCreateReducer,
-  customerAddressUpdateReducer,
   customerPasswordUpdateReducer,
 } from "./reducers/customerReducers";
 
@@ -37,6 +36,7 @@ const reducer = combineReducers({
   cart: cartReducer,
   // customer login
   customerLogin: customerLoginReducer,
+  customerLoginStatus: customerLoginStatusReducer,
   customerToken: customerTokenReducer,
   customerRegister: customerRegisterReducer,
   // customer profile

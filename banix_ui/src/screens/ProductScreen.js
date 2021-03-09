@@ -17,8 +17,6 @@ import {
   fetchServiceabilityDetails,
 } from "../actions/productActions";
 import { addToCart } from "../actions/cartActions";
-
-import { Product } from "../schema/products";
 import Loader from "../components/misc/Loader";
 import Message from "../components/misc/Message";
 import ProductTabs from "../components/store/ProductTabs";
@@ -35,19 +33,11 @@ const ProductScreen = ({ history, match }) => {
     dispatch(getProductDetails(match.params.id));
   }, [dispatch, match]);
   const customerLogin = useSelector((state) => state.customerLogin);
-  const {
-    loading: loadingCustomer,
-    error: errorCustomer,
-    customerInfo,
-  } = customerLogin;
+  const { customerInfo } = customerLogin;
   console.log("[ProductScreen] The customer info is : ", customerInfo);
 
   const cartInfo = useSelector((state) => state.cart);
-  const {
-    loading: loadingshippingAddress,
-    error: errorShippingAddress,
-    shippingAddress,
-  } = cartInfo;
+  const { shippingAddress } = cartInfo;
   console.log("[ProductScreen] the shipping address is : ", shippingAddress);
 
   const addToCartHandler = () => {
@@ -76,8 +66,9 @@ const ProductScreen = ({ history, match }) => {
       console.log("Checking delivery options :: ", pinCode);
       checkDeliveryHandler();
     }
+    // eslint-disable-next-line
   }, []);
-  console.log("[The product Screen]       ]:: ", product);
+
   return (
     <>
       <ToastContainer autoClose={2000} hideProgressBar />

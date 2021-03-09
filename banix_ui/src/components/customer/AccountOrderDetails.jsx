@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
-import { Container, Row, Col, Card, Table } from "react-bootstrap";
+import { Card, Table } from "react-bootstrap";
 import Message from "../misc/Message";
 import Loader from "../misc/Loader";
 import { getOrderDetails } from "../../actions/orderActions";
@@ -11,15 +11,13 @@ import { getDateStringFromIsoTimestamp, numberWithCommas } from "../../utils";
 
 const AccountOrderDetails = ({ match }) => {
   const dispatch = useDispatch();
-
-  console.log("[AccountOrderDetails] the matched order id is ::: ", match);
   const orderId = match.params.id;
   const orderInfo = useSelector((state) => state.orderDetails);
   const { loading, order, error } = orderInfo;
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
+    // eslint-disable-next-line
   }, [dispatch]);
-  console.log("[AccountOrderDetails] The order is ::: ", order);
 
   return loading ? (
     <Loader />
