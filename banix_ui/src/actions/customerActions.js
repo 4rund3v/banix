@@ -143,7 +143,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: CUSTOMER_LOGOUT });
 };
 
-export const register = (name, email, password) => async (dispatch) => {
+export const register = (email, password) => async (dispatch) => {
   try {
     dispatch({
       type: CUSTOMER_REGISTER_REQUEST,
@@ -154,7 +154,6 @@ export const register = (name, email, password) => async (dispatch) => {
       },
     };
     const registrationData = {
-      display_name: name,
       email_id: email,
       password: password,
     };

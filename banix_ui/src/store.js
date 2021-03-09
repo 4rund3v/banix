@@ -68,7 +68,7 @@ const cartItemsFromStorage = localStorage.getItem("cartItems")
 // Customer shipping address fecth
 const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
   ? JSON.parse(localStorage.getItem("shippingAddress"))
-  : {};
+  : { registrationEmailId: "" };
 
 const initialState = {
   cart: {

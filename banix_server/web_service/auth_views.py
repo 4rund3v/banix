@@ -90,6 +90,10 @@ def register_customer():
         existing_customer = session.query(Customer).filter(Customer.email_id == form_data["email_id"]).first()
         if existing_customer:
             abort(make_response(jsonify(message='Email Address already registered, Try Login'), 401))
+        if not form_data.get("username"):
+            form_data["username"] = form_data["email_id"].split("@")[0]
+        if not form_data.get("display_name"):
+            form_data["display_name"] = form_data["email_id"].split("@")[0]
         new_customer_info = Customer(display_name=form_data["display_name"],
                                      username=form_data["display_name"],
                                      email_id=form_data["email_id"],
