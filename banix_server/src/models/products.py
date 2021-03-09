@@ -142,7 +142,6 @@ class ProductSpecification(Base):
     product_variant = relationship("ProductVariant", back_populates="product_specification")
     
     def to_dict(self):
-        print("[ProductSpecification][to_dict] is called ")
         if self.product_dimensions:
             product_dimensions = self.product_dimensions.to_dict()
         else:
@@ -177,8 +176,6 @@ class ProductDimensions(Base):
     product_specification = relationship("ProductSpecification", uselist=False, back_populates="product_dimensions")
 
     def to_dict(self):
-        print("[ProductDimensions][to_dict] is called ")
-        
         return dict(width=self.width,
                     height=self.height,
                     depth=self.depth,
@@ -200,7 +197,6 @@ class ProductBoxDimensions(Base):
     product_specification = relationship("ProductSpecification",uselist=False, back_populates="product_box_dimensions")
 
     def to_dict(self):
-        print("[ProductBoxDimensions][to_dict] is called ")
         return dict(width=self.width,
                     height=self.height,
                     depth=self.depth,

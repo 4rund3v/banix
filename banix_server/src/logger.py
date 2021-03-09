@@ -1,5 +1,4 @@
 import logging
-import datetime
 import os
 import sys
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -16,6 +15,7 @@ MODULE_MAPPING = {
 }
 
 initialized_modules = {}
+
 
 def get_logger(module="default"):
     """
@@ -35,4 +35,3 @@ def get_logger(module="default"):
     logger = logging.getLogger(module)
     initialized_modules[module] = logger
     return logger
-

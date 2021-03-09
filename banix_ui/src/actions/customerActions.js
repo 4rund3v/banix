@@ -77,6 +77,10 @@ export const login = (email, password) => async (dispatch) => {
       type: CUSTOMER_TOKEN_UPDATED,
       payload: { token: data.token },
     });
+    dispatch({
+      type: CUSTOMER_LOGIN_STATUS_SUCCESS,
+      payload: true,
+    });
     localStorage.setItem("customerInfo", JSON.stringify(customerInfo));
     localStorage.setItem("accessToken", JSON.stringify({ token: data.token }));
   } catch (error) {

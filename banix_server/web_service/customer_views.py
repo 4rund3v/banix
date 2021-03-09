@@ -1,7 +1,6 @@
 from flask import Blueprint, request
 import os
 import sys
-
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
 from src.models import Customer, Address
@@ -9,7 +8,6 @@ from src.db_utils import Session
 from authorization import token_required
 
 from src.logger import get_logger
-
 logger = get_logger("web_app")
 
 customer_blueprint = Blueprint("customers", __name__)
@@ -38,12 +36,9 @@ def get_customers(current_customer_info):
 def fetch_customer_profile(current_customer_info):
     logger.debug(
         f"[fetch_customer_profile] Fetching the profile information for the customers : {current_customer_info} ")
-    customer_info = {}
-    customer_info["display_name"] = current_customer_info["display_name"]
-    customer_info["username"] = current_customer_info["username"]
-    customer_info["email_id"] = current_customer_info["email_id"]
-    customer_info["display_name"] = current_customer_info["display_name"]
-    customer_info["primary_mobile_number"] = current_customer_info["primary_mobile_number"]
+    customer_info = {"display_name": current_customer_info["display_name"],
+                     "username": current_customer_info["username"], "email_id": current_customer_info["email_id"],
+                     "primary_mobile_number": current_customer_info["primary_mobile_number"]}
     return {"customer_info": customer_info}
 
 
