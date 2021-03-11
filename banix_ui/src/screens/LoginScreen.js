@@ -16,7 +16,7 @@ const LoginScreen = ({ location, history }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [signInWithEmail, setSignInWithEmail] = useState(false);
   const customerLogin = useSelector((state) => state.customerLogin);
   const { loading, error, customerInfo } = customerLogin;
   let redirect = location.search ? location.search.split("=")[1] : "/";
@@ -54,45 +54,57 @@ const LoginScreen = ({ location, history }) => {
       <h1>Sign In</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
-      <Form onSubmit={submitHandler}>
-        <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Button
-          type="submit"
-          shape="round"
-          className="mb-3"
-          block
-          variant="outline-primary"
-        >
-          <FontAwesomeIcon icon="envelope" /> Sign In
-        </Button>
-        <Button
-          onClick={googleLogin}
-          shape="round"
-          className="mb-3"
-          block
-          variant="outline-danger"
-        >
-          <FontAwesomeIcon icon={["fab", "google"]} /> Login With Google
-        </Button>
-      </Form>
-      <Row className="py-3">
+      {signInWithEmail ? (
+        <Form onSubmit={submitHandler}>
+          <Form.Group controlId="email">
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Button type="submit" shape="round" block variant="outline-primary">
+            <FontAwesomeIcon icon="envelope" /> {"Sign In"}
+          </Button>
+        </Form>
+      ) : (
+        <>
+          <Button
+            onClick={googleLogin}
+            shape="round"
+            className="mb-3"
+            block
+            variant="outline-danger"
+          >
+            <FontAwesomeIcon icon={["fab", "google"]} /> {" Login With Google"}
+          </Button>
+          <Button
+            type="submit"
+            shape="round"
+            className="mb-3"
+            block
+            variant="outline-primary"
+            onClick={() => {
+              setSignInWithEmail(true);
+            }}
+          >
+            <FontAwesomeIcon icon="envelope" /> {"Sign In with Email"}
+          </Button>
+        </>
+      )}
+
+      <Row className="mt-3">
         <Col>
           <p>
             {"New Customer ? "}

@@ -44,6 +44,12 @@ const RegisterCompleteScreen = ({ location, history }) => {
           window.location.href
         );
         if (result.user.emailVerified) {
+          window.localStorage.removeItem("registerInfo");
+          console.log(
+            "[RegisterComplete][submitHandler]The current user is :: ",
+            auth.currentUser
+          );
+          await auth.currentUser.updatePassword(password);
           dispatch(register(email, password));
         } else {
           setMessage("Unable to verify email, try again.");
