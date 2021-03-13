@@ -1,6 +1,6 @@
 import os
-
-PROJECT_BASE_PATH = "/home/arun/codecave/banix/banix_server"
+ROOT_PATH = "C:\\Users\\arun\\Desktop\\banix"
+PROJECT_BASE_PATH = os.path.join(ROOT_PATH, "banix_server")
 DATABASE_FILE = os.path.join(PROJECT_BASE_PATH, "db", "banix_database.db")
 
 shiprocket_username = "sales@banix.in"
@@ -13,8 +13,8 @@ WEB_SERVER_PORT = 7701
 DEBUG_MODE = True
 SECRET_KEY = "banix_2021"
 
-MEDIA_SOURCE_PATH = "/home/arun/codecave/banix/media/raw"
-MEDIA_PROCESSED_PATH = "/home/arun/codecave/banix/media/processed"
-MEDIA_IMAGE_PROXY_PATH = "/home/arun/codecave/banix/media/images"
-MEDIA_VIDEO_PROXY_PATH = "/home/arun/codecave/banix/media/videos"
-LOG_PATH = "/home/arun/codecave/banix/logs"
+MEDIA_SOURCE_PATH = os.path.join(ROOT_PATH, "media", "raw")
+MEDIA_PROCESSED_PATH = os.path.join(ROOT_PATH, "media", "processed")
+MEDIA_IMAGE_PROXY_PATH = os.path.join(ROOT_PATH, "media", "images")
+MEDIA_VIDEO_PROXY_PATH = os.path.join(ROOT_PATH, "media", "videos")
+LOG_PATH = os.path.join(ROOT_PATH, "logs")

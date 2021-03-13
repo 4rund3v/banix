@@ -142,7 +142,7 @@ if __name__ == "__main__":
                                                      profile=profile)
                             poster_id = media_id+"__.jpg"
                             generate_video_poster(media_id=media_id,poster_id=poster_id, src_path=src_path)
-                            ProductCarouselMedia(product_media=product_media, media_id=media_id, poster_id=poster_id,media_type="video")
+                            ProductCarouselMedia(product_media=product_media, media_id=media_id, poster_id=poster_id, media_type="video")
                     sess.add(product_media)
                     sess.commit()
                     logger.debug(f"Product Media : {product_media}")
