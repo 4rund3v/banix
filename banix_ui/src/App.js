@@ -20,11 +20,15 @@ import CustomerAccountScreen from "./screens/CustomerAccountScreen";
 import SitePageAboutUs from "./components/site/SitePageAboutUs";
 import SitePageContactUs from "./components/site/SitePageContactUs";
 import SitePageTerms from "./components/site/SitePageTerms";
-import SitePageWarranty from "./components/site/sitePageWarranty";
-import SitePageShipping from "./components/site/sitePageShipping";
-import SitePageReturns from "./components/site/sitePageReturns";
+import SitePageWarranty from "./components/site/SitePageWarranty";
+import SitePageShipping from "./components/site/SitePageShipping";
+import SitePageReturns from "./components/site/SitePageReturns";
 import SitePagePrivacyPolicy from "./components/site/SitePagePrivacyPolicy";
 import RegisterCompleteScreen from "./screens/RegisterCompleteScreen";
+import SitePageSupport from "./components/site/SitePageSupport";
+import SitePageRefundPolicy from "./components/site/SitePageRefundPolicy";
+import SitePageFAQ from "./components/site/SitePageFAQ";
+import SitePageCareers from "./components/site/SitePageCareers";
 
 function BanixApp() {
     return (
@@ -76,43 +80,48 @@ function BanixApp() {
                                 path="/order-info/:id"
                                 component={OrderScreen}
                             />
+
                             {/* site pages links */}
                             {/* Customer Service Related links*/}
+
+                            <Route
+                                path="/site/terms"
+                                component={SitePageTerms}
+                            />
+                            <Route
+                                path="/site/about-us"
+                                component={SitePageAboutUs}
+                            />
+                            <Route path="/site/faq" component={SitePageFAQ} />
+                            <Route
+                                path="/site/careers"
+                                component={SitePageCareers}
+                            />
                             <Route
                                 path="/site/contact-us"
                                 component={SitePageContactUs}
                             />
+                            {/* Information Related links*/}
                             <Route
-                                path="/site/warranty-refunds"
-                                component={SitePageWarranty}
+                                path="/site/shipping"
+                                component={SitePageShipping}
                             />
                             <Route
                                 path="/site/returns"
                                 component={SitePageReturns}
                             />
                             <Route
-                                path="/site/shipping"
-                                component={SitePageShipping}
-                            />
-                            {/* Information Related links*/}
-                            <Route
-                                path="/site/about-us"
-                                component={SitePageAboutUs}
-                            />
-                            <Route
-                                path="/site/terms"
-                                component={SitePageTerms}
-                            />
-
-                            <Route
                                 path="/site/privacy-policy"
                                 component={SitePagePrivacyPolicy}
                             />
                             <Route
-                                path="/site/terms"
-                                component={SitePageTerms}
+                                path="/site/refund-policy"
+                                component={SitePageRefundPolicy}
                             />
-
+                            <Route
+                                path="/site/warranty"
+                                component={SitePageWarranty}
+                            />
                             {/*  Default Routes*/}
                             <Route path="/" component={HomeScreen} exact />
                             <Route component={NotFoundScreen} />

@@ -8,68 +8,87 @@
 .about-us {
 }
 .about-us__image {
-  background-size: cover;
-  background-position: bottom center;
-  height: 400px;
+    background-size: cover;
+    background-position: bottom center;
+    height: 400px;
+}
+.career__image {
+    background-size: cover;
+    background-position: bottom center;
+    height: 600px;
+}
+.career__body {
+    background: $body-bg;
+    min-height: 380px;
+    margin-top: -80px;
+    border-radius: 4px 4px 0 0;
+    padding: 75px 92px 45px;
+}
+.career__title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+.career__text {
+    text-align: center;
 }
 .about-us__body {
-  background: $body-bg;
-  min-height: 380px;
-  margin-top: -180px;
-  border-radius: 4px 4px 0 0;
-  padding: 75px 92px 45px;
+    background: $body-bg;
+    min-height: 380px;
+    margin-top: -180px;
+    border-radius: 4px 4px 0 0;
+    padding: 75px 92px 45px;
 }
 .about-us__title {
-  text-align: center;
-  margin-bottom: 50px;
+    text-align: center;
+    margin-bottom: 50px;
 }
 .about-us__text {
-  text-align: center;
+    text-align: center;
 }
 
 @media (max-width: breakpoint(md-end)) and (min-width: breakpoint(md-start)) {
-  .about-us__image {
-    height: 460px;
-  }
-  .about-us__title {
-    margin-bottom: 36px;
-  }
-  .about-us__body {
-    padding: 50px;
-  }
-  .about-us__team {
-    margin-top: 75px;
-  }
+    .about-us__image {
+        height: 460px;
+    }
+    .about-us__title {
+        margin-bottom: 36px;
+    }
+    .about-us__body {
+        padding: 50px;
+    }
+    .about-us__team {
+        margin-top: 75px;
+    }
 }
 @media (max-width: breakpoint(sm-end)) and (min-width: breakpoint(sm-start)) {
-  .about-us__image {
-    height: 360px;
-  }
-  .about-us__title {
-    margin-bottom: 24px;
-  }
-  .about-us__body {
-    min-height: 290px;
-    margin-top: -290px;
-    padding: 40px;
-  }
-  .about-us__team {
-    margin-top: 50px;
-  }
+    .about-us__image {
+        height: 360px;
+    }
+    .about-us__title {
+        margin-bottom: 24px;
+    }
+    .about-us__body {
+        min-height: 290px;
+        margin-top: -290px;
+        padding: 40px;
+    }
+    .about-us__team {
+        margin-top: 50px;
+    }
 }
 @media (max-width: breakpoint(sm-end)) {
-  .about-us__image {
-    height: 330px;
-  }
-  .about-us__body {
-    min-height: 290px;
-    margin-top: -290px;
-    padding: 30px 24px;
-  }
-  .about-us__title {
-    margin-bottom: 20px;
-  }
-  .about-us__team {
-    margin-top: 50px;
-  }
+    .about-us__image {
+        height: 330px;
+    }
+    .about-us__body {
+        min-height: 290px;
+        margin-top: -290px;
+        padding: 30px 24px;
+    }
+    .about-us__title {
+        margin-bottom: 20px;
+    }
+    .about-us__team {
+        margin-top: 50px;
+    }
 }
