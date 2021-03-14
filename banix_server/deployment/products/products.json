@@ -1,131 +1,132 @@
 {
-  "products": [
-    { "basic": {
-      "name": "Vithamas Smart LED Strip Light Multicolor",
-      "brand": "Vithamas",
-      "category": "LED",
-      "rating": 5,
-      "total_reviews": 10,
-      "stock": 20,
-      "selling_price": 999,
-      "cost_price": 1499
-    },
-    "specification_info": {
-      "description": "Add Colors to your room with this 2 meter long RGB strip light. You can control this strip through our Vithamas Smart Home app which is available for both android and IOS mobile. You can choose among 16 Millions of RGB color combinations and set the brightness between 20 percent to 100 percent smoothly. control your LED strip with a voice control in nine different languages, English Hindi Kannada Gujarati Telugu Tamil Bengali Marathi and Malayalam languages supported and commands supported with a particular language selected.",
-      "product_box_contents": "1 x Vithamas GlosSmart LED Strip, 1 x VithamasController, 1 x Instruction Manual",
-      "product_dimensions": {
-        "width": 14,
-        "height": 8,
-        "depth": 5,
-        "length": 5000
-      },
-      "product_box_dimensions": {
-        "weight": 1500
-      }
-    }
-  },
-  {
-    "basic":
-    {
-      "name": "Vithamas GloSmart 12 Watts Bluetooth Smart RGB LED Bulb",
-      "brand": "Vithamas",
-      "category": "LED",
-      "rating": 5,
-      "total_reviews": 10,
-      "stock": 20,
-      "selling_price": 1299,
-      "cost_price": 1499
-    },
-    "specification_info": {
-      "description": "The Vithamas GloSmart LED bulb is made to light a larger area. This single 9 watt light bulb brings millions of colors to any room in your home. The Smart LED light provides full suite of smart lighting control and features without any bridge through your android and iOS mobile applications. Add ambient color to any room with the Vithamas GloSmart LED Bulb. The smart bulb does not require any Bridge for working, providing full control of the lights through the Vithamas Smart Home app with endless features.",
-      "product_box_contents": "1 x Vithamas GloSmart LED bulb, 1 x Instruction Manual",
-      "product_dimensions": {
-        "width": 14,
-        "height": 8,
-        "depth": 5,
-        "length": 5000
-      },
-      "product_box_dimensions": {
-        "length": 127,
-        "width": 864,
-        "height": 864,
-        "weight": 200
-      }
-    }
-  },
-    {
-      "basic":
-      {
-      "name": "Vithamas Smart DC LED Strip Light Multicolor",
-      "brand": "Vithamas",
-      "category": "LED",
-      "rating": 5,
-      "total_reviews": 10,
-      "stock": 20,
-      "selling_price": 1299,
-      "cost_price": 2000
-    },
-    "specification_info": {
-      "description": "Add colors to your room with this 5 meter long RGB strip light. You can control this strip through our Vithamas Smart Home app which is available for both android and IOS mobiles. You can chose among 16 Millions of RGB color combinations and set the brightness between 20 percent to 100 percent smoothly. Control your LED strip with voice control in nine different languages English, Hindi, Kannada, Telugu, Tamil, Bengali, Marathi and Malayalam languages support and the commands supported with a particular language selected",
-      "product_box_contents": "1 x Vithamas GlosSmart LED Strip, 1 x VithamasController, 1 x Instruction Manual",
-      "product_dimensions": {
-        "width": 14,
-        "height": 8,
-        "depth": 5,
-        "length": 5000
-      },
-      "product_box_dimensions": {
-        "weight": 1500
-      }
-    }
-  },
-    { "basic": {
-      "name": "Vithamas Smart LED Strip Light Multicolor - 5 meters",
-      "brand": "Vithamas",
-      "category": "LED",
-     "rating": 5,
-      "total_reviews": 10,
-      "stock": 20,
-      "selling_price": 1499,
-      "cost_price": 1499
-    },
-    "specification_info": {
-      "description": "Add Colors to your room with this 5 meter long RGB strip light. You can control this strip through our Vithamas Smart Home app which is available for both android and IOS mobile. You can choose among 16 Millions of RGB color combinations and set the brightness between 20 percent to 100 percent smoothly. control your LED strip with a voice control in nine different languages, English Hindi Kannada Gujarati Telugu Tamil Bengali Marathi and Malayalam languages supported and commands supported with a particular language selected.",
-      "product_box_contents": "1 x Vithamas GlosSmart LED Strip, 1 x VithamasController, 1 x Instruction Manual",
-      "product_dimensions": {
-        "width": 14,
-        "height": 8,
-        "depth": 5,
-        "length": 5000
-      },
-      "product_box_dimensions": {
-        "weight": 1500
-      }
-    }
-  },
-    { "basic": {
-      "name": "Vithamas Smart LED Strip Light Multicolor - 10 meters",
-      "brand": "Vithamas",
-      "category": "LED",
-      "rating": 5,
-      "total_reviews": 10,
-      "stock": 20,
-      "selling_price": 1999,
-      "cost_price": 1999
-    },
-    "specification_info": {
-      "description": "Add Colors to your room with this 10 meter long RGB strip light. You can control this strip through our Vithamas Smart Home app which is available for both android and IOS mobile. You can choose among 16 Millions of RGB color combinations and set the brightness between 20 percent to 100 percent smoothly. control your LED strip with a voice control in nine different languages, English Hindi Kannada Gujarati Telugu Tamil Bengali Marathi and Malayalam languages supported and commands supported with a particular language selected.",
-      "product_box_contents": "1 x Vithamas GlosSmart LED Strip, 1 x VithamasController, 1 x Instruction Manual",
-      "product_dimensions": {
-        "width": 14,
-        "height": 8,
-        "depth": 5,
-        "length": 5000
-      },
-      "product_box_dimensions": {
-        "weight": 1500
-      }
-    }
-  }
-  ]
+    "products": [
+        {
+            "basic": {
+                "name": "Vithamas Smart LED Strip Light Multicolor",
+                "brand": "Vithamas",
+                "category": "LED",
+                "rating": 5,
+                "total_reviews": 10,
+                "stock": 20,
+                "selling_price": 999,
+                "cost_price": 1499
+            },
+            "specification_info": {
+                "description": "Add Colors to your room with this 2 meter long RGB strip light. You can control this strip through our Vithamas Smart Home app which is available for both android and IOS mobile. You can choose among 16 Millions of RGB color combinations and set the brightness between 20 percent to 100 percent smoothly. control your LED strip with a voice control in nine different languages, English Hindi Kannada Gujarati Telugu Tamil Bengali Marathi and Malayalam languages supported and commands supported with a particular language selected.",
+                "product_box_contents": "1 x Vithamas GlosSmart LED Strip, 1 x VithamasController, 1 x Instruction Manual",
+                "product_dimensions": {
+                    "width": 14,
+                    "height": 8,
+                    "depth": 5,
+                    "length": 5000
+                },
+                "product_box_dimensions": {
+                    "weight": 1500
+                }
+            }
+        },
+        {
+            "basic": {
+                "name": "Vithamas GloSmart 12 Watts Bluetooth Smart RGB LED Bulb",
+                "brand": "Vithamas",
+                "category": "LED",
+                "rating": 5,
+                "total_reviews": 10,
+                "stock": 20,
+                "selling_price": 1299,
+                "cost_price": 1499
+            },
+            "specification_info": {
+                "description": "The Vithamas GloSmart LED bulb is made to light a larger area. This single 9 watt light bulb brings millions of colors to any room in your home. The Smart LED light provides full suite of smart lighting control and features without any bridge through your android and iOS mobile applications. Add ambient color to any room with the Vithamas GloSmart LED Bulb. The smart bulb does not require any Bridge for working, providing full control of the lights through the Vithamas Smart Home app with endless features.",
+                "product_box_contents": "1 x Vithamas GloSmart LED bulb, 1 x Instruction Manual",
+                "product_dimensions": {
+                    "width": 14,
+                    "height": 8,
+                    "depth": 5,
+                    "length": 5000
+                },
+                "product_box_dimensions": {
+                    "length": 127,
+                    "width": 864,
+                    "height": 864,
+                    "weight": 200
+                }
+            }
+        },
+        {
+            "basic": {
+                "name": "Vithamas Smart DC LED Strip Light Multicolor",
+                "brand": "Vithamas",
+                "category": "LED",
+                "rating": 5,
+                "total_reviews": 10,
+                "stock": 20,
+                "selling_price": 1299,
+                "cost_price": 2000
+            },
+            "specification_info": {
+                "description": "Add colors to your room with this 5 meter long RGB strip light. You can control this strip through our Vithamas Smart Home app which is available for both android and IOS mobiles. You can chose among 16 Millions of RGB color combinations and set the brightness between 20 percent to 100 percent smoothly. Control your LED strip with voice control in nine different languages English, Hindi, Kannada, Telugu, Tamil, Bengali, Marathi and Malayalam languages support and the commands supported with a particular language selected",
+                "product_box_contents": "1 x Vithamas GlosSmart LED Strip, 1 x VithamasController, 1 x Instruction Manual",
+                "product_dimensions": {
+                    "width": 14,
+                    "height": 8,
+                    "depth": 5,
+                    "length": 5000
+                },
+                "product_box_dimensions": {
+                    "weight": 1500
+                }
+            }
+        },
+        {
+            "basic": {
+                "name": "Vithamas Smart LED Strip Light Multicolor - 5 meters",
+                "brand": "Vithamas",
+                "category": "LED",
+                "rating": 5,
+                "total_reviews": 10,
+                "stock": 20,
+                "selling_price": 1499,
+                "cost_price": 1499
+            },
+            "specification_info": {
+                "description": "Add Colors to your room with this 5 meter long RGB strip light. You can control this strip through our Vithamas Smart Home app which is available for both android and IOS mobile. You can choose among 16 Millions of RGB color combinations and set the brightness between 20 percent to 100 percent smoothly. control your LED strip with a voice control in nine different languages, English Hindi Kannada Gujarati Telugu Tamil Bengali Marathi and Malayalam languages supported and commands supported with a particular language selected.",
+                "product_box_contents": "1 x Vithamas GlosSmart LED Strip, 1 x VithamasController, 1 x Instruction Manual",
+                "product_dimensions": {
+                    "width": 14,
+                    "height": 8,
+                    "depth": 5,
+                    "length": 5000
+                },
+                "product_box_dimensions": {
+                    "weight": 1500
+                }
+            }
+        },
+        {
+            "basic": {
+                "name": "Vithamas Smart LED Strip Light Multicolor - 10 meters",
+                "brand": "Vithamas",
+                "category": "LED",
+                "rating": 5,
+                "total_reviews": 10,
+                "stock": 20,
+                "selling_price": 1999,
+                "cost_price": 1999
+            },
+            "specification_info": {
+                "description": "Add Colors to your room with this 10 meter long RGB strip light. You can control this strip through our Vithamas Smart Home app which is available for both android and IOS mobile. You can choose among 16 Millions of RGB color combinations and set the brightness between 20 percent to 100 percent smoothly. control your LED strip with a voice control in nine different languages, English Hindi Kannada Gujarati Telugu Tamil Bengali Marathi and Malayalam languages supported and commands supported with a particular language selected.",
+                "product_box_contents": "1 x Vithamas GlosSmart LED Strip, 1 x VithamasController, 1 x Instruction Manual",
+                "product_dimensions": {
+                    "width": 14,
+                    "height": 8,
+                    "depth": 5,
+                    "length": 5000
+                },
+                "product_box_dimensions": {
+                    "weight": 1500
+                }
+            }
+        }
+    ]
 }

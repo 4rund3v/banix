@@ -110,7 +110,7 @@ def register_customer():
         result = {"customer_info": new_customer_info.to_dict()}
         logger.debug(f"[register_customer] The result prepared is :: {result}")
         token = jwt.encode(dict(public_id=new_customer_info.public_id, exp=datetime.utcnow() + timedelta(minutes=300)),
-                           "banix")
+                           SECRET_KEY)
         result["token"] = token.decode("UTF-8")
         return result
     except ValueError as ex:
