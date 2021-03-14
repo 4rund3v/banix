@@ -124,7 +124,9 @@ def fetch_customer_orders(current_customer_info: dict, order_id: str = None) -> 
         session = Session()
         logger.debug(f"[fetch_customer_orders] The customer : {current_customer_info['customer_id']} requesting orders {order_id}")
         if order_id:
-            if order := session.query(Orders).filter_by(order_id=order_id).filter_by(order_customer_id=current_customer_info["customer_id"]).first():
+            order = session.query(Orders).filter_by(order_id=order_id).filter_by(
+                order_customer_id=current_customer_info["customer_id"]).first()
+            if order:
                 logger.debug(f"[fetch_customer_orders] The order info fetched is :: {order}")
                 result["order"] = order.to_dict()
         else:

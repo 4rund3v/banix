@@ -113,7 +113,8 @@ if __name__ == "__main__":
             for product in raw_media_folders:
                 product_id = product.split("prod_", 1)[-1]
                 logger.debug(f"[main] Processing the folder {product}: {product_id}")
-                if product_info := check_valid_product(product_id):
+                product_info = check_valid_product(product_id)
+                if product_info:
                     logger.debug(f"processing the product : {product_info}")
                     media = os.listdir(os.path.join(MEDIA_SOURCE_PATH, product))
                     if not media:
