@@ -32,7 +32,7 @@ class ProductCard extends Component {
           <Card.Body>
             <Link to={`/product/${product.productId}`} className="productLink">
               <Card.Title as="div">
-                <h4>{product.productName.length > 40 ? product.productName.substring(0,38) : product.productName}</h4>
+                <h4>{product.productName.length > 40 ? product.productName.substring(0, 38) : product.productName}</h4>
               </Card.Title>
             </Link>
             <Card.Text className="product-card__rating" as="div">
