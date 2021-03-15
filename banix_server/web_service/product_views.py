@@ -1,10 +1,12 @@
 from flask import Blueprint, request
 import os
 import sys
+import datetime
+import math
 
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
-from src.models import (Product, ProductMedia, ProductCarouselMedia, ProductSpecification)
+from src.models import (Product, ProductMedia, ProductCarouselMedia, ProductSpecification, ProductReviews)
 from src.db_utils import Session
 from src.shiprocket import shiprocket_client_session as scs
 from src.logger import get_logger
@@ -12,6 +14,26 @@ from src.logger import get_logger
 logger = get_logger("web_app")
 
 product_blueprint = Blueprint("products", __name__)
+
+def json_friendly(obj):
+    if not obj or type(obj) in (int, float, str):
+        return obj
+    if type(obj) == datetime.datetime:
+        return obj.strftime("%Y-%m-%d %H:%M:%S")
+    if type(obj) == dict:
+        for k in obj:
+            obj[k] = json_friendly(obj[k])
+        return obj
+    if type(obj) == list:
+        for i, v in enumerate(obj):
+            obj[i] = json_friendly(v)
+        return obj
+    if type(obj) == tuple:
+        temp = []
+        for v in obj:
+            temp.append(json_friendly(v))
+        return tuple(temp)
+    return str(obj)
 
 
 @product_blueprint.route("/products")
@@ -30,6 +52,14 @@ def fetch_products():
             if product_media:
                 logger.debug(f"[fetch_products] product media is : {product_media}")
                 prod["product_media"] = product_media.to_dict()
+                reviews = session.query(ProductReviews).filter(ProductReviews.product_id == prod["product_id"]).all()
+                if len(reviews) > 0:
+                    rating = 0
+                    for review in reviews:
+                        rating += review.rating
+                    prod["rating"] = math.ceil(rating/len(reviews))
+                else:
+                    prod["rating"] = 5
             result["products"].append(prod)
     except Exception as ex:
         logger.exception("[fetch_products] Exception: {}".format(ex))
@@ -57,6 +87,16 @@ def fetch_specific_product(product_id):
                         ProductCarouselMedia.product_media == product_media).all():
                     result["product"]["product_media"]["product_carousel_media"].append(pcm.to_dict())
                 result["product"]["product_media"]["product_carousel_media"].sort(key=lambda m: m["media_type"])
+            
+            reviews = session.query(ProductReviews).filter(ProductReviews.product_id == result["product"]["product_id"]).all()
+            if len(reviews) > 0:
+                rating = 0
+                for review in reviews:
+                    rating += review.rating
+                result["product"]["rating"] = math.ceil(rating/len(reviews))
+            else:
+                 result["product"]["rating"] = 5
+
         logger.debug(f"[fetch_specific_product] The result prepared is :: {result}")
         return result
     except Exception as ex:
@@ -90,3 +130,82 @@ def check_product_serviceability():
         if session:
             session.close()
     return serviceability
+
+
+@product_blueprint.route("/products/<product_id>/reviews", methods=['GET'])
+def get_product_review(product_id):
+    session = None
+    try:
+        session = Session()
+        print("[get_product_review] product id is {}".format(product_id))
+        reviews = session.query(ProductReviews).filter(ProductReviews.product_id == product_id).order_by(ProductReviews.review_date.desc()).limit(20).all()
+        product_reviews = []
+        for review in reviews:
+            temp = review.to_dict()
+            product_reviews.append(json_friendly(temp))
+        print("Reviews: {}".format(reviews))
+        return {"reviews": product_reviews}
+    except Exception as ex:
+        logger.exception("[get_product_review] Exception: {}".format(ex))
+    finally:
+        if session: session.close()
+    return {}
+    
+@product_blueprint.route("/products/<product_id>/reviews", methods=['POST'])
+def create_product_review(product_id):
+    print("[create_product_review] product id: {}".format(product_id))
+    session = None
+    try:
+        form_data = request.get_json()
+        print("[create_product_review] form_data: {}".format(form_data))
+        session = Session()
+        if not form_data.get("rating"):
+            raise Exception("[create_product_review] product rating is missing")
+
+        review = ProductReviews(product_id=product_id,
+                                user_id=form_data.get("user_id"),
+                                rating=form_data["rating"],
+                                review_date=datetime.datetime.now(),
+                                comment=form_data.get("comment", ""))
+        session.add(review)
+        session.commit()
+    except Exception as ex:
+        logger.exception("[create_product_review] Exception: {}".format(ex))
+    finally:
+        if session: session.close()
+    return {}
+
+@product_blueprint.route("/products/reviews/<review_id>", methods=['PUT'])
+def update_product_review(review_id):
+    print("[update_product_review] review_id: {}".format(review_id))
+    session = None
+    try:
+        form_data = request.get_json()
+        print("[update_product_review] form_data: {}".format(form_data))
+        session = Session()
+        if form_data.get("comment"):
+            session.query(ProductReviews).filter(ProductReviews.review_id == review_id).update({ProductReviews.comment: form_data["comment"]})
+        if form_data.get("rating"):
+            session.query(ProductReviews).filter(ProductReviews.review_id == review_id).update({ProductReviews.rating: form_data["rating"]})
+
+        session.commit()
+    except Exception as ex:
+        logger.exception("[update_product_review] Exception: {}".format(ex))
+    finally:
+        if session: session.close()
+    return {}
+
+@product_blueprint.route("/products/reviews/<review_id>", methods=['DELETE'])
+def delete_product_review(review_id):
+    print("[delete_product_review] review_id: {}".format(review_id))
+    session = None
+    try:
+        session = Session()
+        session.query(ProductReviews).delete(ProductReviews.review_id == review_id)
+        session.commit()
+    except Exception as ex:
+        logger.exception("[update_product_review] Exception: {}".format(ex))
+    finally:
+        if session: session.close()
+    return {}
+

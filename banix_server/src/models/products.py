@@ -1,6 +1,7 @@
 from src.models import Base
-from sqlalchemy import ForeignKey,Column, Integer, String, Float
+from sqlalchemy import ForeignKey,Column, Integer, String, Float, DateTime
 from sqlalchemy.orm import relationship
+from src.models import Customer
 
 class Product(Base):
 
@@ -202,3 +203,21 @@ class ProductBoxDimensions(Base):
                     depth=self.depth,
                     weight=self.weight,
                     length=self.length)
+
+
+class ProductReviews(Base):
+    __tablename__ = "product_reviews"
+    review_id = Column(Integer, primary_key=True, autoincrement=True)
+    product_id = Column(Integer, ForeignKey("products.product_id"), nullable=False)
+    user_id = Column(Integer,  ForeignKey("customers.customer_id"))
+    review_date = Column(DateTime)
+    rating = Column(Integer)
+    comment = Column(String(1000))
+
+    def to_dict(self):
+        return dict(review_id=self.review_id,
+                    product_id=self.product_id,
+                    user_id=self.user_id,
+                    review_date=self.review_date,
+                    rating=self.rating,
+                    comment=self.comment)
