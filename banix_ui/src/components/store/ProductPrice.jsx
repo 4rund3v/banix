@@ -33,8 +33,8 @@ const ProductPrice = ({ product, deliveryRate, onlyPrice }) => {
             </del>
             <span className="product_price_discount">
               {" "}
-              {discountPercentage}&#x00025;{"off"}
-            </span>{" "}
+              {discountPercentage}&#x00025;{" off"}
+            </span>
           </>
         ) : (
           <span className="product_price_main_default">
@@ -45,13 +45,16 @@ const ProductPrice = ({ product, deliveryRate, onlyPrice }) => {
           </span>
         )}
       </span>
-      {deliveryRate ? (
-        <p className="product__delivery_price_info text-secondary">
-          <span>
-            Delivery Charges : <strong>+ &#8377; {deliveryRate}</strong>
-          </span>
-        </p>
-      ) : null}
+      <p className="product__delivery_price_info text-secondary">
+        <span>
+          + Delivery Charges
+          {deliveryRate ? (
+            <span>
+              <strong>&#8377; {deliveryRate}</strong>,
+            </span>
+          ) : null}
+        </span>
+      </p>
     </React.Fragment>
   );
 };

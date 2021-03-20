@@ -180,7 +180,7 @@ const ProductScreen = ({ history, match }) => {
                         <div className="product__delivery_info">
                           <span className="text-dark">
                             Delivery in {deliveryInfo.estimatedDeliveryDays}{" "}
-                            Days
+                            Days, <strong>23rd March</strong>
                           </span>{" "}
                         </div>
                       ))
