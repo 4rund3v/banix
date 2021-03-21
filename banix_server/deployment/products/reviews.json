@@ -1,0 +1,29 @@
+{
+    "reviews": [
+        {
+           "rating": 5,
+           "comment": "Nice RGB LED Controller at affordable price, Just go for it...",
+           "review_date": "2021-03-08 00:00:00"
+        },
+        {
+            "rating": 5,
+            "comment": " Excellent and Quality product, Worth Buying",
+            "review_date": "2021-02-16 00:00:00"
+         },
+         {
+            "rating": 5,
+            "comment": "I was skeptical to order these and branded ones were very expensive or of not so good quality basically local items.But very happy that i bought, very easy installation and good quality of strip and controller. I have ordered 5 more for my entire home", 
+            "review_date": "2021-02-26 00:00:00"
+         },
+         {
+            "rating": 4,
+            "comment": " It's a fantastic product. Got delivered on time, nicely packed. it is very decent and value for money product.", 
+            "review_date": "2021-03-12 00:00:00"
+         },
+         {
+            "rating": 2,
+            "comment": "I got a damaged product..do not buy guys..was expecting something really nice", 
+            "review_date": "2021-02-28 00:00:00"
+         }
+    ]
+}
