@@ -45,16 +45,18 @@ const ProductPrice = ({ product, deliveryRate, onlyPrice }) => {
           </span>
         )}
       </span>
-      <p className="product__delivery_price_info text-secondary">
-        <span>
-          + Delivery Charges
-          {deliveryRate ? (
-            <span>
-              <strong>&#8377; {deliveryRate}</strong>,
-            </span>
-          ) : null}
-        </span>
-      </p>
+      {onlyPrice ? null : (
+        <p className="product__delivery_price_info text-secondary">
+          <span>
+            + Delivery Charges
+            {deliveryRate ? (
+              <span>
+                <strong>&#8377; {deliveryRate}</strong>,
+              </span>
+            ) : null}
+          </span>
+        </p>
+      )}
     </React.Fragment>
   );
 };

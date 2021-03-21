@@ -108,9 +108,13 @@ def generate_video_poster(media_id, poster_id, src_path):
 
 if __name__ == "__main__":
     while True:
-        try:
-            raw_media_folders = os.listdir(MEDIA_SOURCE_PATH)
-            for product in raw_media_folders:
+        if not os.path.exists(MEDIA_SOURCE_PATH):
+            logger.debug(f" The media source folder does not exist :: {MEDIA_SOURCE_PATH}")
+            time.sleep(20)
+            continue
+        raw_media_folders = os.listdir(MEDIA_SOURCE_PATH)
+        for product in raw_media_folders:
+            try:
                 product_id = product.split("prod_", 1)[-1]
                 logger.debug(f"[main] Processing the folder {product}: {product_id}")
                 product_info = check_valid_product(product_id)
@@ -121,7 +125,7 @@ if __name__ == "__main__":
                         add_to_folders_to_remove(product_id)
                         break
                     product_media = ProductMedia(products=product_info)
-                    for item in media:
+                    for idx, item in enumerate(media):
                         media_id = str(product_id)+"__"+str(item)
                         src_path = os.path.join(os.path.join(MEDIA_SOURCE_PATH, product, item))
                         mime_type = mime.guess_type(item)
@@ -133,7 +137,10 @@ if __name__ == "__main__":
                                 generate_image_proxy(media_id=media_id,
                                                      src_path=src_path,
                                                      profile=profile)
-                            ProductCarouselMedia(product_media=product_media, media_id=media_id, media_type="image")
+                            ProductCarouselMedia(product_media=product_media,
+                                                 media_id=media_id,
+                                                 media_position=idx,
+                                                 media_type="image")
                         elif mime_type and mime_type[0].startswith("video"):
                             if "__primary__" in item:
                                 product_media.primary_video_id = media_id
@@ -142,8 +149,12 @@ if __name__ == "__main__":
                                                      src_path=src_path,
                                                      profile=profile)
                             poster_id = media_id+"__.jpg"
-                            generate_video_poster(media_id=media_id,poster_id=poster_id, src_path=src_path)
-                            ProductCarouselMedia(product_media=product_media, media_id=media_id, poster_id=poster_id, media_type="video")
+                            generate_video_poster(media_id=media_id, poster_id=poster_id, src_path=src_path)
+                            ProductCarouselMedia(product_media=product_media,
+                                                 media_id=media_id,
+                                                 poster_id=poster_id,
+                                                 media_position=idx,
+                                                 media_type="video")
                     sess.add(product_media)
                     sess.commit()
                     logger.debug(f"Product Media : {product_media}")
@@ -152,11 +163,10 @@ if __name__ == "__main__":
                 else:
                     logger.debug(f"Invalid Product id : {product_id}")
                     add_to_folders_to_remove(product)
-
-            for folder_to_remove in FOLDERS_TO_REMOVE:
-                if FOLDERS_TO_REMOVE[folder_to_remove] > 3:
-                    logger.debug(f"Removing the folder : {folder_to_remove}")
-                    shutil.rmtree(os.path.join(MEDIA_SOURCE_PATH, folder_to_remove))
-        except Exception as ex:
-            logger.exception(f"Exception while walking for proxy : {ex}")
+            except Exception as ex:
+                logger.exception(f"Exception while walking for proxy : {ex}")
+        for folder_to_remove in FOLDERS_TO_REMOVE:
+            if FOLDERS_TO_REMOVE[folder_to_remove] > 3:
+                logger.debug(f"Removing the folder : {folder_to_remove}")
+                shutil.rmtree(os.path.join(MEDIA_SOURCE_PATH, folder_to_remove))
         time.sleep(60)
