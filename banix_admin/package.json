@@ -1,6 +1,6 @@
 {
-  "name": "nazox",
-  "version": "2.0.0",
+  "name": "banix_admin",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
