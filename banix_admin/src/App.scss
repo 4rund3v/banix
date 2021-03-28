@@ -12,7 +12,11 @@
 .nav-link {
   cursor: pointer;
 }
-
+.apexcharts-canvas {
+  text {
+    fill: $text-muted !important;
+  }
+}
 .dataTables_filter,
 .dataTables_paginate {
   float: right;

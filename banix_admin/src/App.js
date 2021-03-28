@@ -14,6 +14,7 @@ import SettingsPage from "./compoenents/pages/SettingsPage";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.scss";
 import "./App.css";
+import ProductsPage from "./compoenents/pages/ProductsPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/mail" component={MailPage} exact />
               <Route path="/orders" component={OrdersPage} exact />
               <Route path="/settings" component={SettingsPage} exact />
+              <Route path="/products" component={ProductsPage} exact />
               <Route path="/dashboard" component={DashboardPage} exact />
               <Route path="/" component={DashboardPage} />
             </Switch>

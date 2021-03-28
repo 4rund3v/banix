@@ -1,7 +1,12 @@
 import React from "react";
+import MailBox from "../email/MailBox";
 
 const MailPage = () => {
-  return <div>Mail Compenent</div>;
+  return (
+    <div>
+      <MailBox />
+    </div>
+  );
 };
 
 export default MailPage;

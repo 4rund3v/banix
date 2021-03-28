@@ -11,7 +11,7 @@ const SideBar = () => {
       </div>
       <div className="sidebar-menu">
         <ul>
-          <li className="sidebar-item">
+          <li className="sidebar-item-active">
             <Link to="/dashboard">
               <span className="las la-igloo"></span>
               <span>Dashboard</span>
@@ -24,7 +24,7 @@ const SideBar = () => {
             </Link>
           </li>
 
-          <li className="sidebar-item-active">
+          <li className="sidebar-item">
             <Link to="/products">
               <span className="las la-boxes"></span>
               <span>Products</span>
