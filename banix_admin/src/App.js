@@ -1,66 +1,42 @@
-import React, { Component } from "react";
-import { Switch, BrowserRouter as Router } from "react-router-dom";
-import { connect } from "react-redux";
+// import "./App.scss";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-// Import Routes
-import { authProtectedRoutes, publicRoutes } from "./routes/";
-import AppRoute from "./routes/route";
+import Header from "./compoenents/Header";
+import SideBar from "./compoenents/SideBar";
+import Footer from "./compoenents/Footer";
 
-// layouts
-import VerticalLayout from "./components/VerticalLayout/";
-import NonAuthLayout from "./components/NonAuthLayout";
+import CustomersPage from "./compoenents/pages/CustomersPage";
+import DashboardPage from "./compoenents/pages/DashboardPage";
+import MailPage from "./compoenents/pages/MailPage";
+import OrdersPage from "./compoenents/pages/OrdersPage";
+import SettingsPage from "./compoenents/pages/SettingsPage";
 
-// Import scss
-import "./theme.scss";
+import "bootstrap/dist/css/bootstrap.css";
+import "./App.scss";
+import "./App.css";
 
-//Fake backend
-import fakeBackend from "./helpers/AuthType/fakeBackend";
-
-fakeBackend();
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    const Layout = VerticalLayout;
-
-    return (
-      <React.Fragment>
-        <Router>
-          <Switch>
-            {publicRoutes.map((route, idx) => (
-              <AppRoute
-                path={route.path}
-                layout={NonAuthLayout}
-                component={route.component}
-                key={idx}
-                isAuthProtected={false}
-              />
-            ))}
-
-            {authProtectedRoutes.map((route, idx) => (
-              <AppRoute
-                path={route.path}
-                layout={Layout}
-                component={route.component}
-                key={idx}
-                isAuthProtected={true}
-              />
-            ))}
-          </Switch>
-        </Router>
-      </React.Fragment>
-    );
-  }
+function App() {
+  return (
+    <Router>
+      <div>
+        <SideBar />
+        <div className="main-content">
+          <Header />
+          <main>
+            <Switch>
+              <Route path="/customers" component={CustomersPage} exact />
+              <Route path="/mail" component={MailPage} exact />
+              <Route path="/orders" component={OrdersPage} exact />
+              <Route path="/settings" component={SettingsPage} exact />
+              <Route path="/dashboard" component={DashboardPage} exact />
+              <Route path="/" component={DashboardPage} />
+            </Switch>
+          </main>
+          <Footer />
+        </div>
+      </div>
+    </Router>
+  );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    layout: state.Layout,
-  };
-};
-
-export default connect(mapStateToProps, null)(App);
+export default App;
