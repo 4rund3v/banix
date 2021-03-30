@@ -37,7 +37,7 @@ const EmailToolbar = () => {
           </Button>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2 mb-sm-0">
-          <Dropdown isOpen={this.state.folder_menu} toggle={this.toggleFolder}>
+          <Dropdown isOpen={false} toggle={() => {}}>
             <DropdownToggle
               tag="button"
               type="button"
@@ -63,7 +63,7 @@ const EmailToolbar = () => {
           </Dropdown>
         </ButtonGroup>
         <ButtonGroup className="mr-2 mb-2 mb-sm-0">
-          <Dropdown isOpen={this.state.tag_menu} toggle={this.toggleTag}>
+          <Dropdown isOpen={false} toggle={() => {}}>
             <DropdownToggle
               tag="button"
               className="btn btn-primary waves-light waves-effect dropdown-toggle"
@@ -88,7 +88,7 @@ const EmailToolbar = () => {
         </ButtonGroup>
 
         <ButtonGroup className="mr-2 mb-2 mb-sm-0">
-          <Dropdown isOpen={this.state.more_menu} toggle={this.toggleMore}>
+          <Dropdown isOpen={false} toggle={() => {}}>
             <DropdownToggle
               tag="button"
               className="btn btn-primary waves-light waves-effect dropdown-toggle"

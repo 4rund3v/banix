@@ -25,12 +25,12 @@ import "nouislider/distribute/nouislider.css";
 // import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 //Import Product Images
-import product1 from "../../assets/images/product/img-1.png";
-import product2 from "../../assets/images/product/img-2.png";
-import product3 from "../../assets/images/product/img-3.png";
-import product4 from "../../assets/images/product/img-4.png";
-import product5 from "../../assets/images/product/img-5.png";
-import product6 from "../../assets/images/product/img-6.png";
+import product1 from "../../assets/images/product/banix_prod_1.jpg";
+import product2 from "../../assets/images/product/banix_prod_2.jpg";
+import product3 from "../../assets/images/product/banix_prod_3.jpg";
+import product4 from "../../assets/images/product/banix_prod_4.jpg";
+import product5 from "../../assets/images/product/banix_prod_5.jpg";
+import product6 from "../../assets/images/product/banix_prod_3.jpg";
 
 const ProductsPage = () => {
   const [fileterCategory, setFileterCategory] = useState("#");
@@ -323,15 +323,14 @@ const ProductsPage = () => {
                   <Row>
                     <Col md={6}>
                       <div>
-                        <h5>Clothes & Accessories</h5>
+                        <h5>Smart LEDs</h5>
                         <Breadcrumb listClassName="p-0 bg-transparent mb-2">
                           <BreadcrumbItem>
-                            <Link to="#">Fashion</Link>
+                            <Link to="#">Electronics</Link>
                           </BreadcrumbItem>
                           <BreadcrumbItem>
-                            <Link to="#">Clothing</Link>
+                            <Link to="#">Leds</Link>
                           </BreadcrumbItem>
-                          <BreadcrumbItem active>T-shirts</BreadcrumbItem>
                         </Breadcrumb>
                       </div>
                     </Col>
@@ -394,11 +393,11 @@ const ProductsPage = () => {
                           </p>
                           <h5 className="font-size-15">
                             <Link to="#" className="text-dark">
-                              Full sleeve T-shirt
+                              Led Strip
                             </Link>
                           </h5>
 
-                          <h5 className="mt-3 mb-0">$240</h5>
+                          <h5 className="mt-3 mb-0">Rs 1240</h5>
                         </div>
                       </div>
                     </Col>
@@ -422,20 +421,18 @@ const ProductsPage = () => {
                         </div>
 
                         <div className="text-center">
-                          <p className="font-size-12 mb-1">
-                            Half sleeve, T-shirt
-                          </p>
+                          <p className="font-size-12 mb-1">Led Light Strip</p>
                           <h5 className="font-size-15">
                             <Link to="#" className="text-dark">
-                              Half sleeve T-shirt{" "}
+                              Led Light Strip{" "}
                             </Link>
                           </h5>
 
                           <h5 className="mt-3 mb-0">
                             <span className="text-muted mr-2">
-                              <del>$240</del>
+                              <del>Rs 1240</del>
                             </span>
-                            $225
+                            Rs 1225
                           </h5>
                         </div>
                       </div>
@@ -456,12 +453,10 @@ const ProductsPage = () => {
                         </div>
 
                         <div className="text-center">
-                          <p className="font-size-12 mb-1">
-                            Green color, Hoodie
-                          </p>
+                          <p className="font-size-12 mb-1">Led Light Strip</p>
                           <h5 className="font-size-15">
                             <Link to="#" className="text-dark">
-                              Hoodie (Green)
+                              Led Light Strip{" "}
                             </Link>
                           </h5>
 
@@ -490,9 +485,7 @@ const ProductsPage = () => {
                         </div>
 
                         <div className="text-center">
-                          <p className="font-size-12 mb-1">
-                            Gray color, Hoodie
-                          </p>
+                          <p className="font-size-12 mb-1">Led Light Strip</p>
                           <h5 className="font-size-15">
                             <Link to="#" className="text-dark">
                               Hoodie (Green)
@@ -525,12 +518,10 @@ const ProductsPage = () => {
                         </div>
 
                         <div className="text-center">
-                          <p className="font-size-12 mb-1">
-                            Blue color, T-shirt
-                          </p>
+                          <p className="font-size-12 mb-1">Led Light Strip </p>
                           <h5 className="font-size-15">
                             <Link to="#" className="text-dark">
-                              Full sleeve T-shirt
+                              Led Light Strip{" "}
                             </Link>
                           </h5>
 
@@ -557,12 +548,10 @@ const ProductsPage = () => {
                         </div>
 
                         <div className="text-center">
-                          <p className="font-size-12 mb-1">
-                            Black color, T-shirt
-                          </p>
+                          <p className="font-size-12 mb-1">Led Light Strip</p>
                           <h5 className="font-size-15">
                             <Link to="#" className="text-dark">
-                              Half sleeve T-shirt{" "}
+                              Led Light Strip{" "}
                             </Link>
                           </h5>
 

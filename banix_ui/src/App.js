@@ -25,7 +25,6 @@ import SitePageShipping from "./components/site/SitePageShipping";
 import SitePageReturns from "./components/site/SitePageReturns";
 import SitePagePrivacyPolicy from "./components/site/SitePagePrivacyPolicy";
 import RegisterCompleteScreen from "./screens/RegisterCompleteScreen";
-import SitePageSupport from "./components/site/SitePageSupport";
 import SitePageRefundPolicy from "./components/site/SitePageRefundPolicy";
 import SitePageFAQ from "./components/site/SitePageFAQ";
 import SitePageCareers from "./components/site/SitePageCareers";

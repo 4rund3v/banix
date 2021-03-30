@@ -20,6 +20,9 @@ auth_blueprint = Blueprint("auth", __name__)
 
 @auth_blueprint.route("/customers/login", methods=["POST"])
 def authenticate_customer_login():
+    """
+     Authenticate the customer login
+    """
     logger.debug("[authenticate_customer_login] At the Customer login place")
     form_data = request.get_json()
     logger.debug(f"[authenticate_customer_login] Posted form data is : {form_data} ")

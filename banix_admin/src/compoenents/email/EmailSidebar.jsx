@@ -31,7 +31,7 @@ const EmailSidebar = () => {
         <Button
           type="button"
           color="danger"
-          onClick={this.togglemodal}
+          onClick={() => {}}
           block
           className="waves-effect waves-light"
         >
@@ -144,16 +144,16 @@ const EmailSidebar = () => {
       </Card>
       {/* left sidebar over */}
       <Modal
-        isOpen={this.state.modal}
+        isOpen={false}
         role="document"
         autoFocus={true}
         centered={true}
         className="composemodal"
         tabIndex="-1"
-        toggle={this.togglemodal}
+        toggle={() => {}}
       >
         <div className="modal-content">
-          <ModalHeader toggle={this.togglemodal}>New Message</ModalHeader>
+          <ModalHeader toggle={() => {}}>New Message</ModalHeader>
           <ModalBody>
             <Form>
               <FormGroup>
@@ -177,7 +177,7 @@ const EmailSidebar = () => {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button coloe="secondary" type="button" onClick={this.togglemodal}>
+            <Button coloe="secondary" type="button" onClick={() => {}}>
               Close
             </Button>
             <Button type="button" color="primary">

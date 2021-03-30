@@ -44,8 +44,26 @@ def fetch_products():
     session = None
     result = {"products": []}
     try:
+        # //engine = create_engine('sqlite:///{}'.format(DATABASE_FILE))
+         # Session = sessionmaker(bind=engine)
+        # client = create_client().med
         session = Session()
         products = session.query(Product).all()
+
+
+        """
+        
+        Raw sql
+         select * from products; 
+            -> [(prod1, price, desc, value), (prod2, price, desc, value)]
+            l[0][2]
+        SqlAlchemy
+        session.query(Products).all()
+        [Product1 object, Product2 object]
+        prod1.desc
+        
+        """
+        #
         for product in products:
             prod = product.to_dict()
             product_media = session.query(ProductMedia).filter(ProductMedia.products == product).first()

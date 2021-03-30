@@ -1,5 +1,5 @@
 from src.models import Base
-from sqlalchemy import ForeignKey,Column, Integer, String, Float, DateTime
+from sqlalchemy import ForeignKey, Column, Integer, String, Float, DateTime
 from sqlalchemy.orm import relationship
 from src.models import Customer
 
@@ -16,7 +16,8 @@ class Product(Base):
     selling_price = Column(Integer)
     cost_price = Column(Integer)
     stock = Column(Integer)
-    product_media = relationship("ProductMedia", back_populates="products",uselist=False,cascade="all, delete, delete-orphan")
+    product_media = relationship("ProductMedia", back_populates="products",
+                                 uselist=False, cascade="all, delete, delete-orphan")
     product_variant = relationship("ProductVariant", back_populates="products", cascade="all, delete, delete-orphan")
     product_specification = relationship("ProductSpecification", uselist=False, back_populates="products", cascade="all, delete, delete-orphan")
 

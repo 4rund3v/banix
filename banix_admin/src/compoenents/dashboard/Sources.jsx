@@ -12,9 +12,9 @@ import {
 import { Link } from "react-router-dom";
 
 //Import Images
-import img1 from "../../assets/images/companies/img-1.png";
-import img2 from "../../assets/images/companies/img-2.png";
-import img3 from "../../assets/images/companies/img-3.png";
+import img1 from "../../assets/images/product/banix_prod_1.jpg";
+import img2 from "../../assets/images/product/banix_prod_2.jpg";
+import img3 from "../../assets/images/product/banix_prod_3.jpg";
 
 const Sources = () => {
   const [menu, setMenu] = useState(false);
