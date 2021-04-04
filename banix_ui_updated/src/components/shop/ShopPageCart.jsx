@@ -175,7 +175,7 @@ class ShopPageCart extends Component {
       if (extraLine.type === "shipping") {
         calcShippingLink = (
           <div className="cart__calc-shipping">
-            <Link to="/">Calculeaza transport</Link>
+            <Link to="/">Calculate Shipping</Link>
           </div>
         );
       }
@@ -225,7 +225,7 @@ class ShopPageCart extends Component {
               className={classes}
               disabled={!this.cartNeedUpdate()}
             >
-              Actualizeaza cos
+              Update Cart
             </button>
           );
         }}
@@ -273,12 +273,12 @@ class ShopPageCart extends Component {
                 placeholder="Cod Cupon"
               />
               <button type="submit" className="btn btn-primary">
-                Aplica Coupon
+                Apply Coupon
               </button>
             </form>
             <div className="cart__buttons">
               <Link to="/" className="btn btn-light">
-                Continua Cumparaturile
+                Continue Shopping
               </Link>
               {updateCartButton}
             </div>
@@ -318,8 +318,8 @@ class ShopPageCart extends Component {
   render() {
     const { cart } = this.props;
     const breadcrumb = [
-      { title: "Acasa", url: "" },
-      { title: "Cos de cumparaturi", url: "" },
+      { title: "Home", url: "/" },
+      { title: "Shopping Cart", url: "" },
     ];
 
     let content;
@@ -332,11 +332,11 @@ class ShopPageCart extends Component {
           <div className="container">
             <div className="block-empty__body">
               <div className="block-empty__message">
-                Cosul tau de cumparaturi este gol
+                Your shopping cart is empty.
               </div>
               <div className="block-empty__actions">
                 <Link to="/" className="btn btn-primary btn-sm">
-                  Continua
+                  Continue
                 </Link>
               </div>
             </div>

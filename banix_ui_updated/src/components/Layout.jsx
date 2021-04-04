@@ -154,7 +154,7 @@ function Layout(props) {
                 />
               )}
             />
-
+            <Redirect exact from="/shop/catalog" to="/" />
             <Route exact path="/shop/cart" component={PageCart} />
             <Route exact path="/shop/checkout" component={PageCheckout} />
             <Route

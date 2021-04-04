@@ -9,7 +9,7 @@ const categoriesDef = [
     items: 272,
     children: [
       {
-        name: "Aer Conditionat Rezidential",
+        name: "Light Strips",
         slug: "power-tools",
         image: "assets/images/categories/category-1.jpg",
         items: 370,
@@ -120,7 +120,7 @@ const categoriesDef = [
     ],
   },
   {
-    name: "Leds",
+    name: "LEDS",
     slug: "instruments",
     items: 272,
     children: [
@@ -368,7 +368,7 @@ const categoriesDef = [
     ],
   },
   {
-    name: "Servicii Tehnice",
+    name: "Components",
     slug: "instruments",
     items: 272,
     children: [

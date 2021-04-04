@@ -143,9 +143,7 @@ function IndicatorCart(props) {
   } else {
     dropdown = (
       <div className="dropcart">
-        <div className="dropcart__empty">
-          Cosul tau de cumparaturi este gol !
-        </div>
+        <div className="dropcart__empty">Your shopping cart is empty!</div>
       </div>
     );
   }

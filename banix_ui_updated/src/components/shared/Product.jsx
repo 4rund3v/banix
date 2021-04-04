@@ -110,17 +110,6 @@ class Product extends Component {
                 <Link to="/">Write a Review</Link>
               </div>
             </div>
-
-            <ul className="product__meta">
-              <li className="product__meta-availability">
-                Availability: <span className="text-success">In Stock</span>
-              </li>
-              <li>
-                Brand:
-                <Link to="/">Banix</Link>
-              </li>
-              <li>SKU: 83690/32</li>
-            </ul>
           </div>
           <div className="product__sidebar">
             <div className="product__availability">
