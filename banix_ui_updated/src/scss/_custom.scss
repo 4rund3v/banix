@@ -1,0 +1,35 @@
+// -------------------------
+// --- You can add your custom CSS here and it will overwrite template styles.
+// -------------------------
+
+// NAVLINK AND SOCIAL MEDIA CUSTOM COLOR
+
+.nav-links__list > li > a > span {
+    color: #fff;
+}
+
+.nav-links__list > li > a > span > svg {
+    fill: #fff;
+}
+
+.indicator__area > svg {
+    fill: #fff;
+}
+
+// END NAVLINK AND SOCIAL MEDIA CUSTOM COLOR
+
+// BUTTON TEXT CUSTOM COLOR 
+
+.btn-primary {
+    color: #fff;
+}
+
+.ask-offer-long {
+    margin-left: -50px;
+}
+
+.category-card__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
