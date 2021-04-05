@@ -17,7 +17,7 @@ import { cartAddItem } from "../../store/cart";
 import { compareAddItem } from "../../store/compare";
 import { Wishlist16Svg, Compare16Svg } from "../../svg";
 import { wishlistAddItem } from "../../store/wishlist";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AlternativePurchases from "../product/AlternativePurchases";
 
 class Product extends Component {
   constructor(props) {
@@ -120,6 +120,25 @@ class Product extends Component {
 
             <form className="product__options">
               <div className="form-group product__option">
+                <div className="product__option-label">Length</div>
+                <div className="input-radio-label">
+                  <div className="input-radio-label__list">
+                    <label>
+                      <input type="radio" name="length" />
+                      <span>5m</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="length" />
+                      <span>10m</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="length" />
+                      <span>15m</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div className="form-group product__option">
                 <label
                   htmlFor="product-quantity"
                   className="product__option-label"
@@ -139,6 +158,9 @@ class Product extends Component {
                     />
                   </div>
                 </div>
+              </div>
+
+              <div className="form-group product__option">
                 <div className="product__actions">
                   <div className="product__actions-item product__actions-item--addtocart">
                     <AsyncAction
@@ -201,6 +223,9 @@ class Product extends Component {
               </div>
             </form>
           </div>
+          <AlternativePurchases
+            alternatePurchases={product.alternatePurchases}
+          />
           <div className="product__footer">
             <div className="product__tags tags">
               <div className="tags__list">
@@ -220,33 +245,6 @@ class Product extends Component {
                 </li>
               </ul>
             </div>
-          </div>
-          <div className="product__actions-item">
-            <span className="text-muted">{"You can also buy from "}</span>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={
-                "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW"
-              }
-            >
-              <button className="btn btn-info ml-2 p-2" onClick={() => {}}>
-                {"  "}
-                <FontAwesomeIcon icon={["fab", "amazon"]} />
-              </button>
-            </a>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={
-                "https://www.flipkart.com/vithamas-app-controlled-rgb-light-strip/p/itm5a0fb24e774a2"
-              }
-            >
-              <button className="btn btn-info ml-2 p-2" onClick={() => {}}>
-                {"  "}
-                <FontAwesomeIcon icon={["fab", "facebook"]} />
-              </button>
-            </a>
           </div>
         </div>
       </div>

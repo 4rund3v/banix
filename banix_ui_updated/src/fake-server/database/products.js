@@ -81,6 +81,20 @@ const productsDef = [
       { slug: "voltage", values: "20-volts", featured: true },
       { slug: "battery-capacity", values: "2-Ah", featured: true },
     ],
+    alternatePurchases: [
+      {
+        source: "amazon",
+        icon: ["fab", "amazon"],
+        link:
+          "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW",
+      },
+      {
+        source: "flipkart",
+        icon: ["fab", "facebook"],
+        link:
+          "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW",
+      },
+    ],
   },
   {
     slug: "Vithamas Smart DC LED Strip Light Multicolor",
@@ -103,6 +117,20 @@ const productsDef = [
       { slug: "battery-cell-type", values: "lithium", featured: true },
       { slug: "voltage", values: "20-volts", featured: true },
       { slug: "battery-capacity", values: "2-Ah", featured: true },
+    ],
+    alternatePurchases: [
+      {
+        source: "amazon",
+        icon: ["fab", "amazon"],
+        link:
+          "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW",
+      },
+      {
+        source: "flipkart",
+        icon: ["fab", "facebook"],
+        link:
+          "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW",
+      },
     ],
   },
   {
@@ -127,6 +155,20 @@ const productsDef = [
       { slug: "battery-cell-type", values: "lithium", featured: true },
       { slug: "voltage", values: "20-volts", featured: true },
       { slug: "battery-capacity", values: "2-Ah", featured: true },
+    ],
+    alternatePurchases: [
+      {
+        source: "amazon",
+        icon: ["fab", "amazon"],
+        link:
+          "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW",
+      },
+      {
+        source: "flipkart",
+        icon: ["fab", "facebook"],
+        link:
+          "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW",
+      },
     ],
   },
 ];
@@ -210,6 +252,7 @@ const productsData = productsDef.map((productDef) => {
     categories,
     attributes,
     customFields: {},
+    alternatePurchases: productDef.alternatePurchases || [],
   };
 });
 
