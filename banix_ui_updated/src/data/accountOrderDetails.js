@@ -53,7 +53,7 @@ export default {
       total: -20,
     },
     {
-      label: "Livrare",
+      label: "Shipping",
       total: 25,
     },
   ],

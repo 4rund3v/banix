@@ -288,7 +288,7 @@ class ShopPageCart extends Component {
             <div className="col-12 col-md-7 col-lg-6 col-xl-5">
               <div className="card">
                 <div className="card-body">
-                  <h3 className="card-title">Sumar cos</h3>
+                  <h3 className="card-title">Summary</h3>
                   <table className="cart__totals">
                     {this.renderTotals()}
                     <tfoot className="cart__totals-footer">

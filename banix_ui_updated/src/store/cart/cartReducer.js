@@ -150,25 +150,6 @@ function updateQuantities(state, quantities) {
   return state;
 }
 
-/*
- * item example:
- * {
- *   id: 1,
- *   product: {...}
- *   options: [
- *     {optionId: 1, optionTitle: 'Color', valueId: 1, valueTitle: 'Red'}
- *   ],
- *   price: 250,
- *   quantity: 2,
- *   total: 500
- * }
- * extraLine example:
- * {
- *   type: 'shipping',
- *   title: 'Livrare',
- *   price: 25
- * }
- */
 const initialState = {
   lastItemId: 0,
   quantity: 0,

@@ -4,7 +4,7 @@ import React from "react";
 function ProductTabDescription() {
   return (
     <div className="typography">
-      <h3>Descriere Produs</h3>
+      <h3>Product Description</h3>
       <p>
         Add Colors to your room with this 2 meter long RGB strip light.
         <br />
