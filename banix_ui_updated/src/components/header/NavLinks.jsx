@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 
 // application
 import AppLink from "../shared/AppLink";
-import languages from "../../i18n";
 import Megamenu from "./Megamenu";
 import Menu from "./Menu";
 import { ArrowRoundedDown9x6Svg } from "../../svg";
@@ -18,9 +17,6 @@ import navLinks from "../../data/headerNavigation";
 
 function NavLinks(props) {
   const handleMouseEnter = (event) => {
-    const { locale } = props;
-    const { direction } = languages[locale];
-
     const item = event.currentTarget;
     const megamenu = item.querySelector(".nav-links__megamenu");
 
@@ -30,25 +26,12 @@ function NavLinks(props) {
       const megamenuWidth = megamenu.getBoundingClientRect().width;
       const itemOffsetLeft = item.offsetLeft;
 
-      if (direction === "rtl") {
-        const itemPosition =
-          containerWidth -
-          (itemOffsetLeft + item.getBoundingClientRect().width);
+      const megamenuPosition = Math.round(
+        Math.min(itemOffsetLeft, containerWidth - megamenuWidth)
+      );
 
-        const megamenuPosition = Math.round(
-          Math.min(itemPosition, containerWidth - megamenuWidth)
-        );
-
-        megamenu.style.left = "";
-        megamenu.style.right = `${megamenuPosition}px`;
-      } else {
-        const megamenuPosition = Math.round(
-          Math.min(itemOffsetLeft, containerWidth - megamenuWidth)
-        );
-
-        megamenu.style.right = "";
-        megamenu.style.left = `${megamenuPosition}px`;
-      }
+      megamenu.style.right = "";
+      megamenu.style.left = `${megamenuPosition}px`;
     }
   };
 
@@ -100,11 +83,8 @@ function NavLinks(props) {
 
 NavLinks.propTypes = {
   /** current locale */
-  locale: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  locale: state.locale,
-});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps)(NavLinks);

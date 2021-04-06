@@ -75,8 +75,6 @@ export default class CheckFilterBuilder extends AbstractFilterBuilder {
   }
 
   extractItems(product) {
-    console.log("[extractItems] Product here is ", product);
-    console.log("[extractItems] slug here  is ", this.slug);
     if (this.slug === "brand") {
       return product.brand
         ? [

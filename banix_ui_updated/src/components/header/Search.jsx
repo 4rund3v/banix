@@ -44,11 +44,6 @@ function useCategories() {
 
 function Search(props) {
   const { context, className, inputRef, onClose, location } = props;
-  console.log("[Search][context] The conext is :: ", context);
-  console.log("[Search][context] The className is :: ", className);
-  console.log("[Search][context] The inputRef is :: ", inputRef);
-  console.log("[Search][context] The onClose is :: ", onClose);
-  console.log("[Search][context] The location is :: ", location);
 
   const [cancelFn, setCancelFn] = useState(() => () => {});
   const [suggestionsOpen, setSuggestionsOpen] = useState(false);

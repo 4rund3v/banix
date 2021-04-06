@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 
 // application
 import Currency from "../shared/Currency";
-import languages from "../../i18n";
 
 function getFirstValidValue(...values) {
   return values.reduce(
@@ -18,8 +17,7 @@ function getFirstValidValue(...values) {
 }
 
 function FilterRange(props) {
-  const { data, value, onChangeValue, locale } = props;
-  const { direction } = languages[locale];
+  const { data, value, onChangeValue } = props;
   const [propsFrom, propsTo] = value || [];
   const [timer, setTimer] = useState(null);
   const [state, setState] = useState([propsFrom, propsTo]);
@@ -30,14 +28,6 @@ function FilterRange(props) {
   let to = Math.min(getFirstValidValue(stateTo, propsTo, max), max);
   let fromLabel = from;
   let toLabel = to;
-
-  // since react-input-range does not support RTL direction,
-  // we just need to invert and swipe values
-  if (direction === "rtl") {
-    [from, to] = [to * -1, from * -1];
-    [min, max] = [max * -1, min * -1];
-    [fromLabel, toLabel] = [from * -1, to * -1];
-  }
 
   // Update state from props.
   useEffect(() => {
@@ -59,12 +49,6 @@ function FilterRange(props) {
       // This is needed to fix a bug in react-input-range.
       [newFrom, newTo] = [Math.max(newFrom, min), Math.min(newTo, max)];
 
-      // since react-input-range does not support RTL direction,
-      // we just need to invert and swipe values
-      if (direction === "rtl") {
-        [newFrom, newTo] = [newTo * -1, newFrom * -1];
-      }
-
       setState([newFrom, newTo]);
 
       if (onChangeValue) {
@@ -75,7 +59,7 @@ function FilterRange(props) {
         );
       }
     },
-    [min, max, data, onChangeValue, direction, setTimer, setState]
+    [min, max, data, onChangeValue, setTimer, setState]
   );
 
   return useMemo(
@@ -122,11 +106,8 @@ FilterRange.propTypes = {
   /**
    * Current locale.
    */
-  locale: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  locale: state.locale,
-});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps)(FilterRange);

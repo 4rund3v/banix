@@ -2,9 +2,6 @@
 import React from "react";
 
 const Currency = ({ value, currency, currentCurrency }) => {
-  const symbol = "Rs.";
-  console.log("[Currency value is : {}", value, currency, currentCurrency);
-
   return <React.Fragment>&#x20B9; {`${value.toFixed(2)}`}</React.Fragment>;
 };
 
