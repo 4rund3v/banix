@@ -132,7 +132,7 @@ function IndicatorCart(props) {
 
         <div className="dropcart__buttons">
           <Link className="btn btn-secondary" to="/shop/cart">
-            Vezi cos
+            Cart
           </Link>
           <Link className="btn btn-primary" to="/shop/checkout">
             Checkout

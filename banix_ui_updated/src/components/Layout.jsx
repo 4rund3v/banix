@@ -1,24 +1,19 @@
 // react
 import React from "react";
-
 // third-party
-import PropTypes from "prop-types";
 import { Helmet } from "react-helmet-async";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-
 // application
 import Footer from "./footer";
 import Header from "./header";
 import MobileHeader from "./mobile/MobileHeader";
 import MobileMenu from "./mobile/MobileMenu";
 import Quickview from "./shared/Quickview";
-
-// pages
+// account related
 import AccountLayout from "./account/AccountLayout";
 import AccountPageLogin from "./account/AccountPageLogin";
-import BlogPageCategory from "./blog/BlogPageCategory";
-import BlogPagePost from "./blog/BlogPagePost";
+// store related
 import PageCart from "./shop/ShopPageCart";
 import PageCheckout from "./shop/ShopPageCheckout";
 import PageCompare from "./shop/ShopPageCompare";
@@ -27,73 +22,19 @@ import ShopPageCategory from "./shop/ShopPageCategory";
 import ShopPageOrderSuccess from "./shop/ShopPageOrderSuccess";
 import ShopPageProduct from "./shop/ShopPageProduct";
 import ShopPageTrackOrder from "./shop/ShopPageTrackOrder";
+// site pages (static)
 import SitePageAboutUs from "./site/SitePageAboutUs";
-import SitePageComponents from "./site/SitePageComponents";
 import SitePageContactUs from "./site/SitePageContactUs";
 import SitePageContactUsAlt from "./site/SitePageContactUsAlt";
 import SitePageFaq from "./site/SitePageFaq";
 import SitePageNotFound from "./site/SitePageNotFound";
 import SitePageTerms from "./site/SitePageTerms";
-import SitePageTypography from "./site/SitePageTypography";
 
 // data stubs
 import theme from "../data/theme";
 
-const categoryLayouts = [
-  [
-    "/shop/category-grid-3-columns-sidebar",
-    { columns: 3, viewMode: "grid", sidebarPosition: "start" },
-  ],
-  ["/shop/category-grid-4-columns-full", { columns: 4, viewMode: "grid" }],
-  ["/shop/category-grid-5-columns-full", { columns: 5, viewMode: "grid" }],
-  [
-    "/shop/category-list",
-    { columns: 3, viewMode: "list", sidebarPosition: "start" },
-  ],
-  [
-    "/shop/category-right-sidebar",
-    { columns: 3, viewMode: "grid", sidebarPosition: "end" },
-  ],
-].map(([url, options]) => (
-  <Route
-    key={url}
-    exact
-    path={url}
-    render={(props) => (
-      <ShopPageCategory {...props} {...options} categorySlug="power-tools" />
-    )}
-  />
-));
-
-const productLayouts = [
-  ["/shop/product-standard", { layout: "standard" }],
-  ["/shop/product-columnar", { layout: "columnar" }],
-  ["/shop/product-sidebar", { layout: "sidebar" }],
-].map(([url, options]) => (
-  <Route
-    key={url}
-    exact
-    path={url}
-    render={(props) => (
-      <ShopPageProduct
-        {...props}
-        {...options}
-        productSlug="brandix-screwdriver-screw1500acc"
-      />
-    )}
-  />
-));
-
-function Layout(props) {
-  const { match, headerLayout, homeComponent } = props;
-  console.log(
-    "[Layout] the props recieved are : match",
-    match,
-    "layout",
-    headerLayout,
-    "homeComponent",
-    homeComponent
-  );
+const Layout = (props) => {
+  const { match, headerLayout } = props;
   return (
     <React.Fragment>
       <Helmet>
@@ -102,20 +43,15 @@ function Layout(props) {
       </Helmet>
 
       <ToastContainer autoClose={5000} hideProgressBar />
-
       <Quickview />
-
       <MobileMenu />
-
       <div className="site">
         <header className="site__header d-lg-none">
           <MobileHeader />
         </header>
-
         <header className="site__header d-lg-block d-none">
           <Header layout={headerLayout} />
         </header>
-
         <div className="site__body">
           <Switch>
             <Route
@@ -171,21 +107,17 @@ function Layout(props) {
             />
 
             {/*
-                        // Account
-                        */}
+                    // Account
+                    */}
             <Route exact path="/account/login" component={AccountPageLogin} />
             <Route path="/account" component={AccountLayout} />
 
             {/*
-                        // Site
-                        */}
+                    // Site
+                    */}
             <Redirect exact from="/site" to="/site/about-us" />
             <Route exact path="/site/about-us" component={SitePageAboutUs} />
-            <Route
-              exact
-              path="/site/components"
-              component={SitePageComponents}
-            />
+
             <Route
               exact
               path="/site/contact-us"
@@ -199,41 +131,15 @@ function Layout(props) {
             <Route exact path="/site/not-found" component={SitePageNotFound} />
             <Route exact path="/site/faq" component={SitePageFaq} />
             <Route exact path="/site/terms" component={SitePageTerms} />
-            <Route
-              exact
-              path="/site/typography"
-              component={SitePageTypography}
-            />
-
-            {/*
-                        // Page Not Found
-                        */}
             <Route component={SitePageNotFound} />
           </Switch>
         </div>
-
         <footer className="site__footer">
           <Footer />
         </footer>
       </div>
     </React.Fragment>
   );
-}
-
-Layout.propTypes = {
-  /**
-   * header layout (default: 'classic')
-   * one of ['classic', 'compact']
-   */
-  headerLayout: PropTypes.oneOf(["default", "compact"]),
-  /**
-   * home component
-   */
-  homeComponent: PropTypes.elementType.isRequired,
-};
-
-Layout.defaultProps = {
-  headerLayout: "default",
 };
 
 export default Layout;

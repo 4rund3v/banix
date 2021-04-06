@@ -1,20 +1,20 @@
 export default [
-    {
-        id: 8132,
-        date: '02 Decembrie, 2020',
-        status: 'In asteptare',
-        total: 'Lei 2,719.00 pentru 5 produse',
-    },
-    {
-        id: 7592,
-        date: '10 Ianuarie, 2021',
-        status: 'In asteptare',
-        total: 'Lei 374.00 pentru 3 produse',
-    },
-    {
-        id: 7192,
-        date: '11 Febriarie, 2021',
-        status: 'Trimis',
-        total: 'Lei 791.00 pentru 2 produse',
-    },
+  {
+    id: 7192,
+    date: "11-February-2021",
+    status: "Delivered",
+    total: "Rs. 3000 for 2 products",
+  },
+  {
+    id: 7592,
+    date: "10-January-2021",
+    status: "Delivered",
+    total: "Rs. 3000  for 3 products",
+  },
+  {
+    id: 8132,
+    date: "02-December 2020",
+    status: "In Transit",
+    total: "Rs. 1000  for 5 products",
+  },
 ];

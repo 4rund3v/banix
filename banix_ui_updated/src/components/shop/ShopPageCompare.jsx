@@ -213,9 +213,7 @@ function ShopPageCompare(props) {
       <div className="block block-empty">
         <div className="container">
           <div className="block-empty__body">
-            <div className="block-empty__message">
-              Cauta acum produsul perfect pentru tine!
-            </div>
+            <div className="block-empty__message">Compare Products!</div>
             <div className="block-empty__actions">
               <Link to="/" className="btn btn-primary btn-sm">
                 Continue
