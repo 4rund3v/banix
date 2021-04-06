@@ -113,6 +113,9 @@ class ProductGallery extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    let currDirection = "ltr";
+    let prevDirection = "ltr";
+
     if (currDirection !== prevDirection) {
       // this is necessary to reset the transition state,
       // because when the direction changes, the afterChange event does not fire
@@ -133,8 +136,6 @@ class ProductGallery extends Component {
   }
 
   getIndexDependOnDir(index) {
-    const { images } = this.props;
-
     return index;
   }
 
@@ -189,6 +190,8 @@ class ProductGallery extends Component {
   };
 
   openPhotoswipe(index) {
+    const { images } = this.props;
+
     const items = this.imagesRefs.map((tag, index) => {
       const width = parseFloat(tag.dataset.width) || tag.naturalWidth;
       const height = parseFloat(tag.dataset.height) || tag.naturalHeight;
