@@ -35,7 +35,6 @@ const MainLayout = (props) => {
       <ToastContainer autoClose={5000} hideProgressBar />
       <Quickview />
       <MobileMenu />
-
       <div className="site">
         <header className="site__header d-lg-none">
           <MobileHeader />

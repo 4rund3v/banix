@@ -12,18 +12,18 @@ import theme from "../../data/theme";
 
 export default function Footer() {
   const customerLinks = [
-    { title: "Terms and Conditions", url: "" },
-    { title: "About Us", url: "" },
-    { title: "FAQ", url: "" },
-    { title: "Contact Us", url: "" },
-    { title: "Careers", url: "" },
+    { title: "Terms and Conditions", url: "/site/terms" },
+    { title: "About Us", url: "/site/about-us" },
+    { title: "FAQ", url: "/site/faq" },
+    { title: "Contact Us", url: "/site/contact-us" },
+    { title: "Careers", url: "/site/careers" },
   ];
   const informationLinks = [
-    { title: "Shipping", url: "" },
-    { title: "Returns", url: "" },
-    { title: "Privacy Policy", url: "" },
-    { title: "Refund Policy", url: "" },
-    { title: "Warranty", url: "" },
+    { title: "Shipping", url: "/site/shipping" },
+    { title: "Returns", url: "/site/returns" },
+    { title: "Privacy Policy", url: "/site/privacy-policy" },
+    { title: "Refund Policy", url: "/site/refund-policy" },
+    { title: "Warranty", url: "/site/warranty" },
   ];
 
   const accountLinks = [{ title: "To be created", url: "" }];
