@@ -9,6 +9,18 @@ The information of the components, actions, reducers etc used in this project
 1. Components
    HEADER
    FOOTER  
+   SITE
+    > Terms
+    > About Us
+    > FAQ
+    > Contact Us
+    > Careers
+
+    > Shipping
+    > Returns
+    > Privacy Policy
+    > Refund Policy
+    > Warranty
 
 2. Actions
 

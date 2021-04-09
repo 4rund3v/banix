@@ -15,7 +15,7 @@ export default function AccountPageProfile() {
       </Helmet>
 
       <div className="card-header">
-        <h5>Editeaza Profil</h5>
+        <h5>Edit Profile</h5>
       </div>
       <div className="card-divider" />
       <div className="card-body">

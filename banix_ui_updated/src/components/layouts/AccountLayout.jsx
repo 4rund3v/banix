@@ -22,8 +22,8 @@ const AccountLayout = (props) => {
   const { match, location } = props;
 
   const breadcrumb = [
-    { title: "Prima Pagina", url: "" },
-    { title: "My Account", url: "" },
+    { title: "Home", url: "/" },
+    { title: "My Account", url: "/account" },
   ];
 
   const links = [

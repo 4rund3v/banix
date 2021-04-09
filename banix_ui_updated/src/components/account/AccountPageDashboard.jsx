@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import addresses from "../../data/accountAddresses";
 import allOrders from "../../data/accountOrders";
 import theme from "../../data/theme";
+import { MaleAvatarSvg } from "../../svg";
 
 export default function AccountPageDashboard() {
   const address = addresses[0];
@@ -32,9 +33,9 @@ export default function AccountPageDashboard() {
       <div className="dashboard__profile card profile-card">
         <div className="card-body profile-card__body">
           <div className="profile-card__avatar">
-            <img src="images/avatars/avatar-3.jpg" alt="" />
+            <MaleAvatarSvg />
           </div>
-          <div className="profile-card__name">UsernamHere</div>
+          <div className="profile-card__name">Username Here</div>
           <div className="profile-card__email">user@emailaddress.com</div>
           <div className="profile-card__edit">
             <Link to="profile" className="btn btn-secondary btn-sm">
