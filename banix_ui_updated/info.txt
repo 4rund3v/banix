@@ -1,0 +1,15 @@
+The information of the components, actions, reducers etc used in this project
+
+0. Pages
+ > Layout
+ > Shop Page
+ > Account Page
+ > Site Page
+
+1. Components
+   HEADER
+   FOOTER  
+
+2. Actions
+
+3. Reducers

@@ -3,7 +3,6 @@ import React, { useEffect, useReducer, useState } from "react";
 
 // third-party
 import PropTypes from "prop-types";
-import queryString from "query-string";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet-async";
 
@@ -22,69 +21,12 @@ import { sidebarClose } from "../../store/sidebar";
 import theme from "../../data/theme";
 import { url, getCategoryParents } from "../../services/utils";
 
-function parseQueryOptions(location) {
-  const query = queryString.parse(location);
-  const optionValues = {};
-
-  if (typeof query.page === "string") {
-    optionValues.page = parseFloat(query.page);
-  }
-  if (typeof query.limit === "string") {
-    optionValues.limit = parseFloat(query.limit);
-  }
-  if (typeof query.sort === "string") {
-    optionValues.sort = query.sort;
-  }
-
-  return optionValues;
-}
-
-function parseQueryFilters(location) {
-  const query = queryString.parse(location);
-  const filterValues = {};
-
-  Object.keys(query).forEach((param) => {
-    const mr = param.match(/^filter_([-_A-Za-z0-9]+)$/);
-
-    if (!mr) {
-      return;
-    }
-
-    const filterSlug = mr[1];
-
-    filterValues[filterSlug] = query[param];
-  });
-
-  return filterValues;
-}
-
-function parseQuery(location) {
-  return [parseQueryOptions(location), parseQueryFilters(location)];
-}
-
-function buildQuery(options, filters) {
-  const params = {};
-
-  if (options.page !== 1) {
-    params.page = options.page;
-  }
-
-  if (options.limit !== 12) {
-    params.limit = options.limit;
-  }
-
-  if (options.sort !== "default") {
-    params.sort = options.sort;
-  }
-
-  Object.keys(filters)
-    .filter((x) => x !== "category" && !!filters[x])
-    .forEach((filterSlug) => {
-      params[`filter_${filterSlug}`] = filters[filterSlug];
-    });
-
-  return queryString.stringify(params, { encode: false });
-}
+import {
+  parseQueryOptions,
+  parseQueryFilters,
+  parseQuery,
+  buildQuery,
+} from "./shopFunctions";
 
 const initialState = {
   init: false,
@@ -163,7 +105,7 @@ function init(state) {
   return { ...state, options, filters };
 }
 
-function ShopPageCategory(props) {
+const ShopPageCategory = (props) => {
   const { categorySlug, columns, viewMode, sidebarPosition } = props;
   const offcanvas = columns === 3 ? "mobile" : "always";
   const [state, dispatch] = useReducer(reducer, initialState, init);
@@ -344,7 +286,7 @@ function ShopPageCategory(props) {
       {content}
     </React.Fragment>
   );
-}
+};
 
 ShopPageCategory.propTypes = {
   /**

@@ -5,8 +5,8 @@ import "./components/FontAwesomeIcons";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 // pages
-import Layout from "./components/Layout";
-import ScrollToTop from "./components/ScrollToTop";
+import MainLayout from "./components/layouts/MainLayout";
+import ScrollToTop from "./components/shared/ScrollToTop";
 
 const App = () => {
   // invoking the pre loader
@@ -32,7 +32,9 @@ const App = () => {
           <Switch>
             <Route
               path="/"
-              render={(props) => <Layout {...props} headerLayout="default" />}
+              render={(props) => (
+                <MainLayout {...props} headerLayout="default" />
+              )}
             />
             <Redirect to="/" />
           </Switch>

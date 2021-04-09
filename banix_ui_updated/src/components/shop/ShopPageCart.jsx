@@ -270,7 +270,7 @@ class ShopPageCart extends Component {
                 type="text"
                 className="form-control"
                 id="input-coupon-code"
-                placeholder="Cod Cupon"
+                placeholder="Code Cupon"
               />
               <button type="submit" className="btn btn-primary">
                 Apply Coupon

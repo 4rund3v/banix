@@ -37,7 +37,7 @@ export default function Footer() {
               <FooterContacts />
             </div>
             <div className="col-6 col-md-3 col-lg-2">
-              <FooterLinks title="Informatii" items={customerLinks} />
+              <FooterLinks title="Customer Service" items={customerLinks} />
             </div>
             <div className="col-6 col-md-3 col-lg-2">
               <FooterLinks title="Information" items={informationLinks} />
