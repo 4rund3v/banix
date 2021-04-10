@@ -1,26 +1,23 @@
 // react
 import React, { useState } from "react";
-
 // third-party
-import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { Form, Button, Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { auth, googleAuthProvider } from "../../firebase";
-import Message from "../shared/Message";
+import { Helmet } from "react-helmet-async";
 import { toast, ToastContainer } from "react-toastify";
-
+import { auth, googleAuthProvider } from "../../firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 // application
+import Message from "../shared/Message";
 import PageHeader from "../shared/PageHeader";
 import { Check9x7Svg } from "../../svg";
-
 // data stubs
 import theme from "../../data/theme";
 
 const AuthPageRegister = ({ location }) => {
   const breadcrumb = [
-    { title: "Home", url: "" },
-    { title: "Register", url: "" },
+    { title: "Home", url: "/" },
+    { title: "Register", url: "/auth/register" },
   ];
 
   const [email, setEmail] = useState("");
@@ -52,18 +49,22 @@ const AuthPageRegister = ({ location }) => {
     console.log(" User Selected signup with mail option !");
   };
 
+  const googleLogin = async (e) => {
+    console.log("[googleLogin] The login with google component.");
+    e.preventDefault();
+    auth.signInWithPopup(googleAuthProvider).then(async (result) => {
+      console.log("googleLogin :::: ", result);
+      // const { user } = result;
+      // dispatch(login(user.email, user.email));
+    });
+  };
+
   const signUpOptions = () => {
     return (
       <div>
         <div className="row justify-content-center align-items-center justify-content-md-center">
-          <Button shape="round" variant="outline-danger">
-            <FontAwesomeIcon
-              icon={["fab", "google"]}
-              className="mr-2"
-              onClick={() => {
-                console.log("Google Login started");
-              }}
-            />
+          <Button shape="round" variant="outline-danger" onClick={googleLogin}>
+            <FontAwesomeIcon icon={["fab", "google"]} className="mr-2" />
             {"Sign Up with Google"}
           </Button>
         </div>
@@ -82,15 +83,7 @@ const AuthPageRegister = ({ location }) => {
       </div>
     );
   };
-  const googleLogin = (e) => {
-    console.log("[googleLogin] The login with google component.");
-    e.preventDefault();
-    auth.signInWithPopup(googleAuthProvider).then(async (result) => {
-      console.log("googleLogin :::: ", result);
-      // const { user } = result;
-      // dispatch(login(user.email, user.email));
-    });
-  };
+
   return (
     <React.Fragment>
       <Helmet>
@@ -99,46 +92,50 @@ const AuthPageRegister = ({ location }) => {
 
       <PageHeader header="Register" breadcrumb={breadcrumb} />
       <div className="block">
-        <div className="container">
-          <div className="row justify-content-center align-items-center">
-            {message && <Message variant="info">{message}</Message>}
-            {!signupUsingEmail ? (
-              signUpOptions()
-            ) : (
-              <div>
-                <h3>Sign up with email</h3>
-                <p>Enter your email address to create an account.</p>
-                <form onSubmit={submitHandler}>
-                  <div className="form-group">
-                    <label htmlFor="register-email">Email Address</label>
-                    <input
-                      id="register-email"
-                      type="email"
-                      className="form-control"
-                      placeholder="Enter email"
-                    />
-                    <button
-                      type="submit"
-                      className="btn btn-primary mt-2 mt-md-3 mt-lg-4"
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col xs={12} md={4}>
+              {message && <Message variant="info">{message}</Message>}
+              {!signupUsingEmail ? (
+                signUpOptions()
+              ) : (
+                <div>
+                  <h3>Sign up with email</h3>
+                  <p>Enter your email address to create an account.</p>
+                  <form onSubmit={submitHandler}>
+                    <div className="form-group">
+                      <label htmlFor="register-email">Email Address</label>
+                      <input
+                        id="register-email"
+                        type="email"
+                        className="form-control"
+                        placeholder="Enter email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <button
+                        type="submit"
+                        className="btn btn-primary mt-2 mt-md-3 mt-lg-4"
+                      >
+                        Register
+                      </button>
+                    </div>
+                  </form>
+                  <p className="mt-3">
+                    <Link
+                      variant="outline-secondary"
+                      onClick={() => {
+                        setSignupUsingEmail(false);
+                      }}
                     >
-                      Register
-                    </button>
-                  </div>
-                </form>
-                <p className="mt-3">
-                  <Link
-                    variant="outline-secondary"
-                    onClick={() => {
-                      setSignupUsingEmail(false);
-                    }}
-                  >
-                    {" < All Sign in Options"}
-                  </Link>
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
+                      {" < All Sign in Options"}
+                    </Link>
+                  </p>
+                </div>
+              )}
+            </Col>
+          </Row>
+        </Container>
       </div>
       {/* <div className="block">
         <div className="container">

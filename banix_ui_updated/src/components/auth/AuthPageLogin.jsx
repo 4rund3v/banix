@@ -1,19 +1,37 @@
 // react
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 // third-party
-import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-
+import { Helmet } from "react-helmet-async";
+import { auth, googleAuthProvider } from "../../firebase";
 // application
 import PageHeader from "../shared/PageHeader";
 import { Check9x7Svg } from "../../svg";
-
 // data stubs
 import theme from "../../data/theme";
 
 const AuthPageLogin = () => {
   const breadcrumb = [];
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log(
+      "[login] Log-in in the user with the username and the password"
+    );
+    // dispatch(login(email, password));
+  };
+
+  const googleLogin = async (e) => {
+    e.preventDefault();
+    console.log("[login] Log-in in the user with gmail");
+    auth.signInWithPopup(googleAuthProvider).then(async (result) => {
+      console.log("googleLogin :::: ", result);
+      // const { user } = result;
+      // dispatch(login(user.email, user.email));
+    });
+  };
 
   return (
     <React.Fragment>
@@ -28,12 +46,14 @@ const AuthPageLogin = () => {
               <div className="card flex-grow-1 mb-md-0">
                 <div className="card-body">
                   <h3 className="card-title">Login</h3>
-                  <form>
+                  <form onSubmit={submitHandler}>
                     <div className="form-group">
                       <label htmlFor="login-email">Email Address</label>
                       <input
                         id="login-email"
                         type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="form-control"
                         placeholder="Enter email"
                       />
@@ -43,6 +63,8 @@ const AuthPageLogin = () => {
                       <input
                         id="login-password"
                         type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="form-control"
                         placeholder="Password"
                       />
