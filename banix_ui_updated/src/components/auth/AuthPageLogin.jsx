@@ -30,7 +30,7 @@ const AuthPageLogin = () => {
                   <h3 className="card-title">Login</h3>
                   <form>
                     <div className="form-group">
-                      <label htmlFor="login-email">Adresa Email</label>
+                      <label htmlFor="login-email">Email Address</label>
                       <input
                         id="login-email"
                         type="email"
@@ -39,7 +39,7 @@ const AuthPageLogin = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="login-password">Parola</label>
+                      <label htmlFor="login-password">Password</label>
                       <input
                         id="login-password"
                         type="password"
@@ -47,7 +47,7 @@ const AuthPageLogin = () => {
                         placeholder="Password"
                       />
                       <small className="form-text text-muted">
-                        <Link to="/">Am uitat parola</Link>
+                        <Link to="/">Forgot Password</Link>
                       </small>
                     </div>
                     <div className="form-group">
@@ -67,7 +67,7 @@ const AuthPageLogin = () => {
                           className="form-check-label"
                           htmlFor="login-remember"
                         >
-                          Tine-ma minte
+                          Remember Me
                         </label>
                       </div>
                     </div>
@@ -75,7 +75,7 @@ const AuthPageLogin = () => {
                       type="submit"
                       className="btn btn-primary mt-2 mt-md-3 mt-lg-4"
                     >
-                      Logare
+                      Login
                     </button>
                   </form>
                 </div>

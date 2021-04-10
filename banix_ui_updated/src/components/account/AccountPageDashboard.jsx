@@ -11,7 +11,7 @@ import allOrders from "../../data/accountOrders";
 import theme from "../../data/theme";
 import { MaleAvatarSvg } from "../../svg";
 
-export default function AccountPageDashboard() {
+const AccountPageDashboard = () => {
   const address = addresses[0];
   const orders = allOrders.slice(0, 3).map((order) => (
     <tr key={order.id}>
@@ -23,7 +23,6 @@ export default function AccountPageDashboard() {
       <td>{order.total}</td>
     </tr>
   ));
-
   return (
     <div className="dashboard">
       <Helmet>
@@ -91,4 +90,6 @@ export default function AccountPageDashboard() {
       </div>
     </div>
   );
-}
+};
+
+export default AccountPageDashboard;

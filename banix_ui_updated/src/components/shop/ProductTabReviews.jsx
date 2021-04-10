@@ -7,13 +7,15 @@ import Rating from "../shared/Rating";
 
 // data stubs
 import reviews from "../../data/shopProductReviews";
+import { MaleAvatarSvg } from "../../svg";
 
 function ProductTabReviews() {
   const reviewsList = reviews.map((review, index) => (
     <li key={index} className="reviews-list__item">
       <div className="review">
         <div className="review__avatar">
-          <img src={review.avatar} alt="userImage" />
+          {/* <img src={review.avatar} alt="userImage" /> */}
+          <MaleAvatarSvg />
         </div>
         <div className=" review__content">
           <div className=" review__author">{review.author}</div>

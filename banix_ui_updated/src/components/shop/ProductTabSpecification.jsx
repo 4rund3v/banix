@@ -4,6 +4,11 @@ import React from 'react';
 // data stubs
 import specification from '../../data/shopProductSpec';
 
+
+
+
+
+
 function ProductTabSpecification() {
     const sections = specification.map((section, index) => {
         const features = section.features.map((feature, index) => (
@@ -12,7 +17,6 @@ function ProductTabSpecification() {
                 <div className="spec__value">{feature.value}</div>
             </div>
         ));
-
         return (
             <div key={index} className="spec__section">
                 <h4 className="spec__section-title">{section.name}</h4>

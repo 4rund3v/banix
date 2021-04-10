@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import dataAddresses from "../../data/accountAddresses";
 import theme from "../../data/theme";
 
-export default function AccountPageAddresses() {
+const AccountPageAddresses = () => {
   const addresses = dataAddresses.map((address) => (
     <React.Fragment key={address.id}>
       <div className="addresses-list__item card address-card">
@@ -42,7 +42,6 @@ export default function AccountPageAddresses() {
       <div className="addresses-list__divider" />
     </React.Fragment>
   ));
-
   return (
     <div className="addresses-list">
       <Helmet>
@@ -52,4 +51,6 @@ export default function AccountPageAddresses() {
       {addresses}
     </div>
   );
-}
+};
+
+export default AccountPageAddresses;
