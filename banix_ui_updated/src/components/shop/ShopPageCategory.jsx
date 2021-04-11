@@ -225,7 +225,7 @@ const ShopPageCategory = (props) => {
       filters={state.filters}
       dispatch={dispatch}
       layout={viewMode}
-      grid={`grid-${columns}-${columns > 4 ? "full" : "sidebar"}`}
+      grid={`grid-${columns}-${columns > 3 ? "full" : "sidebar"}`}
       offcanvas={offcanvas}
     />
   );
@@ -311,7 +311,7 @@ ShopPageCategory.propTypes = {
 };
 
 ShopPageCategory.defaultProps = {
-  columns: 4,
+  columns: 3,
   viewMode: "grid",
   sidebarPosition: "start",
 };

@@ -143,6 +143,15 @@
 .product__availability {
   display: none;
 }
+.product__prices-shipping {
+  margin-top: -7px;
+  margin-bottom: 14px;
+  font-size: 12px;
+  font-weight: $font-weight-bold;
+  letter-spacing: -0.03em;
+  color: $price-old-color;
+}
+
 .product__prices {
   margin-top: 18px;
   margin-bottom: 14px;
@@ -174,6 +183,11 @@
   color: $body-font-alt-color;
   padding-bottom: 2px;
 }
+
+.product__shipping-icon {
+  border: none;
+}
+
 .product__actions {
   display: flex;
   flex-wrap: wrap;

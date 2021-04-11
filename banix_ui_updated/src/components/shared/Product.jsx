@@ -6,6 +6,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // application
 import AsyncAction from "./AsyncAction";
@@ -117,24 +118,42 @@ class Product extends Component {
             </div>
 
             <div className="product__prices">{prices}</div>
-
+            <div className="product__prices-shipping">
+              + Additional Shipping Charges{" "}
+            </div>
             <form className="product__options">
               <div className="form-group product__option">
-                <div className="product__option-label">Length</div>
-                <div className="input-radio-label">
-                  <div className="input-radio-label__list">
-                    <label>
-                      <input type="radio" name="length" />
-                      <span>5m</span>
+                <div className="product__actions">
+                  <div className="product__actions-item ">
+                    <label
+                      htmlFor="product-shipping-code"
+                      className="product__option-label"
+                    >
+                      Check Shipping Availability
                     </label>
-                    <label>
-                      <input type="radio" name="length" />
-                      <span>10m</span>
-                    </label>
-                    <label>
-                      <input type="radio" name="length" />
-                      <span>15m</span>
-                    </label>
+                    <div className="input-group">
+                      <input
+                        type="text"
+                        name="pincode"
+                        pattern="[0-9]{6}"
+                        className="form-control"
+                        id="product-shipping-code"
+                        placeholder="Enter Pin Code"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          className="product__shipping-icon"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            console.log("Check the delivery rates questioned.");
+                          }}
+                        >
+                          <span class="input-group-text">
+                            <FontAwesomeIcon icon="truck" />
+                          </span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -159,7 +178,25 @@ class Product extends Component {
                   </div>
                 </div>
               </div>
-
+              <div className="form-group product__option">
+                <div className="product__option-label">Length</div>
+                <div className="input-radio-label">
+                  <div className="input-radio-label__list">
+                    <label>
+                      <input type="radio" name="length" />
+                      <span>5m</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="length" />
+                      <span>10m</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="length" />
+                      <span>15m</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
               <div className="form-group product__option">
                 <div className="product__actions">
                   <div className="product__actions-item product__actions-item--addtocart">
