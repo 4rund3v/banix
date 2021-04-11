@@ -139,7 +139,7 @@ function ProductCard(props) {
       </div>
       <div className="product-card__actions">
         <div className="product-card__availability">
-          Disponibilitate:
+          Availability:
           <span className="text-success">In Stock</span>
         </div>
         {price}

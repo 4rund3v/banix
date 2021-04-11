@@ -145,7 +145,45 @@ const productsDef = [
     ],
     rating: 4,
     reviews: 8,
-    availability: "In stoc",
+    availability: "In stock",
+    brand: "banix",
+    categories: ["power-tools"],
+    attributes: [
+      { slug: "color", values: "yellow" },
+      { slug: "speed", values: "750-rpm", featured: true },
+      { slug: "power-source", values: "cordless-electric", featured: true },
+      { slug: "battery-cell-type", values: "lithium", featured: true },
+      { slug: "voltage", values: "20-volts", featured: true },
+      { slug: "battery-capacity", values: "2-Ah", featured: true },
+    ],
+    alternatePurchases: [
+      {
+        source: "amazon",
+        icon: ["fab", "amazon"],
+        link:
+          "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW",
+      },
+      {
+        source: "flipkart",
+        icon: ["fab", "facebook"],
+        link:
+          "https://www.amazon.in/Vithamas-Smart-Multicolor-Powered-Banix/dp/B08TMCRLSW",
+      },
+    ],
+  },
+  {
+    slug: "Vithamas Smart LED Strip Light Multicolor - 10 meters",
+    name: "Vithamas Smart LED Strip Light Multicolor - 10 meters",
+    price: 1499,
+    compareAtPrice: 1600,
+    badges: "sale",
+    images: [
+      "/media/images/card/3__vithamas_dc_lightstrip__primary__image.jpg",
+      "/media/images/card/3__vithamas_dc_lightstrip__primary__image.jpg",
+    ],
+    rating: 4,
+    reviews: 8,
+    availability: "In stock",
     brand: "banix",
     categories: ["power-tools"],
     attributes: [
