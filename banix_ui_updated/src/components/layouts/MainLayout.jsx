@@ -6,16 +6,16 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 // application
 import Footer from "../footer";
-import Header from "../header";
-import MobileHeader from "../mobile/MobileHeader";
-import MobileMenu from "../mobile/MobileMenu";
-import Quickview from "../shared/Quickview";
+// import Header from "../header";
+// import MobileHeader from "../mobile/MobileHeader";
+// import MobileMenu from "../mobile/MobileMenu";
+// import Quickview from "../shared/Quickview";
 // account related
 
-import SiteLayout from "./SiteLayout";
+// import SiteLayout from "./SiteLayout";
 import ShopLayout from "./ShopLayout";
-import AuthLayout from "./AuthLayout";
-import AccountLayout from "./AccountLayout";
+// import AuthLayout from "./AuthLayout";
+// import AccountLayout from "./AccountLayout";
 
 import SitePageNotFound from "../site/SitePageNotFound";
 
@@ -25,33 +25,33 @@ import SitePageNotFound from "../site/SitePageNotFound";
 import theme from "../../data/theme";
 
 const MainLayout = (props) => {
-  const { match, headerLayout } = props;
+  const { match } = props;
   return (
     <React.Fragment>
       <Helmet>
-        <title>{theme.name}</title>
+        <title>{theme.name} - Smart Electronics Store</title>
         <meta name="description" content={theme.fullName} />
       </Helmet>
       <ToastContainer autoClose={5000} hideProgressBar />
-      <Quickview />
-      <MobileMenu />
+      {/* <Quickview />
+      <MobileMenu /> */}
       <div className="site">
-        <header className="site__header d-lg-none">
+        {/* <header className="site__header d-lg-none">
           <MobileHeader />
         </header>
         <header className="site__header d-lg-block d-none">
-          <Header layout={headerLayout} />
-        </header>
+          <Header layout={"default"} />
+        </header> */}
         <div className="site__body">
           <Switch>
             {/*  // Account  */}
-            <Route path="/auth" component={AuthLayout} />
-            <Route path="/account" component={AccountLayout} />
+            {/* <Route path="/auth" component={AuthLayout} />
+            <Route path="/account" component={AccountLayout} /> */}
             {/*  // Site  */}
-            <Route path="/site" component={SiteLayout} />
+            {/* <Route path="/site" component={SiteLayout} /> */}
             {/* Home Page */}
             <Route path="/" component={ShopLayout} />
-            <Route component={SitePageNotFound} />
+            {/* <Route component={SitePageNotFound} /> */}
           </Switch>
         </div>
         <footer className="site__footer">

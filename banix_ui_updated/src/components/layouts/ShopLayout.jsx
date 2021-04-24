@@ -1,14 +1,16 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 // store related
-import PageCart from "../shop/ShopPageCart";
-import PageCheckout from "../shop/ShopPageCheckout";
-import PageCompare from "../shop/ShopPageCompare";
-import PageWishlist from "../shop/ShopPageWishlist";
-import ShopPageCategory from "../shop/ShopPageCategory";
-import ShopPageOrderSuccess from "../shop/ShopPageOrderSuccess";
-import ShopPageProduct from "../shop/ShopPageProduct";
-import ShopPageTrackOrder from "../shop/ShopPageTrackOrder";
+// import PageCart from "../shop/ShopPageCart";
+// import PageCheckout from "../shop/ShopPageCheckout";
+// import PageCompare from "../shop/ShopPageCompare";
+// import PageWishlist from "../shop/ShopPageWishlist";
+// import ShopPageCategory from "../shop/ShopPageCategory";
+// import ShopPageOrderSuccess from "../shop/ShopPageOrderSuccess";
+// import ShopPageProduct from "../shop/ShopPageProduct";
+// import ShopPageTrackOrder from "../shop/ShopPageTrackOrder";
+
+import ShopPage from "../shop/ShopPage";
 
 const ShopLayout = () => {
   console.log("[ShopLayout] Being Rendered");
@@ -19,7 +21,7 @@ const ShopLayout = () => {
         exact
         path={`/`}
         render={(props) => (
-          <ShopPageCategory
+          <ShopPage
             {...props}
             columns={3}
             viewMode="grid"
@@ -28,7 +30,7 @@ const ShopLayout = () => {
         )}
       />
 
-      <Route
+      {/* <Route
         exact
         path="/shop/catalog/:categorySlug"
         render={(props) => (
@@ -62,7 +64,7 @@ const ShopLayout = () => {
       />
       <Route exact path="/shop/wishlist" component={PageWishlist} />
       <Route exact path="/shop/compare" component={PageCompare} />
-      <Route exact path="/shop/track-order" component={ShopPageTrackOrder} />
+      <Route exact path="/shop/track-order" component={ShopPageTrackOrder} /> */}
     </Switch>
   );
 };

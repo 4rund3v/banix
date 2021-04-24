@@ -9,7 +9,6 @@ import MainLayout from "./components/layouts/MainLayout";
 import ScrollToTop from "./components/shared/ScrollToTop";
 
 const App = () => {
-  // invoking the pre loader
   useEffect(() => {
     setTimeout(() => {
       const preloader = document.querySelector(".site-preloader");
@@ -23,19 +22,19 @@ const App = () => {
       }
     }, 500);
   }, []);
-  // Render the route
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <ScrollToTop>
         <HelmetProvider>
           <Helmet />
           <Switch>
-            <Route
+            {/* <Route
               path="/"
               render={(props) => (
                 <MainLayout {...props} headerLayout="default" />
               )}
-            />
+            /> */}
+            <Route path="/" component={MainLayout} />
             <Redirect to="/" />
           </Switch>
         </HelmetProvider>
