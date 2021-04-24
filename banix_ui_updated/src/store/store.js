@@ -1,46 +1,27 @@
-// third-party
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunkMiddleware from "redux-thunk";
+// custom reducers
+import {
+  productListReducer,
+  productLatestListReducer,
+} from "../reducers/products";
 
-// reducer
-import rootReducer from './rootReducer';
-import version from './version';
+import { categoryListReducer } from "../reducers/category";
 
-function load() {
-    let state;
+const reducer = combineReducers({
+  productListInfo: productListReducer,
+  latestProductsInfo: productLatestListReducer,
+  categoryInfo: categoryListReducer,
+});
 
-    try {
-        state = localStorage.getItem('state');
+const initialState = {};
 
-        if (typeof state === 'string') {
-            state = JSON.parse(state);
-        }
+const middleware = [thunkMiddleware];
 
-        if (state && state.version !== version) {
-            state = undefined;
-        }
-    } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-    }
-
-    return state || undefined;
-}
-
-const store = createStore(rootReducer, load(), compose(
-    applyMiddleware(thunk),
-    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-));
-
-function save() {
-    try {
-        localStorage.setItem('state', JSON.stringify(store.getState()));
-    } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-    }
-}
-
-store.subscribe(() => save());
-
+const store = createStore(
+  reducer,
+  initialState,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
 export default store;
