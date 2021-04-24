@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
 from configuration import SECRET_KEY
-from src.models import Customer, Role
+from src.models import Customer
 from src.db_utils import Session
 from src.logger import get_logger
 
@@ -101,12 +101,10 @@ def register_customer():
                                      username=form_data["display_name"],
                                      email_id=form_data["email_id"],
                                      password=form_data["password"])
-        customer_role = Role(customers=new_customer_info,
-                             role_name="customers")
+        
         new_customer_info.public_id = str(uuid.uuid4())
         if not new_customer_info.display_name:
             new_customer_info.display_name = new_customer_info.email_id.split("@")[0]
-        session.add(customer_role)
         session.add(new_customer_info)
         logger.debug(f"[register_customer] Customer added to database response  is :: {new_customer_info}")
         session.commit()

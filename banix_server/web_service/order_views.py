@@ -6,12 +6,13 @@ import os
 import sys
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
-from src.models import Orders, OrderPrice, OrderStatus, OrderItem, Address
-from src.db_utils import Session
-from src.price_functions import fetch_complete_price_details
-from src.constants import ORDER_PLACED_STATUS
+from configuration import RAZOR_PAY_TOKEN,RAZOR_PAY_KEY
 
 from authorization import token_required
+from src.db_utils import Session
+from src.constants import ORDER_PLACED_STATUS
+from src.models import Orders, OrderPrice, OrderStatus, OrderItem, Address
+from src.price_functions import fetch_complete_price_details
 from src.logger import get_logger
 logger = get_logger("web_app")
 
@@ -19,7 +20,9 @@ order_blueprint = Blueprint("orders", __name__)
 # arun's account
 # razorpay_client = razorpay.Client(auth=("rzp_test_1VGt9vNNSuXQ5X", "mtsqE135B0YEQEzBsRiPNZgl"))
 # banix account
-razorpay_client = razorpay.Client(auth=("rzp_test_lKNNKwimAlfTDd", "V54lmQ2rf3RlLfc6709rODtp"))
+# razorpay_client = razorpay.Client(auth=("rzp_test_lKNNKwimAlfTDd", "V54lmQ2rf3RlLfc6709rODtp"))
+# banix live 
+razorpay_client = razorpay.Client(auth=(RAZOR_PAY_KEY, RAZOR_PAY_TOKEN))
 
 @order_blueprint.route("/prepare-order", methods=['POST'])
 @token_required

@@ -1,7 +1,8 @@
 from src.models import Base
-from sqlalchemy import ForeignKey, Column, Integer, String, Float, DateTime
+from sqlalchemy import ForeignKey, Column, Integer, String, Float, DateTime, Boolean
 from sqlalchemy.orm import relationship
 from src.models import Customer
+
 
 class Product(Base):
 
@@ -16,10 +17,11 @@ class Product(Base):
     selling_price = Column(Integer)
     cost_price = Column(Integer)
     stock = Column(Integer)
-    product_media = relationship("ProductMedia", back_populates="products",
-                                 uselist=False, cascade="all, delete, delete-orphan")
+    product_media = relationship("ProductMedia", back_populates="products", uselist=False, cascade="all, delete, delete-orphan")
     product_variant = relationship("ProductVariant", back_populates="products", cascade="all, delete, delete-orphan")
     product_specification = relationship("ProductSpecification", uselist=False, back_populates="products", cascade="all, delete, delete-orphan")
+    product_attributes = relationship("ProductAttributes", back_populates="products", cascade="all, delete, delete-orphan")
+    alternate_purchase_options = relationship("AlternatePurchaseOption", back_populates="products", cascade="all, delete, delete-orphan" )
 
     def __repr__(self):
         return "<Product(name={})>".format(self.name)
@@ -36,7 +38,15 @@ class Product(Base):
 
         product_media = {}
         if self.product_media:
-            product_media = self.product_media.to_dict
+            product_media = self.product_media.to_dict()
+
+        alternate_purchase_options = []
+        if self.alternate_purchase_options:
+            alternate_purchase_options = [ alt_option.to_dict() for alt_option in self.alternate_purchase_options ]
+
+        product_attributes = []
+        if self.product_attributes:
+            product_attributes = [ prod_attrib.to_dict() for prod_attrib in self.product_attributes ]
 
         return dict(product_id=str(self.product_id),
                     name=self.name,
@@ -47,8 +57,10 @@ class Product(Base):
                     cost_price=self.cost_price,
                     selling_price=self.selling_price,
                     stock=self.stock,
+                    product_media=product_media,
                     product_specification=product_specification,
                     product_variant=product_variant,
+                    alternate_purchase_options = alternate_purchase_options,          
                     )
 
 
@@ -80,7 +92,6 @@ class ProductMedia(Base):
 
     product_foreign_id = Column(Integer, ForeignKey("products.product_id"), nullable=True)
     products = relationship("Product", back_populates="product_media")
-
     product_variant_id_foreign_id = Column(Integer, ForeignKey("product_variant.product_variant_id"), nullable=True)
     product_variant = relationship("ProductVariant", back_populates="product_media")
 
@@ -100,6 +111,7 @@ class ProductMedia(Base):
                     product_carousel_media=product_carousel_media,
                     product_demonstration_media=product_demonstration_media
                     )
+
 
 class ProductCarouselMedia(Base):
     __tablename__ = "product_carousel_media"
@@ -168,6 +180,7 @@ class ProductSpecification(Base):
             product_box_dimensions=product_box_dimensions,
             )
 
+
 class ProductDimensions(Base):
 
     __tablename__ = "product_dimensions"
@@ -228,3 +241,44 @@ class ProductReviews(Base):
                     review_date=self.review_date,
                     rating=self.rating,
                     comment=self.comment)
+
+
+class AlternatePurchaseOption(Base):
+
+    __tablename__ = "alternate_purchase_options"
+
+    alt_opt_id = Column(Integer, primary_key=True, autoincrement=True)
+    product_foreign_id = Column(Integer, ForeignKey("products.product_id"), nullable=True)
+    products = relationship("Product", back_populates="alternate_purchase_options")
+    alternate_site = Column(String(30))
+    alternate_site_icon = Column(String(30))
+    alternate_product_url = Column(String(300))
+
+    def to_dict(self):
+        return dict(alternate_site=self.alternate_site, alternate_product_url=self.alternate_product_url)
+
+
+class Attributes(Base):
+
+    __tablename__ = "attributes"
+    attribute_id = Column(Integer, primary_key=True, autoincrement=True)
+    attribute_name = Column(String(50), nullable=False, unique=True)
+    product_attribute_foreign_id = Column(Integer, ForeignKey("product_attributes.product_attribute_id"), nullable=True)
+    product_attributes = relationship("ProductAttributes", back_populates="attributes")
+
+    def to_dict(self):
+        return dict(attribute_id=self.attribute_id, attribute_name=self.attribute_name)
+
+
+class ProductAttributes(Base):
+
+    __tablename__ = 'product_attributes'
+
+    product_attribute_id = Column(Integer, primary_key=True, autoincrement=True)
+    product_foreign_id = Column(Integer, ForeignKey("products.product_id"), nullable=True)
+    products = relationship("Product", back_populates="product_attributes")
+    attributes = relationship("Attributes", back_populates="product_attributes", uselist=False)
+
+    attribute_value = Column(String(200))
+    attribute_featured = Column(Boolean, default=False)
+

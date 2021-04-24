@@ -20,37 +20,29 @@ mime = mimetypes.MimeTypes()
 IMAGE_PROFILES = [
     {
         "profile": "carousel",
-        "resolution": "450x400"
+        "resolution": "700x700"
     },
     {
         "profile": "cart",
-        "resolution": "300x300"
+        "resolution": "700x700"
     },
     {
         "profile": "details",
-        "resolution": "720x586"
+        "resolution": "700x700"
     },
     {
         "profile": "card",
-        "resolution": "220x220"
+        "resolution": "700x700"
     },
     {
         "profile": "search",
-        "resolution": "45x30"
+        "resolution":"700x700"
     }]
 
-VIDEO_PROFILES = [
-    {
-        "profile": "low",
-        "resolution": "320x240"
-    },
+VIDEO_PROFILES = [   
     {
         "profile": "medium",
         "resolution": "480x360"
-    },
-    {
-        "profile": "high",
-        "resolution": "852x480"
     }
 ]
 

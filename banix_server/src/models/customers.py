@@ -12,9 +12,9 @@ class Customer(Base):
     username = Column(String)
     email_id = Column(String)
     password = Column(String)
-    role = relationship("Role", back_populates="customers", uselist=False, cascade="all, delete, delete-orphan")
-    # cart_details = relationship("Cart", back_populates="customers", cascade="all, delete, delete-orphan")
+    # cart_details = relationship("Cart", back_populates="customer", cascade="all, delete, delete-orphan")
     addresses = relationship("Address", back_populates="customers", order_by="Address.address_id")
+    cart = relationship("Cart", backref="customers", uselist=False)
     public_id = Column(String)
     primary_mobile_number = Column(Integer)
 
@@ -36,7 +36,6 @@ class Customer(Base):
                     email_id=str(self.email_id),
                     public_id=str(self.public_id),
                     primary_mobile_number=self.primary_mobile_number,
-                    role=self.role.role_name,
                     addresses=addresses,
                     )
 

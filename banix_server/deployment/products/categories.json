@@ -1,0 +1,12 @@
+{
+  "categories": [
+    {
+      "category_name": "Smart Electronics",
+      "category_slug": "smart-electronics"
+    },
+    {
+      "category_name": "Components",
+      "category_slug": "components"
+    }
+  ]
+}

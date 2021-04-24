@@ -4,7 +4,9 @@ import json
 import datetime
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
-from src.models import Product, ProductSpecification, ProductDimensions, ProductBoxDimensions, ProductReviews
+from src.models import Product, ProductSpecification, ProductDimensions
+from src.models import ProductBoxDimensions, ProductReviews, Attributes, ProductAttributes, ProductMedia
+from src.models import Category
 from src.db_utils import session
 
 
@@ -32,9 +34,9 @@ def create_default_products():
         return
     for product in default_product_details.get("products", []):
         if session.query(Product).filter(Product.name == product["basic"]["name"]).first():
-            print("Product {} already exists, hence skipping".format(product["basic"]["name"]))
+            print(f"[create_default_products] Product {product['basic']['name']} already exists, hence skipping")
             continue
-        product_info = Product(**product["basic"])
+        product_info = Product(**product['basic'])
         print(f"[create_default_products] Product info prepared is :: {product_info}")
         specification_info = prepare_product_specification(product_info=product_info,
                                                            specification_info=product["specification_info"])
@@ -71,6 +73,24 @@ def create_product_reviews():
     session.commit()
 
 
+def create_default_categories():
+    """
+     To add the default categories to the database.
+    """
+    print("[create_default_categories] Creating default cateogry if not existing")
+    category_store = os.path.join(os.path.dirname(os.path.realpath(__file__)), "categories.json")
+    if os.path.exists(category_store):
+        with open(category_store, "r") as rfile:
+            category_list = json.load(rfile)
+    else:
+        print("[create_default_categories] Default category file not found.")
+        return
+    if category_count:= session.query(Category).count():
+        print("[create_default_categories] Categories already exists : {category_count}")
+        return
+    for category in category_list["categories"]:
+        session.add(Category(**category))
+    session.commit()
+
 if __name__ == "__main__":
     create_default_products()
-    create_product_reviews()
