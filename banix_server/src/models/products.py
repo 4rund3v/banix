@@ -1,7 +1,9 @@
 from src.models import Base
 from sqlalchemy import ForeignKey, Column, Integer, String, Float, DateTime, Boolean
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from src.models import Customer
+from datetime import datetime
 
 
 class Product(Base):
@@ -22,11 +24,17 @@ class Product(Base):
     product_specification = relationship("ProductSpecification", uselist=False, back_populates="products", cascade="all, delete, delete-orphan")
     product_attributes = relationship("ProductAttributes", back_populates="products", cascade="all, delete, delete-orphan")
     alternate_purchase_options = relationship("AlternatePurchaseOption", back_populates="products", cascade="all, delete, delete-orphan" )
+    product_created_datetime = Column(DateTime(timezone=True), default=datetime.now)
+    product_updated_datetime = Column(DateTime(timezone=True),default=datetime.now, onupdate=datetime.now)
 
     def __repr__(self):
         return "<Product(name={})>".format(self.name)
 
     def to_dict(self):
+        """
+           To return the product as a dictionary representation
+        """
+
         product_specification = {}
         if self.product_specification:
             product_specification = self.product_specification.to_dict()
@@ -47,7 +55,7 @@ class Product(Base):
         product_attributes = []
         if self.product_attributes:
             product_attributes = [ prod_attrib.to_dict() for prod_attrib in self.product_attributes ]
-
+        print(f"product_created_datetime :: {self.product_created_datetime} {type(self.product_created_datetime)}")
         return dict(product_id=str(self.product_id),
                     name=self.name,
                     brand=self.brand,
@@ -60,7 +68,9 @@ class Product(Base):
                     product_media=product_media,
                     product_specification=product_specification,
                     product_variant=product_variant,
-                    alternate_purchase_options = alternate_purchase_options,          
+                    alternate_purchase_options = alternate_purchase_options,
+                    product_created_datetime=self.product_created_datetime,     
+                    product_updated_datetime=self.product_updated_datetime,
                     )
 
 

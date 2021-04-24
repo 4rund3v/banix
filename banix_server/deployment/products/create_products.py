@@ -6,6 +6,7 @@ build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
 from src.models import Product, ProductSpecification, ProductDimensions
 from src.models import ProductBoxDimensions, ProductReviews, Attributes, ProductAttributes, ProductMedia
+from src.models import AlternatePurchaseOption
 from src.models import Category
 from src.db_utils import session
 
@@ -20,6 +21,14 @@ def prepare_product_specification(product_info, specification_info):
     product_box_dimensions.product_specification = product_specification
     return product_specification
 
+
+def prepare_alternate_purchase_options(product_info, alternate_purchase_options):
+    alt_purchase_options = []
+    for option in alternate_purchase_options:
+        purchase_option =  AlternatePurchaseOption(**option)
+        purchase_option.products = product_info
+        alt_purchase_options.append(purchase_option)
+    return alt_purchase_options
 
 def create_default_products():
     """
@@ -44,6 +53,10 @@ def create_default_products():
         print(f"[create_default_products] Product Specification info prepared is :: {specification_info}")
         session.add(product_info)
         session.add(specification_info)
+        if product.get("alternate_purchase_options"):
+            purchase_options = prepare_alternate_purchase_options(product_info=product_info, alternate_purchase_options=product["alternate_purchase_options"])
+            for purchase_option in purchase_options:
+                session.add(purchase_option)        
     session.commit()
 
 

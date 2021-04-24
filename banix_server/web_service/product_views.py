@@ -1,4 +1,6 @@
 from flask import Blueprint, request
+from sqlalchemy import desc
+
 import os
 import sys
 import datetime
@@ -7,6 +9,7 @@ import math
 build_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(build_path)
 from src.models import (Product, ProductMedia, ProductCarouselMedia, ProductSpecification, ProductReviews)
+from src.utils import json_friendly
 from src.db_utils import Session
 from src.shiprocket import shiprocket_client_session as scs
 from src.logger import get_logger
@@ -15,27 +18,6 @@ logger = get_logger("web_app")
 
 product_blueprint = Blueprint("products", __name__)
 
-def json_friendly(obj):
-    if not obj or type(obj) in (int, float, str):
-        return obj
-    if type(obj) == datetime.datetime:
-        return obj.strftime("%Y-%m-%d %H:%M:%S")
-    if type(obj) == dict:
-        for k in obj:
-            obj[k] = json_friendly(obj[k])
-        return obj
-    if type(obj) == list:
-        for i, v in enumerate(obj):
-            obj[i] = json_friendly(v)
-        return obj
-    if type(obj) == tuple:
-        temp = []
-        for v in obj:
-            temp.append(json_friendly(v))
-        return tuple(temp)
-    return str(obj)
-
-
 @product_blueprint.route("/products")
 def fetch_products():
     """
@@ -43,48 +25,35 @@ def fetch_products():
     """
     session = None
     result = {"products": []}
+    
+
     try:
-        # //engine = create_engine('sqlite:///{}'.format(DATABASE_FILE))
-         # Session = sessionmaker(bind=engine)
-        # client = create_client().med
         session = Session()
-        products = session.query(Product).all()
-
-
-        """
-        
-        Raw sql
-         select * from products; 
-            -> [(prod1, price, desc, value), (prod2, price, desc, value)]
-            l[0][2]
-        SqlAlchemy
-        session.query(Products).all()
-        [Product1 object, Product2 object]
-        prod1.desc
-        
-        """
-        #
+        if request.args.get("latest") and request.args.get("count"):
+            products = products = session.query(Product).order_by(desc(Product.product_created_datetime)).limit(int(request.args['count']))
+        else:
+            products = session.query(Product).all()
         for product in products:
             prod = product.to_dict()
-            product_media = session.query(ProductMedia).filter(ProductMedia.products == product).first()
-            if product_media:
-                logger.debug(f"[fetch_products] product media is : {product_media}")
-                prod["product_media"] = product_media.to_dict()
-                reviews = session.query(ProductReviews).filter(ProductReviews.product_id == prod["product_id"]).all()
-                if len(reviews) > 0:
-                    rating = 0
-                    for review in reviews:
-                        rating += review.rating
-                    prod["rating"] = math.ceil(rating/len(reviews))
-                else:
-                    prod["rating"] = 5
+            # product_media = session.query(ProductMedia).filter(ProductMedia.products == product).first()
+            # if product_media:
+            #     logger.debug(f"[fetch_products] product media is : {product_media}")
+            #     prod["product_media"] = product_media.to_dict()
+            #     reviews = session.query(ProductReviews).filter(ProductReviews.product_id == prod["product_id"]).all()
+            #     if len(reviews) > 0:
+            #         rating = 0
+            #         for review in reviews:
+            #             rating += review.rating
+            #         prod["rating"] = math.ceil(rating/len(reviews))
+            #     else:
+            #         prod["rating"] = 5
             result["products"].append(prod)
     except Exception as ex:
         logger.exception("[fetch_products] Exception: {}".format(ex))
     finally:
         if session:
             session.close()
-    return result
+    return json_friendly(result)
 
 
 @product_blueprint.route("/products/<product_id>")
@@ -116,7 +85,7 @@ def fetch_specific_product(product_id):
                  result["product"]["rating"] = 5
 
         logger.debug(f"[fetch_specific_product] The result prepared is :: {result}")
-        return result
+        return json_friendly(result)
     except Exception as ex:
         logger.exception("[fetch_specific_product] Exception: {}".format(ex))
     finally:
@@ -147,7 +116,7 @@ def check_product_serviceability():
     finally:
         if session:
             session.close()
-    return serviceability
+    return json_friendly(serviceability)
 
 
 @product_blueprint.route("/products/<product_id>/reviews", methods=['GET'])
@@ -160,9 +129,9 @@ def get_product_review(product_id):
         product_reviews = []
         for review in reviews:
             temp = review.to_dict()
-            product_reviews.append(json_friendly(temp))
+            product_reviews.append(temp)
         print("Reviews: {}".format(reviews))
-        return {"reviews": product_reviews}
+        return json_friendly({"reviews": product_reviews})
     except Exception as ex:
         logger.exception("[get_product_review] Exception: {}".format(ex))
     finally:
