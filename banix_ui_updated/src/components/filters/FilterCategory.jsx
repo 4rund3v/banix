@@ -3,21 +3,18 @@ import React, { Fragment } from "react";
 
 // third-party
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 // application
 import { ArrowRoundedLeft6x9Svg } from "../../svg";
 import { getCategoryParents, url } from "../../services/utils";
 
-function FilterCategory(props) {
-  const { data } = props;
+const FilterCategory = ({ data }) => {
   console.log("[FilterCategory] The data recieved is :::: ", data);
   const categoriesList = data.items.map((category) => {
     const itemClasses = classNames("filter-categories__item", {
       "filter-categories__item--current": data.value === category.slug,
     });
-
     return (
       <Fragment key={category.id}>
         {getCategoryParents(category).map((parent) => (
@@ -62,13 +59,6 @@ function FilterCategory(props) {
       <ul className="filter-categories__list">{categoriesList}</ul>
     </div>
   );
-}
-
-FilterCategory.propTypes = {
-  /**
-   * Filter object.
-   */
-  data: PropTypes.object,
 };
 
 export default FilterCategory;

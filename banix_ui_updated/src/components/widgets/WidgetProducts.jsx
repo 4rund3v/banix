@@ -1,16 +1,12 @@
 // react
 import React from "react";
-
 // third-party
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-
 // application
 import Currency from "../shared/Currency";
 import { url } from "../../services/utils";
 
-function WidgetProducts(props) {
-  const { title, products } = props;
+const WidgetProducts = ({ title, products }) => {
   const productsList = products.map((product) => {
     let image;
     let price;
@@ -65,21 +61,6 @@ function WidgetProducts(props) {
       <div className="widget-products__list">{productsList}</div>
     </div>
   );
-}
-
-WidgetProducts.propTypes = {
-  /**
-   * widget title
-   */
-  title: PropTypes.node,
-  /**
-   * array of product objects
-   */
-  products: PropTypes.array,
-};
-
-WidgetProducts.defaultProps = {
-  products: [],
 };
 
 export default WidgetProducts;

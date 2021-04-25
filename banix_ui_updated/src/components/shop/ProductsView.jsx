@@ -35,18 +35,17 @@ function useSetOption(option, filter, dispatch) {
   );
 }
 
-function ProductsView(props) {
-  const {
-    isLoading,
-    productsList,
-    options,
-    filters,
-    dispatch,
-    layout: propsLayout,
-    grid,
-    offcanvas,
-    sidebarOpen,
-  } = props;
+const ProductsView = ({
+  isLoading,
+  productsList,
+  options,
+  filters,
+  dispatch,
+  layout: propsLayout,
+  grid,
+  offcanvas,
+  sidebarOpen,
+}) => {
   console.log(
     "[ProductsView] The recieved props are isLoading",
     isLoading,
@@ -65,7 +64,6 @@ function ProductsView(props) {
     "sidebarOpen",
     sidebarOpen
   );
-
   const [layout, setLayout] = useState(propsLayout);
 
   const handlePageChange = useSetOption("page", parseFloat, dispatch);
@@ -114,9 +112,11 @@ function ProductsView(props) {
       </button>
     );
   });
-
   const productsListItems = productsList.items.map((product) => (
-    <div key={product.productId} className="products-list__item">
+    <div
+      key={`productcard-${product.productId}`}
+      className="products-list__item"
+    >
       <ProductCard product={product} />
     </div>
   ));
@@ -235,60 +235,12 @@ function ProductsView(props) {
       </div>
     );
   }
-
   return (
     <div className={rootClasses}>
       <div className="products-view__loader" />
       {content}
     </div>
   );
-}
-
-ProductsView.propTypes = {
-  /**
-   * Indicates that products is loading.
-   */
-  isLoading: PropTypes.bool,
-  /**
-   * ProductsList object.
-   */
-  productsList: PropTypes.object,
-  /**
-   * Products list options.
-   */
-  options: PropTypes.object,
-  /**
-   * Products list filters.
-   */
-  filters: PropTypes.object,
-  /**
-   * Category page dispatcher.
-   */
-  dispatch: PropTypes.func,
-  /**
-   * products list layout (default: 'grid')
-   * one of ['grid', 'grid-with-features', 'list']
-   */
-  layout: PropTypes.oneOf(["grid", "grid-with-features", "list"]),
-  /**
-   * products list layout (default: 'grid')
-   * one of ['grid-3-sidebar', 'grid-4-full', 'grid-5-full']
-   */
-  grid: PropTypes.oneOf(["grid-3-sidebar", "grid-4-full", "grid-5-full"]),
-  /**
-   * indicates when sidebar should be off canvas
-   */
-  offcanvas: PropTypes.oneOf(["always", "mobile"]),
 };
 
-ProductsView.defaultProps = {
-  layout: "grid",
-  grid: "grid-3-sidebar",
-  offcanvas: "mobile",
-};
-
-const mapDispatchToProps = {
-  sidebarOpen,
-};
-
-export default connect(() => ({}), mapDispatchToProps)(ProductsView);
+export default ProductsView;

@@ -92,7 +92,7 @@ const ShopPage = ({ categorySlug, columns, viewMode }) => {
     latestProducts,
     latestProductsError
   );
-  if (categoriesLoading || productListLoading) {
+  if (categoriesLoading || productListLoading || latestPoductsLoading) {
     return <BlockLoader />;
   }
 

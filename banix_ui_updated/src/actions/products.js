@@ -31,7 +31,7 @@ export class Product {
     this.productCostPrice = rawProduct.cost_price;
     this.productSellingPrice = rawProduct.selling_price;
     this.productStock = rawProduct.stock;
-    this.productBadges = this.productSellingPrice ? ["sale"] : [];
+    this.productBadges = this.productSellingPrice ? ["sale"] : ["new"];
     this.productSpecification = {};
     this.productAttributes = [];
     this.productPrimaryImage = "";

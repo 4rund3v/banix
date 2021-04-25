@@ -3,8 +3,6 @@ import React from "react";
 
 // third-party
 import classNames from "classnames";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 // application
@@ -36,15 +34,50 @@ const wishlistAddItem = () => {
   console.log("[ProductCard] [wishlistAddItem] Invoked the wishlistAddItem ");
 };
 
-function ProductCard(props) {
-  const {
-    product,
-    layout,
-    quickviewOpen,
-    cartAddItem,
-    wishlistAddItem,
-    compareAddItem,
-  } = props;
+const prepareProductBagdgeInfo = (productBadges) => {
+  let productBadgeInfo = null;
+  let badges = [];
+  if (productBadges.length) {
+    if (productBadges.includes("sale")) {
+      badges.push(
+        <div
+          key="sale"
+          className="product-card__badge product-card__badge--sale"
+        >
+          Sale
+        </div>
+      );
+    }
+    if (productBadges.includes("hot")) {
+      badges.push(
+        <div key="hot" className="product-card__badge product-card__badge--hot">
+          Hot
+        </div>
+      );
+    }
+    if (productBadges.includes("new")) {
+      badges.push(
+        <div key="new" className="product-card__badge product-card__badge--new">
+          New
+        </div>
+      );
+    }
+    productBadgeInfo = badges.length ? (
+      <div className="product-card__badges-list">{badges}</div>
+    ) : null;
+  }
+  return productBadgeInfo;
+};
+
+const ProductCard = ({
+  product,
+  layout,
+  quickviewOpen,
+  cartAddItem,
+  wishlistAddItem,
+  compareAddItem,
+}) => {
+  console.log("[ProductCard] The layout recieved is  :::: ", layout);
   const containerClasses = classNames("product-card", {
     "product-card--layout--grid product-card--size--sm": layout === "grid-sm",
     "product-card--layout--grid product-card--size--nl": layout === "grid-nl",
@@ -53,36 +86,10 @@ function ProductCard(props) {
     "product-card--layout--horizontal": layout === "horizontal",
   });
 
-  let badges = [];
+  let badgesInfo = prepareProductBagdgeInfo(product.productBadges);
   let image;
   let price;
   let features;
-
-  if (product.productBadges.includes("sale")) {
-    badges.push(
-      <div key="sale" className="product-card__badge product-card__badge--sale">
-        Sale
-      </div>
-    );
-  }
-  if (product.productBadges.includes("hot")) {
-    badges.push(
-      <div key="hot" className="product-card__badge product-card__badge--hot">
-        Hot
-      </div>
-    );
-  }
-  if (product.productBadges.includes("new")) {
-    badges.push(
-      <div key="new" className="product-card__badge product-card__badge--new">
-        New
-      </div>
-    );
-  }
-
-  badges = badges.length ? (
-    <div className="product-card__badges-list">{badges}</div>
-  ) : null;
 
   if (product.productPrimaryImage) {
     image = (
@@ -147,7 +154,7 @@ function ProductCard(props) {
           </button>
         )}
       />
-      {badges}
+      {badgesInfo}
       {image}
       <div className="product-card__info">
         <div className="product-card__name">
@@ -235,33 +242,6 @@ function ProductCard(props) {
       </div>
     </div>
   );
-}
-
-ProductCard.propTypes = {
-  /**
-   * product object
-   */
-  product: PropTypes.object.isRequired,
-  /**
-   * product card layout
-   * one of ['grid-sm', 'grid-nl', 'grid-lg', 'list', 'horizontal']
-   */
-  layout: PropTypes.oneOf([
-    "grid-sm",
-    "grid-nl",
-    "grid-lg",
-    "list",
-    "horizontal",
-  ]),
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = {
-  cartAddItem,
-  wishlistAddItem,
-  compareAddItem,
-  quickviewOpen,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);
+export default ProductCard;
