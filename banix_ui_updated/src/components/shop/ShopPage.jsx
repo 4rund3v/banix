@@ -121,7 +121,7 @@ const ShopPage = ({ categorySlug, columns, viewMode }) => {
         },
         {
           customFields: {},
-          id: 1,
+          id: 2,
           image: null,
           items: 3,
           name: "Components",

@@ -11,11 +11,16 @@ import AsyncAction from "../shared/AsyncAction";
 import Currency from "../shared/Currency";
 import Indicator from "./Indicator";
 import { Cart20Svg, Cross10Svg } from "../../svg";
-import { cartRemoveItem } from "../../store/cart";
+// import { cartRemoveItem } from "../../store/cart";
 import { url } from "../../services/utils";
 
+const cartRemoveItem = () => {};
+
 function IndicatorCart(props) {
-  const { cart, cartRemoveItem } = props;
+  const cart = {
+    extraLines: [],
+    items: [],
+  };
   let dropdown;
   let totals;
 

@@ -43,7 +43,7 @@ const WidgetProducts = ({ title, products }) => {
     }
 
     return (
-      <div key={product.id} className="widget-products__item">
+      <div key={product.productId} className="widget-products__item">
         {image}
         <div className="widget-products__info">
           <div className="widget-products__name">

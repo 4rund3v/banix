@@ -2,23 +2,24 @@
 import React from "react";
 
 // third-party
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { Modal } from "reactstrap";
 
 // application
 import Product from "./Product";
 import { Cross20Svg } from "../../svg";
-import { quickviewClose } from "../../store/quickview";
+// import { quickviewClose } from "../../store/quickview";
 
-function Quickview(props) {
-  const { product, open, quickviewClose } = props;
+const quickviewClose = () => {
+  console.log("[quickviewClose] Invoked to close the quick view");
+};
 
+const Quickview = ({ product, open, quickviewClose }) => {
   let productView;
 
   if (product !== null) {
     productView = <Product product={product} layout="quickview" />;
   }
-
   return (
     <Modal isOpen={open} toggle={quickviewClose} centered size="xl">
       <div className="quickview">
@@ -34,15 +35,6 @@ function Quickview(props) {
       </div>
     </Modal>
   );
-}
-
-const mapStateToProps = (state) => ({
-  open: state.quickview.open,
-  product: state.quickview.product,
-});
-
-const mapDispatchToProps = {
-  quickviewClose,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Quickview);
+export default Quickview;

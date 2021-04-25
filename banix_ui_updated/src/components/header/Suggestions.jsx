@@ -10,11 +10,13 @@ import { Link } from "react-router-dom";
 import AsyncAction from "../shared/AsyncAction";
 import Currency from "../shared/Currency";
 import { Cart16Svg } from "../../svg";
-import { cartAddItem } from "../../store/cart";
+// import { cartAddItem } from "../../store/cart";
 import { url } from "../../services/utils";
 
+const cartAddItem = () => {};
+
 function Suggestions(props) {
-  const { context, className, products, cartAddItem } = props;
+  const { context, className, products } = props;
   const rootClasses = classNames(
     `suggestions suggestions--location--${context}`,
     className

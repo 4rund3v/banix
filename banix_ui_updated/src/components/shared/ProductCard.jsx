@@ -72,7 +72,6 @@ const prepareProductBagdgeInfo = (productBadges) => {
 const ProductCard = ({
   product,
   layout,
-  quickviewOpen,
   cartAddItem,
   wishlistAddItem,
   compareAddItem,

@@ -15,9 +15,8 @@ import IndicatorSearch from "./IndicatorSearch";
 import NavLinks from "./NavLinks";
 import { Heart20Svg, LogoSmallSvg } from "../../svg";
 
-function NavPanel(props) {
-  const { layout, wishlist } = props;
-
+const NavPanel = ({ layout }) => {
+  const wishlist = [];
   let logo = null;
   let departments = (
     <div className="nav-panel__departments">
@@ -53,21 +52,6 @@ function NavPanel(props) {
       </div>
     </div>
   );
-}
-
-NavPanel.propTypes = {
-  /** one of ['default', 'compact'] (default: 'default') */
-  layout: PropTypes.oneOf(["default", "compact"]),
 };
 
-NavPanel.defaultProps = {
-  layout: "default",
-};
-
-const mapStateToProps = (state) => ({
-  wishlist: state.wishlist,
-});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavPanel);
+export default NavPanel;

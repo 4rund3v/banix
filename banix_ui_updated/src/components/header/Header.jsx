@@ -2,7 +2,6 @@
 import React from "react";
 
 // third-party
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 // application
@@ -10,8 +9,7 @@ import NavPanel from "./NavPanel";
 import Search from "./Search";
 import { LogoSvg } from "../../svg";
 
-function Header(props) {
-  const { layout } = props;
+const Header = ({ layout }) => {
   const bannerSection = (
     <div className="site-header__middle container">
       <div className="site-header__logo ">
@@ -34,24 +32,14 @@ function Header(props) {
       </div>
     </div>
   );
-
   return (
     <div className="site-header">
       {bannerSection}
       <div className="site-header__nav-panel">
-        <NavPanel layout={layout} />
+        <NavPanel layout={layout} wishlist={[]} />
       </div>
     </div>
   );
-}
-
-Header.propTypes = {
-  /** one of ['default', 'compact'] (default: 'default') */
-  layout: PropTypes.oneOf(["default", "compact"]),
-};
-
-Header.defaultProps = {
-  layout: "default",
 };
 
 export default Header;

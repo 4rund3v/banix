@@ -6,10 +6,10 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 // application
 import Footer from "../footer";
-// import Header from "../header";
-// import MobileHeader from "../mobile/MobileHeader";
-// import MobileMenu from "../mobile/MobileMenu";
-// import Quickview from "../shared/Quickview";
+import Header from "../header";
+import MobileHeader from "../mobile/MobileHeader";
+import MobileMenu from "../mobile/MobileMenu";
+import Quickview from "../shared/Quickview";
 // account related
 
 // import SiteLayout from "./SiteLayout";
@@ -33,15 +33,15 @@ const MainLayout = (props) => {
         <meta name="description" content={theme.fullName} />
       </Helmet>
       <ToastContainer autoClose={5000} hideProgressBar />
-      {/* <Quickview />
-      <MobileMenu /> */}
+      <Quickview />
+      <MobileMenu />
       <div className="site">
-        {/* <header className="site__header d-lg-none">
+        <header className="site__header d-lg-none">
           <MobileHeader />
         </header>
         <header className="site__header d-lg-block d-none">
           <Header layout={"default"} />
-        </header> */}
+        </header>
         <div className="site__body">
           <Switch>
             {/*  // Account  */}
@@ -51,7 +51,7 @@ const MainLayout = (props) => {
             {/* <Route path="/site" component={SiteLayout} /> */}
             {/* Home Page */}
             <Route path="/" component={ShopLayout} />
-            {/* <Route component={SitePageNotFound} /> */}
+            <Route component={SitePageNotFound} />
           </Switch>
         </div>
         <footer className="site__footer">

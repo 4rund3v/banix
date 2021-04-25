@@ -15,8 +15,10 @@ import {
   Heart20Svg,
   Cart20Svg,
 } from "../../svg";
-import { mobileMenuOpen } from "../../store/mobile-menu";
+// import { mobileMenuOpen } from "../../store/mobile-menu";
 import Search from "../header/Search";
+
+const mobileMenuOpen = () => {};
 
 class MobileHeader extends Component {
   constructor(props) {
@@ -49,7 +51,9 @@ class MobileHeader extends Component {
   };
 
   render() {
-    const { openMobileMenu, wishlist, cart } = this.props;
+    const { openMobileMenu } = this.props;
+    const wishlist = [];
+    const cart = {};
     const { searchOpen } = this.state;
     const searchClasses = classNames("mobile-header__search", {
       "mobile-header__search--open": searchOpen,

@@ -7,9 +7,6 @@ import FooterLinks from "./FooterLinks";
 import FooterNewsletter from "./FooterNewsletter";
 import ToTop from "./ToTop";
 
-// data stubs
-import theme from "../../data/theme";
-
 export default function Footer() {
   const customerLinks = [
     { title: "Terms and Conditions", url: "/site/terms" },
@@ -25,8 +22,6 @@ export default function Footer() {
     { title: "Refund Policy", url: "/site/refund-policy" },
     { title: "Warranty", url: "/site/warranty" },
   ];
-
-  const accountLinks = [{ title: "To be created", url: "" }];
 
   return (
     <div className="site-footer">
