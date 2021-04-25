@@ -1,6 +1,6 @@
 // react
 import React, { useEffect, useRef } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 // third-party
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -8,70 +8,81 @@ import { connect } from "react-redux";
 
 // application
 import { Cross20Svg } from "../../svg";
-import { sidebarClose } from "../../store/sidebar";
 
-function CategorySidebar(props) {
-  const { children, sidebarClose, sidebarState, offcanvas } = props;
+const CategorySidebar = ({
+  children,
 
+  offcanvas,
+}) => {
+  const dispatch = useDispatch();
+  const sidebarClose = () => {
+    console.log("[CategorySidebar] sidebarClose :::: invoked");
+  };
+  const sidebarState = { open: false };
+  console.log(
+    "[CategorySidebar] The elements recieved are ::  ",
+    children,
+    sidebarClose,
+    sidebarState,
+    offcanvas
+  );
   const classes = classNames("block block-sidebar", {
     "block-sidebar--open": sidebarState.open,
     "block-sidebar--offcanvas--always": offcanvas === "always",
     "block-sidebar--offcanvas--mobile": offcanvas === "mobile",
   });
-
   const backdropRef = useRef(null);
   const bodyRef = useRef(null);
 
+  // useEffect(() => {
+  //   const media = matchMedia("(max-width: 991px)");
+  //   let changedByMedia = false;
+
+  //   const onChange = () => {
+  //     if (offcanvas === "mobile") {
+  //       if (sidebarState.open && !media.matches) {
+  //         sidebarClose();
+  //       }
+  //       // this is necessary to avoid the transition hiding the sidebar
+  //       if (!sidebarState.open && media.matches && changedByMedia) {
+  //         /** @var {HTMLElement} */
+  //         const backdrop = backdropRef.current;
+  //         /** @var {HTMLElement} */
+  //         const body = bodyRef.current;
+
+  //         backdrop.style.transition = "none";
+  //         body.style.transition = "none";
+
+  //         backdrop.getBoundingClientRect(); // force reflow
+
+  //         backdrop.style.transition = "";
+  //         body.style.transition = "";
+  //       }
+  //     }
+  //   };
+
+  //   if (media.addEventListener) {
+  //     media.addEventListener("change", onChange);
+  //   } else {
+  //     media.addListener(onChange);
+  //   }
+
+  //   onChange();
+
+  //   changedByMedia = true;
+
+  //   return () => {
+  //     if (media.removeEventListener) {
+  //       media.removeEventListener("change", onChange);
+  //     } else {
+  //       media.removeListener(onChange);
+  //     }
+  //   };
+  // }, [offcanvas, sidebarState.open, sidebarClose]);
+
   useEffect(() => {
-    const media = matchMedia("(max-width: 991px)");
-    let changedByMedia = false;
-
-    const onChange = () => {
-      if (offcanvas === "mobile") {
-        if (sidebarState.open && !media.matches) {
-          sidebarClose();
-        }
-        // this is necessary to avoid the transition hiding the sidebar
-        if (!sidebarState.open && media.matches && changedByMedia) {
-          /** @var {HTMLElement} */
-          const backdrop = backdropRef.current;
-          /** @var {HTMLElement} */
-          const body = bodyRef.current;
-
-          backdrop.style.transition = "none";
-          body.style.transition = "none";
-
-          backdrop.getBoundingClientRect(); // force reflow
-
-          backdrop.style.transition = "";
-          body.style.transition = "";
-        }
-      }
-    };
-
-    if (media.addEventListener) {
-      media.addEventListener("change", onChange);
-    } else {
-      media.addListener(onChange);
-    }
-
-    onChange();
-
-    changedByMedia = true;
-
-    return () => {
-      if (media.removeEventListener) {
-        media.removeEventListener("change", onChange);
-      } else {
-        media.removeListener(onChange);
-      }
-    };
-  }, [offcanvas, sidebarState.open, sidebarClose]);
-
-  useEffect(() => {
-    if (sidebarState.open) {
+    if (true) {
       const width = document.body.clientWidth;
-
       document.body.style.overflow = "hidden";
       document.body.style.paddingRight = `${
         document.body.clientWidth - width
@@ -80,7 +91,7 @@ function CategorySidebar(props) {
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
     }
-  }, [sidebarState.open]);
+  }, [dispatch]);
 
   return (
     <div className={classes}>
@@ -106,25 +117,27 @@ function CategorySidebar(props) {
       </div>
     </div>
   );
-}
-
-CategorySidebar.propTypes = {
-  /**
-   * indicates when sidebar bar should be off canvas
-   */
-  offcanvas: PropTypes.oneOf(["always", "mobile"]),
 };
 
-CategorySidebar.defaultProps = {
-  offcanvas: "mobile",
-};
+export default CategorySidebar;
 
-const mapStateToProps = (state) => ({
-  sidebarState: state.sidebar,
-});
+// CategorySidebar.propTypes = {
+//   /**
+//    * indicates when sidebar bar should be off canvas
+//    */
+//   offcanvas: PropTypes.oneOf(["always", "mobile"]),
+// };
 
-const mapDispatchToProps = {
-  sidebarClose,
-};
+// CategorySidebar.defaultProps = {
+//   offcanvas: "mobile",
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategorySidebar);
+// const mapStateToProps = (state) => ({
+//   sidebarState: state.sidebar,
+// });
+
+// const mapDispatchToProps = {
+//   sidebarClose,
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(CategorySidebar);

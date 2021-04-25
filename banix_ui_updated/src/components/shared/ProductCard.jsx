@@ -11,12 +11,30 @@ import { Link } from "react-router-dom";
 import AsyncAction from "./AsyncAction";
 import Currency from "./Currency";
 import Rating from "./Rating";
-import { cartAddItem } from "../../store/cart";
+
 import { Compare16Svg, Quickview16Svg, Wishlist16Svg } from "../../svg";
-import { compareAddItem } from "../../store/compare";
-import { quickviewOpen } from "../../store/quickview";
+// functions to add to the redux store
+// import { cartAddItem } from "../../store/cart";
+// import { compareAddItem } from "../../store/compare";
+// import { quickviewOpen } from "../../store/quickview";
+// import { wishlistAddItem } from "../../store/wishlist";
 import { url } from "../../services/utils";
-import { wishlistAddItem } from "../../store/wishlist";
+
+const cartAddItem = () => {
+  console.log("[ProductCard] [cartAddItem] Invoked the cartAddItem ");
+};
+
+const compareAddItem = () => {
+  console.log("[ProductCard] [compareAddItem] Invoked the compareAddItem ");
+};
+
+const quickviewOpen = () => {
+  console.log("[ProductCard] [quickviewOpen] Invoked the quickviewOpen ");
+};
+
+const wishlistAddItem = () => {
+  console.log("[ProductCard] [wishlistAddItem] Invoked the wishlistAddItem ");
+};
 
 function ProductCard(props) {
   const {
@@ -40,21 +58,21 @@ function ProductCard(props) {
   let price;
   let features;
 
-  if (product.badges.includes("sale")) {
+  if (product.productBadges.includes("sale")) {
     badges.push(
       <div key="sale" className="product-card__badge product-card__badge--sale">
         Sale
       </div>
     );
   }
-  if (product.badges.includes("hot")) {
+  if (product.productBadges.includes("hot")) {
     badges.push(
       <div key="hot" className="product-card__badge product-card__badge--hot">
         Hot
       </div>
     );
   }
-  if (product.badges.includes("new")) {
+  if (product.productBadges.includes("new")) {
     badges.push(
       <div key="new" className="product-card__badge product-card__badge--new">
         New
@@ -66,39 +84,43 @@ function ProductCard(props) {
     <div className="product-card__badges-list">{badges}</div>
   ) : null;
 
-  if (product.images && product.images.length > 0) {
+  if (product.productPrimaryImage) {
     image = (
       <div className="product-card__image product-image">
         <Link to={url.product(product)} className="product-image__body">
-          <img className="product-image__img" src={product.images[0]} alt="" />
+          <img
+            className="product-image__img"
+            src={`/media/images/cart/${product.productPrimaryImage}`}
+            alt=""
+          />
         </Link>
       </div>
     );
   }
 
-  if (product.compareAtPrice) {
+  if (product.productSellingPrice) {
     price = (
       <div className="product-card__prices">
         <span className="product-card__new-price">
-          <Currency value={product.price} />
+          <Currency value={product.productSellingPrice} />
         </span>{" "}
         <span className="product-card__old-price">
-          <Currency value={product.compareAtPrice} />
+          <Currency value={product.productCostPrice} />
         </span>
       </div>
     );
   } else {
     price = (
       <div className="product-card__prices">
-        <Currency value={product.price} />
+        <Currency value={product.productCostPrice} />
       </div>
     );
   }
 
-  if (product.attributes && product.attributes.length) {
+  if (product.productAttributes && product.productAttributes.length) {
     features = (
       <ul className="product-card__features-list">
-        {product.attributes
+        {product.productAttributes
           .filter((x) => x.featured)
           .map((attribute, index) => (
             <li key={index}>{`${attribute.name}: ${attribute.values
@@ -112,7 +134,7 @@ function ProductCard(props) {
   return (
     <div className={containerClasses}>
       <AsyncAction
-        action={() => quickviewOpen(product.slug)}
+        action={() => quickviewOpen(product.productSlug)}
         render={({ run, loading }) => (
           <button
             type="button"
@@ -129,11 +151,11 @@ function ProductCard(props) {
       {image}
       <div className="product-card__info">
         <div className="product-card__name">
-          <Link to={url.product(product)}>{product.name}</Link>
+          <Link to={url.product(product)}>{product.productName}</Link>
         </div>
         <div className="product-card__rating">
-          <Rating value={product.rating} />
-          <div className=" product-card__rating-legend">{`${product.reviews} Reviews`}</div>
+          <Rating value={product.productRating} />
+          <div className=" product-card__rating-legend">{`${product.productTotalReviews} Reviews`}</div>
         </div>
         {features}
       </div>

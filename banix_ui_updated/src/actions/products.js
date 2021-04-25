@@ -15,7 +15,6 @@ import {
 } from "../constants/products";
 
 const FETCH_PRODUCTS_URL = "/api/products";
-const FETCH_LATEST_PRODUCTS_URL = "/api/products/latest";
 const FETCH_PRODUCT_DETAIL_URL = "/api/products/";
 const FETCH_PRODUCT_SERVICEABILITY_URL = "/api/products/serviceability";
 
@@ -23,6 +22,8 @@ export class Product {
   constructor(rawProduct) {
     this.productId = rawProduct.product_id;
     this.productName = rawProduct.name;
+    this.productSlug = rawProduct.name;
+    this.productSku = "83690/32";
     this.productBrand = rawProduct.brand;
     this.productCategory = rawProduct.category;
     this.productRating = rawProduct.rating;
@@ -30,9 +31,9 @@ export class Product {
     this.productCostPrice = rawProduct.cost_price;
     this.productSellingPrice = rawProduct.selling_price;
     this.productStock = rawProduct.stock;
-
+    this.productBadges = this.productSellingPrice ? ["sale"] : [];
     this.productSpecification = {};
-
+    this.productAttributes = [];
     this.productPrimaryImage = "";
     this.productPrimaryVideo = "";
     this.productCarouselMedia = [];
@@ -183,17 +184,21 @@ export const getProductDetails = (productId) => async (dispatch) => {
     });
   }
 };
-export const getLatestProductListing = (productCount) => async (dispatch) => {
+export const getLatestProductListing = ({ productCount }) => async (
+  dispatch
+) => {
   console.log(
     "[ACTION][getLatestProductListing] fetching the latest products with the product count :: ",
     productCount
   );
   try {
-    const productCountQuery = productCount ? productCount : 5;
+    const count = productCount ? productCount : 3;
     dispatch({ type: PRODUCT_LATEST_LIST_REQUEST });
-    const { data } = await axios.get(FETCH_LATEST_PRODUCTS_URL, {
-      latest: true,
-      productCount: productCountQuery,
+    const { data } = await axios.get(FETCH_PRODUCTS_URL, {
+      params: {
+        latest: true,
+        count: count,
+      },
     });
     const formattedProducts = data.products.map(
       (rawProduct) => new Product(rawProduct)

@@ -8,7 +8,11 @@ import { Helmet } from "react-helmet-async";
 // component imports
 import BlockLoader from "../blocks/BlockLoader";
 import PageHeader from "../shared/PageHeader";
-
+import CategorySidebar from "./CategorySidebar";
+import CategorySidebarItem from "./CategorySidebarItem";
+import WidgetProducts from "../widgets/WidgetProducts";
+import WidgetFilters from "../widgets/WidgetFilters";
+import ProductsView from "./ProductsView";
 // actions import
 import {
   getProductListing,
@@ -36,6 +40,7 @@ const ShopPage = ({ categorySlug, columns, viewMode }) => {
 
   const options = null;
   const filters = null;
+  const sidebarPosition = "start";
 
   // initialize the categories
   const categoryInfo = useSelector((state) => state.categoryInfo);
@@ -79,7 +84,7 @@ const ShopPage = ({ categorySlug, columns, viewMode }) => {
     error: latestProductsError,
   } = latestProductsInfo;
   useEffect(() => {
-    dispatch(getLatestProductListing({ productCount: 5 }));
+    dispatch(getLatestProductListing({ productCount: 3 }));
   }, [dispatch, offcanvas]);
   console.log(
     "[ShopPage] The latest Products loading, latestproducts , error  is ::: ",
@@ -98,19 +103,115 @@ const ShopPage = ({ categorySlug, columns, viewMode }) => {
   // preparing the content
   let content = <div></div>;
   let pageTitle = "Shop";
+  const productsListFilters = [
+    {
+      name: "Categories",
+      slug: "category",
+      type: "category",
+      value: null,
+      items: [
+        {
+          customFields: {},
+          id: 1,
+          image: null,
+          items: 3,
+          name: "Smart Electronics",
+          parent: null,
+          slug: "Smart Electronics",
+        },
+        {
+          customFields: {},
+          id: 1,
+          image: null,
+          items: 3,
+          name: "Components",
+          parent: null,
+          slug: "components",
+        },
+      ],
+    },
+    {
+      name: "Price",
+      slug: "price",
+      type: "range",
+      min: 900,
+      max: 1400,
+      value: [900, 1400],
+    },
+    {
+      name: "Brand",
+      slug: "brand",
+      type: "check",
+      items: [{ slug: "banix", name: "Banix", count: 4 }],
+      value: [],
+    },
+    {
+      name: "Discount",
+      slug: "discount",
+      type: "radio",
+      value: "any",
+      items: [
+        { slug: "any", name: "Any", count: 4 },
+        { slug: "no", name: "No", count: 2 },
+        { slug: "yes", name: "Yes", count: 2 },
+      ],
+    },
+  ];
+  const productsView = (
+    <ProductsView
+      isLoading={productListLoading}
+      productsList={{
+        items: products,
+        filters: productsListFilters,
+        page: 1,
+        limit: 12,
+        pages: 1,
+        from: 1,
+        to: 4,
+        total: 4,
+        sort: "default",
+      }}
+      options={{}}
+      filters={{}}
+      dispatch={dispatch}
+      layout={viewMode}
+      grid={`grid-${columns}-${columns > 3 ? "full" : "sidebar"}`}
+      offcanvas={offcanvas}
+    />
+  );
 
-  // const productsView = (
-  // <ProductsView
-  //   isLoading={state.productsListIsLoading}
-  //   productsList={state.productsList}
-  //   options={state.options}
-  //   filters={state.filters}
-  //   dispatch={dispatch}
-  //   layout={viewMode}
-  //   grid={`grid-${columns}-${columns > 3 ? "full" : "sidebar"}`}
-  //   offcanvas={offcanvas}
-  // />
-  // );
+  const sidebarComponent = (
+    <CategorySidebar offcanvas={offcanvas}>
+      <CategorySidebarItem>
+        <WidgetFilters
+          title="Filters"
+          offcanvas={offcanvas}
+          filters={productsListFilters}
+          values={{}}
+        />
+      </CategorySidebarItem>
+      {offcanvas !== "always" && (
+        <CategorySidebarItem className="d-none d-lg-block">
+          <WidgetProducts title="Latest Products" products={latestProducts} />
+        </CategorySidebarItem>
+      )}
+    </CategorySidebar>
+  );
+
+  const sidebar = (
+    <div className="shop-layout__sidebar">{sidebarComponent}</div>
+  );
+
+  content = (
+    <div className="container">
+      <div className={`shop-layout shop-layout--sidebar--${sidebarPosition}`}>
+        {sidebarPosition === "start" && sidebar}
+        <div className="shop-layout__content">
+          <div className="block">{productsView}</div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <React.Fragment>
@@ -118,9 +219,7 @@ const ShopPage = ({ categorySlug, columns, viewMode }) => {
         <title>{theme.name}</title>
         <meta name="description" content={theme.fullName} />
       </Helmet>
-
       <PageHeader header={pageTitle} breadcrumb={breadcrumb} />
-
       {content}
     </React.Fragment>
   );

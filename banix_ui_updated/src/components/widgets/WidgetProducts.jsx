@@ -15,15 +15,15 @@ function WidgetProducts(props) {
     let image;
     let price;
 
-    if (product.images && product.images.length > 0) {
+    if (product.productPrimaryImage) {
       image = (
         <div className="widget-products__image">
           <div className="product-image">
             <Link to={url.product(product)} className="product-image__body">
               <img
                 className="product-image__img"
-                src={product.images[0]}
-                alt=""
+                src={`/media/images/cart/${product.productPrimaryImage}`}
+                alt={product.productSlug}
               />
             </Link>
           </div>
@@ -31,19 +31,19 @@ function WidgetProducts(props) {
       );
     }
 
-    if (product.compareAtPrice) {
+    if (product.productSellingPrice) {
       price = (
         <React.Fragment>
           <span className="widget-products__new-price">
-            <Currency value={product.price} />
+            <Currency value={product.productSellingPrice} />
           </span>{" "}
           <span className="widget-products__old-price">
-            <Currency value={product.compareAtPrice} />
+            <Currency value={product.productCostPrice} />
           </span>
         </React.Fragment>
       );
     } else {
-      price = <Currency value={product.price} />;
+      price = <Currency value={product.productCostPrice} />;
     }
 
     return (
@@ -51,7 +51,7 @@ function WidgetProducts(props) {
         {image}
         <div className="widget-products__info">
           <div className="widget-products__name">
-            <Link to={url.product(product)}>{product.name}</Link>
+            <Link to={url.product(product)}>{product.productName}</Link>
           </div>
           <div className="widget-products__prices">{price}</div>
         </div>

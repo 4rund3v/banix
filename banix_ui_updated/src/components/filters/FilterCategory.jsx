@@ -12,7 +12,7 @@ import { getCategoryParents, url } from "../../services/utils";
 
 function FilterCategory(props) {
   const { data } = props;
-
+  console.log("[FilterCategory] The data recieved is :::: ", data);
   const categoriesList = data.items.map((category) => {
     const itemClasses = classNames("filter-categories__item", {
       "filter-categories__item--current": data.value === category.slug,

@@ -15,7 +15,10 @@ import {
   LayoutGridWithDetails16x16Svg,
   LayoutList16x16Svg,
 } from "../../svg";
-import { sidebarOpen } from "../../store/sidebar";
+
+const sidebarOpen = () => {
+  console.log("[ProductsView] [sidebarOpen] Invoked the sidebarOpen ");
+};
 
 function useSetOption(option, filter, dispatch) {
   const callback = useCallback(filter, []);
@@ -44,6 +47,25 @@ function ProductsView(props) {
     offcanvas,
     sidebarOpen,
   } = props;
+  console.log(
+    "[ProductsView] The recieved props are isLoading",
+    isLoading,
+    "productsList",
+    productsList,
+    "options",
+    options,
+    "filters",
+    filters,
+    "propsLayout",
+    propsLayout,
+    "grid",
+    grid,
+    "offcanvas",
+    offcanvas,
+    "sidebarOpen",
+    sidebarOpen
+  );
+
   const [layout, setLayout] = useState(propsLayout);
 
   const handlePageChange = useSetOption("page", parseFloat, dispatch);
@@ -94,7 +116,7 @@ function ProductsView(props) {
   });
 
   const productsListItems = productsList.items.map((product) => (
-    <div key={product.id} className="products-list__item">
+    <div key={product.productId} className="products-list__item">
       <ProductCard product={product} />
     </div>
   ));
