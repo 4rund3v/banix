@@ -18,22 +18,30 @@ from admin_views import admin_blueprint
 from src.logger import get_logger
 logger = get_logger("web_app")
 
-# db = SQLAlchemy()
 
-if __name__ == "__main__":
+def setup_app():
+    """
+     To setup the flask application and register the blueprints and the cors for the app.
+    """
     app = Flask(__name__)
     app.config['SECRET_KEY'] = SECRET_KEY
     app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///{}'.format(DATABASE_FILE)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     CORS(app)
     # logger.debug(f"[app][main] Initializing the db : {db}")
+    # db = SQLAlchemy()
     # db.init_app(app)
-    logger.debug("[app][main] registering the blueprints ")
+    logger.debug("[app][setup_app] registering the blueprints ")
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(customer_blueprint)
     app.register_blueprint(product_blueprint)
     app.register_blueprint(category_blueprint)
     app.register_blueprint(order_blueprint)
     app.register_blueprint(admin_blueprint)
+    return app
+
+
+if __name__ == "__main__":
+    app = setup_app()
     print(f"[app][main] Running the app on the ip:{WEB_SERVER_IP} port:{WEB_SERVER_PORT}")
     app.run(host=WEB_SERVER_IP, port=WEB_SERVER_PORT, debug=DEBUG_MODE)

@@ -2,7 +2,9 @@ Perform below steps for server side configuration:
 
 1. Create an virtual environment
   cd banix/banix_server
+  sudo apt-get install python3-venv
   pip3 install virtualenv
+
   # Create a virtual environment folder
   python3 -m venv .venv
   # Activate the environment

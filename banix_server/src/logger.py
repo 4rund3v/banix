@@ -23,6 +23,9 @@ def get_logger(module="default"):
     """
     if module in initialized_modules:
         return initialized_modules[module]
+    if not os.path.exists(LOG_PATH):
+        print(f"[get_logger] The log path does not exist : {LOG_PATH}")
+        os.makedirs(LOG_PATH)
     if module in MODULE_MAPPING:
         filename = MODULE_MAPPING[module]
     else:
